@@ -1,4 +1,4 @@
-const db = require('./dbConnection.cjs');
-const User = require('./models/User.cjs');
-
-module.exports = { db, User };
+module.exports = {
+  db: require('./dbConnection.cjs'),
+  User: require('./models/User.cjs').User,
+};
