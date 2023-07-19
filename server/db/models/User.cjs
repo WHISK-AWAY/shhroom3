@@ -69,4 +69,4 @@ User.verifyByToken = async (token) => {
   }
 };
 
-module.exports = User;
+module.exports = { User };

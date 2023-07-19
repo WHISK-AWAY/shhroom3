@@ -1,5 +1,5 @@
 const db = require('./dbConnection.cjs');
-const User = require('./models/User.cjs');
+const { User } = require('./models/User.cjs');
 
 const syncAndSeed = async () => {
   await db.sync({ force: true });
