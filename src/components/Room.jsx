@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import Peer from "peerjs";
-import { v4 as uuidv4 } from "uuid";
-import verifyToken from "./utils";
-import { AudioVideoControls, Chat } from "./index";
-import { handleKeys } from "./e2e";
+import React, { useEffect, useState, useRef } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import Peer from 'peerjs';
+import { v4 as uuidv4 } from 'uuid';
+import verifyToken from '../lib/utils';
+import { AudioVideoControls, Chat } from './index';
+import { handleKeys } from './e2e';
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export default function Room({ socket }) {
   const [messages, setMessages] = useState([]);
   // const [newMessage, setNewMessage] = useState('');
   const [connection, setConnection] = useState({});
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
 
   const myPeer = useRef(null);
   const myUser = useRef(null);
@@ -41,11 +41,11 @@ export default function Room({ socket }) {
 
   useEffect(() => {
     verifyToken().then((authUser) => {
-      if (authUser === null) navigate("/signin");
+      if (authUser === null) navigate('/signin');
       else {
         if (roomId === undefined) {
           const newRoomId = uuidv4();
-          socket.emit("room-created", newRoomId);
+          socket.emit('room-created', newRoomId);
           navigate(`/room/${newRoomId}`);
         } else {
           setUsername(authUser.username);
@@ -61,11 +61,11 @@ export default function Room({ socket }) {
           peer = new Peer(undefined, {
             secure: true,
           });
-          peer.on("open", (peerId) => {
+          peer.on('open', (peerId) => {
             // setMyPeer(peer);
             myPeer.current = peer;
             socket.emit(
-              "join-room",
+              'join-room',
               peerId,
               roomId,
               myUser.current.id,
@@ -85,17 +85,17 @@ export default function Room({ socket }) {
     });
     ownVideo.current = myVideo;
 
-    const videoElement = document.querySelector("#own-video");
+    const videoElement = document.querySelector('#own-video');
     videoElement.muted = true;
     videoElement.srcObject = ownVideo.current;
 
     //chat setup
-    peer.on("connection", (conn) => {
-      conn.on("open", () => {
+    peer.on('connection', (conn) => {
+      conn.on('open', () => {
         setConnection(conn);
-        conn.on("data", (data) => {
+        conn.on('data', (data) => {
           // insert the sender name here
-          console.log("encrypted msg received:", data.message);
+          console.log('encrypted msg received:', data.message);
           appendMessage(
             cryptFuncs.current.decrypt(data.message, peerPublicKey.current),
             data.sender,
@@ -104,25 +104,25 @@ export default function Room({ socket }) {
       });
     });
 
-    peer.on("call", (call) => {
+    peer.on('call', (call) => {
       call.answer(ownVideo.current);
 
       setRemotePeerId(call.peer);
 
-      call.on("stream", (peerStream) => {
+      call.on('stream', (peerStream) => {
         setPeerCall(call);
         setPeerVideo(peerStream);
         peerUserId.current = call.options.metadata.userId;
         peerPublicKey.current = call.options.metadata.publicKey;
       });
 
-      call.on("close", () => {
+      call.on('close', () => {
         setPeerVideo(null);
         call.close();
       });
     });
 
-    socket.on("user-connected", (partnerPeerId, userId, publicKey) => {
+    socket.on('user-connected', (partnerPeerId, userId, publicKey) => {
       peerUserId.current = userId;
       peerPublicKey.current = publicKey;
       setTimeout(() => {
@@ -130,7 +130,7 @@ export default function Room({ socket }) {
       }, 1000);
     });
 
-    socket.on("user-disconnected", (partnerPeerId, userId) => {
+    socket.on('user-disconnected', (partnerPeerId, userId) => {
       if (peers[partnerPeerId]) {
         peers[partnerPeerId].close();
         setPeerVideo(null);
@@ -145,34 +145,34 @@ export default function Room({ socket }) {
 
     const call = peer.call(partnerPeerId, stream, {
       metadata: {
-        type: "video",
+        type: 'video',
         userId: myUser.current.id,
         publicKey: myUser.current.publicKey,
       },
     });
     peers[partnerPeerId] = call;
 
-    call.on("stream", (peerVideo) => {
+    call.on('stream', (peerVideo) => {
       setPeerVideo(peerVideo);
     });
 
-    call.on("close", () => {
+    call.on('close', () => {
       setPeerVideo(null);
     });
   };
 
   function appendScreenShare(stream) {
-    const wrapperDiv = document.createElement("div");
+    const wrapperDiv = document.createElement('div');
     wrapperDiv.className =
-      "flex flex-auto basis-1/2 flex-col max-w-[40%] order-2";
+      'flex flex-auto basis-1/2 flex-col max-w-[40%] order-2';
 
-    const shareElement = document.createElement("video");
+    const shareElement = document.createElement('video');
     shareElement.srcObject = stream;
-    shareElement.addEventListener("loadedmetadata", (e) => e.target.play());
+    shareElement.addEventListener('loadedmetadata', (e) => e.target.play());
 
     wrapperDiv.appendChild(shareElement);
-    const controls = document.createElement("button");
-    controls.className = "w-6 h-6 relative -top-7";
+    const controls = document.createElement('button');
+    controls.className = 'w-6 h-6 relative -top-7';
     controls.innerHTML = `<svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -188,10 +188,10 @@ export default function Room({ socket }) {
     />
   </svg>`;
     wrapperDiv.append(controls);
-    controls.addEventListener("click", () => {
+    controls.addEventListener('click', () => {
       // shareElement.requestFullscreen();
     });
-    const videoGrid = document.querySelector("#video-grid");
+    const videoGrid = document.querySelector('#video-grid');
     videoGrid.appendChild(wrapperDiv);
   }
 
@@ -205,9 +205,9 @@ export default function Room({ socket }) {
     //   myScreen.addTrack(track);
     // });
 
-    console.log("beginning screen share, hopefully");
-    console.log("ownVideo video track", ownVideo.current.getVideoTracks()[0]);
-    console.log("myScreen video track", myScreen.getVideoTracks()[0]);
+    console.log('beginning screen share, hopefully');
+    console.log('ownVideo video track', ownVideo.current.getVideoTracks()[0]);
+    console.log('myScreen video track', myScreen.getVideoTracks()[0]);
     // ownVideo.current.removeTrack(ownVideo.current.getVideoTracks()[0]);
     // ownVideo.current.addTrack(myScreen.getVideoTracks()[0]);
     // ownVideo.current
@@ -220,7 +220,7 @@ export default function Room({ socket }) {
     myPeer.current.call(
       remotePeerId,
       myScreen,
-      { metadata: { type: "screen" } },
+      { metadata: { type: 'screen' } },
       (call) => {
         // i don't think i need anything here
       },
@@ -235,7 +235,7 @@ export default function Room({ socket }) {
   }, [isScreenSharing]);
 
   useEffect(() => {
-    const peerVideoElement = document.querySelector("#peer-video");
+    const peerVideoElement = document.querySelector('#peer-video');
     if (peerVideo) peerVideoElement.srcObject = peerVideo;
   }, [peerVideo]);
 
@@ -268,9 +268,9 @@ export default function Room({ socket }) {
   const chatConnection = (partnerPeerId) => {
     const conn = peer.connect(partnerPeerId);
 
-    conn.on("open", () => {
-      conn.on("data", (data) => {
-        console.log("encrypted message received: ", data.message);
+    conn.on('open', () => {
+      conn.on('data', (data) => {
+        console.log('encrypted message received: ', data.message);
         appendMessage(
           cryptFuncs.current.decrypt(data.message, peerPublicKey.current),
           data.sender,
@@ -307,21 +307,21 @@ export default function Room({ socket }) {
       className={`flex flex-col gap-10 h-[calc(100vh_-_64px)] overflow-auto bg-gradient-to-b from-dark-purple00 to-black`}
     >
       <div
-        id="video-grid"
+        id='video-grid'
         className={`flex justify-center gap-8 mt-24 ${
-          isFullscreen ? "group is-fullscreen" : ""
+          isFullscreen ? 'group is-fullscreen' : ''
         }`}
       >
         {ownVideo && (
-          <div className="flex flex-auto basis-1/4 flex-col max-w-[45%] order-1 group-[.is-fullscreen]:absolute group-[.is-fullscreen]:z-10 group-[.is-fullscreen]:max-w-[15vw] group-[.is-fullscreen]:left-8 group-[.is-fullscreen]:top-8">
+          <div className='flex flex-auto basis-1/4 flex-col max-w-[45%] order-1 group-[.is-fullscreen]:absolute group-[.is-fullscreen]:z-10 group-[.is-fullscreen]:max-w-[15vw] group-[.is-fullscreen]:left-8 group-[.is-fullscreen]:top-8'>
             {/*
             
             own video element
             
             */}
             <video
-              className="rounded-sm group-[.is-fullscreen]:rounded-[100%] group-[.is-fullscreen]:object-cover group-[.is-fullscreen]:aspect-square shadow-lg shadow-black/50 z-0"
-              id="own-video"
+              className='rounded-sm group-[.is-fullscreen]:rounded-[100%] group-[.is-fullscreen]:object-cover group-[.is-fullscreen]:aspect-square shadow-lg shadow-black/50 z-0'
+              id='own-video'
               onLoadedMetadata={(e) => e.target.play()}
             ></video>
             <AudioVideoControls
@@ -335,12 +335,12 @@ export default function Room({ socket }) {
           </div>
         )}
         {peerVideo && (
-          <div className="flex flex-auto basis-1/4 flex-col max-w-[45%] order-3">
+          <div className='flex flex-auto basis-1/4 flex-col max-w-[45%] order-3'>
             <video
               className={`rounded-sm shadow-lg shadow-black/50 group-[.is-fullscreen]:absolute group-[.is-fullscreen]:bottom-0 group-[.is-fullscreen]:h-screen group-[.is-fullscreen]:object-cover group-[.is-fullscreen]:w-screen group-[.is-fullscreen]:left-0 ${
-                isFullscreen ? "peer peer-video" : ""
+                isFullscreen ? 'peer peer-video' : ''
               }`}
-              id="peer-video"
+              id='peer-video'
               onLoadedMetadata={(e) => e.target.play()}
             />
 
@@ -357,20 +357,20 @@ export default function Room({ socket }) {
       </div>
       <button
         onClick={() => setIsScreenSharing(true)}
-        className="flex justify-center"
+        className='flex justify-center'
       >
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="w-6 h-6"
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth='1.5'
+          stroke='currentColor'
+          className='w-6 h-6'
         >
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z"
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z'
           />
         </svg>
       </button>
@@ -383,8 +383,8 @@ export default function Room({ socket }) {
         peerPublicKey={peerPublicKey.current}
       />
       <Link
-        className="w-fit mr-4 self-end bg-gradient-to-t from-dark-purple0 to-dark-purple00 hover:shadow-dark-pink4/40 py-3 px-5 rounded-xl shadow-lg shadow-gray-900/60 transition duration-500 hover:scale-105 font-medium tracking-wide"
-        to="/lobby"
+        className='w-fit mr-4 self-end bg-gradient-to-t from-dark-purple0 to-dark-purple00 hover:shadow-dark-pink4/40 py-3 px-5 rounded-xl shadow-lg shadow-gray-900/60 transition duration-500 hover:scale-105 font-medium tracking-wide'
+        to='/lobby'
         onClick={() => {
           socket.disconnect();
           ownVideo.close();
