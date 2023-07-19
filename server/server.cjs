@@ -6,7 +6,6 @@ const app = express();
 const cors = require('cors');
 const server = require('http').Server(app);
 const path = require('path');
-const apiRouter = require('./api/apiRoute.cjs');
 
 const io = require('socket.io')(server, {
   cors: {
@@ -22,7 +21,7 @@ app.use(
   }),
 );
 
-app.use('/api', apiRouter);
+app.use('/api', require('./api/apiRoute.cjs'));
 
 app.use('*', (req, res, next) => {
   res.status(200).sendFile(path.join(__dirname, '../public/index.html'));
