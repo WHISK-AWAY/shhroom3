@@ -7,7 +7,7 @@ const { requireToken } = require('../../middleware.cjs');
 router.post('/', async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    res.send({ token: await User.authenticate({ username, password }) });
+    res.json({ token: await User.authenticate({ username, password }) });
   } catch (err) {
     next(err);
   }
@@ -15,7 +15,7 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', requireToken, (req, res, next) => {
   try {
-    res.send(req.user);
+    res.json(req.user);
   } catch (err) {
     next(err);
   }

@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 // const axios = require('axios');
-import { box, randomBytes } from "tweetnacl";
+import { box, randomBytes } from 'tweetnacl';
 import {
   decodeUTF8,
   encodeUTF8,
   encodeBase64,
   decodeBase64,
-} from "tweetnacl-util";
+} from 'tweetnacl-util';
 
 export const handleKeys = (userId) => {
   // generate key pair
@@ -16,13 +16,13 @@ export const handleKeys = (userId) => {
   // store public key (base64 encoded) in database
   (async () => {
     encodedPublicKey = encodeBase64(publicKey);
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     // need to write express route to update user w/ key
     await axios.put(
       `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
       { publicKey: encodedPublicKey },
       {
-        headers: { authorization: token },
+        headers: { authorization: 'Bearer ' + token },
       },
     );
   })();
@@ -65,7 +65,7 @@ export const handleKeys = (userId) => {
       : box.open.after(message, nonce, secretKey);
 
     if (!decrypted) {
-      throw new Error("Could not decrypt message");
+      throw new Error('Could not decrypt message');
     }
 
     const base64DecryptedMessage = encodeUTF8(decrypted);
@@ -115,7 +115,7 @@ const decrypt = (
     : box.open.after(message, nonce, secretOrSharedKey);
 
   if (!decrypted) {
-    throw new Error("Could not decrypt message");
+    throw new Error('Could not decrypt message');
   }
 
   const base64DecryptedMessage = encodeUTF8(decrypted);

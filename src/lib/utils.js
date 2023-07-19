@@ -1,14 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default async function verifyToken() {
-  const token = window.localStorage.getItem("token");
-  console.log("token", token);
+  const token = window.localStorage.getItem('token');
+  console.log('token', token);
   if (!token) return null;
 
-  const { data } = await axios.get(import.meta.env.VITE_API_URL + "/api/auth", {
-    headers: { authorization: token },
+  const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/auth', {
+    headers: { authorization: 'Bearer ' + token },
   });
-  if (!data) return null;
+
+  if (!data) {
+    window.localStorage.removeItem('token');
+    return null;
+  }
 
   return data;
 }

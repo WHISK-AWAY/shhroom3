@@ -13,7 +13,7 @@ export async function checkToken() {
   if (!token) return false;
 
   const { data } = await axios.get(API_URL + '/api/auth', {
-    headers: { authorization: token },
+    headers: { authorization: 'Bearer ' + token },
   });
 
   // should see username here

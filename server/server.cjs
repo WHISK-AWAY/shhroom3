@@ -7,6 +7,9 @@ const cors = require('cors');
 const server = require('http').Server(app);
 const path = require('path');
 
+const { ZodError } = require('zod');
+const { fromZodError } = require('zod-validation-error');
+
 const io = require('socket.io')(server, {
   cors: {
     origin: CLIENT_URL,
@@ -25,6 +28,16 @@ app.use('/api', require('./api/apiRoute.cjs'));
 
 app.use('*', (req, res, next) => {
   res.status(200).sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+// * Zod validation error handler
+app.use((err, req, res, next) => {
+  if (err instanceof ZodError) {
+    console.error(err);
+    const validationError = fromZodError(err);
+    return res.status(400).json({ message: validationError.message });
+  }
+  next(err);
 });
 
 const roomList = [];
