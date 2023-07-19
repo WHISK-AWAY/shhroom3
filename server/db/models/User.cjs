@@ -1,18 +1,15 @@
+require('dotenv').config();
+const SECRET = process.env.JWT;
+
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv').config();
 
-const SECRET = process.env.JWT;
+const db = require('../dbConnection.cjs');
 
-const dbConfig = {
-  logging: false,
-};
-
-const db = new Sequelize(
-  process.env.DATABASE_URL || 'postgres://localhost/shh_db',
-  dbConfig
-);
+/**
+ * User model
+ */
 
 const User = db.define('user', {
   username: Sequelize.STRING,
@@ -20,6 +17,18 @@ const User = db.define('user', {
   publicKey: Sequelize.STRING,
 });
 
+// * beforeCreate hook
+// * receives user object
+// * hashes plaintext password before committing to database
+
+User.beforeCreate(async (user) => {
+  user.password = await bcrypt.hash(user.password, 10);
+});
+
+// * authenticate method
+// * accepts object containing username & plaintext password
+// * returns signed JWT if hashed password matches database record
+// * otherwise, throws error
 User.authenticate = async ({ username, password }) => {
   try {
     const user = await User.findOne({
@@ -36,6 +45,11 @@ User.authenticate = async ({ username, password }) => {
     console.log('authentication error:', err);
   }
 };
+
+// * verifyByToken method
+// * accepts JWT
+// * returns user object if token is verified
+// * otherwise, throws error
 
 User.verifyByToken = async (token) => {
   try {
@@ -55,29 +69,4 @@ User.verifyByToken = async (token) => {
   }
 };
 
-User.beforeCreate(async (user) => {
-  user.password = await bcrypt.hash(user.password, 10);
-});
-
-const syncAndSeed = async () => {
-  await db.sync({ force: true });
-  const credentials = [
-    { username: 'patty', password: 'thepassword' },
-    { username: 'anastasia', password: 'sock' },
-  ];
-
-  const [patty, anastasia] = await Promise.all(
-    credentials.map((credential) => User.create(credential))
-  );
-
-  console.log('DB re-seeded');
-
-  return {
-    users: {
-      patty,
-      anastasia,
-    },
-  };
-};
-
-module.exports = { syncAndSeed, db, User };
+module.exports = User;
