@@ -26,9 +26,9 @@ app.use(
 
 app.use('/api', require('./api/apiRoute.cjs'));
 
-app.use('*', (req, res, next) => {
-  res.status(200).sendFile(path.join(__dirname, '../public/index.html'));
-});
+// app.use('*', (req, res, next) => {
+//   res.status(200).sendFile(path.join(__dirname, '../public/index.html'));
+// });
 
 // * Zod validation error handler
 app.use((err, req, res, next) => {
