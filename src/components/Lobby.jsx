@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import verifyToken from '../lib/utils';
+import useVerifyToken from './hooks/useVerifyToken';
 
 export default function Lobby({ socket }) {
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
 
+  const tokenStatus = useVerifyToken();
+
   useEffect(() => {
-    verifyToken().then((user) => {
-      if (!user?.id) navigate('/signin');
-      else {
-        socket.emit('new-lobby');
-      }
-    });
-  }, []);
+    if (tokenStatus.loading) return;
+
+    if (tokenStatus.error) {
+      console.log(tokenStatus.error);
+      navigate('/signin');
+    } else if (tokenStatus.userData.id) {
+      socket.emit('new-lobby');
+    }
+  }, [tokenStatus.loading]);
 
   socket.on('room-list', (roomList) => {
     setRooms(roomList);
