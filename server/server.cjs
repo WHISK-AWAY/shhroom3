@@ -26,9 +26,9 @@ app.use(
 
 app.use('/api', require('./api/apiRoute.cjs'));
 
-app.use('*', (req, res, next) => {
-  res.status(200).sendFile(path.join(__dirname, '../public/index.html'));
-});
+// app.use('*', (req, res, next) => {
+//   res.status(200).sendFile(path.join(__dirname, '../public/index.html'));
+// });
 
 // * Zod validation error handler
 app.use((err, req, res, next) => {
@@ -56,7 +56,9 @@ io.on('connection', (socket) => {
     socket.emit('room-list', roomList);
   });
 
-  socket.on('join-room', (peerId, roomId, userId, publicKey) => {
+  socket.on('join-room', (params) => {
+    const { peerId, roomId, userId, publicKey, username } = params;
+    console.log('join-room received:', params);
     socket.join(roomId);
     socket.to(roomId).emit('user-connected', peerId, userId, publicKey);
 
