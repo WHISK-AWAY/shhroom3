@@ -29,7 +29,6 @@ export const handleKeys = (userId) => {
 
   // write encryption function using keys
   const encrypt = (
-    // ourSecretKey, // : Uint8Array,
     messageToEncrypt, //: any,
     partnerPublicKey, //?: Uint8Array
   ) => {
@@ -49,7 +48,6 @@ export const handleKeys = (userId) => {
 
   // write decryption function using keys
   const decrypt = (
-    // secretKey, //: Uint8Array,
     messageWithNonce, //: string,
     partnerPublicKey, //?: Uint8Array
   ) => {
@@ -121,17 +119,3 @@ const decrypt = (
   const base64DecryptedMessage = encodeUTF8(decrypted);
   return JSON.parse(base64DecryptedMessage);
 };
-
-// const obj = { hello: 'world' };
-// const pairA = generateKeyPair();
-// console.log('pairA:', pairA);
-// const pairB = generateKeyPair();
-// console.log('pairB:', pairB);
-// const bobPublic64 = encodeBase64(pairB.publicKey);
-// console.log('bobPublic64:', bobPublic64);
-// console.log('bobPublic64decode:', decodeBase64(bobPublic64));
-// const sharedA = box.before(pairB.publicKey, pairA.secretKey);
-// const sharedB = box.before(pairA.publicKey, pairB.secretKey);
-// const encrypted = encrypt(sharedA, obj);
-// const decrypted = decrypt(sharedB, encrypted);
-// console.log(obj, encrypted, decrypted);
