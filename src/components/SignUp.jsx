@@ -10,7 +10,7 @@ const ZSignUp = z
   .object({
     username: z
       .string()
-      .min(2, { message: 'must contain minumum of 2 characters' })
+      .min(4, { message: 'must contain minumum of 4 characters' })
       .max(15, { message: 'must contain maximum of 15 characters' }),
     password: z
       .string()
@@ -40,6 +40,7 @@ export default function SignUp() {
     register,
     handleSubmit,
     resetField,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(ZSignUp),
@@ -55,6 +56,7 @@ export default function SignUp() {
     if (!data) return;
 
     try {
+    
       const { data: dataPayload } = await axios.post(
         `${VITE_API_URL}/api/user`,
         data,
@@ -65,29 +67,29 @@ export default function SignUp() {
 
       return dataPayload;
     } catch (err) {
+      console.log(err);
+
+      if(err.response.status === 409) {
+
+        resetField('username', {keepDirty: false, keepError: true} )
+        setError('username', {type: 'custom', message: 'this username already exists'})
+      }
       if (err instanceof AxiosError) {
         throw new Error(err);
       } else {
         console.error(err);
       }
-  
     }
   };
 
-
-
-useEffect(() => {
-  for (let key in errors) {
-
-
-    if(key === 'confirmPassword') {
-    resetField('password', {keepDirty: false});
-    resetField('confirmPassword', {keepDirty: false, keepError: true});
-  
+  useEffect(() => {
+    for (let key in errors) {
+      if (key === 'confirmPassword') {
+        resetField('password', { keepDirty: false });
+        resetField('confirmPassword', { keepDirty: false, keepError: true });
+      }
     }
-  }
-}, [errors.username, errors.confirmPassword])
-
+  }, [errors.username, errors.confirmPassword]);
 
   return (
     <div className='sign-up-wrapper flex justify-center pt-20'>
@@ -104,6 +106,7 @@ useEffect(() => {
           {...register('username')}
         />
         <p>{errors.username?.message || ''}</p>
+         {errors.root?.serverError?.type === 409 && <p>server error</p>}
 
         <label htmlFor='password'>password</label>
         <input
