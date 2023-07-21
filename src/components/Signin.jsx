@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -11,6 +12,7 @@ export default function Signin() {
   const [isInvalid, setIsInvalid] = useState(false);
   const navigate = useNavigate();
 
+  // console.log('apiurl', API_URL);
   const onSubmit = async (e) => {
     e.preventDefault();
     const { data } = await axios.post(API_URL + '/api/auth', {
@@ -67,6 +69,12 @@ export default function Signin() {
               <motion.button className='inline-block bg-gradient-to-t from-violet-700 to-slate-300  hover:shadow-dark-pink4/40 py-3 px-5 rounded-xl shadow-sm shadow-gray-800/60 transition duration-500 hover:scale-105 font-medium tracking-wide'>
                 Sign In
               </motion.button>
+              <p className='sign-up-redirect'>
+                don't have an account? make one{' '}
+                <Link to={'/signup'} className='underline-offset-2 underline'>
+                  here
+                </Link>
+              </p>
             </div>
           </form>
         </div>
