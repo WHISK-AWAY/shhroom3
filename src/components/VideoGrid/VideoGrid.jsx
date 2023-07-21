@@ -12,10 +12,18 @@ export default function VideoGrid({ ownSource, peerSource }) {
       }`}
     >
       {ownSource?.id && (
-        <Video source={ownSource} setIsFullScreen={setIsFullScreen} />
+        <Video
+          source={ownSource}
+          setIsFullScreen={setIsFullScreen}
+          fullScreenRole='us'
+        />
       )}
       {peerSource?.id && (
-        <Video source={peerSource} setIsFullScreen={setIsFullScreen} />
+        <Video
+          source={peerSource}
+          setIsFullScreen={setIsFullScreen}
+          fullScreenRole='them'
+        />
       )}
     </div>
   );
