@@ -34,6 +34,7 @@ export default function Lobby({ socket }) {
       {rooms.length > 0 &&
         rooms.map((room, idx) => (
           <Link
+            key={room}
             to={`/room/${room}`}
             className='inline-block bg-gradient-to-t from-violet-700 to-slate-300  hover:shadow-dark-pink4/40 py-3 px-5 rounded-xl shadow-md shadow-gray-800/60 transition duration-500 hover:scale-105 font-medium tracking-wide'
           >
