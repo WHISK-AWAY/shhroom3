@@ -67,7 +67,6 @@ export default function SignUp() {
 
       return dataPayload;
     } catch (err) {
-      console.log(err);
 
       if(err.response.status === 409) {
 
@@ -106,7 +105,6 @@ export default function SignUp() {
           {...register('username')}
         />
         <p>{errors.username?.message || ''}</p>
-         {errors.root?.serverError?.type === 409 && <p>server error</p>}
 
         <label htmlFor='password'>password</label>
         <input
