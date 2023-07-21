@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import useVerifyToken from './useVerifyToken';
 import usePeerConnection from './usePeerConnection';
-import { handleKeys } from '../e2e';
+import { handleKeys } from '../../lib/e2e';
 
 const initialState = {
   loading: true,
@@ -66,7 +66,7 @@ export default function useShhroom() {
     setShhroomUser((prev) => ({
       ...prev,
       loading: false,
-      encryptionInfo: handleKeys(auth.userData?.id),
+      encryptionInfo: handleKeys(),
     }));
   }, [auth.loading, peerConn.loading]);
 

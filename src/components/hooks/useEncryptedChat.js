@@ -21,7 +21,7 @@ export default function useEncryptedChat(userId) {
         error: 'No user ID provided.',
       });
     } else {
-      const { encrypt, decrypt, encodedPublicKey } = handleKeys(userId);
+      const { encrypt, decrypt, encodedPublicKey } = handleKeys();
       console.log('setting encryption info');
       setEncryptionInfo({
         ...initialState,

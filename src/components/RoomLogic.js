@@ -1,173 +1,173 @@
-import Peer from 'peerjs';
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
+// import Peer from 'peerjs';
+// import axios from 'axios';
+// import { v4 as uuidv4 } from 'uuid';
 
-const API_URL = 'http://localhost:3000';
-// const API_URL = 'https://shhroom.live';
+// const API_URL = 'http://localhost:3000';
+// // const API_URL = 'https://shhroom.live';
 
-export async function checkToken() {
-  // redundant with utils.verifyToken() -- move that to here when finished
-  const token = window.localStorage.getItem('token');
-  // console.log('token found in localstorage:', token);
+// export async function checkToken() {
+//   // redundant with utils.verifyToken() -- move that to here when finished
+//   const token = window.localStorage.getItem('token');
+//   // console.log('token found in localstorage:', token);
 
-  if (!token) return false;
+//   if (!token) return false;
 
-  const { data } = await axios.get(API_URL + '/api/auth', {
-    headers: { authorization: 'Bearer ' + token },
-  });
-
-  // should see username here
-  // console.log('response from token authorization try:', data);
-
-  if (!data) return false;
-
-  return true;
-}
-
-export async function getVideo() {
-  const myVideo = await navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: true,
-  });
-
-  // why is this coming up null??
-  const videoElement = document.querySelector('#own-video');
-  console.log('videoElement', videoElement);
-  videoElement.muted = true;
-  videoElement.srcObject = myVideo;
-
-  return myVideo;
-}
-
-export async function connectToPeerServer(socket, roomId, myVideo) {
-  console.log('passed into connectToPeerServer:');
-  console.log('socket:', socket);
-  console.log('roomId:', roomId);
-
-  const peer = new Peer(undefined, {
-    secure: true,
-    debug: 3,
-  });
-
-  return peer;
-}
-
-// peer.on('open', (peerId) => {
-//   // myPeerId = peerId;
-//   // console.log('my peer id is: ', peerId);
-//   console.log(
-//     'inside of this peer.on listener, i see peerId ' +
-//       peerId +
-//       '  and roomId of ' +
-//       roomId
-//   );
-//   socket.emit('join-room', peerId, roomId);
-// });
-
-// peer.on('call', (call) => {
-//   call.answer(myVideo);
-
-//   // console.log('receiving call from peer id', call.peer);
-//   // setRemotePeerId(call.peer);
-
-//   call.on('stream', (peerStream) => {
-//     // setPeerCall(call);
-//     // setPeerVideo(peerStream);
+//   const { data } = await axios.get(API_URL + '/api/auth', {
+//     headers: { authorization: 'Bearer ' + token },
 //   });
 
-//   call.on('close', () => {
-//     // setPeerVideo(null);
-//     call.close();
+//   // should see username here
+//   // console.log('response from token authorization try:', data);
+
+//   if (!data) return false;
+
+//   return true;
+// }
+
+// export async function getVideo() {
+//   const myVideo = await navigator.mediaDevices.getUserMedia({
+//     video: true,
+//     audio: true,
 //   });
-// });
 
-// console.log('return from connectToPeerServer: ', peer);
+//   // why is this coming up null??
+//   const videoElement = document.querySelector('#own-video');
+//   console.log('videoElement', videoElement);
+//   videoElement.muted = true;
+//   videoElement.srcObject = myVideo;
 
-function setCallReceivedListeners(peers, ownPeerObject, ownVideo) {
-  ownPeerObject.on('call', (call) => {
-    // console.log('Receiving call from peer id', call.peer);
+//   return myVideo;
+// }
 
-    call.answer(ownVideo);
+// export async function connectToPeerServer(socket, roomId, myVideo) {
+//   console.log('passed into connectToPeerServer:');
+//   console.log('socket:', socket);
+//   console.log('roomId:', roomId);
 
-    call.on('stream', (inboundCallStream) => {
-      // console.log('Call stream received: ', inboundCallStream);
+//   const peer = new Peer(undefined, {
+//     secure: true,
+//     debug: 3,
+//   });
 
-      call.callStream = inboundCallStream;
-      peers[call.peer] = call;
-    });
+//   return peer;
+// }
 
-    call.on('close', () => {
-      // need to do something with the video?
-      call.close();
-      delete peers[call.peer];
-    });
+// // peer.on('open', (peerId) => {
+// //   // myPeerId = peerId;
+// //   // console.log('my peer id is: ', peerId);
+// //   console.log(
+// //     'inside of this peer.on listener, i see peerId ' +
+// //       peerId +
+// //       '  and roomId of ' +
+// //       roomId
+// //   );
+// //   socket.emit('join-room', peerId, roomId);
+// // });
 
-    // put call.on('close') here or outside on its own?
-  });
-}
+// // peer.on('call', (call) => {
+// //   call.answer(myVideo);
 
-export function generatePeers(ownPeerObject, ownVideo) {
-  if (!ownPeerObject || !ownPeerObject.id) return null;
+// //   // console.log('receiving call from peer id', call.peer);
+// //   // setRemotePeerId(call.peer);
 
-  let peers = {};
+// //   call.on('stream', (peerStream) => {
+// //     // setPeerCall(call);
+// //     // setPeerVideo(peerStream);
+// //   });
 
-  // listen for & answer incoming calls
-  setCallReceivedListeners(peers, ownPeerObject, ownVideo);
+// //   call.on('close', () => {
+// //     // setPeerVideo(null);
+// //     call.close();
+// //   });
+// // });
 
-  //
+// // console.log('return from connectToPeerServer: ', peer);
 
-  return peers;
-}
+// function setCallReceivedListeners(peers, ownPeerObject, ownVideo) {
+//   ownPeerObject.on('call', (call) => {
+//     // console.log('Receiving call from peer id', call.peer);
 
-export function callPeer(peerId, ownVideo) {}
+//     call.answer(ownVideo);
 
-// "main"
-export async function enterRoom(roomId) {
-  // check token
-  const tokenIsValid = await checkToken();
-  if (!tokenIsValid) {
-    // console.log('Token check failed');
-    return null;
-  }
+//     call.on('stream', (inboundCallStream) => {
+//       // console.log('Call stream received: ', inboundCallStream);
 
-  // console.log('tokenIsValid: ', tokenIsValid); // should be true
+//       call.callStream = inboundCallStream;
+//       peers[call.peer] = call;
+//     });
 
-  // determine whether this is a new room - create one if not
-  if (!roomId) {
-    // console.log(
-    //   `Cannot enter ${roomId} room ID - must pass roomId to enterRoom()`
-    // );
-    return null;
-  }
-  // console.log('roomId:', roomId);
+//     call.on('close', () => {
+//       // need to do something with the video?
+//       call.close();
+//       delete peers[call.peer];
+//     });
 
-  // request/receive own peer id
-  const ownPeerObj = await connectToPeerServer();
-  if (!ownPeerObj) {
-    // console.log(`Error retrieving peer object. Received: ${ownPeerObj}`);
-    return null;
-  }
-  // console.log('ownPeerObj:', ownPeerObj);
+//     // put call.on('close') here or outside on its own?
+//   });
+// }
 
-  // set up own video feed
-  const myVideo = getVideo();
+// export function generatePeers(ownPeerObject, ownVideo) {
+//   if (!ownPeerObject || !ownPeerObject.id) return null;
 
-  //set up peer event listeners
-  const peers = generatePeers(ownPeerObj, myVideo);
-  // console.log('peers:', peers);
+//   let peers = {};
 
-  // set up socket listeners
+//   // listen for & answer incoming calls
+//   setCallReceivedListeners(peers, ownPeerObject, ownVideo);
 
-  // listen for new participants
-  // place call when received
+//   //
 
-  // listen for participant list from server
-  // place calls when received -- ???
-  // or do we want to keep it how it is: existing users call new ones?
-}
+//   return peers;
+// }
 
-export const testEnterRoom = () => {
-  let roomId = uuidv4();
+// export function callPeer(peerId, ownVideo) {}
 
-  enterRoom(roomId);
-};
+// // "main"
+// export async function enterRoom(roomId) {
+//   // check token
+//   const tokenIsValid = await checkToken();
+//   if (!tokenIsValid) {
+//     // console.log('Token check failed');
+//     return null;
+//   }
+
+//   // console.log('tokenIsValid: ', tokenIsValid); // should be true
+
+//   // determine whether this is a new room - create one if not
+//   if (!roomId) {
+//     // console.log(
+//     //   `Cannot enter ${roomId} room ID - must pass roomId to enterRoom()`
+//     // );
+//     return null;
+//   }
+//   // console.log('roomId:', roomId);
+
+//   // request/receive own peer id
+//   const ownPeerObj = await connectToPeerServer();
+//   if (!ownPeerObj) {
+//     // console.log(`Error retrieving peer object. Received: ${ownPeerObj}`);
+//     return null;
+//   }
+//   // console.log('ownPeerObj:', ownPeerObj);
+
+//   // set up own video feed
+//   const myVideo = getVideo();
+
+//   //set up peer event listeners
+//   const peers = generatePeers(ownPeerObj, myVideo);
+//   // console.log('peers:', peers);
+
+//   // set up socket listeners
+
+//   // listen for new participants
+//   // place call when received
+
+//   // listen for participant list from server
+//   // place calls when received -- ???
+//   // or do we want to keep it how it is: existing users call new ones?
+// }
+
+// export const testEnterRoom = () => {
+//   let roomId = uuidv4();
+
+//   enterRoom(roomId);
+// };
