@@ -58,11 +58,14 @@ io.on('connection', (socket) => {
 
   socket.on('join-room', (params) => {
     const { peerId, roomId, userId, publicKey, username } = params;
-    console.log('join-room received:', params);
+    console.log('join-room received');
     socket.join(roomId);
     socket.to(roomId).emit('user-connected', peerId, userId, publicKey);
 
     socket.on('disconnect', () => {
+      socket.to(roomId).emit('user-disconnected', peerId, userId);
+    });
+    socket.on('leave-room', () => {
       socket.to(roomId).emit('user-disconnected', peerId, userId);
     });
   });
