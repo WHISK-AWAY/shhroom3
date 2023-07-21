@@ -2,7 +2,9 @@ import { Routes, Route } from 'react-router-dom';
 import { Room, Lobby, Homepage, Navbar, Signin, SignUp } from './components';
 import { io } from 'socket.io-client';
 
-const socket = io('ws://localhost:3002/');
+const WS_URL = import.meta.env.VITE_WS_URL;
+
+const socket = io(WS_URL);
 
 export default function App() {
   return (
