@@ -1,36 +1,22 @@
 import React from 'react';
 
-export default function AudioVideoControls({
-  isAudioMuted,
-  isVideoMuted,
-  muteAudio,
-  muteVideo,
-  setIsFullscreen,
-  isFullscreen,
-}) {
-  // jimmy #peer-video: "rounded-sm shadow-lg shadow-black/50 z-0"
-
-  // peerVideo.nextElementSibling.classList.toggle('absolute');
-  // peerVideo.nextElementSibling.classList.toggle('bottom-0');
-  // peerVideo.nextElementSibling.classList.toggle('relative');
-  // peerVideo.nextElementSibling.classList.toggle('-top-7');
-  // peerVideo.nextElementSibling.classList.toggle('right-[40vw]');
-  // peerVideo.classList.toggle('absolute');
-  // peerVideo.classList.toggle('bottom-0');
-  // peerVideo.classList.toggle('h-screen');
-  // peerVideo.classList.toggle('object-cover');
-  // peerVideo.classList.toggle('w-screen');
-  // peerVideo.classList.toggle('left-0');
+export default function AudioVideoControls({ videoState, setVideoState }) {
+  const { audioIsMuted, videoIsMuted, isFullscreen } = videoState;
 
   return (
     <div className='audio-video-controls flex gap-4 justify-center -top-7 group-[.is-fullscreen]:static items-end peer-[.peer-video]:absolute relative peer-[.peer-video]:bottom-0 peer-[.peer-video]:right-[40vw]'>
-      <button className='video' onClick={() => muteVideo(!isVideoMuted)}>
+      <button
+        className='video'
+        onClick={() =>
+          setVideoState((prev) => ({ ...prev, videoIsMuted: !videoIsMuted }))
+        }
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
           strokeWidth={1.5}
-          stroke={!isVideoMuted ? 'currentColor' : 'red'}
+          stroke={!videoIsMuted ? 'currentColor' : 'red'}
           className='w-6 h-6'
         >
           <path
@@ -39,7 +25,12 @@ export default function AudioVideoControls({
           />
         </svg>
       </button>
-      <button className='resize' onClick={() => setIsFullscreen(!isFullscreen)}>
+      <button
+        className='resize'
+        onClick={() =>
+          setVideoState((prev) => ({ ...prev, isFullscreen: !isFullscreen }))
+        }
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -55,13 +46,18 @@ export default function AudioVideoControls({
           />
         </svg>
       </button>
-      <button className='audio' onClick={() => muteAudio(!isAudioMuted)}>
+      <button
+        className='audio'
+        onClick={() =>
+          setVideoState((prev) => ({ ...prev, audioIsMuted: !audioIsMuted }))
+        }
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
           strokeWidth={1.5}
-          stroke={!isAudioMuted ? 'currentColor' : 'red'}
+          stroke={!audioIsMuted ? 'currentColor' : 'red'}
           className='w-6 h-6'
         >
           <path
