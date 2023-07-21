@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import verifyToken from '../lib/utils';
 import useVerifyToken from './hooks/useVerifyToken';
 
 export default function Lobby({ socket }) {
