@@ -1,23 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Chat } from './index';
-import joinRoom from '../lib/joinRoom';
+
 import useShhroom from './hooks/useShhroom';
+import joinRoom from '../lib/joinRoom';
+import { Chat } from './index';
 import VideoGrid from './VideoGrid/VideoGrid';
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
 
-  const [peerVideo, setPeerVideo] = useState(null);
-
-  const [messages, setMessages] = useState([]);
-  const [chatConnection, setChatConnection] = useState({});
+  const [chatConnection, setChatConnection] = useState(null);
   const [videoCall, setVideoCall] = useState(null);
 
   const [ownSource, setOwnSource] = useState(null);
   const [peerSource, setPeerSource] = useState(null);
   const peerUserId = useRef(null);
   const peerPublicKey = useRef(null);
+  const partnerPeerId = useRef(null);
 
   const { roomId } = useParams();
   const peers = {};
@@ -25,9 +24,11 @@ export default function Room({ socket }) {
   const thisShhroomer = useShhroom();
 
   useEffect(() => {
+    // Initialize room once shhroomer object is ready
     if (thisShhroomer.loading) return;
+
     if (thisShhroomer.error) {
-      alert('Error organizing user info:', thisShhroomer.error);
+      alert('Error initializing user:', thisShhroomer.error);
       console.error(thisShhroomer.error);
       navigate('/');
     }
@@ -37,129 +38,119 @@ export default function Room({ socket }) {
   }, [thisShhroomer.loading, roomId]);
 
   useEffect(() => {
-    // Set up & tear down video call event handlers
-    console.log('videoCall:', videoCall);
+    // Set up peer event handlers once video stream is available
+    if (!ownSource) return;
+
+    const myPeer = thisShhroomer.peerInfo.peer;
+
+    // * Receive inbound call
+    myPeer.on('call', (call) => {
+      // gather partner information
+      peerUserId.current = call.metadata.userId;
+      peerPublicKey.current = call.metadata.publicKey;
+      partnerPeerId.current = call.peer;
+
+      // answer & store call
+      call.answer(ownSource);
+      setVideoCall(call);
+    });
+
+    // * Receive inbound chat connection
+    myPeer.on('connection', (dataConnection) => {
+      setChatConnection(dataConnection);
+    });
+
+    // * Call user when someone enters room
+    socket.on('user-connected', (peerId, userId, publicKey) => {
+      // gather partner information
+      peerUserId.current = userId;
+      peerPublicKey.current = publicKey;
+      partnerPeerId.current = peerId;
+
+      // give them time to get settled, then call partner
+      setTimeout(() => {
+        const [call, chat] = connectToNewUser(peerId, ownSource);
+        setVideoCall(call);
+        setChatConnection(chat);
+      }, 1000);
+    });
+
+    // * Remove peer info when peer leaves room
+    socket.on('user-disconnected', (partnerPeerId, userId) => {
+      if (peers[partnerPeerId]) {
+        peers[partnerPeerId].close();
+      }
+
+      removePeer();
+    });
+
+    return () => {
+      // Clean up: remove event listeners
+      myPeer.off('call');
+      myPeer.off('connection');
+      socket.off('user-connected');
+      socket.off('user-disconnected');
+    };
+  }, [ownSource]);
+
+  useEffect(() => {
+    // Video call event handlers (inbound & outbound)
     if (!videoCall) return;
 
-    videoCall.answer(ownSource);
-
     videoCall.on('stream', (peerStream) => {
-      setPeerVideo(peerStream);
-      peerUserId.current = videoCall.options.metadata.userId;
-      peerPublicKey.current = videoCall.options.metadata.publicKey;
+      setPeerSource(peerStream);
     });
 
     videoCall.on('close', () => {
-      console.log('Closing call...');
       videoCall.close();
-      setPeerVideo(null);
-      setPeerSource(null);
-      setVideoCall(null);
+      removePeer();
     });
+
+    peers[partnerPeerId.current] = videoCall;
+
+    return () => {
+      // Clean up: remove event listeners
+      videoCall.off('stream');
+      videoCall.off('close');
+    };
   }, [videoCall]);
 
   async function getOwnVideo() {
-    console.log('getting own video');
     const tempSource = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
     });
 
     setOwnSource(tempSource);
-
-    // chat setup
-    // ! why is this in getOwnVideo?
-    thisShhroomer.peerInfo?.peer?.on('connection', (conn) => {
-      conn.on('open', () => {
-        setChatConnection(conn);
-        conn.on('data', (data) => {
-          appendMessage(
-            thisShhroomer.encryptionInfo?.decrypt(
-              data.message,
-              peerPublicKey.current,
-            ),
-            data.sender,
-          );
-        });
-      });
-    });
-
-    // * Receive inbound call
-    thisShhroomer.peerInfo?.peer?.on('call', (call) => {
-      setVideoCall(call);
-    });
-
-    // * Call user when someone enters room
-    socket.on('user-connected', (partnerPeerId, userId, publicKey) => {
-      console.log('received user-connected');
-      peerUserId.current = userId;
-      peerPublicKey.current = publicKey;
-
-      setTimeout(() => {
-        connectToNewUser(partnerPeerId, tempSource);
-      }, 1000);
-    });
-
-    // * Tear down call when peer leaves room
-    socket.on('user-disconnected', (partnerPeerId, userId) => {
-      console.log('received user-disconnected');
-      if (peers[partnerPeerId]) {
-        peers[partnerPeerId].close();
-      }
-
-      setPeerVideo(null);
-      setPeerSource(null);
-      videoCall?.close();
-      setVideoCall(null);
-    });
   }
 
-  const connectToNewUser = (partnerPeerId, stream) => {
-    createChatConnection(partnerPeerId);
-
-    const tempCall = thisShhroomer.peerInfo.peer.call(partnerPeerId, stream, {
-      metadata: {
-        type: 'video',
-        userId: thisShhroomer.userInfo.id,
-        publicKey: thisShhroomer.encryptionInfo.encodedPublicKey,
+  const connectToNewUser = (peerId, ourVideoSource) => {
+    // place video call to peer
+    const newVideoCall = thisShhroomer.peerInfo.peer.call(
+      peerId,
+      ourVideoSource,
+      {
+        metadata: {
+          type: 'video',
+          userId: thisShhroomer.userInfo.id,
+          publicKey: thisShhroomer.encryptionInfo.encodedPublicKey,
+        },
       },
-    });
+    );
 
-    peers[partnerPeerId] = tempCall;
-    setVideoCall(tempCall);
+    // establish chat connection with peer
+    const newChatConnection = thisShhroomer.peerInfo.peer.connect(peerId);
+
+    return [newVideoCall, newChatConnection];
   };
 
-  useEffect(() => {
-    // const peerVideoElement = document.querySelector('#peer-video');
-    if (peerVideo) setPeerSource(peerVideo);
-  }, [peerVideo]);
-
-  const createChatConnection = (partnerPeerId) => {
-    // TODO: this logic belongs in a separate chat component
-    const conn = thisShhroomer.peerInfo?.peer?.connect(partnerPeerId);
-
-    conn.on('open', () => {
-      conn.on('data', (data) => {
-        console.log('encrypted message received: ', data.message);
-        appendMessage(
-          thisShhroomer.encryptionInfo?.decrypt(
-            data.message,
-            peerPublicKey.current,
-          ),
-          data.sender,
-        );
-      });
-
-      setChatConnection(conn);
-    });
-  };
-
-  function appendMessage(msg, sender) {
-    // TODO: this logic belongs in a separate chat component
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { message: msg, timestamp: Date.now(), sender },
-    ]);
+  function removePeer() {
+    setPeerSource(null);
+    setVideoCall(null);
+    setChatConnection(null);
+    peerUserId.current = null;
+    peerPublicKey.current = null;
+    partnerPeerId.current = null;
   }
 
   function leaveMeeting() {
@@ -167,19 +158,23 @@ export default function Room({ socket }) {
       videoCall.close();
     }
 
-    if (chatConnection.open) {
+    if (chatConnection?.open) {
       chatConnection.close();
     }
 
-    // shut down audio/video stream
+    // shut down our audio/video stream
     ownSource.getTracks().forEach((track) => {
       if (track.readyState === 'live') {
         track.stop();
       }
     });
 
+    removePeer();
+
+    // remove our own peer info
     thisShhroomer.peerInfo.peer.destroy();
 
+    // notify the server that we've left (to trigger partner to clean up)
     socket.emit('leave-room');
 
     navigate('/lobby');
@@ -190,17 +185,15 @@ export default function Room({ socket }) {
       className={`flex flex-col gap-10 h-[calc(100vh_-_64px)] overflow-auto bg-gradient-to-b from-dark-purple00 to-black`}
     >
       <VideoGrid ownSource={ownSource} peerSource={peerSource} />
-      <Chat
-        messageList={messages}
-        connection={chatConnection}
-        appendMessage={appendMessage}
-        username={thisShhroomer.userInfo?.username}
-        encrypt={thisShhroomer.encryptionInfo?.encrypt}
-        peerPublicKey={peerPublicKey.current}
-      />
+      {chatConnection && (
+        <Chat
+          shhroomer={thisShhroomer}
+          partnerPublicKey={peerPublicKey.current}
+          chatConnection={chatConnection}
+        />
+      )}
       <button
         className='w-fit mr-4 self-end bg-gradient-to-t from-dark-purple0 to-dark-purple00 hover:shadow-dark-pink4/40 py-3 px-5 rounded-xl shadow-lg shadow-gray-900/60 transition duration-500 hover:scale-105 font-medium tracking-wide'
-        // to='/lobby'
         onClick={leaveMeeting}
       >
         Leave Meeting
