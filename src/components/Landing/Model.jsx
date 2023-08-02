@@ -4,7 +4,6 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
-import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 
 export default function Model(props) {
@@ -1358,7 +1357,6 @@ export default function Model(props) {
        * TODO: bloom lava lamp
        * TODO: animate zoom
        * TODO: loading screen
-       * TODO: merge repos
        */}
       <mesh
         // castShadow
