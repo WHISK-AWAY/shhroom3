@@ -1,9 +1,10 @@
+import { Suspense, useEffect, useState } from 'react';
+import { useThree } from '@react-three/fiber';
 import { AdaptiveDpr, BakeShadows, Preload } from '@react-three/drei';
+import { Perf } from 'r3f-perf';
 import Lights from './Lights/Lights';
 import font from './font';
 import Model from './Model';
-import { Suspense, useEffect, useState } from 'react';
-import { useThree } from '@react-three/fiber';
 import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
 
@@ -11,6 +12,7 @@ export default function Scene() {
   const camera = useThree((state) => state.camera);
   const [position, setPosition] = useState({
     focus: null,
+    focusLabel: null,
     returnPosition: null,
     zoomMode: false,
   });
@@ -18,9 +20,7 @@ export default function Scene() {
   // Render 3d text signs
   font();
 
-  function zoomTo(zoomTarget) {
-    console.log('clicked:', { position: camera.position });
-
+  function zoomTo(zoomTarget, targetLabel) {
     if (position.zoomMode === true) {
       setPosition((prev) => ({
         zoomMode: false,
@@ -32,13 +32,10 @@ export default function Scene() {
         zoomMode: true,
         returnPosition: prev.returnPosition,
         focus: zoomTarget,
+        focusLabel: targetLabel,
       }));
     }
   }
-
-  useEffect(() => {
-    console.log('position:', position);
-  }, [position]);
 
   return (
     <>
@@ -49,8 +46,9 @@ export default function Scene() {
         <BakeShadows />
         <AdaptiveDpr />
         <SceneEffects />
+        <Perf position='top-left' />
+        <Preload all={true} />
       </Suspense>
-      <Preload all={true} />
     </>
   );
 }
