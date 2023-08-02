@@ -101,7 +101,6 @@ export default function FlashLight() {
         object={monitorTarget}
         position={new THREE.Vector3(targetX, targetY, targetZ)}
       />
-      ;
     </>
   );
 }
