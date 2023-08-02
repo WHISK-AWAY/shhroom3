@@ -7,3 +7,4 @@ export { default as Signin } from './Signin.jsx';
 export { default as AudioVideoControls } from './VideoGrid/AudioVideoControls.jsx';
 export { default as Chat } from './Chat.jsx';
 export { default as SignUp } from './SignUp.jsx';
+export { default as Landing } from './Landing/Landing.jsx';

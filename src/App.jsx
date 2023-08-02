@@ -1,5 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import { Room, Lobby, Homepage, Navbar, Signin, SignUp } from './components';
+import {
+  Room,
+  Lobby,
+  Homepage,
+  Navbar,
+  Signin,
+  SignUp,
+  Landing,
+} from './components';
 import { io } from 'socket.io-client';
 
 const WS_URL = import.meta.env.VITE_WS_URL;
@@ -13,6 +21,7 @@ export default function App() {
 
       <Routes>
         <Route path='/' element={<Homepage />} />
+        <Route path='/landing' element={<Landing />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/room' element={<Room socket={socket} />} />
