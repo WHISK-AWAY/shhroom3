@@ -933,42 +933,42 @@ export default function Model(props) {
         rotation={[Math.PI, -1.38555, -Math.PI / 2]}
         scale={[-0.00385, -0.00927, -0.0144]}
       >
-        //unfilled right side
+        {/* //unfilled right side */}
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063.geometry}
           material={materials.PaletteMaterial002}
         />
-        //clock body
+        {/* //clock body */}
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Plane063_1.geometry}
           material={materials.PaletteMaterial002}
         />
-        //top button
+        {/* //top button */}
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_2.geometry}
           material={materials.PaletteMaterial002}
         />
-        //middle clock divider
+        {/* //middle clock divider */}
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_3.geometry}
           material={materials.PaletteMaterial004}
         ></mesh>
-        //unfilled left side
+        {/* //unfilled left side */}
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_4.geometry}
           material={materials.PaletteMaterial002}
         ></mesh>
-        //filled right side
+        {/* //filled right side */}
         <mesh
           // castShadow
           // receiveShadow
@@ -977,7 +977,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial color={'#ff0000'} />
         </mesh>
-        //filled left side
+        {/* //filled left side */}
         <mesh
           // castShadow
           // receiveShadow
@@ -1265,23 +1265,21 @@ export default function Model(props) {
       </group>
 
       <group position={[3.47452, 4.83262, 0.14511]} scale={0.08426}>
-        //lamp base
+        {/* //lamp base */}
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Circle_1.geometry}
           material={materials.PaletteMaterial010}
         />
-        //lamp glass body
+        {/* //lamp glass body */}
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Circle_2.geometry}
           material={materials.PaletteMaterial011}
-        >
-          {' '}
-        </mesh>
-        //lamp balls
+        ></mesh>
+        {/* //lamp balls */}
         <mesh
           castShadow
           receiveShadow
