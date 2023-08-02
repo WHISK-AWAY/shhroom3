@@ -3,11 +3,80 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useControls } from 'leva';
 import { Vector3 } from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
+import { object } from 'zod';
+
+const objectPositions = {
+  monitor: {
+    position: new Vector3(4.6381804422498, 3.21644095212349, 1.367680231368329),
+    angle: {
+      azimuth: 2.1988344801812723,
+      polar: 1.6225161318504906,
+    },
+  },
+  sting: {
+    position: new Vector3(
+      8.744054639054083,
+      3.544506309064059,
+      -2.1159567013174625,
+    ),
+    angle: {
+      azimuth: 0,
+      polar: 1.510322935965452,
+    },
+  },
+  newMeeting: {
+    position: new Vector3(
+      7.70950301070417,
+      3.71810395421507,
+      -0.18396312296402728,
+    ),
+    angle: {
+      azimuth: 0.012257939116745217,
+      polar: 1.7072616114694853,
+    },
+  },
+  corkboard: {
+    position: new Vector3(
+      4.6169697324253685,
+      4.269023824694518,
+      1.8626983480977797,
+    ),
+    angle: {
+      azimuth: 1.5415668172562578,
+      polar: 1.5439007237722089,
+    },
+  },
+  desktop: {
+    position: new Vector3(
+      5.785075623756164,
+      3.8619187799492822,
+      0.7723075650543063,
+    ),
+    angle: {
+      azimuth: 1.7169396506616306,
+      polar: 1.0750597335310477,
+    },
+  },
+};
+
+`
+positionType = {
+  zoomMode: boolean,
+  returnPosition: Vector3,
+  focus: Vector3,
+  focusLabel: string,
+}
+`;
 
 export default function ControlledCamera({ position }) {
-  const initPosition = useMemo(() => new Vector3(12.9, 3.5, 0.9), []);
-  const [returnPosition, setReturnPosition] = useState(initPosition);
+  // const initPosition = useMemo(() => new Vector3(12.9, 3.5, 0.9), []);
+  const initPosition = useMemo(
+    () => new Vector3(10.16071, 3.55448, 3.91621),
+    [],
+  );
+  const [controlsEnabled, setControlsEnabled] = useState(true);
   const camera = useRef(null);
+  const controls = useRef(null);
 
   const {
     enableDamping,
@@ -63,17 +132,15 @@ export default function ControlledCamera({ position }) {
         ref={camera}
         makeDefault={true}
         position={
-          position.focus
-            ? [
-                position.focus.x + 1.25,
-                position.focus.y,
-                position.focus.z - 0.75,
-              ]
+          position.zoomMode
+            ? objectPositions[position.focusLabel]?.position
             : initPosition
         }
       />
       <OrbitControls
         // object={camera.current}
+        ref={controls}
+        enabled={controlsEnabled}
         makeDefault={true}
         enableDamping={enableDamping}
         minAzimuthAngle={minAzimuthAngle}
@@ -82,7 +149,14 @@ export default function ControlledCamera({ position }) {
         maxPolarAngle={maxPolarAngle}
         minDistance={minDistance}
         maxDistance={maxDistance}
-        target={position.focus ? position.focus : [0, 2, 0]}
+        target={position.zoomMode ? position.focus : [0, 2, 0]}
+        onChange={() => {
+          console.log('position package:', {
+            position: `new Vector3(${camera.current.position.x}, ${camera.current.position.y}, ${camera.current.position.z})`,
+            azimuth: controls.current.getAzimuthalAngle(),
+            polar: controls.current.getPolarAngle(),
+          });
+        }}
       />
     </>
   );
