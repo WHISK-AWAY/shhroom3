@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '.env' });
 const DB_URL = process.env.DB_URL;
 
 const Sequelize = require('sequelize');
