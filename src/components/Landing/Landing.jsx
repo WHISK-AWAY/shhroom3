@@ -24,7 +24,7 @@ export default function Landing() {
           <color attach='background' args={['#0e0e0e']} />
           <Suspense fallback={null}>
             {/* <PerspectiveCamera makeDefault={true} position={[x, y, z]} /> */}
-            <Perf position='top-left' />
+
             <Scene />
           </Suspense>
         </Canvas>
