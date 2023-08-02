@@ -945,30 +945,47 @@ export default function Model(props) {
           geometry={nodes.Plane063_2.geometry}
           material={materials.PaletteMaterial002}
         />
+
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Plane063_3.geometry}
-          material={materials.PaletteMaterial004}
-        />
+          // material={materials.PaletteMaterial004}
+        >
+          <meshStandardMaterial
+            receiveShadow
+            emissive='red'
+            geometry={nodes.Plane063_3.geometry}
+            emissiveIntensity={2}
+            material={materials.PaletteMaterial004}
+            toneMapped={false}
+          />
+        </mesh>
+
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Plane063_4.geometry}
-          material={materials.PaletteMaterial002}
-        />
+          // material={materials.PaletteMaterial002}
+        >
+          <meshBasicMaterial color={'#791111'} />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Plane063_5.geometry}
-          material={materials.PaletteMaterial005}
-        />
+          // material={materials.PaletteMaterial005}
+        >
+          <meshBasicMaterial color={'#ff0000'} />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Plane063_6.geometry}
-          material={materials.PaletteMaterial006}
-        />
+          // material={materials.PaletteMaterial006}
+        >
+          <meshBasicMaterial color={'#ff0000'} />
+        </mesh>
       </group>
       <group
         position={[3.57264, 1.75082, -1.16755]}
@@ -1101,7 +1118,7 @@ export default function Model(props) {
         scale={[0.08025, 0.16613, 0.16897]}
       >
         <mesh
-          castShadow
+          // castShadow
           receiveShadow
           geometry={nodes.Plane027_1.geometry}
           material={materials['notebook page']}
@@ -1273,7 +1290,7 @@ export default function Model(props) {
         scale={0.05772}
       >
         <mesh
-          castShadow
+          // castShadow
           receiveShadow
           geometry={nodes.Cylinder021.geometry}
           material={materials.PaletteMaterial001}
@@ -1293,7 +1310,7 @@ export default function Model(props) {
         scale={[0.08025, 0.16613, 0.16897]}
       >
         <mesh
-          castShadow
+          // castShadow
           receiveShadow
           geometry={nodes.Plane041_1.geometry}
           material={materials['notebook page']}
@@ -2052,7 +2069,7 @@ export default function Model(props) {
         scale={0.0112}
       />
       <mesh
-        castShadow
+        // castShadow
         receiveShadow
         geometry={nodes['et_09_-_Default_0'].geometry}
         material={materials.PaletteMaterial002}
@@ -2061,7 +2078,7 @@ export default function Model(props) {
         scale={0.01402}
       />
       <mesh
-        castShadow
+        // castShadow
         receiveShadow
         geometry={nodes['et_09_-_Default_0001'].geometry}
         material={materials.PaletteMaterial002}
@@ -2453,7 +2470,13 @@ export default function Model(props) {
           receiveShadow
           geometry={nodes.Cylinder112_2.geometry}
           material={materials.PaletteMaterial023}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#fff'
+            emissiveIntensity={2}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
@@ -2690,7 +2713,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             emissive='#ff0000'
-            emissiveIntensity={2}
+            emissiveIntensity={1}
             toneMapped={false}
           />
         </mesh>

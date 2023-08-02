@@ -6,7 +6,7 @@ import ShhroomLampLight from './ShhroomLampLight';
 import ClockLight from './ClockLight';
 import WindowLightVolumetric from './WindowLightVolumetric';
 import AmbientLight from './AmbientLight';
-import MonitorLight from './MonitorLight';
+import FlashLight from './FlashLight';
 
 export default function Lights() {
   const {
@@ -54,8 +54,10 @@ export default function Lights() {
       <ShhroomLampLight lightIsOn={shhroomLampIsOn} />
 
       <ClockLight lightIsOn={clockLightIsOn} />
+
       <AmbientLight lightIsOn={ambientLightIsOn} />
-      <MonitorLight />
+
+      <FlashLight />
     </>
   );
 }

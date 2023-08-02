@@ -5,6 +5,7 @@ import Model from './Model';
 import { Suspense, useEffect, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import ControlledCamera from './ControlledCamera';
+import SceneEffects from './SceneEffects';
 
 export default function Scene() {
   const camera = useThree((state) => state.camera);
@@ -47,6 +48,7 @@ export default function Scene() {
         <Model zoomTo={zoomTo} />
         <BakeShadows />
         <AdaptiveDpr />
+        <SceneEffects />
       </Suspense>
       <Preload all={true} />
     </>

@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
+import { Perf } from 'r3f-perf';
 import Scene from './Scene';
 
 export default function Landing() {
@@ -15,7 +16,7 @@ export default function Landing() {
           gl={{
             powerPreference: 'high-performance',
             alpha: false,
-            antialias: true,
+            antialias: false,
             stencil: false,
             depth: true,
           }}
@@ -23,6 +24,7 @@ export default function Landing() {
           <color attach='background' args={['#0e0e0e']} />
           <Suspense fallback={null}>
             {/* <PerspectiveCamera makeDefault={true} position={[x, y, z]} /> */}
+            <Perf position='top-left' />
             <Scene />
           </Suspense>
         </Canvas>
