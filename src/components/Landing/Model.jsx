@@ -488,7 +488,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.s46.geometry}
         material={materials.s46}
-        position={[4.2633, 3.3832, 2.26719]}
+        position={[4.2398, 3.3232, 2.20719]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.10042}
       />
@@ -927,70 +927,63 @@ export default function Model(props) {
           material={materials.PaletteMaterial001}
         />
       </group>
+
       <group
         position={[8.73703, 2.08456, -2.16681]}
         rotation={[Math.PI, -1.38555, -Math.PI / 2]}
         scale={[-0.00385, -0.00927, -0.0144]}
       >
+        //unfilled right side
         <mesh
-          castShadow
-          receiveShadow
+          // castShadow
+          // receiveShadow
           geometry={nodes.Plane063.geometry}
           material={materials.PaletteMaterial002}
         />
+        //clock body
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Plane063_1.geometry}
           material={materials.PaletteMaterial002}
         />
+        //top button
         <mesh
-          castShadow
-          receiveShadow
+          // castShadow
+          // receiveShadow
           geometry={nodes.Plane063_2.geometry}
           material={materials.PaletteMaterial002}
         />
-
+        //middle clock divider
         <mesh
-          castShadow
-          receiveShadow
+          // castShadow
+          // receiveShadow
           geometry={nodes.Plane063_3.geometry}
-          // material={materials.PaletteMaterial004}
-        >
-          <meshStandardMaterial
-            receiveShadow
-            emissive='red'
-            geometry={nodes.Plane063_3.geometry}
-            emissiveIntensity={2}
-            material={materials.PaletteMaterial004}
-            toneMapped={false}
-          />
-        </mesh>
-
+          material={materials.PaletteMaterial004}
+        ></mesh>
+        //unfilled left side
         <mesh
-          castShadow
-          receiveShadow
+          // castShadow
+          // receiveShadow
           geometry={nodes.Plane063_4.geometry}
-          // material={materials.PaletteMaterial002}
-        >
-          <meshBasicMaterial color={'#791111'} />
-        </mesh>
+          material={materials.PaletteMaterial002}
+        ></mesh>
+        //filled right side
         <mesh
-          castShadow
-          receiveShadow
+          // castShadow
+          // receiveShadow
           geometry={nodes.Plane063_5.geometry}
           // material={materials.PaletteMaterial005}
         >
-          <meshBasicMaterial color={'#ff0000'} />
+          <meshStandardMaterial color={'#ff0000'} />
         </mesh>
+        //filled left side
         <mesh
-          castShadow
-          receiveShadow
+          // castShadow
+          // receiveShadow
           geometry={nodes.Plane063_6.geometry}
-          // material={materials.PaletteMaterial006}
-        >
-          <meshBasicMaterial color={'#ff0000'} />
-        </mesh>
+          material={materials.PaletteMaterial006}
+        ></mesh>
       </group>
       <group
         position={[3.57264, 1.75082, -1.16755]}
@@ -1270,26 +1263,39 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
       </group>
+
       <group position={[3.47452, 4.83262, 0.14511]} scale={0.08426}>
+        //lamp base
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Circle_1.geometry}
           material={materials.PaletteMaterial010}
         />
+        //lamp glass body
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Circle_2.geometry}
           material={materials.PaletteMaterial011}
-        />
+        >
+          {' '}
+        </mesh>
+        //lamp balls
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Circle_3.geometry}
           material={materials.PaletteMaterial012}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#ff00dd'
+            emissiveIntensity={7.9}
+            toneMapped={false}
+          />
+        </mesh>
       </group>
+
       <group
         position={[3.53106, 3.04255, 0.00858]}
         rotation={[0, 0.66379, 0]}
@@ -1305,7 +1311,7 @@ export default function Model(props) {
         <mesh castShadow receiveShadow geometry={nodes.Cylinder021_1.geometry}>
           <meshStandardMaterial
             emissive='#cbc9b3'
-            emissiveIntensity={2}
+            emissiveIntensity={2.8}
             toneMapped={false}
           />
         </mesh>
@@ -2717,9 +2723,10 @@ export default function Model(props) {
           material={materials.PaletteMaterial025}
         >
           <meshStandardMaterial
-            emissive='#ff0000'
-            emissiveIntensity={1}
+            emissive='#fff'
+            emissiveIntensity={10}
             toneMapped={false}
+            // color={'#ff0000'}
           />
         </mesh>
         <mesh
