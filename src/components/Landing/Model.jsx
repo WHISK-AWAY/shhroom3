@@ -68,7 +68,7 @@ export default function Model(props) {
         position={[8.72845, 3.51681, -2.58078]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.33809}
-        onClick={(e) => zoomTo(e.object.position)}
+        onClick={(e) => zoomTo(e.object.position, 'sting')}
       />
       <mesh
         receiveShadow
@@ -628,6 +628,7 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.25987}
       />
+      {/** small mushroom poster under lower shelf */}
       <mesh
         receiveShadow
         geometry={nodes.shh2.geometry}
@@ -636,6 +637,7 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.87429}
       />
+      {/** main 'new meeting' mushroom poster */}
       <mesh
         receiveShadow
         geometry={nodes.shh3.geometry}
@@ -643,6 +645,7 @@ export default function Model(props) {
         position={[7.71108, 3.65457, -2.58681]}
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
+        onClick={(e) => zoomTo(e.object.position, 'newMeeting')}
       />
       <mesh
         receiveShadow
@@ -692,12 +695,14 @@ export default function Model(props) {
         rotation={[-Math.PI, 0.00161, 0]}
         scale={[-1.16779, -1.71969, -0.16649]}
       />
+      {/** desktop */}
       <mesh
         receiveShadow
         geometry={nodes.Cube029.geometry}
         material={materials['Magnificent wood']}
         position={[3.8675, 2.36059, 1.31098]}
         rotation={[Math.PI, -0.00212, Math.PI]}
+        onClick={(e) => zoomTo(e.object.position, 'desktop')}
       />
       <mesh
         castShadow
@@ -1033,13 +1038,14 @@ export default function Model(props) {
         scale={[0.302, 1, 1.36665]}
       />
       <mesh
-        castShadow
+        // castShadow
         receiveShadow
         geometry={nodes.corkboard.geometry}
         material={materials['Cork natural']}
         position={[3.0905, 4.29743, 1.83965]}
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
+        onClick={(e) => zoomTo(e.object.position, 'corkboard')}
       />
       <mesh
         castShadow
@@ -1368,7 +1374,6 @@ export default function Model(props) {
        * TODO: render sign-in form
        * TODO: make the sign-in form actually work
        * TODO: fix the evil sticker (decal?)
-       * TODO: set up other zoom-tos (same onclick works, but need to figure out position offset)
        * TODO: clock material bloom
        * TODO: lose the effects composer sparks
        * TODO: bloom lava lamp
@@ -1382,7 +1387,7 @@ export default function Model(props) {
         position={[3.54909, 3.20587, 2.15376]}
         rotation={[0, 0.60667, 0]}
         scale={[0.36907, 0.41434, 0.5585]}
-        onClick={(e) => zoomTo(e.object.position)}
+        onClick={(e) => zoomTo(e.object.position, 'monitor')}
       >
         <meshStandardMaterial
           emissive='#aefffc'
