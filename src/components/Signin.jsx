@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
+import { Vector3 } from 'three';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import x from '/svg/x.svg';
 import { useForm } from 'react-hook-form';
 import { ERRORSTYLE } from '../lib/utils';
 import { BORDERERR } from '../lib/utils.js';
+import { ZoomContext } from './Landing/Landing';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -20,7 +22,44 @@ export default function Signin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
-  const navigate = useNavigate();
+
+  const monitorZoomPosition = useMemo(
+    () => new Vector3(3.54909, 3.20587, 2.15376),
+  );
+
+  const zoom = useContext(ZoomContext);
+
+  function zoomClicker(e) {
+    // if we're already zoomed in, don't do anything
+    if (zoom.zoomMode) {
+      e.stopPropagation();
+    } else {
+      zoom.setZoom((prev) => ({
+        ...prev,
+        targetPosition: monitorZoomPosition,
+        targetLabel: 'monitor',
+        zoomMode: true,
+        controlsEnabled: false,
+      }));
+    }
+  }
+
+  function exitButton(e) {
+    if (zoom.zoomMode) {
+      e.stopPropagation();
+      zoom.setZoom((prev) => ({
+        ...prev,
+        targetPosition: null,
+        targetLabel: null,
+        zoomMode: false,
+        controlsEnabled: true,
+      }));
+    } else {
+      zoomClicker(e);
+    }
+  }
+
+  // const navigate = useNavigate();
 
   // console.log('apiurl', API_URL);
 
@@ -35,7 +74,6 @@ export default function Signin() {
     defaultValues: {
       username: '',
       password: '',
-     
     },
   });
 
@@ -49,45 +87,46 @@ export default function Signin() {
         password: data.password,
       });
 
-      console.log('dp', res)
+      console.log('dp', res);
       if (res.data.token) localStorage.setItem('token', res.data.token);
-      navigate('/lobby');
-
+      // navigate('/lobby');
 
       return res;
     } catch (err) {
-
       console.log('err', err);
 
       if (err instanceof AxiosError) {
-             if (err.response?.status === 404) {
-               resetField('password', { keepDirty: false, keepError: true });
-               setError('username', {
-                 type: 'custom',
-                 message: 'username does not exist',
-               });
-             }
+        if (err.response?.status === 404) {
+          resetField('password', { keepDirty: false, keepError: true });
+          setError('username', {
+            type: 'custom',
+            message: 'username does not exist',
+          });
+        }
 
-             if(err.response?.status === 401) {
-              resetField('password', {keepDirty: false, keepError: true});
-              setError('password', {
-                type: "custom",
-                message: 'password is incorrect'
-              })
-             }
+        if (err.response?.status === 401) {
+          resetField('password', { keepDirty: false, keepError: true });
+          setError('password', {
+            type: 'custom',
+            message: 'password is incorrect',
+          });
+        }
       } else {
         console.error(err);
       }
     }
   };
 
-
-
-
   return (
-    <div className='sign-in-page w-screen h-screen flex font-press bg-slate-500 text-[#151521]'>
+    <div
+      className='sign-in-page aspect-square h-screen flex font-press bg-slate-500 text-[#151521]'
+      onClick={zoomClicker}
+    >
       <div className='signin-form flex flex-col w-[50vw] h-[73dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
-        <div className='header-top-rim h-[7dvh] border-[2.8px] border-black  bg-gradient-to-r from-indigo-500 flex flex-col '>
+        <div
+          className='header-top-rim h-[7dvh] border-[2.8px] border-black  bg-gradient-to-r from-indigo-500 flex flex-col'
+          onClick={exitButton}
+        >
           <img
             src={x}
             alt='x-icon'
@@ -99,7 +138,7 @@ export default function Signin() {
         </h1>
         <form
           onSubmit={handleSubmit(submitData)}
-          className='flex flex-col items-center gap-4  w-full  '
+          className='flex flex-col items-center gap-4'
         >
           <div className='flex flex-col'>
             <label
@@ -118,7 +157,6 @@ export default function Signin() {
               type='text'
               name='username'
               id='username'
-             
               autoComplete='off'
               {...register('username')}
             />
@@ -153,12 +191,12 @@ export default function Signin() {
             </button>
             <p className='sign-up-redirect pt-[5%] font-vt text-[1.8vw]'>
               don't have an account? make one{' '}
-              <Link
+              {/* <Link
                 to={'/signup'}
                 className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
               >
                 here
-              </Link>
+              </Link> */}
             </p>
           </div>
         </form>
