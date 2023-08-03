@@ -21,7 +21,7 @@ export default function Landing() {
             depth: true,
           }}
         >
-          <color attach='background' args={['#0e0e0e']} />
+          <color attach='background' args={['#020303']} />
           <Suspense fallback={null}>
             {/* <PerspectiveCamera makeDefault={true} position={[x, y, z]} /> */}
             <Perf position='top-left' />
