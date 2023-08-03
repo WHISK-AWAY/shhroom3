@@ -6,8 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import x from '/svg/x.svg';
 import { useForm } from 'react-hook-form';
+import { ERRORSTYLE } from '../lib/utils';
+import { BORDERERR } from '../lib/utils.js';
 
 const API_URL = import.meta.env.VITE_API_URL;
+// const BORDERERR='border-dashed border-red-800 ouline-double outline-4 outline-red-800 text-red-800 shadow-[inset_1px_1px_4px_4px_rgba(119,35,35,0.6)]'
 
 const ZSignIn = z.object({
   username: z.string(),
@@ -78,7 +81,7 @@ export default function Signin() {
       if (err instanceof AxiosError) {
              if (err.response?.status === 404) {
               // console.log('hi')
-              //  resetField('username', { keepDirty: true, keepError: true });
+               resetField('password', { keepDirty: false, keepError: true });
                setError('username', {
                  type: 'custom',
                  message: 'username does not exist',
@@ -100,16 +103,7 @@ export default function Signin() {
   };
 
 
-  // useEffect(() => {
-  //   for (let key in errors) {
-  //     if(key === 'username') {
-  //       console.log('yo')
-  //       resetField('username', {keepDirty: true, keepError: true})
 
-  //       // resetField('password', {keepDirty: false, keepError: true})
-  //     }
-  //   }
-  // }, [errors.username, errors.password])
 
   return (
     <div className='sign-in-page w-screen h-screen flex font-press bg-slate-500 text-[#151521]'>
@@ -129,11 +123,19 @@ export default function Signin() {
           className='flex flex-col items-center gap-4  w-full  '
         >
           <div className='flex flex-col'>
-            <label htmlFor='username' className='font-vt text-[2vw]'>
+            <label
+              htmlFor='username'
+              className={`${
+                errors.username ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
               username
             </label>
+
             <input
-              className=' bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white'
+              className={`${
+                errors.username ? BORDERERR : ''
+              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-[inset_1px_1px_4px_4px_rgba(21,21,33,0.2)]  w-[30vw] outline-double outline-white `}
               type='text'
               name='username'
               id='username'
@@ -143,15 +145,23 @@ export default function Signin() {
               // onChange={(e) => setUsername(e.target.value)}
               {...register('username')}
             />
-            <p>{errors.username?.message || ''}</p>
+
+            <p className={ERRORSTYLE}>{errors.username?.message || ''}</p>
           </div>
 
           <div className='flex flex-col'>
-            <label htmlFor='password' className=' text-[2vw] font-vt'>
+            <label
+              htmlFor='password'
+              className={`${
+                errors.password ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
               password
             </label>
             <input
-              className='border-2 border-[#151521] bg-slate-200/75 px-[4%] py-[5%] w-[30vw] text-[1.3vw] shadow-inner outline-double outline-white '
+              className={`${
+                errors.password ? BORDERERR : ''
+              } border-2 border-[#151521] bg-slate-200/75 px-[4%] py-[5%] w-[30vw] text-[1.3vw] shadow-[inset_1px_1px_4px_4px_rgba(21,21,33,0.2)] outline-double outline-white`}
               type='password'
               name='password'
               id='password'
@@ -161,17 +171,17 @@ export default function Signin() {
               // onChange={(e) => setPassword(e.target.value)}
               {...register('password')}
             />
-            <p>{errors.password?.message || ''}</p>
+            <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
           </div>
           <div className='flex flex-col pt-[5%] '>
-            <button className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521]'>
+            <button className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-indigo-700 hover:scale-[1.01] transition-all duration-100'>
               sign in
             </button>
             <p className='sign-up-redirect pt-[5%] font-vt text-[1.8vw]'>
               don't have an account? make one{' '}
               <Link
                 to={'/signup'}
-                className='underline-offset-2 underline text-indigo-600'
+                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
               >
                 here
               </Link>
