@@ -1613,6 +1613,7 @@ export default function Model(props) {
         position={[4.03297, 2.40889, 0.51335]}
         scale={2.10668}
       />
+      //stripper lady
       <group
         position={[3.15731, 4.85772, 1.74468]}
         rotation={[0, Math.PI / 2, 0]}
@@ -1623,19 +1624,38 @@ export default function Model(props) {
           receiveShadow
           geometry={nodes.Vert019.geometry}
           material={materials.PaletteMaterial037}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#ff00dd'
+            emissiveIntensity={18}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Vert019_1.geometry}
           material={materials.PaletteMaterial038}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#ff00dd'
+            emissiveIntensity={10}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Vert019_2.geometry}
           material={materials.PaletteMaterial038}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#00ecff'
+            color={'#ff00dd'}
+            emissiveIntensity={10}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
