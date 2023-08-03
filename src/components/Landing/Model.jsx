@@ -635,7 +635,13 @@ export default function Model(props) {
         position={[3.16375, 3.66606, -0.81325]}
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.87429}
-      />
+      >
+        <meshStandardMaterial
+          emissive='#46ff74'
+          emissiveIntensity={3}
+          toneMapped={false}
+        />
+      </mesh>
       <mesh
         receiveShadow
         geometry={nodes.shh3.geometry}
@@ -922,7 +928,6 @@ export default function Model(props) {
           material={materials.PaletteMaterial001}
         />
       </group>
-
       <group
         position={[8.73703, 2.08456, -2.16681]}
         rotation={[Math.PI, -1.38555, -Math.PI / 2]}
@@ -985,25 +990,18 @@ export default function Model(props) {
         rotation={[-3.02039, -0.15262, -1.70998]}
       >
         <mesh
-          
           geometry={nodes.Plane001_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          
-         
           geometry={nodes.Plane001_2.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          
-        
           geometry={nodes.Plane001_3.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          
-          
           geometry={nodes.Plane001_4.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1256,7 +1254,6 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
       </group>
-
       <group position={[3.47452, 4.83262, 0.14511]} scale={0.08426}>
         //lamp base
         <mesh
@@ -1288,7 +1285,6 @@ export default function Model(props) {
           />
         </mesh>
       </group>
-
       <group
         position={[3.53106, 3.04255, 0.00858]}
         rotation={[0, 0.66379, 0]}
@@ -1395,7 +1391,6 @@ export default function Model(props) {
           toneMapped={false}
         />
       </mesh>
-
       <group
         position={[4.34849, 2.42477, 2.02359]}
         rotation={[-3.13739, -0.11547, -3.07637]}
@@ -2096,7 +2091,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.old_brick_01.geometry}
         material={materials['old brick 01']}
-        position={[3.94816, 2.41821, 0.19684]}
+        position={[4.14816, 2.41821, 0.39684]}
         rotation={[0, -0.21626, 0]}
         scale={0.12317}
       />
@@ -2653,16 +2648,19 @@ export default function Model(props) {
           material={materials['bag_metal 1']}
         />
       </group>
+      //green glow shhroom
       <group
         position={[3.62164, 4.25735, -1.1163]}
         rotation={[-0.07961, -0.62025, 0.88003]}
         scale={1.41786}
       >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Circle047.geometry}
-        ></mesh>
+        <mesh castShadow receiveShadow geometry={nodes.Circle047.geometry}>
+          <meshStandardMaterial
+            emissive='#46ff74'
+            emissiveIntensity={6}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
@@ -2706,8 +2704,6 @@ export default function Model(props) {
           material={materials.PaletteMaterial018}
         />
       </group>
-
-
       //desk shhroom
       <group
         position={[3.72422, 2.66768, 0.90818]}
@@ -2739,10 +2735,9 @@ export default function Model(props) {
           material={materials.Lammelleln}
         ></mesh>
       </group>
-
-
+      //cornder table shhroom
       <group
-        position={[3.92422, 2.00068, -1.990]}
+        position={[3.92422, 2.00068, -1.99]}
         rotation={[-1.54963, -1.99253, 3.42676]}
       >
         <mesh
@@ -2753,7 +2748,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             emissive='#ff0000'
-            emissiveIntensity={10}
+            emissiveIntensity={8}
             toneMapped={false}
             color={'#ff0000'}
           />
@@ -2771,8 +2766,6 @@ export default function Model(props) {
           material={materials.Lammelleln}
         ></mesh>
       </group>
-
-
       <group
         position={[8.01947, 2.0281, -2.10942]}
         rotation={[0.0761, -0.14554, 0.01106]}
