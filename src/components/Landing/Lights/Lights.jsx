@@ -34,7 +34,7 @@ export default function Lights() {
       value: true,
     },
     clockLightIsOn: {
-      value: true,
+      value: false,
     },
     ambientLightIsOn: {
       value: true,
