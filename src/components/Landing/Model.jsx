@@ -2740,6 +2740,40 @@ export default function Model(props) {
           material={materials.Lammelleln}
         ></mesh>
       </group>
+
+
+      <group
+        position={[3.92422, 2.00068, -1.990]}
+        rotation={[-1.54963, -1.99253, 3.42676]}
+      >
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle049.geometry}
+          material={materials.PaletteMaterial025}
+        >
+          <meshStandardMaterial
+            emissive='#ff0000'
+            emissiveIntensity={10}
+            toneMapped={false}
+            color={'#ff0000'}
+          />
+        </mesh>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle049_1.geometry}
+          material={materials['Stiel.001']}
+        ></mesh>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle049_2.geometry}
+          material={materials.Lammelleln}
+        ></mesh>
+      </group>
+
+
       <group
         position={[8.01947, 2.0281, -2.10942]}
         rotation={[0.0761, -0.14554, 0.01106]}
