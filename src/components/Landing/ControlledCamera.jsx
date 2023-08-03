@@ -1,9 +1,8 @@
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo, useContext } from 'react';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useControls } from 'leva';
 import { Vector3 } from 'three';
-import { useFrame, useThree } from '@react-three/fiber';
-import { object } from 'zod';
+import { ZoomContext } from './Landing';
 
 const objectPositions = {
   monitor: {
@@ -68,7 +67,7 @@ positionType = {
 }
 `;
 
-export default function ControlledCamera({ position }) {
+export default function ControlledCamera() {
   // const initPosition = useMemo(() => new Vector3(12.9, 3.5, 0.9), []);
   const initPosition = useMemo(
     () => new Vector3(10.16071, 3.55448, 3.91621),
@@ -77,6 +76,7 @@ export default function ControlledCamera({ position }) {
   const [controlsEnabled, setControlsEnabled] = useState(true);
   const camera = useRef(null);
   const controls = useRef(null);
+  const zoom = useContext(ZoomContext);
 
   const {
     enableDamping,
@@ -126,14 +126,23 @@ export default function ControlledCamera({ position }) {
     },
   });
 
+  /**
+   * ZoomContext: {
+   *  zoomMode: boolean;
+   *  targetPosition: Vector3;
+   *  targetLabel: string;
+   *  setZoom: state setter;
+   * }
+   */
+
   return (
     <>
       <PerspectiveCamera
         ref={camera}
         makeDefault={true}
         position={
-          position.zoomMode
-            ? objectPositions[position.focusLabel]?.position
+          zoom.zoomMode
+            ? objectPositions[zoom.targetLabel]?.position
             : initPosition
         }
       />
@@ -149,7 +158,7 @@ export default function ControlledCamera({ position }) {
         maxPolarAngle={maxPolarAngle}
         minDistance={minDistance}
         maxDistance={maxDistance}
-        target={position.zoomMode ? position.focus : [0, 2, 0]}
+        target={zoom.zoomMode ? zoom.targetPosition : [0, 2, 0]}
         // onChange={() => {
         //   console.log('position package:', {
         //     position: `new Vector3(${camera.current.position.x}, ${camera.current.position.y}, ${camera.current.position.z})`,

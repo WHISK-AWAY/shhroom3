@@ -14,14 +14,49 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
  * TODO: loading screen
  */
 
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Html, Plane, useGLTF } from '@react-three/drei';
 import DummyPage from '../DummyPage';
+import { ZoomContext } from './Landing';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
-  const zoomTo = props.zoomTo;
-  const [zoomMode, setZoomMode] = useState(false);
+
+  const zoom = useContext(ZoomContext);
+
+  console.log(zoom);
+
+  /**
+   * ZoomContext: {
+   *  zoomMode: boolean;
+   *  targetPosition: Vector3;
+   *  targetLabel: string;
+   *  setZoom: state setter;
+   * }
+   */
+
+  function zoomToClick(e, targetLabel) {
+    // if zoom mode is already true, re-initialize zoom state
+    if (zoom.zoomMode) {
+      zoom.setZoom((prev) => ({
+        ...prev,
+        zoomMode: false,
+        targetLabel: null,
+        targetPosition: null,
+      }));
+    } else {
+      // otherwise, populate zoom state with target info
+      const targetPosition = e.object.position;
+      console.log(targetPosition);
+      console.log(targetLabel);
+      zoom.setZoom((prev) => ({
+        ...prev,
+        zoomMode: true,
+        targetPosition,
+        targetLabel,
+      }));
+    }
+  }
 
   return (
     <group {...props} dispose={null}>
@@ -82,7 +117,7 @@ export default function Model(props) {
         position={[8.72845, 3.51681, -2.58078]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.33809}
-        onClick={(e) => zoomTo(e.object.position, 'sting')}
+        onClick={(e) => zoomToClick(e, 'sting')}
       />
       <mesh
         receiveShadow
@@ -659,7 +694,8 @@ export default function Model(props) {
         position={[7.71108, 3.65457, -2.58681]}
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
-        onClick={(e) => zoomTo(e.object.position, 'newMeeting')}
+        // onClick={(e) => zoomTo(e.object.position, 'newMeeting')}
+        onClick={(e) => zoomToClick(e, 'newMeeting')}
       />
       <mesh
         receiveShadow
@@ -716,7 +752,7 @@ export default function Model(props) {
         material={materials['Magnificent wood']}
         position={[3.8675, 2.36059, 1.31098]}
         rotation={[Math.PI, -0.00212, Math.PI]}
-        onClick={(e) => zoomTo(e.object.position, 'desktop')}
+        onClick={(e) => zoomToClick(e, 'desktop')}
       />
       <mesh
         castShadow
@@ -1052,7 +1088,7 @@ export default function Model(props) {
         position={[3.0905, 4.29743, 1.83965]}
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
-        onClick={(e) => zoomTo(e.object.position, 'corkboard')}
+        onClick={(e) => zoomToClick(e, 'corkboard')}
       />
       <mesh
         castShadow
@@ -1421,11 +1457,7 @@ export default function Model(props) {
           rotation={[0, Math.PI / 2, 0]}
           scale={[0.45, 0.45, 1]}
         >
-          <DummyPage
-            setZoomMode={setZoomMode}
-            zoomMode={zoomMode}
-            zoomTo={zoomTo}
-          />
+          <DummyPage zoom={zoom} />
         </Html>
       </mesh>
 
