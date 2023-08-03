@@ -2718,10 +2718,10 @@ export default function Model(props) {
           material={materials.PaletteMaterial025}
         >
           <meshStandardMaterial
-            emissive='#fff'
-            emissiveIntensity={10}
+            emissive='#ff0000'
+            emissiveIntensity={8}
             toneMapped={false}
-            // color={'#ff0000'}
+            color={'#ff0000'}
           />
         </mesh>
         <mesh
