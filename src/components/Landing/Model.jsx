@@ -807,8 +807,8 @@ export default function Model(props) {
         scale={0.68262}
       />
       <group
-        position={[5.89286, 1.04272, 1.6781]}
-        rotation={[-1.22332, -0.00711, -2.85383]}
+        position={[5.89286, 1.03172, 1.6781]}
+        rotation={[-1.19132, -0.00911, -2.85383]}
         scale={[-0.0199, -0.02047, -0.02523]}
       >
         <mesh
