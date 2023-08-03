@@ -5,7 +5,7 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
-import x from '../../public/svg/x.svg';
+import x from '/svg/x.svg';
 
 const ZSignUp = z
   .object({
@@ -94,7 +94,7 @@ export default function SignUp() {
 
   const errorStyle='text-[.8vw] text-red-800 flex pt-[.9%] self-center'
 
-  
+
   return (
     <div className='sign-up-wrapper  justify-center w-screen h-screen flex font-press bg-slate-500 text-[#151521]'>
       <div className='flex flex-col w-[50vw] h-[83dvh] mx-auto   self-center bg-[#c0c0c0] border-4'>
