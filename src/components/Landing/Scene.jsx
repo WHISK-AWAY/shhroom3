@@ -9,29 +9,19 @@ import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
 
 export default function Scene() {
-  const camera = useThree((state) => state.camera);
-  const [position, setPosition] = useState({
-    focus: null,
-    focusLabel: null,
-    returnPosition: null,
-    zoomMode: false,
-  });
-
   // Render 3d text signs
   font();
 
   return (
-    <>
-      <Suspense fallback={null}>
-        <Lights />
-        <ControlledCamera position={position} />
-        <Model />
-        <BakeShadows />
-        <AdaptiveDpr />
-        <SceneEffects />
-        <Perf position='top-left' />
-        <Preload all={true} />
-      </Suspense>
-    </>
+    <Suspense fallback={null}>
+      <Lights />
+      <ControlledCamera />
+      <Model />
+      <BakeShadows />
+      <AdaptiveDpr />
+      <SceneEffects />
+      <Perf position='top-left' />
+      <Preload all={true} />
+    </Suspense>
   );
 }
