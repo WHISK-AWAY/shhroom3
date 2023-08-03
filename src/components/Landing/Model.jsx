@@ -636,11 +636,6 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.87429}
       >
-        <meshStandardMaterial
-          emissive='#46ff74'
-          emissiveIntensity={3}
-          toneMapped={false}
-        />
       </mesh>
       <mesh
         receiveShadow
@@ -654,7 +649,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.bedframe.geometry}
         material={materials.Wood}
-        position={[6.69323, 1.56144, -0.76587]}
+        position={[6.69323, 1.53144, -0.76587]}
         rotation={[0, -0.01029, 0]}
       />
       <mesh
