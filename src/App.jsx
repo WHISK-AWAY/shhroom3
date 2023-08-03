@@ -16,8 +16,7 @@ const socket = io(WS_URL);
 
 export default function App() {
   return (
-    <div className='home-view h-screen overflow-hidden bg-dark-purple000 bg-gradient-to-r from-black via-dark-purple00 to-dark-purple5 text-white animate-gradient-x'>
-      <Navbar />
+    <div className='home-view h-screen overflow-hidden w-screen '>
 
       <Routes>
         <Route path='/' element={<Homepage />} />
