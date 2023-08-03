@@ -17,6 +17,7 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 import { useContext } from 'react';
 import { Html, Plane, useGLTF } from '@react-three/drei';
 import DummyPage from '../DummyPage';
+import Signin from '../Signin';
 import { ZoomContext } from './Landing';
 
 export default function Model(props) {
@@ -1441,7 +1442,10 @@ export default function Model(props) {
           rotation={[0, Math.PI / 2, 0]}
           scale={[0.45, 0.47, 0.01]}
         >
-          <DummyPage zoom={zoom} />
+          {/* <DummyPage zoom={zoom} /> */}
+          <ZoomContext.Provider value={zoom}>
+            <Signin />
+          </ZoomContext.Provider>
         </Html>
       </mesh>
       <group
@@ -1666,7 +1670,7 @@ export default function Model(props) {
         position={[4.03297, 2.40889, 0.51335]}
         scale={2.10668}
       />
-      //stripper lady
+      {/* //stripper lady */}
       <group
         position={[3.15731, 4.85772, 1.74468]}
         rotation={[0, Math.PI / 2, 0]}
@@ -2721,7 +2725,7 @@ export default function Model(props) {
           material={materials['bag_metal 1']}
         />
       </group>
-      //green glow shhroom
+      {/* //green glow shhroom */}
       <group
         position={[3.62164, 4.25735, -1.1163]}
         rotation={[-0.07961, -0.62025, 0.88003]}
@@ -2777,7 +2781,7 @@ export default function Model(props) {
           material={materials.PaletteMaterial018}
         />
       </group>
-      //desk shhroom
+      {/* //desk shhroom */}
       <group
         position={[3.72422, 2.66768, 0.90818]}
         rotation={[-1.14963, -0.22253, 0.32676]}
@@ -2808,7 +2812,7 @@ export default function Model(props) {
           material={materials.Lammelleln}
         ></mesh>
       </group>
-      //cornder table shhroom
+      {/* //corner table shhroom */}
       <group
         position={[3.92422, 2.00068, -1.99]}
         rotation={[-1.54963, -1.99253, 3.42676]}
@@ -2953,7 +2957,7 @@ export default function Model(props) {
         scale={[1.39397, 1, 1]}
       />
       <group position={[3.43748, 5.00924, -1.86565]}>
-        //bookshelf shroom hat
+        {/* //bookshelf shroom hat */}
         <mesh
           castShadow
           receiveShadow
