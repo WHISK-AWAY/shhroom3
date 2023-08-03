@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import x from '../../public/svg/x.svg';
+import x from '/svg/x.svg';
+import { useForm } from 'react-hook-form';
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+const ZSignIn = z.object({
+  username: z.string(),
+  password: z.string(),
+});
 
 export default function Signin() {
   const [username, setUsername] = useState('');
@@ -13,7 +21,24 @@ export default function Signin() {
   const navigate = useNavigate();
 
   // console.log('apiurl', API_URL);
-  const onSubmit = async (e) => {
+
+  const {
+    register,
+    handleSubmit,
+    resetField,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(ZSignIn),
+    defaultValues: {
+      username: '',
+      password: '',
+     
+    },
+    mode: 'onBlur',
+  });
+
+  const submitData = async (e) => {
     e.preventDefault();
     const { data } = await axios.post(API_URL + '/api/auth', {
       username,
@@ -30,6 +55,48 @@ export default function Signin() {
     }
   };
 
+  // const submitData = async (data) => {
+  //   if (!data) return;
+
+  //   try {
+  //     const { data: dataPayload } = await axios.post(API_URL + '/api/auth', {
+  //       username,
+  //       password,
+  //     });
+
+  //     if (dataPayload.token) localStorage.setItem('token', dataPayload.token);
+  //     navigate('/lobby');
+
+  //     console.log(dataPayload)
+
+  //     return dataPayload;
+  //   } catch (err) {
+
+  //     if (err.responce.status === 401) {
+  //       resetField('username', { keepDirty: false, keepError: true });
+  //       setError('username', {
+  //         type: 'custom',
+  //         message: 'this username already exists',
+  //       });
+  //     }
+  //     if (err instanceof AxiosError) {
+  //       throw new Error(err);
+  //     } else {
+  //       console.error(err);
+  //     }
+  //   }
+  // };
+
+
+  // useEffect(() => {
+  //   for (let key in errors) {
+  //     if(key === 'username' || key === 'password') {
+  //       resetField('username', {keepDirty: false})
+  //       resetField('password', {keepDirty: false, keepError: true})
+  //     }
+  //   }
+  // }, [errors.username, errors.password])
+
   return (
     <div className='sign-in-page w-screen h-screen flex font-press bg-slate-500 text-[#151521]'>
       <div className='signin-form flex flex-col w-[50vw] h-[73dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
@@ -44,7 +111,7 @@ export default function Signin() {
           sign in
         </h1>
         <form
-          onSubmit={onSubmit}
+          onSubmit={submitData}
           className='flex flex-col items-center gap-4  w-full  '
         >
           <div className='flex flex-col'>
@@ -61,6 +128,7 @@ export default function Signin() {
               autoComplete='off'
               onChange={(e) => setUsername(e.target.value)}
             />
+            <p>{errors.username?.message || ''}</p>
           </div>
 
           <div className='flex flex-col'>
@@ -77,6 +145,7 @@ export default function Signin() {
               autoComplete='off'
               onChange={(e) => setPassword(e.target.value)}
             />
+            <p>{errors.password?.message || ''}</p>
           </div>
           <div className='flex flex-col pt-[5%] '>
             <button className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521]'>
