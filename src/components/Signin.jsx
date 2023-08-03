@@ -35,64 +35,78 @@ export default function Signin() {
       password: '',
      
     },
-    mode: 'onBlur',
+    // mode: 'onSubmit',
   });
 
-  const submitData = async (e) => {
-    e.preventDefault();
-    const { data } = await axios.post(API_URL + '/api/auth', {
-      username,
-      password,
-    });
-    window.localStorage.setItem('token', data.token);
-    setPassword('');
-    if (!data.token) {
-      setIsInvalid(true);
-    } else {
-      setUsername('');
-      setIsInvalid(false);
-      navigate('/lobby');
-    }
-  };
-
-  // const submitData = async (data) => {
-  //   if (!data) return;
-
-  //   try {
-  //     const { data: dataPayload } = await axios.post(API_URL + '/api/auth', {
-  //       username,
-  //       password,
-  //     });
-
-  //     if (dataPayload.token) localStorage.setItem('token', dataPayload.token);
+  // const submitData = async (e) => {
+  //   e.preventDefault();
+  //   const { data } = await axios.post(API_URL + '/api/auth', {
+  //     username,
+  //     password,
+  //   });
+  //   window.localStorage.setItem('token', data.token);
+  //   setPassword('');
+  //   if (!data.token) {
+  //     setIsInvalid(true);
+  //   } else {
+  //     setUsername('');
+  //     setIsInvalid(false);
   //     navigate('/lobby');
-
-  //     console.log(dataPayload)
-
-  //     return dataPayload;
-  //   } catch (err) {
-
-  //     if (err.responce.status === 401) {
-  //       resetField('username', { keepDirty: false, keepError: true });
-  //       setError('username', {
-  //         type: 'custom',
-  //         message: 'this username already exists',
-  //       });
-  //     }
-  //     if (err instanceof AxiosError) {
-  //       throw new Error(err);
-  //     } else {
-  //       console.error(err);
-  //     }
   //   }
   // };
+
+  const submitData = async (data, e) => {
+    e?.preventDefault();
+    if (!data) return;
+
+    try {
+      const res = await axios.post(API_URL + '/api/auth', {
+        username: data.username,
+        password: data.password,
+      });
+
+      console.log('dp', res)
+      if (res.data.token) localStorage.setItem('token', res.data.token);
+      navigate('/lobby');
+
+
+      return res;
+    } catch (err) {
+
+      console.log('err', err);
+
+      if (err instanceof AxiosError) {
+             if (err.response?.status === 404) {
+              // console.log('hi')
+              //  resetField('username', { keepDirty: true, keepError: true });
+               setError('username', {
+                 type: 'custom',
+                 message: 'username does not exist',
+               });
+             }
+
+             if(err.response?.status === 401) {
+              resetField('password', {keepDirty: false, keepError: true});
+              setError('password', {
+                type: "custom",
+                message: 'password is incorrect'
+              })
+             }
+        // throw new Error(err);
+      } else {
+        console.error(err);
+      }
+    }
+  };
 
 
   // useEffect(() => {
   //   for (let key in errors) {
-  //     if(key === 'username' || key === 'password') {
-  //       resetField('username', {keepDirty: false})
-  //       resetField('password', {keepDirty: false, keepError: true})
+  //     if(key === 'username') {
+  //       console.log('yo')
+  //       resetField('username', {keepDirty: true, keepError: true})
+
+  //       // resetField('password', {keepDirty: false, keepError: true})
   //     }
   //   }
   // }, [errors.username, errors.password])
@@ -111,7 +125,7 @@ export default function Signin() {
           sign in
         </h1>
         <form
-          onSubmit={submitData}
+          onSubmit={handleSubmit(submitData)}
           className='flex flex-col items-center gap-4  w-full  '
         >
           <div className='flex flex-col'>
@@ -123,10 +137,11 @@ export default function Signin() {
               type='text'
               name='username'
               id='username'
-              value={username}
-              placeholder={isInvalid ? 'must enter username' : null}
+              // value={username}
+              // placeholder={isInvalid ? 'must enter username' : null}
               autoComplete='off'
-              onChange={(e) => setUsername(e.target.value)}
+              // onChange={(e) => setUsername(e.target.value)}
+              {...register('username')}
             />
             <p>{errors.username?.message || ''}</p>
           </div>
@@ -140,10 +155,11 @@ export default function Signin() {
               type='password'
               name='password'
               id='password'
-              value={password}
-              placeholder={isInvalid ? 'must enter password' : null}
+              // value={password}
+              // placeholder={isInvalid ? 'must enter password' : null}
               autoComplete='off'
-              onChange={(e) => setPassword(e.target.value)}
+              // onChange={(e) => setPassword(e.target.value)}
+              {...register('password')}
             />
             <p>{errors.password?.message || ''}</p>
           </div>
