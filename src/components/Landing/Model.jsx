@@ -5,13 +5,13 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
 /**
- * TODO: figure out a different click-off
  * TODO: render sign-in form
- * TODO: make the sign-in form actually work
  * TODO: clock material bloom
- * TODO: bloom lava lamp
  * TODO: animate zoom
  * TODO: loading screen
+ * TODO: adjust monitor screen mesh/html position
+ * TODO: rework sign-in form
+ * TODO: try out a clear mesh to zoom on shelves
  */
 
 import { useContext } from 'react';
@@ -1434,7 +1434,7 @@ export default function Model(props) {
         <Plane
           args={[1.5, 1.5]}
           rotation={[0, Math.PI / 2, 0]}
-          position={[1.3, -0.04, 0]}
+          position={[1.45, 0, 0]}
         >
           <meshStandardMaterial
             emissive='#aefffc'
@@ -1444,14 +1444,14 @@ export default function Model(props) {
         </Plane>
         <Html
           as='div'
-          center
+          // center
           distanceFactor={1}
-          position={[1.31, -0.04, 0]}
+          position={[1.4501, -0.04, 0]}
           transform={true}
           occlude='blending'
           sprite={false}
           rotation={[0, Math.PI / 2, 0]}
-          scale={[0.45, 0.45, 1]}
+          scale={[0.45, 0.47, 0.01]}
         >
           <DummyPage zoom={zoom} />
         </Html>
