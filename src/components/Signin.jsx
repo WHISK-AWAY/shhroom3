@@ -11,6 +11,7 @@ import { ERRORSTYLE } from '../lib/utils';
 import { BORDERERR } from '../lib/utils.js';
 import { ZoomContext } from './Landing/Landing';
 
+import SignUp from './SignUp';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -19,7 +20,11 @@ const ZSignIn = z.object({
   password: z.string(),
 });
 
-export default function Signin() {
+export default function Signin({
+  setIsFormHidden,
+  isFormHidden,
+  setIsSignUpHidden,
+}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
@@ -61,6 +66,8 @@ export default function Signin() {
   }
 
   // const navigate = useNavigate();
+  const navigate = useNavigate();
+  // const [isSignUpHidden, setIsSignUpHidden] = useState(true);
 
   // console.log('apiurl', API_URL);
 
@@ -88,14 +95,11 @@ export default function Signin() {
         password: data.password,
       });
 
-      console.log('dp', res);
       if (res.data.token) localStorage.setItem('token', res.data.token);
-      // navigate('/lobby');
+      navigate('/lobby');
 
       return res;
     } catch (err) {
-      console.log('err', err);
-
       if (err instanceof AxiosError) {
         if (err.response?.status === 404) {
           resetField('password', { keepDirty: false, keepError: true });
@@ -119,16 +123,11 @@ export default function Signin() {
   };
 
   return (
-    <div
-      className='sign-in-page aspect-square h-screen flex font-press bg-slate-500 text-[#151521]'
-      onClick={zoomClicker}
-    >
+    <div className='sign-in-page w-screen h-screen flex font-press  text-[#151521]'>
       <div className='signin-form flex flex-col w-[50vw] h-[73dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
-        <div
-          className='header-top-rim h-[7dvh] border-[2.8px] border-black  bg-gradient-to-r from-indigo-500 flex flex-col'
-          onClick={exitButton}
-        >
+        <div className='header-top-rim h-[7dvh] border-[2.8px] border-black  bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
+            onClick={() => setIsFormHidden(true)}
             src={x}
             alt='x-icon'
             className='h-[90%] border-2 border-[#151521] self-end m-[.5%] outline-white outline-double'
@@ -187,18 +186,31 @@ export default function Signin() {
             <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
           </div>
           <div className='flex flex-col pt-[5%] '>
-            <button className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-indigo-700 hover:scale-[1.01] transition-all duration-100'>
+            <button className=' bg-blue-500 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-blue-600 hover:scale-[1.01] transition-all duration-100'>
               sign in
             </button>
             <p className='sign-up-redirect pt-[5%] font-vt text-[1.8vw]'>
-              don't have an account? make one{' '}
-              {/* <Link
-                to={'/signup'}
-                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
+              don't have an account? make one {''}
+              {/**
+              <Link
+              to={'/signup'}
+              className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
               >
-                here
-              </Link> */}
+              here
+              </Link>
+              
+            */}
             </p>
+
+            <div
+              className='text-[7vw]'
+              onClick={() => {
+                // setIsFormHidden(true);
+                setIsSignUpHidden(false);
+              }}
+            >
+              here
+            </div>
           </div>
         </form>
       </div>

@@ -97,9 +97,9 @@ export default function SignUp() {
 
 
   return (
-    <div className='sign-up-wrapper  justify-center w-screen h-screen flex font-press bg-slate-500 text-[#151521]'>
+    <div className='sign-up-wrapper  justify-center w-screen h-screen flex font-press text-[#151521]'>
       <div className='flex flex-col w-[50vw] h-[83dvh] mx-auto   self-center bg-[#c0c0c0] border-4'>
-        <div className='header-top-rim h-[7dvh] border-[2.8px] border-[#151521]  bg-gradient-to-r from-indigo-500 flex flex-col '>
+        <div className='header-top-rim h-[7dvh] border-[2.8px] border-[#151521] bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
             src={x}
             alt='x-icon'
@@ -127,7 +127,9 @@ export default function SignUp() {
             <input
               type='text'
               id='username'
-              className={  `${errors.username ? BORDERERR : ''} bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%] w-[30vw]  shadow-inner   outline-double outline-white`}
+              className={`${
+                errors.username ? BORDERERR : ''
+              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%] w-[30vw]  shadow-inner   outline-double outline-white`}
               {...register('username')}
             />
             <p className={ERRORSTYLE}>{errors.username?.message || ''}</p>
@@ -145,7 +147,9 @@ export default function SignUp() {
             <input
               type='password'
               id='password'
-              className={ `${errors.password ? BORDERERR : '' } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
+              className={`${
+                errors.password ? BORDERERR : ''
+              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
               {...register('password')}
             />
             <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
@@ -163,7 +167,9 @@ export default function SignUp() {
             <input
               type='password'
               id='confirm-password'
-              className={ `${errors.confirmPassword ? BORDERERR : ''} bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
+              className={`${
+                errors.confirmPassword ? BORDERERR : ''
+              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
               {...register('confirmPassword')}
             />
             <p className={ERRORSTYLE}>
@@ -174,7 +180,7 @@ export default function SignUp() {
           <div className='flex flex-col pt-[3%]'>
             <button
               type='submit'
-              className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-indigo-700 hover:scale-[1.01] transition-all duration-100'
+              className=' bg-blue-500 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-blue-600 hover:scale-[1.01] transition-all duration-100'
             >
               sign up
             </button>
