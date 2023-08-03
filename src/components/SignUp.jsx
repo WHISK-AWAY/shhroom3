@@ -6,7 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 import x from '/svg/x.svg';
+import { BORDERERR } from '../lib/utils';
+import { ERRORSTYLE } from '../lib/utils';
 
+//  export const ERRORSTYLE='text-[.8vw] text-red-800 flex pt-[.9%] self-center'
 const ZSignUp = z
   .object({
     username: z
@@ -92,7 +95,6 @@ export default function SignUp() {
   }, [errors.username, errors.confirmPassword]);
 
 
-  const errorStyle='text-[.8vw] text-red-800 flex pt-[.9%] self-center'
 
 
   return (
@@ -115,42 +117,57 @@ export default function SignUp() {
           onSubmit={handleSubmit(submitFormData)}
         >
           <div className='flex flex-col'>
-            <label htmlFor='username' className='font-vt text-[2vw]'>
+            <label
+              htmlFor='username'
+              className={`${
+                errors.username ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
               username
             </label>
             <input
               type='text'
               id='username'
-              className=' bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%] w-[30vw]  shadow-inner   outline-double outline-white'
+              className={  `${errors.username ? BORDERERR : ''} bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%] w-[30vw]  shadow-inner   outline-double outline-white`}
               {...register('username')}
             />
-            <p className={errorStyle}>{errors.username?.message || ''}</p>
+            <p className={ERRORSTYLE}>{errors.username?.message || ''}</p>
           </div>
 
           <div className='flex flex-col'>
-            <label htmlFor='password' className='font-vt text-[2vw]'>
+            <label
+              htmlFor='password'
+              className={`${
+                errors.password ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
               password
             </label>
             <input
               type='password'
               id='password'
-              className=' bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white'
+              className={ `${errors.password ? BORDERERR : '' } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
               {...register('password')}
             />
-            <p className={errorStyle}>{errors.password?.message || ''}</p>
+            <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
           </div>
 
           <div className='flex flex-col'>
-            <label htmlFor='confirm-password' className='font-vt text-[2vw]'>
+            <label
+              htmlFor='confirm-password'
+              className={`${
+                errors.confirmPassword ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
               confirm password
             </label>
             <input
               type='password'
               id='confirm-password'
-              className=' bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white'
+              className={ `${errors.confirmPassword ? BORDERERR : ''} bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
               {...register('confirmPassword')}
             />
-            <p className={errorStyle}>
+            <p className={ERRORSTYLE}>
               {errors.confirmPassword?.message || ''}
             </p>
           </div>
@@ -158,7 +175,7 @@ export default function SignUp() {
           <div className='flex flex-col pt-[3%]'>
             <button
               type='submit'
-              className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521]'
+              className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-indigo-700 hover:scale-[1.01] transition-all duration-100'
             >
               sign up
             </button>
@@ -167,7 +184,7 @@ export default function SignUp() {
               already have an account? sign in{' '}
               <Link
                 to={'/signin'}
-                className='underline-offset-2 underline text-indigo-600'
+                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
               >
                 here
               </Link>
