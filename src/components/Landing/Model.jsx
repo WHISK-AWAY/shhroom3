@@ -985,26 +985,25 @@ export default function Model(props) {
         rotation={[-3.02039, -0.15262, -1.70998]}
       >
         <mesh
-          castShadow
-          receiveShadow
+          
           geometry={nodes.Plane001_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
+          
+         
           geometry={nodes.Plane001_2.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
+          
+        
           geometry={nodes.Plane001_3.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
+          
+          
           geometry={nodes.Plane001_4.geometry}
           material={materials.PaletteMaterial002}
         />
