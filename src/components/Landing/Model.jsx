@@ -697,7 +697,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.bedframe.geometry}
         material={materials.Wood}
-        position={[6.69323, 1.56144, -0.76587]}
+        position={[6.69323, 1.53144, -0.76587]}
         rotation={[0, -0.01029, 0]}
       />
       <mesh
@@ -858,8 +858,8 @@ export default function Model(props) {
         scale={0.68262}
       />
       <group
-        position={[5.89286, 1.04272, 1.6781]}
-        rotation={[-1.22332, -0.00711, -2.85383]}
+        position={[5.89286, 1.03172, 1.6781]}
+        rotation={[-1.19132, -0.00911, -2.85383]}
         scale={[-0.0199, -0.02047, -0.02523]}
       >
         <mesh
@@ -923,7 +923,7 @@ export default function Model(props) {
         castShadow
         receiveShadow
         geometry={nodes.bedsideL4.geometry}
-        material={materials['Old Wood']}
+        material={materials.Wood}
         position={[8.00825, 0.88006, -2.4642]}
         rotation={[-2.40743, 1.53593, 2.42855]}
         scale={[0.18318, 0.28376, 0.29094]}
@@ -973,7 +973,6 @@ export default function Model(props) {
           material={materials.PaletteMaterial001}
         />
       </group>
-
       <group
         position={[8.73703, 2.08456, -2.16681]}
         rotation={[Math.PI, -1.38555, -Math.PI / 2]}
@@ -1036,26 +1035,18 @@ export default function Model(props) {
         rotation={[-3.02039, -0.15262, -1.70998]}
       >
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane001_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane001_2.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane001_3.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane001_4.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1309,7 +1300,6 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
       </group>
-
       <group position={[3.47452, 4.83262, 0.14511]} scale={0.08426}>
         {/* //lamp base */}
         <mesh
@@ -1339,7 +1329,6 @@ export default function Model(props) {
           />
         </mesh>
       </group>
-
       <group
         position={[3.53106, 3.04255, 0.00858]}
         rotation={[0, 0.66379, 0]}
@@ -1418,7 +1407,6 @@ export default function Model(props) {
         position={[4.1292, 2.15817, 0.45037]}
         rotation={[Math.PI, -0.00212, Math.PI]}
       />
-
       {/** Computer monitor screen */}
       <mesh
         // castShadow
@@ -1456,7 +1444,6 @@ export default function Model(props) {
           <DummyPage zoom={zoom} />
         </Html>
       </mesh>
-
       <group
         position={[4.34849, 2.42477, 2.02359]}
         rotation={[-3.13739, -0.11547, -3.07637]}
@@ -1650,7 +1637,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.Barbel_3Kg.geometry}
         material={materials.Fabric}
-        position={[8.46874, 0.95661, -0.89506]}
+        position={[8.46874, 0.93661, -0.89506]}
         scale={1.35331}
       />
       <mesh
@@ -1658,7 +1645,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.Barbel_3Kg001.geometry}
         material={materials.Fabric}
-        position={[8.56466, 0.97828, -1.11225]}
+        position={[8.56466, 0.94828, -1.11225]}
         rotation={[0, -0.84164, 0]}
         scale={1.35331}
       />
@@ -1679,6 +1666,7 @@ export default function Model(props) {
         position={[4.03297, 2.40889, 0.51335]}
         scale={2.10668}
       />
+      //stripper lady
       <group
         position={[3.15731, 4.85772, 1.74468]}
         rotation={[0, Math.PI / 2, 0]}
@@ -1689,19 +1677,38 @@ export default function Model(props) {
           receiveShadow
           geometry={nodes.Vert019.geometry}
           material={materials.PaletteMaterial037}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#ff00dd'
+            emissiveIntensity={18}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Vert019_1.geometry}
           material={materials.PaletteMaterial038}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#ff00dd'
+            emissiveIntensity={10}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Vert019_2.geometry}
           material={materials.PaletteMaterial038}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#00ecff'
+            color={'#ff00dd'}
+            emissiveIntensity={10}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
@@ -2157,7 +2164,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.old_brick_01.geometry}
         material={materials['old brick 01']}
-        position={[3.94816, 2.41821, 0.19684]}
+        position={[4.14816, 2.41821, 0.39684]}
         rotation={[0, -0.21626, 0]}
         scale={0.12317}
       />
@@ -2714,16 +2721,19 @@ export default function Model(props) {
           material={materials['bag_metal 1']}
         />
       </group>
+      //green glow shhroom
       <group
         position={[3.62164, 4.25735, -1.1163]}
         rotation={[-0.07961, -0.62025, 0.88003]}
         scale={1.41786}
       >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Circle047.geometry}
-        ></mesh>
+        <mesh castShadow receiveShadow geometry={nodes.Circle047.geometry}>
+          <meshStandardMaterial
+            emissive='#46ff74'
+            emissiveIntensity={6}
+            toneMapped={false}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
@@ -2767,6 +2777,7 @@ export default function Model(props) {
           material={materials.PaletteMaterial018}
         />
       </group>
+      //desk shhroom
       <group
         position={[3.72422, 2.66768, 0.90818]}
         rotation={[-1.14963, -0.22253, 0.32676]}
@@ -2778,10 +2789,41 @@ export default function Model(props) {
           material={materials.PaletteMaterial025}
         >
           <meshStandardMaterial
-            emissive='#fff'
-            emissiveIntensity={10}
+            emissive='#ff0000'
+            emissiveIntensity={8}
             toneMapped={false}
-            // color={'#ff0000'}
+            color={'#ff0000'}
+          />
+        </mesh>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle049_1.geometry}
+          material={materials['Stiel.001']}
+        ></mesh>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle049_2.geometry}
+          material={materials.Lammelleln}
+        ></mesh>
+      </group>
+      //cornder table shhroom
+      <group
+        position={[3.92422, 2.00068, -1.99]}
+        rotation={[-1.54963, -1.99253, 3.42676]}
+      >
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle049.geometry}
+          material={materials.PaletteMaterial025}
+        >
+          <meshStandardMaterial
+            emissive='#ff0000'
+            emissiveIntensity={8}
+            toneMapped={false}
+            color={'#ff0000'}
           />
         </mesh>
         <mesh
@@ -2911,12 +2953,20 @@ export default function Model(props) {
         scale={[1.39397, 1, 1]}
       />
       <group position={[3.43748, 5.00924, -1.86565]}>
+        //bookshelf shroom hat
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.BezierCurve.geometry}
           material={materials.PaletteMaterial028}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#ff0000'
+            emissiveIntensity={8}
+            toneMapped={false}
+            color={'#ff0000'}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow

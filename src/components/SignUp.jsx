@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
+import x from '/svg/x.svg';
+import { BORDERERR } from '../lib/utils';
+import { ERRORSTYLE } from '../lib/utils';
 
 const ZSignUp = z
   .object({
@@ -56,7 +59,6 @@ export default function SignUp() {
     if (!data) return;
 
     try {
-    
       const { data: dataPayload } = await axios.post(
         `${VITE_API_URL}/api/user`,
         data,
@@ -67,11 +69,12 @@ export default function SignUp() {
 
       return dataPayload;
     } catch (err) {
-
-      if(err.response.status === 409) {
-
-        resetField('username', {keepDirty: false, keepError: true} )
-        setError('username', {type: 'custom', message: 'this username already exists'})
+      if (err.response.status === 409) {
+        resetField('username', { keepDirty: false, keepError: true });
+        setError('username', {
+          type: 'custom',
+          message: 'this username already exists',
+        });
       }
       if (err instanceof AxiosError) {
         throw new Error(err);
@@ -90,42 +93,104 @@ export default function SignUp() {
     }
   }, [errors.username, errors.confirmPassword]);
 
+
+
+
   return (
-    <div className='sign-up-wrapper flex justify-center pt-20'>
-      <form
-        action='submit'
-        className='flex flex-col items-center'
-        onSubmit={handleSubmit(submitFormData)}
-      >
-        <label htmlFor='username'>username</label>
-        <input
-          type='text'
-          id='username'
-          className='text-black'
-          {...register('username')}
-        />
-        <p>{errors.username?.message || ''}</p>
+    <div className='sign-up-wrapper  justify-center w-screen h-screen flex font-press bg-slate-500 text-[#151521]'>
+      <div className='flex flex-col w-[50vw] h-[83dvh] mx-auto   self-center bg-[#c0c0c0] border-4'>
+        <div className='header-top-rim h-[7dvh] border-[2.8px] border-[#151521]  bg-gradient-to-r from-indigo-500 flex flex-col '>
+          <img
+            src={x}
+            alt='x-icon'
+            className='h-[90%] border-2 border-[#151521] self-end m-[.5%] outline-white outline-double'
+          />
+        </div>
+        <h1 className=' text-[3vw] flex justify-center uppercase pt-[9%] pb-[1%]'>
+          sign up
+        </h1>
 
-        <label htmlFor='password'>password</label>
-        <input
-          type='password'
-          id='password'
-          className='text-black'
-          {...register('password')}
-        />
-        <p>{errors.password?.message || ''}</p>
+        <form
+          action='submit'
+          className='flex flex-col items-center gap-4  w-full'
+          onSubmit={handleSubmit(submitFormData)}
+        >
+          <div className='flex flex-col'>
+            <label
+              htmlFor='username'
+              className={`${
+                errors.username ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
+              username
+            </label>
+            <input
+              type='text'
+              id='username'
+              className={  `${errors.username ? BORDERERR : ''} bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%] w-[30vw]  shadow-inner   outline-double outline-white`}
+              {...register('username')}
+            />
+            <p className={ERRORSTYLE}>{errors.username?.message || ''}</p>
+          </div>
 
-        <label htmlFor='confirm-password'>confirm password</label>
-        <input
-          type='password'
-          id='confirm-password'
-          className='text-black'
-          {...register('confirmPassword')}
-        />
-        {errors.confirmPassword?.message || ''}
+          <div className='flex flex-col'>
+            <label
+              htmlFor='password'
+              className={`${
+                errors.password ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
+              password
+            </label>
+            <input
+              type='password'
+              id='password'
+              className={ `${errors.password ? BORDERERR : '' } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
+              {...register('password')}
+            />
+            <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
+          </div>
 
-        <button type='submit'>sign up</button>
-      </form>
+          <div className='flex flex-col'>
+            <label
+              htmlFor='confirm-password'
+              className={`${
+                errors.confirmPassword ? 'text-red-800' : ''
+              } font-vt text-[2vw]`}
+            >
+              confirm password
+            </label>
+            <input
+              type='password'
+              id='confirm-password'
+              className={ `${errors.confirmPassword ? BORDERERR : ''} bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
+              {...register('confirmPassword')}
+            />
+            <p className={ERRORSTYLE}>
+              {errors.confirmPassword?.message || ''}
+            </p>
+          </div>
+
+          <div className='flex flex-col pt-[3%]'>
+            <button
+              type='submit'
+              className=' bg-indigo-600 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-indigo-700 hover:scale-[1.01] transition-all duration-100'
+            >
+              sign up
+            </button>
+            <p className='sign-in-redirect font-vt text-[1.8vw] pt-[5%]'>
+              {' '}
+              already have an account? sign in{' '}
+              <Link
+                to={'/signin'}
+                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
+              >
+                here
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

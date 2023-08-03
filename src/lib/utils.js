@@ -15,3 +15,8 @@ export default async function verifyToken() {
 
   return data;
 }
+
+export const BORDERERR =
+  'border-dashed border-red-800 ouline-double outline-4 outline-red-800 text-red-800 shadow-[inset_1px_1px_4px_4px_rgba(119,35,35,0.5)]';
+
+export const ERRORSTYLE = 'text-[.8vw] text-red-800 flex pt-[.9%] self-center';

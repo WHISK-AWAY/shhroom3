@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Babylonica&family=Tilt+Prism&family=Zeyada&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gloock&family=Righteous&family=Tilt+Neon&family=Tilt+Prism&family=Zeyada&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Aladin&family=Babylonica&family=Cookie&family=Gloria+Hallelujah&family=Lilita+One&family=Lobster&family=Marck+Script&family=Pacifico&family=Permanent+Marker&family=Sacramento&family=Satisfy&family=Sofia&family=Special+Elite&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@100;200;300;400;500;600;700&family=VT323&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
