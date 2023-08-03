@@ -7,6 +7,8 @@ import {
   Signin,
   SignUp,
   Landing,
+  Screensaver,
+  LoadingScreen
 } from './components';
 import { io } from 'socket.io-client';
 
@@ -21,6 +23,8 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/landing' element={<Landing />} />
+        <Route path='/loading' element={<LoadingScreen />} />
+        <Route path='/screensaver' element={<Screensaver/>}/>
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/room' element={<Room socket={socket} />} />
