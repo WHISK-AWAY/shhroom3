@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, useContext } from 'react';
+import { useState, useRef, useMemo, useContext } from 'react';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useControls } from 'leva';
 import { Vector3 } from 'three';

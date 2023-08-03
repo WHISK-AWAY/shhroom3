@@ -1,6 +1,5 @@
 import { Suspense, createContext, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Perf } from 'r3f-perf';
 import Scene from './Scene';
 
 const initialContext = {

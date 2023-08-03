@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import { AdaptiveDpr, BakeShadows, Preload } from '@react-three/drei';
 import { Perf } from 'r3f-perf';
@@ -20,30 +20,12 @@ export default function Scene() {
   // Render 3d text signs
   font();
 
-  function zoomTo(zoomTarget, targetLabel) {
-    console.log('zoomto pos:', zoomTarget);
-    if (position.zoomMode === true) {
-      setPosition((prev) => ({
-        zoomMode: false,
-        returnPosition: camera.position,
-        focus: null,
-      }));
-    } else {
-      setPosition((prev) => ({
-        zoomMode: true,
-        returnPosition: prev.returnPosition,
-        focus: zoomTarget,
-        focusLabel: targetLabel,
-      }));
-    }
-  }
-
   return (
     <>
       <Suspense fallback={null}>
         <Lights />
         <ControlledCamera position={position} />
-        <Model zoomTo={zoomTo} />
+        <Model />
         <BakeShadows />
         <AdaptiveDpr />
         <SceneEffects />

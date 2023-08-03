@@ -7,9 +7,6 @@ export default function DummyPage({ zoom }) {
     () => new Vector3(3.54909, 3.20587, 2.15376),
   );
 
-  // const zoom = useContext(ZoomContext);
-  console.log('zoooooom', zoom);
-
   return (
     <div className='bg-slate-800 h-screen aspect-square'>
       <div

@@ -24,8 +24,6 @@ export default function Model(props) {
 
   const zoom = useContext(ZoomContext);
 
-  console.log(zoom);
-
   /**
    * ZoomContext: {
    *  zoomMode: boolean;
@@ -47,8 +45,6 @@ export default function Model(props) {
     } else {
       // otherwise, populate zoom state with target info
       const targetPosition = e.object.position;
-      console.log(targetPosition);
-      console.log(targetLabel);
       zoom.setZoom((prev) => ({
         ...prev,
         zoomMode: true,
