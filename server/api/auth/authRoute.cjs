@@ -8,22 +8,18 @@ router.post('/', async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
-    console.log('unaem', req.body)
-
-    const usernameCheck= await User.findOne({ where: { username:username}});
+    const usernameCheck = await User.findOne({ where: { username: username } });
     if (!usernameCheck || usernameCheck === null) {
-
-      
-      console.log('use4rCherck', usernameCheck)
-      return res.status(404).send({ message: 'given username does not exist in the database' });
+      return res
+        .status(404)
+        .send({ message: 'given username does not exist in the database' });
     }
 
+    const authCheck = await User.authenticate({ username, password });
 
-      const authCheck = await User.authenticate({ username, password });
-
-      if(!authCheck) {
-       return res.status(401).send({message: 'invalid credentials'});
-      }
+    if (!authCheck) {
+      return res.status(401).send({ message: 'invalid credentials' });
+    }
     res.status(200).json({ token: authCheck });
   } catch (err) {
     next(err);
