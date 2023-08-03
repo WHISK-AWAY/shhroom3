@@ -17,12 +17,12 @@ const ZSignIn = z.object({
   password: z.string(),
 });
 
-export default function Signin({ setIsFormHidden, isFormHidden }) {
+export default function Signin({ setIsFormHidden, isFormHidden, setIsSignUpHidden }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
   const navigate = useNavigate();
-  const [isSignUpHidden, setIsSignUpHidden] = useState(true);
+  // const [isSignUpHidden, setIsSignUpHidden] = useState(true);
 
   // console.log('apiurl', API_URL);
 
@@ -156,21 +156,16 @@ export default function Signin({ setIsFormHidden, isFormHidden }) {
               
             */}
             </p>
-            
+
             <div
               className='text-[7vw]'
               onClick={() => {
-                setIsFormHidden(true);
+                // setIsFormHidden(true);
                 setIsSignUpHidden(false);
               }}
             >
               here
             </div>
-            {isSignUpHidden && !isFormHidden && (
-              <>
-              <SignUp />
-              </>
-              )}
           </div>
         </form>
       </div>
