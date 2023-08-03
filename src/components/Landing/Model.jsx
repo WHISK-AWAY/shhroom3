@@ -4,11 +4,25 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
-import { useGLTF } from '@react-three/drei';
+/**
+ * TODO: figure out a different click-off
+ * TODO: render sign-in form
+ * TODO: make the sign-in form actually work
+ * TODO: clock material bloom
+ * TODO: bloom lava lamp
+ * TODO: animate zoom
+ * TODO: loading screen
+ */
+
+import { useState } from 'react';
+import { Html, Plane, useGLTF } from '@react-three/drei';
+import DummyPage from '../DummyPage';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoomTo = props.zoomTo;
+  const [zoomMode, setZoomMode] = useState(false);
+
   return (
     <group {...props} dispose={null}>
       {/* <pointLight intensity={54.35141} decay={2} color="#ffb073" position={[3.80788, 2.45666, 1.36174]} rotation={[0, -1.38121, -Math.PI / 2]} scale={1.70216} />
@@ -1372,32 +1386,47 @@ export default function Model(props) {
         position={[4.1292, 2.15817, 0.45037]}
         rotation={[Math.PI, -0.00212, Math.PI]}
       />
+
       {/** Computer monitor screen */}
-      {/**
-       * TODO: figure out a different click-off
-       * TODO: render sign-in form
-       * TODO: make the sign-in form actually work
-       * TODO: fix the evil sticker (decal?)
-       * TODO: clock material bloom
-       * TODO: lose the effects composer sparks
-       * TODO: bloom lava lamp
-       * TODO: animate zoom
-       * TODO: loading screen
-       */}
       <mesh
         // castShadow
         // receiveShadow
-        geometry={nodes.Cube017.geometry}
+        // geometry={nodes.Cube017.geometry}
         position={[3.54909, 3.20587, 2.15376]}
         rotation={[0, 0.60667, 0]}
         scale={[0.36907, 0.41434, 0.5585]}
-        onClick={(e) => zoomTo(e.object.position, 'monitor')}
+        // onClick={(e) => {
+        //   zoomTo(e.object.position, 'monitor');
+        // }}
       >
-        <meshStandardMaterial
-          emissive='#aefffc'
-          emissiveIntensity={2}
-          toneMapped={false}
-        />
+        <Plane
+          args={[1.5, 1.5]}
+          rotation={[0, Math.PI / 2, 0]}
+          position={[1.3, -0.04, 0]}
+        >
+          <meshStandardMaterial
+            emissive='#aefffc'
+            emissiveIntensity={2}
+            toneMapped={false}
+          />
+        </Plane>
+        <Html
+          as='div'
+          center
+          distanceFactor={1}
+          position={[1.31, -0.04, 0]}
+          transform={true}
+          occlude='blending'
+          sprite={false}
+          rotation={[0, Math.PI / 2, 0]}
+          scale={[0.45, 0.45, 1]}
+        >
+          <DummyPage
+            setZoomMode={setZoomMode}
+            zoomMode={zoomMode}
+            zoomTo={zoomTo}
+          />
+        </Html>
       </mesh>
 
       <group

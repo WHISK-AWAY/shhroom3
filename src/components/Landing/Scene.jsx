@@ -21,6 +21,7 @@ export default function Scene() {
   font();
 
   function zoomTo(zoomTarget, targetLabel) {
+    console.log('zoomto pos:', zoomTarget);
     if (position.zoomMode === true) {
       setPosition((prev) => ({
         zoomMode: false,

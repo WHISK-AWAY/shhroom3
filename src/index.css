@@ -6,3 +6,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.clip-monitor {
+  clip-path: polygon(
+    3% 3%,
+    29% 0,
+    71% 0,
+    97% 3%,
+    100% 29%,
+    100% 71%,
+    100% 97%,
+    71% 100%,
+    29% 100%,
+    3% 97%,
+    0 71%,
+    0 29%
+  );
+}

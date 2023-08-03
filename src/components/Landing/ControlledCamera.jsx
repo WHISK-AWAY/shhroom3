@@ -150,13 +150,13 @@ export default function ControlledCamera({ position }) {
         minDistance={minDistance}
         maxDistance={maxDistance}
         target={position.zoomMode ? position.focus : [0, 2, 0]}
-        onChange={() => {
-          console.log('position package:', {
-            position: `new Vector3(${camera.current.position.x}, ${camera.current.position.y}, ${camera.current.position.z})`,
-            azimuth: controls.current.getAzimuthalAngle(),
-            polar: controls.current.getPolarAngle(),
-          });
-        }}
+        // onChange={() => {
+        //   console.log('position package:', {
+        //     position: `new Vector3(${camera.current.position.x}, ${camera.current.position.y}, ${camera.current.position.z})`,
+        //     azimuth: controls.current.getAzimuthalAngle(),
+        //     polar: controls.current.getPolarAngle(),
+        //   });
+        // }}
       />
     </>
   );
