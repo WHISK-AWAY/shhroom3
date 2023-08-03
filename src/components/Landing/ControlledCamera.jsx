@@ -172,13 +172,13 @@ export default function ControlledCamera() {
     console.log('controls:', controls.current);
   });
 
-  useEffect(() => {
-    if (zoom.zoomMode) {
-      controls.current.saveState();
-    } else {
-      controls.current.reset();
-    }
-  }, [zoom.zoomMode]);
+  // useEffect(() => {
+  //   if (zoom.zoomMode) {
+  //     controls.current.saveState();
+  //   } else {
+  //     controls.current.reset();
+  //   }
+  // }, [zoom.zoomMode]);
 
   // useEffect(() => {
   //   if (zoom.zoomMode && zoom.targetLabel === 'monitor') {
@@ -222,7 +222,7 @@ export default function ControlledCamera() {
         maxPolarAngle={maxPolarAngle}
         minDistance={minDistance}
         maxDistance={maxDistance}
-        target={target}
+        target={zoom.zoomMode ? zoom.targetPosition : [0, 2, 0]}
         // target={zoom.targetPosition || [0, 2, 0]}
         // onChange={() => {
         //   console.log('position package:', {
