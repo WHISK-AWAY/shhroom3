@@ -872,7 +872,7 @@ export default function Model(props) {
         castShadow
         receiveShadow
         geometry={nodes.bedsideL4.geometry}
-        material={materials['Old Wood']}
+        material={materials.Wood}
         position={[8.00825, 0.88006, -2.4642]}
         rotation={[-2.40743, 1.53593, 2.42855]}
         scale={[0.18318, 0.28376, 0.29094]}
