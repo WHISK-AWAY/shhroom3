@@ -10,7 +10,6 @@ import { ERRORSTYLE } from '../lib/utils';
 import { BORDERERR } from '../lib/utils.js';
 
 const API_URL = import.meta.env.VITE_API_URL;
-// const BORDERERR='border-dashed border-red-800 ouline-double outline-4 outline-red-800 text-red-800 shadow-[inset_1px_1px_4px_4px_rgba(119,35,35,0.6)]'
 
 const ZSignIn = z.object({
   username: z.string(),
@@ -38,25 +37,7 @@ export default function Signin() {
       password: '',
      
     },
-    // mode: 'onSubmit',
   });
-
-  // const submitData = async (e) => {
-  //   e.preventDefault();
-  //   const { data } = await axios.post(API_URL + '/api/auth', {
-  //     username,
-  //     password,
-  //   });
-  //   window.localStorage.setItem('token', data.token);
-  //   setPassword('');
-  //   if (!data.token) {
-  //     setIsInvalid(true);
-  //   } else {
-  //     setUsername('');
-  //     setIsInvalid(false);
-  //     navigate('/lobby');
-  //   }
-  // };
 
   const submitData = async (data, e) => {
     e?.preventDefault();
@@ -80,7 +61,6 @@ export default function Signin() {
 
       if (err instanceof AxiosError) {
              if (err.response?.status === 404) {
-              // console.log('hi')
                resetField('password', { keepDirty: false, keepError: true });
                setError('username', {
                  type: 'custom',
@@ -95,7 +75,6 @@ export default function Signin() {
                 message: 'password is incorrect'
               })
              }
-        // throw new Error(err);
       } else {
         console.error(err);
       }
@@ -139,10 +118,8 @@ export default function Signin() {
               type='text'
               name='username'
               id='username'
-              // value={username}
-              // placeholder={isInvalid ? 'must enter username' : null}
+             
               autoComplete='off'
-              // onChange={(e) => setUsername(e.target.value)}
               {...register('username')}
             />
 
@@ -165,10 +142,7 @@ export default function Signin() {
               type='password'
               name='password'
               id='password'
-              // value={password}
-              // placeholder={isInvalid ? 'must enter password' : null}
               autoComplete='off'
-              // onChange={(e) => setPassword(e.target.value)}
               {...register('password')}
             />
             <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>

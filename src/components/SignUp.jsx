@@ -9,7 +9,6 @@ import x from '/svg/x.svg';
 import { BORDERERR } from '../lib/utils';
 import { ERRORSTYLE } from '../lib/utils';
 
-//  export const ERRORSTYLE='text-[.8vw] text-red-800 flex pt-[.9%] self-center'
 const ZSignUp = z
   .object({
     username: z
