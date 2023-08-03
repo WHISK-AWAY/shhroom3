@@ -2707,6 +2707,9 @@ export default function Model(props) {
           material={materials.PaletteMaterial018}
         />
       </group>
+
+
+      //desk shhroom
       <group
         position={[3.72422, 2.66768, 0.90818]}
         rotation={[-1.14963, -0.22253, 0.32676]}
@@ -2851,12 +2854,20 @@ export default function Model(props) {
         scale={[1.39397, 1, 1]}
       />
       <group position={[3.43748, 5.00924, -1.86565]}>
+        //bookshelf shroom hat
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.BezierCurve.geometry}
           material={materials.PaletteMaterial028}
-        />
+        >
+          <meshStandardMaterial
+            emissive='#ff0000'
+            emissiveIntensity={8}
+            toneMapped={false}
+            color={'#ff0000'}
+          />
+        </mesh>
         <mesh
           castShadow
           receiveShadow
