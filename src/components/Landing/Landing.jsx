@@ -25,6 +25,10 @@ export default function Landing() {
     setZoom((prev) => ({ ...prev, setZoom }));
   }, []);
 
+  useEffect(() => {
+    console.log('zoom context:', zoom);
+  }, [zoom]);
+
   return (
     <ZoomContext.Provider value={zoom}>
       <div className='h-screen w-screen'>

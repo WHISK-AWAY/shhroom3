@@ -1437,7 +1437,7 @@ export default function Model(props) {
           distanceFactor={1}
           position={[1.4501, -0.04, 0]}
           transform={true}
-          occlude='blending'
+          occlude='raycast'
           sprite={false}
           rotation={[0, Math.PI / 2, 0]}
           scale={[0.45, 0.47, 0.01]}

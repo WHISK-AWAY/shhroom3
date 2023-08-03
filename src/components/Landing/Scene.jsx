@@ -13,15 +13,17 @@ export default function Scene() {
   font();
 
   return (
-    <Suspense fallback={null}>
-      <Lights />
-      <ControlledCamera />
-      <Model />
-      <BakeShadows />
-      <AdaptiveDpr />
-      <SceneEffects />
-      <Perf position='top-left' />
+    <>
+      <Suspense fallback={null}>
+        <Lights />
+        <ControlledCamera />
+        <Model />
+        <BakeShadows />
+        <AdaptiveDpr />
+        <SceneEffects />
+        <Perf position='top-left' />
+      </Suspense>
       <Preload all={true} />
-    </Suspense>
+    </>
   );
 }
