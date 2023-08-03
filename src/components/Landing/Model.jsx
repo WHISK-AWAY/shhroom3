@@ -1590,7 +1590,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.Barbel_3Kg.geometry}
         material={materials.Fabric}
-        position={[8.46874, 0.95661, -0.89506]}
+        position={[8.46874, 0.93661, -0.89506]}
         scale={1.35331}
       />
       <mesh
@@ -1598,7 +1598,7 @@ export default function Model(props) {
         receiveShadow
         geometry={nodes.Barbel_3Kg001.geometry}
         material={materials.Fabric}
-        position={[8.56466, 0.97828, -1.11225]}
+        position={[8.56466, 0.94828, -1.11225]}
         rotation={[0, -0.84164, 0]}
         scale={1.35331}
       />
