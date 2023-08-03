@@ -1,11 +1,13 @@
-import screensaver from '/bg/screen_saver.jpg'
+import screensaver from '/bg/screen_saver.jpg';
 import compIcon from '/svg/computerIcon.svg';
 import Signin from './Signin';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SignUp from './SignUp';
 
 export default function Screensaver() {
   const [isFormHidden, setIsFormHidden] = useState(true);
+  const [isSignUpHidden, setIsSignUpHidden] = useState(true);
   return (
     <div className='bg-[#5DC0EA] text-[#151521]'>
       <div
@@ -19,14 +21,20 @@ export default function Screensaver() {
             alt='old computer screen icon'
             className='h-[12%] w-[12%] drop-shadow-xl  '
           />
+
           <div className='absolute top-0 -right-[5%] scale-90'>
-            {!isFormHidden && (
-              <Signin
-                setIsFormHidden={setIsFormHidden}
-                isFormHidden={isFormHidden}
-              />
-            )}
+            {!isFormHidden &&
+              (isSignUpHidden ? (
+                <Signin
+                  setIsFormHidden={setIsFormHidden}
+                  isFormHidden={isFormHidden}
+                  setIsSignUpHidden={setIsSignUpHidden}
+                />
+              ) : (
+                <SignUp />
+              ))}
           </div>
+
           <p className='font-vt text-[1.5vw] pt-[1%] relative translate-x-[5%]'>
             sign_in/sign_up
           </p>
