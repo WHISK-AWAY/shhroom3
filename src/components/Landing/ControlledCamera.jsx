@@ -68,7 +68,6 @@ positionType = {
 `;
 
 export default function ControlledCamera() {
-  // const initPosition = useMemo(() => new Vector3(12.9, 3.5, 0.9), []);
   const initPosition = useMemo(
     () => new Vector3(10.16071, 3.55448, 3.91621),
     [],
@@ -131,6 +130,7 @@ export default function ControlledCamera() {
    *  zoomMode: boolean;
    *  targetPosition: Vector3;
    *  targetLabel: string;
+   *  controlsEnabled: boolean;
    *  setZoom: state setter;
    * }
    */
@@ -149,7 +149,7 @@ export default function ControlledCamera() {
       <OrbitControls
         // object={camera.current}
         ref={controls}
-        enabled={controlsEnabled}
+        enabled={zoom.controlsEnabled || true}
         makeDefault={true}
         enableDamping={enableDamping}
         minAzimuthAngle={minAzimuthAngle}

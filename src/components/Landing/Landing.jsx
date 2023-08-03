@@ -7,15 +7,22 @@ const initialContext = {
   targetPosition: null,
   targetLabel: null,
   setZoom: null,
+  controlsEnabled: true,
 };
 
 export const ZoomContext = createContext(initialContext);
+
+/**
+ * After lunch:
+ * Create controls context (or augment existing one since it's related)
+ * Optionally disable controls upon zoom (for certain items, like the computer screen)
+ */
 
 export default function Landing() {
   const [zoom, setZoom] = useState(initialContext);
 
   useEffect(() => {
-    setZoom({ ...zoom, setZoom });
+    setZoom((prev) => ({ ...prev, setZoom }));
   }, []);
 
   return (
@@ -26,8 +33,6 @@ export default function Landing() {
             frameloop='demand'
             shadows={'soft'}
             linear={false}
-            // camera={cam}
-            // camera={{ position: [10, 3, 8], far: 50, fov: 70 }}
             gl={{
               powerPreference: 'high-performance',
               alpha: false,
