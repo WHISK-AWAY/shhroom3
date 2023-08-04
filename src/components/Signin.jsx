@@ -27,22 +27,9 @@ export default function Signin({
     () => new Vector3(3.54909, 3.20587, 2.15376),
   );
 
-  const zoom = useContext(ZoomContext);
 
-  function zoomClicker(e) {
-    // if we're already zoomed in, don't do anything
-    if (zoom.zoomMode) {
-      e.stopPropagation();
-    } else {
-      zoom.setZoom((prev) => ({
-        ...prev,
-        targetPosition: monitorZoomPosition,
-        targetLabel: 'monitor',
-        zoomMode: true,
-        controlsEnabled: false,
-      }));
-    }
-  }
+
+
 
   function exitButton(e) {
     if (zoom.zoomMode) {
