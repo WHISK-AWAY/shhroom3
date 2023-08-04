@@ -1,6 +1,7 @@
 import { Suspense, createContext, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Scene from './Scene';
+import LoadingScreen from '../LoadingScreen';
 
 const initialContext = {
   zoomMode: false,
@@ -30,9 +31,9 @@ export default function Landing() {
   }, [zoom]);
 
   return (
-    <ZoomContext.Provider value={zoom}>
-      <div className='h-screen w-screen'>
-        <Suspense fallback={<h1>Loading canvas...</h1>}>
+    <Suspense fallback={<LoadingScreen />}>
+      <ZoomContext.Provider value={zoom}>
+        <div className='h-screen w-screen'>
           <Canvas
             frameloop='demand'
             shadows={'soft'}
@@ -46,14 +47,14 @@ export default function Landing() {
             }}
           >
             <color attach='background' args={['#0e0e0e']} />
-            <Suspense fallback={null}>
-              {/* <PerspectiveCamera makeDefault={true} position={[x, y, z]} /> */}
+            {/* <Suspense fallback={null}> */}
+            {/* <PerspectiveCamera makeDefault={true} position={[x, y, z]} /> */}
 
-              <Scene />
-            </Suspense>
+            <Scene />
+            {/* </Suspense> */}
           </Canvas>
-        </Suspense>
-      </div>
-    </ZoomContext.Provider>
+        </div>
+      </ZoomContext.Provider>
+    </Suspense>
   );
 }

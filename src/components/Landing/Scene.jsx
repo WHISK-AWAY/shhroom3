@@ -1,5 +1,3 @@
-import { Suspense, useState } from 'react';
-import { useThree } from '@react-three/fiber';
 import { AdaptiveDpr, BakeShadows, Preload } from '@react-three/drei';
 import { Perf } from 'r3f-perf';
 import Lights from './Lights/Lights';
@@ -14,15 +12,13 @@ export default function Scene() {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <Lights />
-        <ControlledCamera />
-        <Model />
-        <BakeShadows />
-        <AdaptiveDpr />
-        <SceneEffects />
-        <Perf position='top-left' />
-      </Suspense>
+      <Lights />
+      <ControlledCamera />
+      <Model />
+      <BakeShadows />
+      <AdaptiveDpr />
+      <SceneEffects />
+      <Perf position='top-left' />
       <Preload all={true} />
     </>
   );

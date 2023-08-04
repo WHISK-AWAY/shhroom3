@@ -7,9 +7,9 @@ import { ZoomContext } from './Landing';
 const objectPositions = {
   monitor: {
     position: new Vector3(
-      4.662861799014388,
-      3.217627551879577,
-      1.403076791998954,
+      4.698239424611961,
+      3.187951515813853,
+      1.3237225403016146,
     ),
     angle: {
       azimuth: 2.1638593117057345,
@@ -211,7 +211,6 @@ export default function ControlledCamera() {
       />
       <OrbitControls
         ref={controls}
-        // object={camera.current}
         // enabled={zoom.controlsEnabled}
         makeDefault={true}
         zoomToCursor={true}
@@ -223,7 +222,6 @@ export default function ControlledCamera() {
         minDistance={minDistance}
         maxDistance={maxDistance}
         target={zoom.zoomMode ? zoom.targetPosition : [0, 2, 0]}
-        // target={zoom.targetPosition || [0, 2, 0]}
         // onChange={() => {
         //   console.log('position package:', {
         //     position: `new Vector3(${camera.current.position.x}, ${camera.current.position.y}, ${camera.current.position.z})`,
