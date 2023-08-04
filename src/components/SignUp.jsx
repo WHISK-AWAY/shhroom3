@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
@@ -36,7 +35,6 @@ const ZSignUp = z
   });
 
 export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
-  const navigate = useNavigate();
 
   const {
     register,
@@ -64,7 +62,6 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
       );
 
       if (dataPayload.token) localStorage.setItem('token', dataPayload.token);
-      navigate('/lobby');
 
       return dataPayload;
     } catch (err) {
@@ -94,7 +91,7 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
 
   return (
     <div className='sign-up-wrapper  justify-center w-screen h-screen flex font-press text-[#151521]'>
-      <div className='flex flex-col w-[50vw] h-[83dvh] mx-auto   self-center bg-[#c0c0c0] border-4'>
+      <div className='flex flex-col w-[50vw] h-[95dvh] mx-auto   self-center bg-[#c0c0c0] border-4'>
         <div className='header-top-rim h-[7dvh] border-[2.8px] border-[#151521] bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
           onClick={() => {setIsSignUpHidden(true); setIsFormHidden(true)}}
