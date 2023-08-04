@@ -4,17 +4,49 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
+import { useContext } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { Plane } from '@react-three/drei';
 
+import { ZoomContext } from './Landing';
+
+/**
+ * TODO: render sign-in form
+ * TODO: figure out clock material
+ * TODO: rebuild zoom click here
+ * TODO: loading screen
+ * TODO: adjust monitor screen mesh/html position
+ * TODO: rework sign-in form
+ * TODO: try out a clear mesh to zoom on shelves
+ */
+
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
-  const zoomTo = props.zoomTo;
+  const zoom = useContext(ZoomContext);
+
+  function zoomToClick(targetPosition, targetLabel) {
+    // if zoom mode is already true, re-initialize zoom state
+    if (zoom.zoomMode) {
+      zoom.setZoom((prev) => ({
+        ...prev,
+        zoomMode: false,
+        targetLabel: null,
+        targetPosition: null,
+      }));
+    } else {
+      // otherwise, populate zoom state with target info
+      // const targetPosition = e.object.position;
+      zoom.setZoom((prev) => ({
+        ...prev,
+        zoomMode: true,
+        targetPosition,
+        targetLabel,
+      }));
+    }
+  }
 
   return (
     <group {...props} dispose={null}>
-      {/* <pointLight intensity={54.35141} decay={2} color="#ffb073" position={[3.80788, 2.45666, 1.36174]} rotation={[0, -1.38121, -Math.PI / 2]} scale={1.70216} />
-      <pointLight intensity={1630.54239} decay={2} color="#b4b4ff" position={[8.11863, 2.31745, -2.34916]} rotation={[-Math.PI / 2, 0, 0]} scale={0.73403} /> */}
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
@@ -646,7 +678,6 @@ export default function Model(props) {
         position={[7.71108, 3.65457, -2.58681]}
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
-        // onClick={(e) => zoomTo(e.object.position, 'newMeeting')}
         onClick={(e) => zoomToClick(e.object.position, 'newMeeting')}
       />
       <mesh
