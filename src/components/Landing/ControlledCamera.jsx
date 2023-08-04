@@ -61,6 +61,17 @@ const objectPositions = {
       polar: 1.0750597335310477,
     },
   },
+  shelves: {
+    position: new Vector3(
+      6.473615611674839,
+      4.678454382392811,
+      -0.8232107616752935,
+    ),
+    angle: {
+      azimuth: 1.529334831594238,
+      polar: 1.5414218840606617,
+    },
+  },
 };
 
 `
@@ -215,6 +226,8 @@ export default function ControlledCamera() {
         // Press Space to log out the camera & controls state
         console.log('Camera:', camera.current);
         console.log('Controls:', controls.current);
+        console.log('Azimuthal angle:', controls.current.getAzimuthalAngle());
+        console.log('Polar angle:', controls.current.getPolarAngle());
         console.log('ZoomContext:', zoom);
       }
     }

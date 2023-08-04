@@ -49,6 +49,15 @@ export default function Model(props) {
 
   return (
     <group {...props} dispose={null}>
+      {/* transparent shelves clickable */}
+      <Plane
+        args={[3, 2]}
+        position={[3.77557687977128, 4.7619201959068125, -1.16413008503420795]}
+        rotation={[0, Math.PI / 2, 0]}
+        onClick={(e) => zoomToClick(e.object.position, 'shelves')}
+      >
+        <meshStandardMaterial transparent opacity={0} />
+      </Plane>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
