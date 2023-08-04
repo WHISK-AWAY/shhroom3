@@ -10,7 +10,6 @@ import { ERRORSTYLE } from '../lib/utils';
 import { BORDERERR } from '../lib/utils.js';
 import { ZoomContext } from './Landing/Landing';
 
-import SignUp from './SignUp';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -85,6 +84,15 @@ export default function Signin({
       });
 
       if (res.data.token) localStorage.setItem('token', res.data.token);
+
+      zoom.setZoom((prev) => ({
+        ...prev,
+        isUserSigned: true,
+        targetPosition: null,
+        targetLabel: null,
+        zoomMode: false,
+        controlsEnabled: true,
+      }));
    
 
       return res;
