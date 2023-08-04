@@ -6,9 +6,11 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 
 import { useContext } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { Plane } from '@react-three/drei';
+import { Plane, Html } from '@react-three/drei';
+import * as THREE from 'three';
 
 import { ZoomContext } from './Landing';
+import Signin from '../Signin';
 
 /**
  * TODO: render sign-in form
@@ -971,11 +973,17 @@ export default function Model(props) {
           // receiveShadow
           geometry={nodes.Plane063.geometry}
           material={materials.PaletteMaterial002}
-        />
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //clock body */}
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Plane063_1.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -991,29 +999,50 @@ export default function Model(props) {
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_3.geometry}
-          material={materials.PaletteMaterial004}
-        ></mesh>
+          // material={materials.PaletteMaterial004}
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={4}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //unfilled left side */}
-        <mesh
-          // castShadow
-          // receiveShadow
-          geometry={nodes.Plane063_4.geometry}
-          material={materials.PaletteMaterial002}
-        ></mesh>
+        <mesh geometry={nodes.Plane063_4.geometry}>
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //filled right side */}
-        <mesh
-          // castShadow
-          // receiveShadow
-          geometry={nodes.Plane063_5.geometry}
-          material={materials.PaletteMaterial005}
-        ></mesh>
+        {/* bookmark */}
+        <mesh geometry={nodes.Plane063_5.geometry}>
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={4}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //filled left side */}
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_6.geometry}
-          material={materials.PaletteMaterial006}
-        ></mesh>
+          // material={materials.PaletteMaterial006}
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={5}
+            toneMapped={false}
+          />
+        </mesh>
       </group>
       <group
         position={[3.57264, 1.75082, -1.16755]}
