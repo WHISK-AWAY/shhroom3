@@ -3,7 +3,6 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 import { Vector3 } from 'three';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import x from '/svg/x.svg';
 import { useForm } from 'react-hook-form';
@@ -25,7 +24,6 @@ export default function Signin({
   isFormHidden,
   setIsSignUpHidden,
 }) {
-  const navigate = useNavigate();
   const monitorZoomPosition = useMemo(
     () => new Vector3(3.54909, 3.20587, 2.15376),
   );
@@ -87,7 +85,7 @@ export default function Signin({
       });
 
       if (res.data.token) localStorage.setItem('token', res.data.token);
-      navigate('/lobby');
+   
 
       return res;
     } catch (err) {
@@ -115,7 +113,7 @@ export default function Signin({
 
   return (
     <div className='sign-in-page w-screen h-screen flex font-press  text-[#151521]'>
-      <div className='signin-form flex flex-col w-[50vw] h-[73dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
+      <div className='signin-form flex flex-col w-[50vw] h-[80dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
         <div className='header-top-rim h-[7dvh] border-[2.8px] border-black  bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
             onClick={() => setIsFormHidden(true)}
