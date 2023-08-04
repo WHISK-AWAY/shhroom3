@@ -41,8 +41,7 @@ export default function Signin({
           zoomMode: true,
           targetPosition: new Vector3(7.71108, 3.65457, -2.58681),
           targetLabel: 'newMeeting',
-          controlsEnabled: true,
-          isUserSigned: false,
+          controlsEnabled: false,
         }));
 
         const tl = gsap.timeline({});
