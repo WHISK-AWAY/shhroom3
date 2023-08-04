@@ -14,12 +14,9 @@ import Signin from '../Signin';
 
 /**
  * TODO: render sign-in form
- * TODO: figure out clock material
  * TODO: non-freezing loading screen
- * TODO: adjust monitor screen mesh/html position
  * TODO: figure out user navigation, including non-3d approach
  * TODO: rework sign-in form
- * TODO: try out a clear mesh to zoom on shelves
  */
 
 export default function Model(props) {
