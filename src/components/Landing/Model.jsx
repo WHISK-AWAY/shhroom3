@@ -29,6 +29,8 @@ export default function Model(props) {
 
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
+
+    console.log('tp', targetPosition)
     if (zoom.zoomMode) {
       zoom.setZoom((prev) => ({
         ...prev,
