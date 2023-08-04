@@ -5,32 +5,23 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
 import { useContext } from 'react';
-import { useGLTF } from '@react-three/drei';
-import { Plane } from '@react-three/drei';
-import { Html } from '@react-three/drei';
+import { useGLTF, Plane, Html } from '@react-three/drei';
 import Screensaver from '../Screensaver';
 import { ZoomContext } from './Landing';
 
-
 /**
- * TODO: render sign-in form
- * TODO: figure out clock material
  * TODO: non-freezing loading screen
- * TODO: adjust monitor screen mesh/html position
  * TODO: figure out user navigation, including non-3d approach
- * TODO: rework sign-in form
- * TODO: try out a clear mesh to zoom on shelves
  */
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoom = useContext(ZoomContext);
 
-
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
 
-    console.log('tp', targetPosition)
+    console.log('tp', targetPosition);
     if (zoom.zoomMode) {
       zoom.setZoom((prev) => ({
         ...prev,
@@ -1422,24 +1413,23 @@ export default function Model(props) {
             toneMapped={false}
           />
         </Plane>
-        {zoom.zoomMode && 
-        <Html
-          as='div'
-          // center
-          distanceFactor={.5}
-          position={[1.4599, -0.04, -0.01]}
-          transform={true}
-          occlude='raycast'
-          sprite={false}
-          rotation={[0, Math.PI / 2, 0]}
-          scale={[0.670, 1.14, 0.11]}
-        >
-          <ZoomContext.Provider value={zoom}>
-
-          <Screensaver/>
-          </ZoomContext.Provider>
-          </Html> 
-        }
+        {zoom.zoomMode && (
+          <Html
+            as='div'
+            // center
+            distanceFactor={0.5}
+            position={[1.4599, -0.04, -0.01]}
+            transform={true}
+            occlude='raycast'
+            sprite={false}
+            rotation={[0, Math.PI / 2, 0]}
+            scale={[0.67, 1.14, 0.11]}
+          >
+            <ZoomContext.Provider value={zoom}>
+              <Screensaver />
+            </ZoomContext.Provider>
+          </Html>
+        )}
       </mesh>
       <group
         position={[4.34849, 2.42477, 2.02359]}

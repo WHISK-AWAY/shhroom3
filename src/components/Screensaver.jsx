@@ -26,19 +26,19 @@ export default function Screensaver() {
             {!isFormHidden &&
               (isSignUpHidden ? (
                 <div className='scale-[90%]'>
-                <Signin
-                setIsFormHidden={setIsFormHidden}
-                isFormHidden={isFormHidden}
-                setIsSignUpHidden={setIsSignUpHidden}
-                />
+                  <Signin
+                    setIsFormHidden={setIsFormHidden}
+                    isFormHidden={isFormHidden}
+                    setIsSignUpHidden={setIsSignUpHidden}
+                  />
                 </div>
               ) : (
                 <div className='scale-[90%]'>
-                <SignUp
-                setIsFormHidden={setIsFormHidden}
-                isFormHidden={isFormHidden}
-                setIsSignUpHidden={setIsSignUpHidden}
-                />
+                  <SignUp
+                    setIsFormHidden={setIsFormHidden}
+                    isFormHidden={isFormHidden}
+                    setIsSignUpHidden={setIsSignUpHidden}
+                  />
                 </div>
               ))}
           </div>
