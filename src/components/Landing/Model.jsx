@@ -4,12 +4,12 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
-import { useContext } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { useGLTF, Plane, Html } from '@react-three/drei';
 import Screensaver from '../Screensaver';
 import * as THREE from 'three';
 import { ZoomContext } from './Landing';
-import Signin from '../Signin';
+import { gsap } from 'gsap';
 
 /**
  * TODO: non-freezing loading screen
@@ -23,7 +23,6 @@ export default function Model(props) {
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
 
-    console.log('tp', targetPosition);
     if (zoom.zoomMode) {
       zoom.setZoom((prev) => ({
         ...prev,
@@ -42,6 +41,33 @@ export default function Model(props) {
       }));
     }
   }
+
+  const [screenInv, setScreenInv] = useState(true);
+  const screenRef = useRef(null);
+
+  const tlRef = useRef(null);
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
+      if (zoom.targetLabel === 'monitor' || zoom.targetLabel === 'desktop') {
+        tl.to(screenRef.current, {
+          opacity: 1,
+          duration: 1.5,
+          ease: 'slow',
+        });
+      }
+      tlRef.current = tl;
+    });
+
+    return () => {
+      tlRef.current
+        .duration(1)
+        .reverse()
+        .then(() => {
+          ctx.revert();
+        });
+    };
+  }, [zoom.targetLabel]);
 
   return (
     <group {...props} dispose={null}>
@@ -1446,28 +1472,29 @@ export default function Model(props) {
           onClick={(e) => zoomToClick(e.object.parent.position, 'monitor')}
         >
           <meshStandardMaterial
-            emissive='#aefffc'
-            emissiveIntensity={2}
+            emissive='#5DC0EA'
+            emissiveIntensity={3.6}
             toneMapped={false}
           />
         </Plane>
-        {zoom.zoomMode && (
-          <Html
-            as='div'
-            // center
-            distanceFactor={0.5}
-            position={[1.4599, -0.04, -0.01]}
-            transform={true}
-            occlude='raycast'
-            sprite={false}
-            rotation={[0, Math.PI / 2, 0]}
-            scale={[0.67, 1.14, 0.11]}
-          >
-            <ZoomContext.Provider value={zoom}>
-              <Screensaver />
-            </ZoomContext.Provider>
-          </Html>
-        )}
+
+        <Html
+          ref={screenRef}
+          className='opacity-0'
+          as='div'
+          // center
+          distanceFactor={0.5}
+          position={[1.4599, -0.04, -0.01]}
+          transform={true}
+          occlude='raycast'
+          sprite={false}
+          rotation={[0, Math.PI / 2, 0]}
+          scale={[0.67, 1.14, 0.11]}
+        >
+          <ZoomContext.Provider value={zoom}>
+            <Screensaver />
+          </ZoomContext.Provider>
+        </Html>
       </mesh>
       <group
         position={[4.34849, 2.42477, 2.02359]}
