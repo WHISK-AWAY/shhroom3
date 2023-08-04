@@ -74,7 +74,7 @@ export default function Landing() {
   //  }, [isCanvasLoaded]);
 
   return (
-    <div>
+    <Suspense fallback={<LoadingScreen />}>
       <ZoomContext.Provider value={zoom}>
         <div className='h-screen w-screen'>
           <Canvas
@@ -89,11 +89,11 @@ export default function Landing() {
               depth: true,
             }}
           >
-              <color attach='background' args={['#0e0e0e']} />
-              <Scene />
+            <color attach='background' args={['#0e0e0e']} />
+            <Scene />
           </Canvas>
         </div>
       </ZoomContext.Provider>
-    </div>
+    </Suspense>
   );
 }
