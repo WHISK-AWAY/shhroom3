@@ -150,7 +150,7 @@ export default function ControlledCamera() {
     const ctx = gsap.context(() => {
       if (zoomMode) {
         const { x, y, z } = objectPositions[targetLabel]?.position;
-        const tl = gsap.timeline({ ease: 'power1.inOut' });
+        const tl = gsap.timeline({ ease: 'power2.inOut' });
 
         tl.to(controls.current.target, {
           x: targetPosition.x,
