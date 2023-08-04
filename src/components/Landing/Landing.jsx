@@ -5,10 +5,13 @@ import LoadingScreen from '../LoadingScreen';
 
 const initialContext = {
   zoomMode: false,
+  reset: null,
   targetPosition: null,
   targetLabel: null,
   setZoom: null,
   controlsEnabled: true,
+  controls: null,
+  camera: null,
 };
 
 export const ZoomContext = createContext(initialContext);
@@ -17,7 +20,12 @@ export default function Landing() {
   const [zoom, setZoom] = useState(initialContext);
 
   useEffect(() => {
-    setZoom((prev) => ({ ...prev, setZoom }));
+    setZoom((prev) => ({
+      ...prev,
+      setZoom,
+      reset: () =>
+        setZoom((prev) => ({ ...initialContext, setZoom, controls, camera })),
+    }));
   }, []);
 
   return (

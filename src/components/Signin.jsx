@@ -3,15 +3,13 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 import { Vector3 } from 'three';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import x from '/svg/x.svg';
 import { useForm } from 'react-hook-form';
 import { ERRORSTYLE } from '../lib/utils';
 import { BORDERERR } from '../lib/utils.js';
 import { ZoomContext } from './Landing/Landing';
-
-import SignUp from './SignUp';
+import { gsap } from 'gsap';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -24,43 +22,51 @@ export default function Signin({
   setIsFormHidden,
   isFormHidden,
   setIsSignUpHidden,
+  camera,
+  controls,
 }) {
-  const navigate = useNavigate();
   const monitorZoomPosition = useMemo(
     () => new Vector3(3.54909, 3.20587, 2.15376),
   );
 
+  const [signinSuccessful, setSigninSuccessful] = useState(false);
   const zoom = useContext(ZoomContext);
 
-  function zoomClicker(e) {
-    // if we're already zoomed in, don't do anything
-    if (zoom.zoomMode) {
-      e.stopPropagation();
-    } else {
-      zoom.setZoom((prev) => ({
-        ...prev,
-        targetPosition: monitorZoomPosition,
-        targetLabel: 'monitor',
-        zoomMode: true,
-        controlsEnabled: false,
-      }));
-    }
-  }
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (signinSuccessful) {
+        const { setZoom, camera, controls } = zoom;
+        setZoom((prev) => ({
+          ...prev,
+          zoomMode: true,
+          targetPosition: new Vector3(7.71108, 3.65457, -2.58681),
+          targetLabel: 'newMeeting',
+          controlsEnabled: true,
+          isUserSigned: false,
+        }));
 
-  function exitButton(e) {
-    if (zoom.zoomMode) {
-      e.stopPropagation();
-      zoom.setZoom((prev) => ({
-        ...prev,
-        targetPosition: null,
-        targetLabel: null,
-        zoomMode: false,
-        controlsEnabled: true,
-      }));
-    } else {
-      zoomClicker(e);
-    }
-  }
+        const tl = gsap.timeline({});
+        tl.to(camera.position, {
+          duration: 1,
+          x: 7.7084461220869285,
+          y: 3.760683379409692,
+          z: 1.4263831780533351,
+          onUpdate: () => controls.update(),
+        });
+        tl.to(controls.target, {
+          x: 7.71108,
+          y: 3.65457,
+          z: -2.58681,
+          duration: 1,
+          onUpdate: () => controls.update(),
+        });
+      }
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  }, [signinSuccessful]);
 
   const {
     register,
@@ -87,7 +93,15 @@ export default function Signin({
       });
 
       if (res.data.token) localStorage.setItem('token', res.data.token);
-      navigate('/lobby');
+
+      zoom.setZoom((prev) => ({
+        ...prev,
+        targetPosition: new Vector3(7.71108, 3.65457, -2.58681),
+        targetLabel: 'newMeeting',
+        controlsEnabled: true,
+      }));
+
+      setSigninSuccessful(true);
 
       return res;
     } catch (err) {
@@ -115,7 +129,7 @@ export default function Signin({
 
   return (
     <div className='sign-in-page w-screen h-screen flex font-press  text-[#151521]'>
-      <div className='signin-form flex flex-col w-[50vw] h-[73dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
+      <div className='signin-form flex flex-col w-[50vw] h-[80dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
         <div className='header-top-rim h-[7dvh] border-[2.8px] border-black  bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
             onClick={() => setIsFormHidden(true)}

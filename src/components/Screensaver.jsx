@@ -11,35 +11,39 @@ export default function Screensaver() {
   return (
     <div className='bg-[#5DC0EA] text-[#151521]'>
       <div
-        className={`w-screen h-screen bg-contain bg-no-repeat bg-bottom 
+        className={`w-[1600px] h-[990px] bg-cover bg-no-repeat bg-bottom
     bg-[url('/bg/screen_saver1.jpg')]`}
       >
-        <div className='relative pt-[19%] px-[10%] mr-[10%] flex flex-col items-end  '>
+        <div className='relative pt-[10%] px-[10%] mr-[2%] flex flex-col items-end  '>
           <img
             onClick={() => setIsFormHidden(false)}
             src={compIcon}
             alt='old computer screen icon'
-            className='h-[12%] w-[12%] drop-shadow-xl  '
+            className='h-[10%] w-[10%] drop-shadow-xl  '
           />
 
-          <div className='absolute top-0 -right-[5%] scale-90'>
+          <div className='absolute -top-[10%] -right-[12%]'>
             {!isFormHidden &&
               (isSignUpHidden ? (
-                <Signin
-                  setIsFormHidden={setIsFormHidden}
-                  isFormHidden={isFormHidden}
-                  setIsSignUpHidden={setIsSignUpHidden}
-                />
+                <div className='scale-[90%]'>
+                  <Signin
+                    setIsFormHidden={setIsFormHidden}
+                    isFormHidden={isFormHidden}
+                    setIsSignUpHidden={setIsSignUpHidden}
+                  />
+                </div>
               ) : (
-                <SignUp
-                  setIsFormHidden={setIsFormHidden}
-                  isFormHidden={isFormHidden}
-                  setIsSignUpHidden={setIsSignUpHidden}
-                />
+                <div className='scale-[90%]'>
+                  <SignUp
+                    setIsFormHidden={setIsFormHidden}
+                    isFormHidden={isFormHidden}
+                    setIsSignUpHidden={setIsSignUpHidden}
+                  />
+                </div>
               ))}
           </div>
 
-          <p className='font-vt text-[1.5vw] pt-[1%] relative translate-x-[5%]'>
+          <p className='font-vt text-[35px] pt-[1%] relative translate-x-[21%]'>
             sign_in/sign_up
           </p>
         </div>

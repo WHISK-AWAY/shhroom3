@@ -5,18 +5,15 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
 import { useContext } from 'react';
-import { useGLTF } from '@react-three/drei';
-import { Plane, Html } from '@react-three/drei';
+import { useGLTF, Plane, Html } from '@react-three/drei';
+import Screensaver from '../Screensaver';
 import * as THREE from 'three';
-
 import { ZoomContext } from './Landing';
 import Signin from '../Signin';
 
 /**
- * TODO: render sign-in form
  * TODO: non-freezing loading screen
  * TODO: figure out user navigation, including non-3d approach
- * TODO: rework sign-in form
  */
 
 export default function Model(props) {
@@ -25,6 +22,8 @@ export default function Model(props) {
 
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
+
+    console.log('tp', targetPosition);
     if (zoom.zoomMode) {
       zoom.setZoom((prev) => ({
         ...prev,
@@ -1452,21 +1451,23 @@ export default function Model(props) {
             toneMapped={false}
           />
         </Plane>
-        {/* <Html
-          as='div'
-          // center
-          distanceFactor={1}
-          position={[1.4501, -0.04, 0]}
-          transform={true}
-          occlude='raycast'
-          sprite={false}
-          rotation={[0, Math.PI / 2, 0]}
-          scale={[0.45, 0.47, 0.01]}
-        >
-          <ZoomContext.Provider value={zoom}>
-            <Signin />
-          </ZoomContext.Provider>
-        </Html> */}
+        {zoom.zoomMode && (
+          <Html
+            as='div'
+            // center
+            distanceFactor={0.5}
+            position={[1.4599, -0.04, -0.01]}
+            transform={true}
+            occlude='raycast'
+            sprite={false}
+            rotation={[0, Math.PI / 2, 0]}
+            scale={[0.67, 1.14, 0.11]}
+          >
+            <ZoomContext.Provider value={zoom}>
+              <Screensaver />
+            </ZoomContext.Provider>
+          </Html>
+        )}
       </mesh>
       <group
         position={[4.34849, 2.42477, 2.02359]}

@@ -30,9 +30,9 @@ const objectPositions = {
   },
   newMeeting: {
     position: new Vector3(
-      7.70950301070417,
-      3.71810395421507,
-      -0.18396312296402728,
+      7.7084461220869285,
+      3.760683379409692,
+      1.4263831780533351,
     ),
     angle: {
       azimuth: 0.012257939116745217,
@@ -102,8 +102,14 @@ export default function ControlledCamera() {
   const controls = useRef(null);
   const zoomTimeline = useRef(null);
   const zoom = useContext(ZoomContext);
-  const { zoomMode, setZoom, controlsEnabled, targetLabel, targetPosition } =
-    zoom;
+  const {
+    zoomMode,
+    setZoom,
+    controlsEnabled,
+    targetLabel,
+    targetPosition,
+    isUserSigned,
+  } = zoom;
 
   const [position, setPosition] = useState(initPosition);
   const [target, setTarget] = useState(initTarget);
@@ -158,10 +164,22 @@ export default function ControlledCamera() {
   });
 
   useEffect(() => {
+    // provide reference to cam & controls objects to zoom context
+    if (camera.current && controls.current) {
+      setZoom((prev) => ({
+        ...prev,
+        camera: camera.current,
+        controls: controls.current,
+      }));
+    }
+  }, [camera.current, controls.current]);
+
+  useEffect(() => {
     const ctx = gsap.context(() => {
       if (zoomMode) {
         const { x, y, z } = objectPositions[targetLabel]?.position;
         const tl = gsap.timeline({ ease: 'power2.inOut' });
+        console.log('animating to', targetLabel);
 
         tl.to(controls.current.target, {
           x: targetPosition.x,
@@ -189,10 +207,29 @@ export default function ControlledCamera() {
 
     return () => {
       if (zoomTimeline.current)
-        zoomTimeline.current.reverse().then(() => ctx.revert());
+        zoomTimeline.current.reverse().then(() => {
+          ctx.revert();
+        });
       else ctx.revert();
     };
   }, [zoomMode]);
+
+  // useEffect(() => {
+  //   if(isUserSigned) {
+
+  //     setTimeout(() => {
+
+  //       setZoom((prev) => ({
+  //         ...prev,
+  //         zoomMode: true,
+  //         targetLabel: 'newMeeting',
+  //         targetPosition: [7.71108, 3.65457, -2.58681],
+  //         controlsEnabled: true,
+  //         isUserSigned: false,
+  //       }));
+  //     }, 1000)
+  //   }
+  // }, [isUserSigned])
 
   // !
   // useEffect(() => {
