@@ -1,6 +1,7 @@
 import seizureShhroom from '/bg/shh_seizure.gif';
 import { gsap } from 'gsap';
 import { useRef, useEffect } from 'react';
+import { useProgress } from '@react-three/drei';
 
 export default function LoadingScreen() {
   const dot_01 = useRef(null);
@@ -9,10 +10,13 @@ export default function LoadingScreen() {
   const group = useRef(null);
   const shroom = useRef(null);
   const loadingRef = useRef(null);
+  const timelineRef = useRef(null);
+
+  const { progress } = useProgress();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ repeat: -1, delay: 1.1 });
+      const tl = gsap.timeline({ repeat: -1, delay: 1.1, yoyo: true });
 
       tl.from(
         dot_01.current,
@@ -56,15 +60,25 @@ export default function LoadingScreen() {
         ease: 'back.inOut',
       });
 
-      gsap.from(shroom.current, {
-        delay: 1,
-        y: -890,
+      const tl = gsap.timeline({ delay: 1 });
+
+      tl.from(shroom.current, {
+        top: 0,
+        y: '-100%',
         ease: 'elastic.out',
         duration: 3.1,
       });
+
+      timelineRef.current = tl;
     });
     return () => {
-      ctx.revert();
+      if (timelineRef.current) {
+        timelineRef.current
+          .to(shroom.current, {
+            scale: 1000,
+          })
+          .then(ctx.revert());
+      } else ctx.revert();
     };
   }, [shroom.current, loadingRef.current]);
 
@@ -88,6 +102,7 @@ export default function LoadingScreen() {
             <span ref={dot_03}>.</span>
           </span>
         </p>
+        <p className='absolute bottom-0'>{progress}%</p>
       </div>
     </div>
   );
