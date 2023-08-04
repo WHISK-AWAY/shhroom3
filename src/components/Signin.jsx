@@ -18,13 +18,9 @@ const ZSignIn = z.object({
 });
 
 export default function Signin({ setIsFormHidden, isFormHidden, setIsSignUpHidden }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isInvalid, setIsInvalid] = useState(false);
+ 
   const navigate = useNavigate();
-  // const [isSignUpHidden, setIsSignUpHidden] = useState(true);
-
-  // console.log('apiurl', API_URL);
+  
 
   const {
     register,
@@ -144,28 +140,18 @@ export default function Signin({ setIsFormHidden, isFormHidden, setIsSignUpHidde
             <button className=' bg-blue-500 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-blue-600 hover:scale-[1.01] transition-all duration-100'>
               sign in
             </button>
-            <p className='sign-up-redirect pt-[5%] font-vt text-[1.8vw]'>
+            <p className='sign-up-redirect pt-[5%] font-vt text-[1.8vw] text-center'>
               don't have an account? make one {''}
-              {/**
-              <Link
-              to={'/signup'}
-              className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
-              >
-              here
-              </Link>
-              
-            */}
-            </p>
-
-            <div
-              className='text-[7vw]'
+            <span
+              className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800 text-[1.8vw] cursor-pointer'
               onClick={() => {
-                // setIsFormHidden(true);
                 setIsSignUpHidden(false);
               }}
             >
               here
-            </div>
+            </span>
+            </p>
+
           </div>
         </form>
       </div>
