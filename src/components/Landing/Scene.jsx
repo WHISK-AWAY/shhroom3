@@ -5,7 +5,7 @@ import font from './font';
 import Model from './Model';
 import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
-import shhroomText from './ShhroomText';
+import shhroomText from './shhroomText';
 
 export default function Scene() {
   // Render 3d text signs

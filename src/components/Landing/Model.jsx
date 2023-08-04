@@ -5,6 +5,7 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
 import { useGLTF } from '@react-three/drei';
+import { Plane } from '@react-three/drei';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
