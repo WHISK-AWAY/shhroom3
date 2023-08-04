@@ -3,7 +3,6 @@ import {
   Room,
   Lobby,
   Homepage,
-  Navbar,
   Signin,
   SignUp,
   Landing,
