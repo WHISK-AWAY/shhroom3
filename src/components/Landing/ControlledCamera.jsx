@@ -89,6 +89,7 @@ export default function ControlledCamera() {
   );
   const camera = useRef(null);
   const controls = useRef(null);
+  const zoomTimeline = useRef(null);
   const zoom = useContext(ZoomContext);
   const { zoomMode, setZoom, controlsEnabled, targetLabel, targetPosition } =
     zoom;
@@ -155,19 +156,31 @@ export default function ControlledCamera() {
           x: targetPosition.x,
           y: targetPosition.y,
           z: targetPosition.z,
+          duration: 0.5,
           onUpdate: () => controls.current.update(),
         });
 
-        tl.to(camera.current.position, {
-          x,
-          y,
-          z,
-          onUpdate: () => controls.current.update(),
-        });
+        tl.to(
+          camera.current.position,
+          {
+            x,
+            y,
+            z,
+            onUpdate: () => controls.current.update(),
+            duration: 1,
+          },
+          '<',
+        );
+
+        zoomTimeline.current = tl;
       }
     });
 
-    return () => ctx.revert();
+    return () => {
+      if (zoomTimeline.current)
+        zoomTimeline.current.reverse().then(() => ctx.revert());
+      else ctx.revert();
+    };
   }, [zoomMode]);
 
   // !
