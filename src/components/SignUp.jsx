@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
@@ -35,9 +35,8 @@ const ZSignUp = z
     }
   });
 
-export default function SignUp() {
+export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
   const navigate = useNavigate();
-  const [isFormSubmitted, setFormSubmitted] = useState(false);
 
   const {
     register,
@@ -93,15 +92,13 @@ export default function SignUp() {
     }
   }, [errors.username, errors.confirmPassword]);
 
-
-
-
   return (
     <div className='sign-up-wrapper  justify-center w-screen h-screen flex font-press text-[#151521]'>
       <div className='flex flex-col w-[50vw] h-[83dvh] mx-auto   self-center bg-[#c0c0c0] border-4'>
         <div className='header-top-rim h-[7dvh] border-[2.8px] border-[#151521] bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
-            src={x}
+          onClick={() => {setIsSignUpHidden(true); setIsFormHidden(true)}}
+            src={x} 
             alt='x-icon'
             className='h-[90%] border-2 border-[#151521] self-end m-[.5%] outline-white outline-double'
           />
@@ -184,15 +181,18 @@ export default function SignUp() {
             >
               sign up
             </button>
-            <p className='sign-in-redirect font-vt text-[1.8vw] pt-[5%]'>
+            <p className='sign-in-redirect font-vt text-[1.8vw] pt-[5%] text-center'>
               {' '}
               already have an account? sign in{' '}
-              <Link
-                to={'/signin'}
-                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800'
+              <span
+                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800 text-[1.8vw] cursor-pointer'
+                onClick={() => {
+                  setIsSignUpHidden(true)
+                  setIsFormHidden(false);
+                }}
               >
                 here
-              </Link>
+              </span>
             </p>
           </div>
         </form>
