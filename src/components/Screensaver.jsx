@@ -31,7 +31,11 @@ export default function Screensaver() {
                   setIsSignUpHidden={setIsSignUpHidden}
                 />
               ) : (
-                <SignUp />
+                <SignUp
+                  setIsFormHidden={setIsFormHidden}
+                  isFormHidden={isFormHidden}
+                  setIsSignUpHidden={setIsSignUpHidden}
+                />
               ))}
           </div>
 
