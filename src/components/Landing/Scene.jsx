@@ -6,6 +6,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
+import shhroomText from './ShhroomText';
 
 export default function Scene() {
   const camera = useThree((state) => state.camera);
@@ -17,6 +18,7 @@ export default function Scene() {
 
   // Render 3d text signs
   font();
+  shhroomText();
 
   function zoomTo(zoomTarget) {
     console.log('clicked:', { position: camera.position });
