@@ -2895,7 +2895,7 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
+          // castShadow
           receiveShadow
           geometry={nodes.Cube170_1.geometry}
           material={materials.PaletteMaterial002}
