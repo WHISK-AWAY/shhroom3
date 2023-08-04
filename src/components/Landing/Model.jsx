@@ -19,33 +19,26 @@ import { gsap } from 'gsap';
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoom = useContext(ZoomContext);
+  const screenRef = useRef(null);
+  const tlRef = useRef(null);
 
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
-
     if (zoom.zoomMode) {
-      zoom.setZoom((prev) => ({
-        ...prev,
-        zoomMode: false,
-        targetLabel: null,
-        targetPosition: null,
-      }));
+      zoom.reset();
     } else {
       // otherwise, populate zoom state with target info
       // const targetPosition = e.object.position;
       zoom.setZoom((prev) => ({
         ...prev,
         zoomMode: true,
+        controlsEnabled: false,
         targetPosition,
         targetLabel,
       }));
     }
   }
 
-  const [screenInv, setScreenInv] = useState(true);
-  const screenRef = useRef(null);
-
-  const tlRef = useRef(null);
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
@@ -1469,11 +1462,13 @@ export default function Model(props) {
           args={[1.5, 1.5]}
           rotation={[0, Math.PI / 2, 0]}
           position={[1.45, 0, 0]}
-          onClick={(e) => zoomToClick(e.object.parent.position, 'monitor')}
+          onClick={(e) =>
+            zoomToClick(new THREE.Vector3(3.54909, 3.20587, 2.15376), 'monitor')
+          }
         >
           <meshStandardMaterial
             emissive='#5DC0EA'
-            emissiveIntensity={3.6}
+            emissiveIntensity={3.5}
             toneMapped={false}
           />
         </Plane>

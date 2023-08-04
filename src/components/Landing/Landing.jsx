@@ -21,61 +21,34 @@ const initialContext = {
   camera: null,
 };
 
-// const LazyLoadingScreen = lazy(() => import('../LoadingScreen'));
-
 export const ZoomContext = createContext(initialContext);
 
 export default function Landing() {
   const [zoom, setZoom] = useState(initialContext);
 
+  function reset() {
+    setZoom((prev) => ({
+      ...initialContext,
+      setZoom,
+      reset,
+      controls: prev.controls,
+      camera: prev.camera,
+    }));
+
+    return;
+  }
+
   useEffect(() => {
     setZoom((prev) => ({
       ...prev,
       setZoom,
-      reset: () =>
-        setZoom((prev) => ({ ...initialContext, setZoom, controls, camera })),
+      reset,
     }));
   }, []);
 
-  //  const [isDOMLoaded, setIsDOMLoaded] = useState(false);
-  // const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
-
-  //  useEffect(() => {
-
-  //    const handleLoad = () => {
-  //      setIsDOMLoaded(true);
-  //    };
-
-  //    window.addEventListener('load', handleLoad);
-
-  //    return () => {
-  //      window.removeEventListener('load', handleLoad);
-  //    };
-  //  }, []);
-
-  // useEffect(() => {
-  //   const handleThreeJSReady = () => {
-  //     setIsCanvasLoaded(true);
-  //   };
-
-  //   window.addEventListener('threejsready', handleThreeJSReady);
-
-  //   return () => {
-  //     window.removeEventListener('threejsready', handleThreeJSReady);
-  //     setIsCanvasLoaded(false);
-  //   };
-  // }, [isCanvasLoaded]);
-
-  //   const canvasRef = useRef(null);
-  //  useEffect(() => {
-  //    if (canvasRef.current && canvasRef.current.isReady) {
-  //      setIsCanvasLoaded(true);
-  //    }
-  //  }, [isCanvasLoaded]);
-
   return (
-    <Suspense fallback={<LoadingScreen />}>
-      <ZoomContext.Provider value={zoom}>
+    <ZoomContext.Provider value={zoom}>
+      <Suspense fallback={<LoadingScreen />}>
         <div className='h-screen w-screen'>
           <Canvas
             frameloop='demand'
@@ -93,7 +66,7 @@ export default function Landing() {
             <Scene />
           </Canvas>
         </div>
-      </ZoomContext.Provider>
-    </Suspense>
+      </Suspense>
+    </ZoomContext.Provider>
   );
 }
