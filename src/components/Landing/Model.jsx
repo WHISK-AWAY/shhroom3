@@ -4,11 +4,14 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
+
 import { useGLTF } from '@react-three/drei';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoomTo = props.zoomTo;
+
+ 
   return (
     <group {...props} dispose={null}>
       {/* <pointLight intensity={54.35141} decay={2} color="#ffb073" position={[3.80788, 2.45666, 1.36174]} rotation={[0, -1.38121, -Math.PI / 2]} scale={1.70216} />
@@ -635,8 +638,7 @@ export default function Model(props) {
         position={[3.16375, 3.66606, -0.81325]}
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.87429}
-      >
-      </mesh>
+      ></mesh>
       <mesh
         receiveShadow
         geometry={nodes.shh3.geometry}
@@ -968,9 +970,10 @@ export default function Model(props) {
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_5.geometry}
-          // material={materials.PaletteMaterial005}
+          material={materials.PaletteMaterial005}
         >
-          <meshStandardMaterial color={'#ff0000'} />
+         
+        
         </mesh>
         //filled left side
         <mesh
@@ -985,6 +988,8 @@ export default function Model(props) {
         rotation={[-3.02039, -0.15262, -1.70998]}
       >
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes.Plane001_1.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -992,7 +997,11 @@ export default function Model(props) {
           geometry={nodes.Plane001_2.geometry}
           material={materials.PaletteMaterial002}
         />
+
+        {/**skateboard trucks */}
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes.Plane001_3.geometry}
           material={materials.PaletteMaterial002}
         />
