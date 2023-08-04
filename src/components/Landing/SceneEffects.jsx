@@ -10,7 +10,7 @@ import {
 
 export default function SceneEffects() {
   return (
-    <EffectComposer multisampling={1}>
+    <EffectComposer multisampling={0}>
       <SMAA />
       <Bloom
         intensity={0.9} // The bloom intensity.
@@ -18,7 +18,7 @@ export default function SceneEffects() {
         kernelSize={KernelSize.LARGE} // blur kernel size
         luminanceThreshold={1.1} // luminance threshold. Raise this value to mask out darker elements in the scene.
         luminanceSmoothing={1.5} // smoothness of the luminance threshold. Range is [0, 1]
-        mipmapBlur={true} // Enables or disables mipmap blur.
+        mipmapBlur={false} // Enables or disables mipmap blur.
         resolutionX={Resolution.AUTO_SIZE} // The horizontal resolution.
         resolutionY={Resolution.AUTO_SIZE} // The vertical resolution.
       />

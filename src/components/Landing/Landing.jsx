@@ -13,22 +13,12 @@ const initialContext = {
 
 export const ZoomContext = createContext(initialContext);
 
-/**
- * After lunch:
- * Create controls context (or augment existing one since it's related)
- * Optionally disable controls upon zoom (for certain items, like the computer screen)
- */
-
 export default function Landing() {
   const [zoom, setZoom] = useState(initialContext);
 
   useEffect(() => {
     setZoom((prev) => ({ ...prev, setZoom }));
   }, []);
-
-  useEffect(() => {
-    console.log('zoom context:', zoom);
-  }, [zoom]);
 
   return (
     <Suspense fallback={<LoadingScreen />}>
@@ -47,11 +37,7 @@ export default function Landing() {
             }}
           >
             <color attach='background' args={['#0e0e0e']} />
-            {/* <Suspense fallback={null}> */}
-            {/* <PerspectiveCamera makeDefault={true} position={[x, y, z]} /> */}
-
             <Scene />
-            {/* </Suspense> */}
           </Canvas>
         </div>
       </ZoomContext.Provider>
