@@ -9,6 +9,7 @@ const initialContext = {
   targetLabel: null,
   setZoom: null,
   controlsEnabled: true,
+  isUserSigned: false,
 };
 
 export const ZoomContext = createContext(initialContext);
