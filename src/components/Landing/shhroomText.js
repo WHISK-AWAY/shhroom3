@@ -2,8 +2,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import * as THREE from 'three';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { useThree } from '@react-three/fiber';
-import { EffectComposer } from '@react-three/postprocessing';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
 
 export default function shhroomText() {
 
@@ -12,7 +11,7 @@ export default function shhroomText() {
  let textMesh;
 
  const loader = new FontLoader();
- loader.load('/fonts/Press Start 2P_Regular.json', function (font) {
+ loader.load('/fonts/Tektur_Regular.json', function (font) {
    const geometry = new TextGeometry(text, {
      font: font,
      size: 0.06,
