@@ -1,5 +1,9 @@
 import test from '/svg/test.svg';
 import arrow from '/svg/arrowDown.svg';
+import mouseActiveLeft from '/svg/mouse_active_left.svg';
+import mouseActiveRight from '/svg/mouse_active_right.svg';
+import mouseActiveWheel from '/svg/mouse_active_wheel.svg';
+import cursor from '/svg/cursor.svg';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 
@@ -38,7 +42,7 @@ export default function UserControls() {
           opacity: 100,
         }).to(mainContainerRef.current, {
         
-          height: '500px',
+          height: '66%',
           ease: 'expo.inOut',
           duration: .6,
         
@@ -90,38 +94,38 @@ export default function UserControls() {
         className='opacity-0 px-3 text-[1.1vw] text-center flex flex-col gap-4 pt-6 '
       >
         <div className='border-b flex flex-col  pb-4 gap-2'>
-          <h1 className=''>left click to move around</h1>
+          <h1 className=''>left click + hold to move around</h1>
           <img
-            src={test}
+            src={mouseActiveLeft}
             alt=''
-            className='h-10 transition-all duration-300 hover:scale-[1.2] '
+            className='h-[6vw] transition-all duration-300 hover:scale-[1.2] '
           />
         </div>
 
         <div className='border-b flex flex-col  pb-4 gap-2'>
-          <h1 className='pt-1'>press + hold right button to pan</h1>
+          <h1 className='pt-1'>right click + hold right button to pan</h1>
           <img
-            src={test}
+            src={mouseActiveRight}
             alt=''
-            className='h-10 transition-all hover:scale-[1.2] duration-300'
+            className='h-[6vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
 
         <div className='border-b flex flex-col  pb-4 gap-2'>
           <h1 className='pt-1'>scroll to zoom</h1>
           <img
-            src={test}
+            src={mouseActiveWheel}
             alt=''
-            className='h-10 transition-all hover:scale-[1.2] duration-300'
+            className='h-[6vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
 
         <div className=' flex flex-col pb-4 gap-2'>
           <h1 className='pt-1'>click on objects to see close up</h1>
           <img
-            src={test}
+            src={cursor}
             alt=''
-            className='h-10 transition-all hover:scale-[1.2] duration-300'
+            className='h-[6vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
       </div>
