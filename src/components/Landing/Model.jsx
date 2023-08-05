@@ -10,7 +10,16 @@ import Screensaver from '../Screensaver';
 import * as THREE from 'three';
 import { ZoomContext } from './Landing';
 import { gsap } from 'gsap';
-
+import UserControls from '../UserControls';
+import { Billboard } from '@react-three/drei';
+import { Text } from '@react-three/drei';
+import { Text3D } from '@react-three/drei';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import * as THREE from 'three';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { useThree } from '@react-three/fiber';
+import { Svg } from '@react-three/drei';
+import arrow from '/svg/arrow_login.svg';
 /**
  * TODO: non-freezing loading screen
  * TODO: figure out user navigation, including non-3d approach
@@ -19,6 +28,8 @@ import { gsap } from 'gsap';
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoom = useContext(ZoomContext);
+  const [initialRender, setInitialRender] = useState(true);
+  const [isLoginHelperDisplayed, setIsLoginHelperDisplayed] = useState(false);
 
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
@@ -69,17 +80,58 @@ export default function Model(props) {
     };
   }, [zoom.targetLabel]);
 
+  useEffect(() => {
+    if (initialRender) {
+      setTimeout(() => {
+        setIsLoginHelperDisplayed(true);
+      }, 20000);
+    }
+  }, [initialRender]);
+
+  //3D text guide for user to log in
+  const loginHelper = () => {
+    const state = useThree();
+    if (!isLoginHelperDisplayed) {
+      const text = 'click on screen\n to login in';
+      let textMesh;
+
+      const loader = new FontLoader();
+      loader.load('/fonts/Press Start 2P_Regular.json', function (font) {
+        const geometry = new TextGeometry(text, {
+          font: font,
+          size: 0.14,
+          height: 0.12,
+          curveSegments: 12,
+        });
+
+        textMesh = new THREE.Mesh(geometry, [
+          new THREE.MeshStandardMaterial({
+            emissive: '#00FFCC',
+            emissiveIntensity: 2,
+            toneMapped: false,
+          }),
+          new THREE.MeshStandardMaterial({ color: '#2dfff8' }),
+        ]);
+
+        state.scene.add(textMesh);
+        // textMesh.scale = new Vector3(.1, .1, .1);
+        textMesh.position.set(5.94909, 4.20587, 4.25376);
+        textMesh.rotation.set(0, 2, 0);
+      });
+      return;
+    }
+  };
+
+  loginHelper();
   return (
     <group {...props} dispose={null}>
-      {/* transparent shelves clickable */}
-      <Plane
-        args={[3, 2]}
-        position={[3.77557687977128, 4.7619201959068125, -1.16413008503420795]}
-        rotation={[0, Math.PI / 2, 0]}
-        onClick={(e) => zoomToClick(e.object.position, 'shelves')}
-      >
-        <meshStandardMaterial transparent opacity={0} />
-      </Plane>
+      <Billboard
+        // position={[5.54909, 3.20587, 3.15376]}
+        follow={true}
+        lockX={false}
+        lockY={false}
+        lockZ={false} // Lock the rotation on the z axis (default=false)
+      ></Billboard>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
