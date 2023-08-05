@@ -16,19 +16,20 @@ export default function UserControls() {
         
         const tl = gsap.timeline();
         
-        tl.to(mainContainerRef.current, {
-          // opacity: 100,
-          // y: '-=100%',
+        tl.to(arrowRef.current, {
+          rotation: -90,
+          duration: .3,
+          opacity: 100
+        }).to(mainContainerRef.current, {
+        
           height: '500px',
           ease: 'expo.inOut',
-          duration: .8,
-          border: 'solid 1px white'
-        },'<.3').to(textRef.current, {
+          duration: .6,
+        
+        }).to(textRef.current, {
           opacity: 100,
           ease: 'power1',
           duration: 1
-        }).to(arrowRef.current, {
-          rotation: 180
         })
         
         anim.current = tl;
@@ -52,33 +53,20 @@ export default function UserControls() {
 
   }, [mainContainerRef.current, isControlsClose, textRef.current]);
 
-  // const closeControls = () => {
 
-  //   console.log('hi')
-  //   if (anim.current) {
-  //     anim.current
-  //       .duration(anim.current.duration() / 1.2)
-  //       .reverse()
-  //       .then(() => {
-  //         setIsControlsClose((prev ) => !prev);
-  //       });
-  //   } else {
-  //     setIsControlsClose((prev) => !prev);
-  //   }
-  // };
 
   return (
     <div
       ref={mainContainerRef}
-      className=' fixed z-[10] top-[1%] left-[1%] font-vt text-[1.3vw] text-white h-0 w-64 bg-[#cccccc]/50 rounded-md'
+      className=' fixed z-[50] top-[1%] left-[1%] font-vt text-[1.3vw] text-white h-0 w-64 bg-[#212529]/80 rounded-lg'
     >
-      <div className='h-10 bg-[#343a40] flex justify-end pr-4 rounded-md border'>
+      <div className='h-10 bg-[#343a40] flex justify-end pr-4 rounded-lg w '>
         <img
-        ref={arrowRef}
+          ref={arrowRef}
           onClick={() => setIsControlsClose((prev) => !prev)}
           src={x}
           alt=''
-          className='w-[7%] cursor-pointer z-50'
+          className='w-[7%] cursor-pointer z-50 opacity-60'
         />
       </div>
       <div
@@ -126,36 +114,3 @@ export default function UserControls() {
 }
 
 
-   
-    {
-      /**
-    <div className='h-8 w-[20%] relative rounded-t-xl bg-pink-300 flex items-center justify-end pr-2 z-[70]'>
-    <img
-          onClick={closeControls}
-          src={x}
-          alt=''
-          className='w-[10%] cursor-pointer z-50'
-          />
-          </div>
-
-      <div
-        ref={mainContainerRef}
-        className='controls-wrapper p-[4%] flex flex-col text-center gap-3 bg-blue-300 rounded-xl h-0 w-[20%] absolute top-0 left-0'
-        >
-      */
-    }
-
-    {
-      /**
-      <h1>left click to move around</h1>
-      <img src={test} alt='' className='h-10 ' />
-      <h1>press + hold right button to pan</h1>
-      <img src={test} alt='' className='h-10 ' />
-      <h1>scroll to zoom</h1>
-      <img src={test} alt='' className='h-10 ' />
-      <h1>click on objects to see close up</h1>
-      <img src={test} alt='' className='h-10 ' />
-      </div>
-    */
-    }
-   
