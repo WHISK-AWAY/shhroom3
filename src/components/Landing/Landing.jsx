@@ -9,6 +9,7 @@ import {
 import { Canvas } from '@react-three/fiber';
 import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
+import UserControls from '../UserControls';
 
 const initialContext = {
   zoomMode: false,
@@ -69,20 +70,23 @@ export default function Landing() {
   return (
     <div>
       <ZoomContext.Provider value={zoom}>
-        <div className='h-screen w-screen'>
-          <Canvas
-            frameloop='demand'
-            shadows={'soft'}
-            linear={false}
-            gl={{
-              powerPreference: 'high-performance',
-              alpha: false,
-              antialias: false,
-              stencil: false,
+      <div className='h-screen w-screen '>
+      
+      <UserControls/>
+      <Canvas
+    
+      frameloop='demand'
+      shadows={'soft'}
+      linear={false}
+      gl={{
+        powerPreference: 'high-performance',
+        alpha: false,
+        antialias: false,
+        stencil: false,
               depth: true,
             }}
-          >
-              <color attach='background' args={['#0e0e0e']} />
+            >
+            <color attach='background' args={['#0e0e0e']} />
               <Scene />
           </Canvas>
         </div>
