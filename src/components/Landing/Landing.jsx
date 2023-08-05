@@ -71,10 +71,10 @@ export default function Landing() {
     <div>
       <ZoomContext.Provider value={zoom}>
       <div className='h-screen w-screen '>
-      
+      <Suspense fallback={<LoadingScreen/>}>
       <UserControls/>
       <Canvas
-    
+      
       frameloop='demand'
       shadows={'soft'}
       linear={false}
@@ -83,12 +83,13 @@ export default function Landing() {
         alpha: false,
         antialias: false,
         stencil: false,
-              depth: true,
-            }}
-            >
-            <color attach='background' args={['#0e0e0e']} />
-              <Scene />
-          </Canvas>
+        depth: true,
+      }}
+      >
+      <color attach='background' args={['#0e0e0e']} />
+      <Scene />
+      </Canvas>
+      </Suspense>
         </div>
       </ZoomContext.Provider>
     </div>
