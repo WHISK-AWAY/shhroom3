@@ -1,5 +1,5 @@
 import test from '/svg/test.svg';
-import x from '/svg/arrowDown.svg';
+import arrow from '/svg/arrowDown.svg';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 
@@ -9,6 +9,18 @@ export default function UserControls() {
   const anim = useRef(null);
   const textRef = useRef(null);
   const arrowRef = useRef(null);
+  const topControlsRef = useRef(null);
+  const [initialRender, setInitialRender] = useState(true);
+
+
+
+  useEffect(() => {
+    if(initialRender) {
+      setTimeout(() => {
+    setIsControlsClose(false);
+      }, 8000)
+    }
+  }, [initialRender]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -16,10 +28,14 @@ export default function UserControls() {
         
         const tl = gsap.timeline();
         
-        tl.to(arrowRef.current, {
+        tl.to(topControlsRef.current, {
+          width: '100%',
+          duration: .2,
+          ease: 'expo',
+        }).to(arrowRef.current, {
           rotation: -90,
           duration: .3,
-          opacity: 100
+          opacity: 100,
         }).to(mainContainerRef.current, {
         
           height: '500px',
@@ -60,13 +76,13 @@ export default function UserControls() {
       ref={mainContainerRef}
       className=' fixed z-[50] top-[1%] left-[1%] font-vt text-[1.3vw] text-white h-0 w-64 bg-[#212529]/80 rounded-lg'
     >
-      <div className='h-10 bg-[#343a40] flex justify-end pr-4 rounded-lg w '>
+      <div ref={topControlsRef} className='h-10 w-10 bg-[#343a40] flex justify-end rounded-lg  '>
         <img
           ref={arrowRef}
           onClick={() => setIsControlsClose((prev) => !prev)}
-          src={x}
+          src={arrow}
           alt=''
-          className='w-[7%] cursor-pointer z-50 opacity-60'
+          className='h-[40%] cursor-pointer z-50 opacity-60 pr-3 mt-3'
         />
       </div>
       <div
