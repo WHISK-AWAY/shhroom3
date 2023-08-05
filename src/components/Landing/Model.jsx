@@ -129,7 +129,7 @@ export default function Model(props) {
         
         state.scene.add(textMesh);
         // textMesh.scale = new Vector3(.1, .1, .1);
-        textMesh.position.set(5.94909, 4.20587, 4.25376);
+        textMesh.position.set(5.14909, 4.20587, 4.25376);
         textMesh.rotation.set(0, 2, 0);
       });
       return  
