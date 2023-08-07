@@ -5,24 +5,22 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
 import { useContext, useState, useEffect, useRef } from 'react';
-import { useGLTF, Plane, Html } from '@react-three/drei';
-import Screensaver from '../Screensaver';
 import * as THREE from 'three';
-import { ZoomContext } from './Landing';
-import { gsap } from 'gsap';
-import UserControls from '../UserControls';
-import { Billboard } from '@react-three/drei';
-import { Text } from '@react-three/drei';
-import { Text3D } from '@react-three/drei';
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import * as THREE from 'three';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { useGLTF, Plane, Html, Billboard } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import { Svg } from '@react-three/drei';
-import arrow from '/svg/arrow_login.svg';
+import { gsap } from 'gsap';
+import Screensaver from '../Screensaver';
+import { ZoomContext } from './Landing';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
 /**
  * TODO: non-freezing loading screen
- * TODO: figure out user navigation, including non-3d approach
+ * TODO: figure out user navigation
+ * TODO: figure out non-3d approach
+ * TODO: tune monitor glow color
+ * TODO: Personal photos glow on hover (low priority)
+ * TODO: infinite tunnel
  */
 
 export default function Model(props) {
