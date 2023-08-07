@@ -21,6 +21,7 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
  * TODO: tune monitor glow color
  * TODO: Personal photos glow on hover (low priority)
  * TODO: infinite tunnel
+ * TODO: favicon
  */
 
 export default function Model(props) {
@@ -123,6 +124,15 @@ export default function Model(props) {
         lockY={false}
         lockZ={false} // Lock the rotation on the z axis (default=false)
       ></Billboard>
+      {/* transparent shelves clickable */}
+      <Plane
+        args={[3, 2]}
+        position={[3.77557687977128, 4.7619201959068125, -1.16413008503420795]}
+        rotation={[0, Math.PI / 2, 0]}
+        onClick={(e) => zoomToClick(e.object.position, 'shelves')}
+      >
+        <meshStandardMaterial transparent opacity={0} />
+      </Plane>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
@@ -1073,6 +1083,21 @@ export default function Model(props) {
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_3.geometry}
+          // material={materials.PaletteMaterial004}
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={4}
+            toneMapped={false}
+          />
+        </mesh>
+        <mesh
+          // castShadow
+          // receiveShadow
+          geometry={nodes.Plane063_3.geometry}
+          position={[9, 0, 0]}
           // material={materials.PaletteMaterial004}
         >
           <meshStandardMaterial
