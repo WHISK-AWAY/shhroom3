@@ -7,7 +7,8 @@ import {
   SignUp,
   Landing,
   Screensaver,
-  LoadingScreen
+  LoadingScreen,
+  TunnelCanvas,
 } from './components';
 import { io } from 'socket.io-client';
 
@@ -18,12 +19,12 @@ const socket = io(WS_URL);
 export default function App() {
   return (
     <div className='home-view h-screen overflow-hidden w-screen '>
-
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/landing' element={<Landing />} />
         <Route path='/loading' element={<LoadingScreen />} />
-        <Route path='/screensaver' element={<Screensaver/>}/>
+        <Route path='/tunnel' element={<TunnelCanvas />} />
+        <Route path='/screensaver' element={<Screensaver />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/room' element={<Room socket={socket} />} />

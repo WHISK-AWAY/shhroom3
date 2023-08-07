@@ -75,7 +75,7 @@ export default function Model(props) {
   useEffect(() => {
     if (initialRender) {
       setTimeout(() => {
-        setIsLoginHelperDisplayed(true);
+        // setIsLoginHelperDisplayed(true);
       }, 20000);
     }
   }, [initialRender]);
