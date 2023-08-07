@@ -15,19 +15,6 @@ export default function UserControls() {
   const textRef = useRef(null);
   const arrowRef = useRef(null);
   const topControlsRef = useRef(null);
-  const [initialRender, setInitialRender] = useState(true);
-
-  // useEffect(() => {
-  //   if(initialRender) {
-  //     setTimeout(() => {
-  //   setIsControlsClose(false);
-  //     }, 8000)
-  //   }
-  // }, [initialRender]);
-
-  // useEffect(() => {
-  //   console.log('uc hi')
-  // }, [])
 
   useEffect(() => {
     setTimeout(() => {
