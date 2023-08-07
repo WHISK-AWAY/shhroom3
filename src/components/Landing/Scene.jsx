@@ -6,11 +6,22 @@ import Model from './Model';
 import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
 import shhroomText from './shhroomText';
+import { useEffect, useState } from 'react';
+import UserControls from '../UserControls';
 
-export default function Scene() {
+export default function Scene({ setIsCanvasLoaded }) {
+  const [isSceneLoaded, setIsSceneLoaded] = useState(false);
+  const [isUControlsClose, setisUControlsClose] = useState(true);
   // Render 3d text signs
   font();
   shhroomText();
+
+  useEffect(() => {
+    setIsCanvasLoaded(true);
+    setTimeout(() => {
+      setisUControlsClose(false);
+    }, 3000);
+  }, []);
 
   return (
     <>
