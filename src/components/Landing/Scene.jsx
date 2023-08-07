@@ -20,7 +20,7 @@ export default function Scene() {
       <BakeShadows />
       <AdaptiveDpr />
       <SceneEffects />
-      <Perf position='top-left' />
+      <Perf position='bottom-left' />
       <Preload all={true} />
     </>
   );

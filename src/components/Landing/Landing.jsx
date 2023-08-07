@@ -9,6 +9,7 @@ import {
 import { Canvas } from '@react-three/fiber';
 import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
+import UserControls from '../UserControls';
 
 const initialContext = {
   zoomMode: false,
@@ -49,7 +50,8 @@ export default function Landing() {
   return (
     <ZoomContext.Provider value={zoom}>
       <Suspense fallback={<LoadingScreen />}>
-        <div className='h-screen w-screen'>
+        <div className='h-screen w-screen '>
+          <UserControls />
           <Canvas
             frameloop='demand'
             shadows={'soft'}
