@@ -98,6 +98,7 @@ export default function Signin({
         targetPosition: new Vector3(7.71108, 3.65457, -2.58681),
         targetLabel: 'newMeeting',
         controlsEnabled: true,
+        isUserSigned: true,
       }));
 
       setSigninSuccessful(true);

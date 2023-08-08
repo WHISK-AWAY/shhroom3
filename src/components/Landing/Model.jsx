@@ -84,67 +84,8 @@ useEffect(() => {
     };
   }, [zoom.targetLabel]);
 
-  useEffect(() => {
-    if (initialRender) {
-      setTimeout(() => {
-        // setIsLoginHelperDisplayed(true);
-      }, 20000);
-    }
-  }, [initialRender]);
-
-  //3D text guide for user to log in
-  const loginHelper = () => {
-    const state = useThree();
-    if (!isLoginHelperDisplayed) {
-      const text = 'click on screen\n to login in';
-      let textMesh;
-
-      const loader = new FontLoader();
-      loader.load('/fonts/Press Start 2P_Regular.json', function (font) {
-        const geometry = new TextGeometry(text, {
-          font: font,
-          size: 0.14,
-          height: 0.12,
-          curveSegments: 12,
-        });
-
-        textMesh = new THREE.Mesh(geometry, [
-          new THREE.MeshStandardMaterial({
-            emissive: '#00FFCC',
-            emissiveIntensity: 2,
-            toneMapped: false,
-          }),
-          new THREE.MeshStandardMaterial({ color: '#2dfff8' }),
-        ]);
-
-        state.scene.add(textMesh);
-        // textMesh.scale = new Vector3(.1, .1, .1);
-        textMesh.position.set(5.14909, 4.20587, 4.25376);
-        textMesh.rotation.set(0, 2, 0);
-      });
-      return;
-    }
-  };
-
-  loginHelper();
   return (
     <group {...props} dispose={null}>
-      <Billboard
-        // position={[5.54909, 3.20587, 3.15376]}
-        follow={true}
-        lockX={false}
-        lockY={false}
-        lockZ={false} // Lock the rotation on the z axis (default=false)
-      ></Billboard>
-      {/* transparent shelves clickable */}
-      <Plane
-        args={[3, 2]}
-        position={[3.77557687977128, 4.7619201959068125, -1.16413008503420795]}
-        rotation={[0, Math.PI / 2, 0]}
-        onClick={(e) => zoomToClick(e.object.position, 'shelves')}
-      >
-        <meshStandardMaterial transparent opacity={0} />
-      </Plane>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
@@ -1611,39 +1552,37 @@ useEffect(() => {
             lockY={true}
             lockZ={true}
           >
-            // Lock the rotation on the z axis (default=false)
-<>
-<Text3D
-rotation={[0, Math.PI / 2, 0]}
-position={[0, -.050, 0.18]}
-
-height={0.01}
-fontSize={0.005}
-size={0.02}
-// lineHeight={0.5}
-letterSpacing={0.003}
-// position={[-5.34909, 3.20587, 4.25376]}
-color='#00FFCC'
-outlineColor='fff'
-outlineOffsetY='20'
-outlineWidth={30}
-// size={0.001}
-font='/fonts/Press Start 2P_Regular.json'
->
-click 
-<meshStandardMaterial
-emissive='#16c7a4'
-emissiveIntensity={1.9}
-toneMapped={false}
-/>
-</Text3D>
-<Svg
-              // ref={escBtnRef}
-              className='absolute top-0 right-0'
-              src={escButton}
-              scale={0.009}
-              rotation={[0, Math.PI / 2, 0]}
-              // position={[3.54909, 3.20587, 3.95376]}
+            {/* // Lock the rotation on the z axis (default=false) */}
+            <>
+              <Text3D
+                rotation={[0, Math.PI / 2, 0]}
+                position={[0, -0.05, 0.18]}
+                height={0.01}
+                fontSize={0.005}
+                size={0.02}
+                // lineHeight={0.5}
+                letterSpacing={0.003}
+                // position={[-5.34909, 3.20587, 4.25376]}
+                color='#00FFCC'
+                outlineColor='fff'
+                outlineOffsetY='20'
+                outlineWidth={30}
+                // size={0.001}
+                font='/fonts/Press Start 2P_Regular.json'
+              >
+                click
+                <meshStandardMaterial
+                  emissive='#16c7a4'
+                  emissiveIntensity={1.9}
+                  toneMapped={false}
+                />
+              </Text3D>
+              <Svg
+                className='absolute top-0 right-0'
+                src={escButton}
+                scale={0.009}
+                rotation={[0, Math.PI / 2, 0]}
+                // position={[3.54909, 3.20587, 3.95376]}
               />
               <Text3D
                 rotation={[0, Math.PI / 2, 0]}
