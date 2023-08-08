@@ -21,16 +21,16 @@ export default function TunnelCanvas() {
           antialias: true,
         }}
         camera={{
+          fov: 10,
+          aspect: ww / wh,
           near: 0.01,
           far: 100,
-          fov: 90,
-          aspect: ww / wh,
           position: new Vector3(0, 0, 0.01),
         }}
       >
         <Suspense fallback={null}>
           <ambientLight />
-          {/* <OrbitControls makeDefault={true} /> */}
+          <OrbitControls makeDefault={true} />
           <color attach='background' args={['#000']} />
           <Tunnel />
         </Suspense>
