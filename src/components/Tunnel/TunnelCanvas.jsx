@@ -31,7 +31,7 @@ export default function TunnelCanvas() {
         <Suspense fallback={null}>
           <ambientLight />
           {/* <OrbitControls makeDefault={true} /> */}
-          <color attach='background' args={['#444']} />
+          <color attach='background' args={['#000']} />
           <Tunnel />
         </Suspense>
       </Canvas>
