@@ -6,6 +6,7 @@ import mouseActiveWheel from '/svg/mouse_active_wheel.svg';
 import cursor from '/svg/cursor.svg';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
+import { Html } from '@react-three/drei';
 
 export default function UserControls() {
   const mainContainerRef = useRef(null);
@@ -14,44 +15,39 @@ export default function UserControls() {
   const textRef = useRef(null);
   const arrowRef = useRef(null);
   const topControlsRef = useRef(null);
-  const [initialRender, setInitialRender] = useState(true);
 
-
-
-  useEffect(() => {
-    if(initialRender) {
-      setTimeout(() => {
-    setIsControlsClose(false);
-      }, 8000)
-    }
-  }, [initialRender]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsControlsClose(false);
+  //   }, 3000);
+  // }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if(!isControlsClose) {
-        
+      if (!isControlsClose) {
         const tl = gsap.timeline();
-        
+
         tl.to(topControlsRef.current, {
           width: '100%',
-          duration: .2,
+          duration: 0.2,
           ease: 'expo',
-        }).to(arrowRef.current, {
-          rotation: -90,
-          duration: .3,
-          opacity: 100,
-        }).to(mainContainerRef.current, {
-        
-          height: '66%',
-          ease: 'expo.inOut',
-          duration: .6,
-        
-        }).to(textRef.current, {
-          opacity: 100,
-          ease: 'power1',
-          duration: 1
         })
-        
+          .to(arrowRef.current, {
+            rotation: -90,
+            duration: 0.3,
+            opacity: 100,
+          })
+          .to(mainContainerRef.current, {
+            height: '66%',
+            ease: 'expo.inOut',
+            duration: 0.6,
+          })
+          .to(textRef.current, {
+            opacity: 100,
+            ease: 'power1',
+            duration: 1,
+          });
+
         anim.current = tl;
       }
     });
@@ -62,25 +58,23 @@ export default function UserControls() {
           .duration(anim.current.duration() / 1.5)
           .reverse()
           .then(() => {
-           ctx.revert()
+            ctx.revert();
           });
       } else {
-        ctx.revert()
+        ctx.revert();
       }
     };
-
-
-
   }, [mainContainerRef.current, isControlsClose, textRef.current]);
-
-
 
   return (
     <div
       ref={mainContainerRef}
       className=' fixed z-[50] top-[1%] left-[1%] font-vt text-[1.3vw] text-white h-0 w-64 bg-[#212529]/80 rounded-lg'
     >
-      <div ref={topControlsRef} className='h-10 w-10 bg-[#343a40] flex justify-end rounded-lg  '>
+      <div
+        ref={topControlsRef}
+        className='h-10 w-10 bg-[#343a40] flex justify-end rounded-lg  '
+      >
         <img
           ref={arrowRef}
           onClick={() => setIsControlsClose((prev) => !prev)}
@@ -132,5 +126,3 @@ export default function UserControls() {
     </div>
   );
 }
-
-

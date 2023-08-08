@@ -11,9 +11,12 @@ import { useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import Screensaver from '../Screensaver';
 import { ZoomContext } from './Landing';
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-
+import { gsap } from 'gsap';
+import { Billboard } from '@react-three/drei';
+import { Text3D } from '@react-three/drei';
+import escButton from '/svg/esc_button.svg';
+import { Svg } from '@react-three/drei';
+import arrow from '/svg/arrow_login.svg';
 /**
  * TODO: non-freezing loading screen
  * TODO: figure out user navigation
@@ -78,58 +81,8 @@ export default function Model(props) {
     };
   }, [zoom.targetLabel]);
 
-  useEffect(() => {
-    if (initialRender) {
-      setTimeout(() => {
-        setIsLoginHelperDisplayed(true);
-      }, 20000);
-    }
-  }, [initialRender]);
-
-  //3D text guide for user to log in
-  const loginHelper = () => {
-    const state = useThree();
-    if (!isLoginHelperDisplayed) {
-      const text = 'click on screen\n to login in';
-      let textMesh;
-
-      const loader = new FontLoader();
-      loader.load('/fonts/Press Start 2P_Regular.json', function (font) {
-        const geometry = new TextGeometry(text, {
-          font: font,
-          size: 0.14,
-          height: 0.12,
-          curveSegments: 12,
-        });
-
-        textMesh = new THREE.Mesh(geometry, [
-          new THREE.MeshStandardMaterial({
-            emissive: '#00FFCC',
-            emissiveIntensity: 2,
-            toneMapped: false,
-          }),
-          new THREE.MeshStandardMaterial({ color: '#2dfff8' }),
-        ]);
-
-        state.scene.add(textMesh);
-        // textMesh.scale = new Vector3(.1, .1, .1);
-        textMesh.position.set(5.14909, 4.20587, 4.25376);
-        textMesh.rotation.set(0, 2, 0);
-      });
-      return;
-    }
-  };
-
-  loginHelper();
   return (
     <group {...props} dispose={null}>
-      <Billboard
-        // position={[5.54909, 3.20587, 3.15376]}
-        follow={true}
-        lockX={false}
-        lockY={false}
-        lockZ={false} // Lock the rotation on the z axis (default=false)
-      ></Billboard>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
@@ -1528,6 +1481,111 @@ export default function Model(props) {
           />
         </Plane>
 
+        {zoom.isUserSigned === false && (
+          <Billboard
+            // position={[5.54909, 3.20587, 3.15376]}
+            position={[2, 2, 3.4]}
+            rotation={[0, Math.PI / 2, 0]}
+            visible={true}
+            follow={true}
+            lockX={true}
+            lockY={true}
+            lockZ={true} // Lock the rotation on the z axis (default=false)
+          >
+            <Text3D
+              curveSegments={32}
+              // bevelEnabled
+              // bevelSize={0.04}
+              // bevelThickness={0.1}
+              height={0.12}
+              // lineHeight={0.5}
+              // letterSpacing={-0.06}
+              // position={[-5.34909, 3.20587, 4.25376]}
+              size={0.14}
+              font='/fonts/Press Start 2P_Regular.json'
+            >
+              {`click on screen\n to log in`}
+              <meshStandardMaterial
+                emissive='#00FFCC'
+                emissiveIntensity={1.6}
+                toneMapped={false}
+              />
+            </Text3D>
+            <Svg src={arrow} scale={0.1} position={[1.3, -0.3, 0]}>
+              <meshStandardMaterial
+                emissive='#00FFCC'
+                emissiveIntensity={4}
+                toneMapped={false}
+              />
+            </Svg>
+          </Billboard>
+        )}
+
+        {(zoom.targetLabel === 'monitor' || zoom.targetLabel === 'desktop') && (
+          <Billboard
+            // position={[5.54909, 3.20587, 3.15376]}
+            position={[1.5, -0.8, 0.6]}
+            rotation={[0, 0, 0]}
+            visible={true}
+            follow={true}
+            lockX={true}
+            lockY={true}
+            lockZ={true}
+          >
+            // Lock the rotation on the z axis (default=false)
+            <>
+              <Text3D
+                rotation={[0, Math.PI / 2, 0]}
+                position={[0, -0.05, 0.18]}
+                height={0.01}
+                fontSize={0.005}
+                size={0.02}
+                // lineHeight={0.5}
+                letterSpacing={0.003}
+                // position={[-5.34909, 3.20587, 4.25376]}
+                color='#00FFCC'
+                outlineColor='fff'
+                outlineOffsetY='20'
+                outlineWidth={30}
+                // size={0.001}
+                font='/fonts/Press Start 2P_Regular.json'
+              >
+                click
+                <meshStandardMaterial
+                  emissive='#16c7a4'
+                  emissiveIntensity={1.9}
+                  toneMapped={false}
+                />
+              </Text3D>
+              <Svg
+                className='absolute top-0 right-0'
+                src={escButton}
+                scale={0.009}
+                rotation={[0, Math.PI / 2, 0]}
+                // position={[3.54909, 3.20587, 3.95376]}
+              />
+              <Text3D
+                rotation={[0, Math.PI / 2, 0]}
+                position={[0, -0.05, -0.1]}
+                height={0.01}
+                fontSize={0.005}
+                size={0.02}
+                color='#00FFCC'
+                outlineColor='fff'
+                outlineWidth='3px'
+                letterSpacing={0.003}
+                font='/fonts/Press Start 2P_Regular.json'
+              >
+                to exit
+                <meshStandardMaterial
+                  emissive='#16c7a4'
+                  emissiveIntensity={1.9}
+                  toneMapped={false}
+                />
+              </Text3D>
+            </>
+          </Billboard>
+        )}
         <Html
           ref={screenRef}
           className='opacity-0'
