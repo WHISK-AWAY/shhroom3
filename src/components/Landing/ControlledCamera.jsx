@@ -4,73 +4,7 @@ import { useControls } from 'leva';
 import { Euler, Vector3 } from 'three';
 import { ZoomContext } from './Landing';
 import { gsap } from 'gsap';
-
-const objectPositions = {
-  monitor: {
-    position: new Vector3(
-      4.698239424611961,
-      3.187951515813853,
-      1.3237225403016146,
-    ),
-    angle: {
-      azimuth: 2.1638593117057345,
-      polar: 1.5620427410210445,
-    },
-  },
-  sting: {
-    position: new Vector3(
-      8.744054639054083,
-      3.544506309064059,
-      -2.1159567013174625,
-    ),
-    angle: {
-      azimuth: 0,
-      polar: 1.510322935965452,
-    },
-  },
-  newMeeting: {
-    position: new Vector3(
-      7.7084461220869285,
-      3.760683379409692,
-      1.4263831780533351,
-    ),
-    angle: {
-      azimuth: 0.012257939116745217,
-      polar: 1.7072616114694853,
-    },
-  },
-  corkboard: {
-    position: new Vector3(
-      4.6169697324253685,
-      4.269023824694518,
-      1.8626983480977797,
-    ),
-    angle: {
-      azimuth: 1.5415668172562578,
-      polar: 1.5439007237722089,
-    },
-  },
-  desktop: {
-    position: new Vector3(
-      5.785075623756164,
-      3.8619187799492822,
-      0.7723075650543063,
-    ),
-    angle: {
-      azimuth: 1.7169396506616306,
-      polar: 1.0750597335310477,
-    },
-  },
-};
-
-`
-positionType = {
-  zoomMode: boolean,
-  returnPosition: Vector3,
-  focus: Vector3,
-  focusLabel: string,
-}
-`;
+import { objectPositions } from './objectPositions.js';
 
 export default function ControlledCamera() {
   const initPosition = useMemo(
@@ -87,11 +21,13 @@ export default function ControlledCamera() {
     () =>
       new Euler(-0.23411310882365968, 0.8144339482297054, 0.17175091638566334),
   );
+
   const camera = useRef(null);
   const controls = useRef(null);
   const zoomTimeline = useRef(null);
+
   const zoom = useContext(ZoomContext);
-  const { zoomMode, setZoom, controlsEnabled, targetLabel, targetPosition, isUserSigned } =
+  const { zoomMode, setZoom, controlsEnabled, targetLabel, targetPosition } =
     zoom;
 
   const [position, setPosition] = useState(initPosition);
@@ -147,10 +83,22 @@ export default function ControlledCamera() {
   });
 
   useEffect(() => {
+    // provide reference to cam & controls objects to zoom context
+    if (camera.current && controls.current) {
+      setZoom((prev) => ({
+        ...prev,
+        camera: camera.current,
+        controls: controls.current,
+      }));
+    }
+  }, [camera.current, controls.current]);
+
+  useEffect(() => {
     const ctx = gsap.context(() => {
-      if (targetLabel) {
+      if (zoomMode) {
         const { x, y, z } = objectPositions[targetLabel]?.position;
         const tl = gsap.timeline({ ease: 'power2.inOut' });
+        console.log('animating to', targetLabel);
 
         tl.to(controls.current.target, {
           x: targetPosition.x,
@@ -179,72 +127,24 @@ export default function ControlledCamera() {
     return () => {
       if (zoomTimeline.current)
         zoomTimeline.current.reverse().then(() => {
-          // if(isUserSigned) {
-          //   setZoom((prev) => ({
-          //     ...prev,
-          //     zoomMode: true,
-          //     targetLabel: 'newMeeting',
-          //     targetPosition: [7.71108, 3.65457, -2.58681],
-          //     controlsEnabled: true,
-          //     isUserSigned: false,
-          //   }));
-          // }
-          ctx.revert()});
+          ctx.revert();
+        });
       else ctx.revert();
     };
-  }, [targetLabel]);
-
-
-  useEffect(() => {
-    if(isUserSigned) {
-
-      setTimeout(() => {
-
-        setZoom((prev) => ({
-          ...prev,
-          zoomMode: true,
-          targetLabel: 'newMeeting',
-          targetPosition: [7.71108, 3.65457, -2.58681],
-          controlsEnabled: true,
-          isUserSigned: false,
-        }));
-      }, 1000)
-    }
-  }, [isUserSigned])
-
-
-  // !
-  // useEffect(() => {
-  //   if (zoomMode) {
-  //     setPosition(objectPositions[targetLabel]?.position);
-  //     setTarget(targetPosition);
-  //     // controls.current.enabled = false;
-  //     // camera.current.position.set(objectPositions[targetLabel]?.position);
-  //     // controls.current.update();
-  //     // controls.current.enabled = true;
-  //   } else {
-  //     setPosition(initPosition);
-  //     setTarget(initTarget);
-  //     setRotation(initRotation);
-  //   }
-  // }, [zoomMode]);
+  }, [zoomMode]);
 
   useEffect(() => {
     function onKeys(e) {
       if (e.keyCode === 27) {
         // Press ESC to return to initial camera/controls setup
         // Does nothing if zoomMode is already false
-        setZoom((prev) => ({
-          ...prev,
-          zoomMode: false,
-          targetPosition: null,
-          targetLabel: null,
-          controlsEnabled: true,
-        }));
+        zoom.reset();
       } else if (e.keyCode === 32) {
         // Press Space to log out the camera & controls state
         console.log('Camera:', camera.current);
         console.log('Controls:', controls.current);
+        console.log('Azimuthal angle:', controls.current.getAzimuthalAngle());
+        console.log('Polar angle:', controls.current.getPolarAngle());
         console.log('ZoomContext:', zoom);
       }
     }
@@ -262,14 +162,12 @@ export default function ControlledCamera() {
         far={50}
         rotation={rotation}
         position={position}
-        // position={
-        //   zoomMode ? objectPositions[targetLabel]?.position : initPosition
-        // }
-        // onUpdate={(self) => console.log('cam rotation:', self.rotation)}
       />
       <OrbitControls
         ref={controls}
-        // enabled={controlsEnabled}
+        enabled={zoom?.targetLabel !== 'monitor'}
+        enableZoom={controlsEnabled}
+        enableRotate={controlsEnabled}
         // makeDefault={true}
         zoomToCursor={true}
         enableDamping={enableDamping}
@@ -280,49 +178,7 @@ export default function ControlledCamera() {
         minDistance={minDistance}
         maxDistance={maxDistance}
         target={target}
-        // onChange={() => {
-        //   console.log('position package:', {
-        //     position: `new Vector3(${camera.current.position.x}, ${camera.current.position.y}, ${camera.current.position.z})`,
-        //     azimuth: controls.current.getAzimuthalAngle(),
-        //     polar: controls.current.getPolarAngle(),
-        //   });
-        // }}
       />
     </>
   );
 }
-
-// const cameraPosition = useControls('Camera Position', {
-//   x: {
-//     value: 11.481911718312443,
-//     min: 0,
-//     max: 15,
-//   },
-//   y: {
-//     value: 4.1382137238851335,
-//     min: 0,
-//     max: 15,
-//   },
-//   z: {
-//     value: 4.539515581805641,
-//     min: 0,
-//     max: 15,
-//   },
-// })
-// const cameraTarget = useControls('Camera Target', {
-//   x: {
-//     value: 0.4,
-//     min: -6,
-//     max: 6,
-//   },
-//   y: {
-//     value: 1.3,
-//     min: -6,
-//     max: 6,
-//   },
-//   z: {
-//     value: -5.4,
-//     min: -6,
-//     max: 6,
-//   },
-// })

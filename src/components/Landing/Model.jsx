@@ -5,25 +5,24 @@ Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
 import { useContext, useState, useEffect, useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
-import { Plane } from '@react-three/drei';
-import { Html } from '@react-three/drei';
+import * as THREE from 'three';
+import { useGLTF, Plane, Html, Billboard } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import { gsap } from 'gsap';
 import Screensaver from '../Screensaver';
 import { ZoomContext } from './Landing';
-import { gsap } from 'gsap';
-import { Billboard } from '@react-three/drei';
 import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 /**
- * TODO: render sign-in form
- * TODO: figure out clock material
  * TODO: non-freezing loading screen
- * TODO: adjust monitor screen mesh/html position
- * TODO: figure out user navigation, including non-3d approach
- * TODO: rework sign-in form
- * TODO: try out a clear mesh to zoom on shelves
+ * TODO: figure out user navigation
+ * TODO: figure out non-3d approach
+ * TODO: tune monitor glow color
+ * TODO: Personal photos glow on hover (low priority)
+ * TODO: infinite tunnel
+ * TODO: favicon
  */
 
 export default function Model(props) {
@@ -37,20 +36,15 @@ export default function Model(props) {
 
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
-
     if (zoom.zoomMode) {
-      zoom.setZoom((prev) => ({
-        ...prev,
-        zoomMode: false,
-        targetLabel: null,
-        targetPosition: null,
-      }));
+      zoom.reset();
     } else {
       // otherwise, populate zoom state with target info
       // const targetPosition = e.object.position;
       zoom.setZoom((prev) => ({
         ...prev,
         zoomMode: true,
+        controlsEnabled: false,
         targetPosition,
         targetLabel,
       }));
@@ -90,9 +84,67 @@ useEffect(() => {
     };
   }, [zoom.targetLabel]);
 
+  useEffect(() => {
+    if (initialRender) {
+      setTimeout(() => {
+        // setIsLoginHelperDisplayed(true);
+      }, 20000);
+    }
+  }, [initialRender]);
 
+  //3D text guide for user to log in
+  const loginHelper = () => {
+    const state = useThree();
+    if (!isLoginHelperDisplayed) {
+      const text = 'click on screen\n to login in';
+      let textMesh;
+
+      const loader = new FontLoader();
+      loader.load('/fonts/Press Start 2P_Regular.json', function (font) {
+        const geometry = new TextGeometry(text, {
+          font: font,
+          size: 0.14,
+          height: 0.12,
+          curveSegments: 12,
+        });
+
+        textMesh = new THREE.Mesh(geometry, [
+          new THREE.MeshStandardMaterial({
+            emissive: '#00FFCC',
+            emissiveIntensity: 2,
+            toneMapped: false,
+          }),
+          new THREE.MeshStandardMaterial({ color: '#2dfff8' }),
+        ]);
+
+        state.scene.add(textMesh);
+        // textMesh.scale = new Vector3(.1, .1, .1);
+        textMesh.position.set(5.14909, 4.20587, 4.25376);
+        textMesh.rotation.set(0, 2, 0);
+      });
+      return;
+    }
+  };
+
+  loginHelper();
   return (
     <group {...props} dispose={null}>
+      <Billboard
+        // position={[5.54909, 3.20587, 3.15376]}
+        follow={true}
+        lockX={false}
+        lockY={false}
+        lockZ={false} // Lock the rotation on the z axis (default=false)
+      ></Billboard>
+      {/* transparent shelves clickable */}
+      <Plane
+        args={[3, 2]}
+        position={[3.77557687977128, 4.7619201959068125, -1.16413008503420795]}
+        rotation={[0, Math.PI / 2, 0]}
+        onClick={(e) => zoomToClick(e.object.position, 'shelves')}
+      >
+        <meshStandardMaterial transparent opacity={0} />
+      </Plane>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
@@ -1017,11 +1069,17 @@ useEffect(() => {
           // receiveShadow
           geometry={nodes.Plane063.geometry}
           material={materials.PaletteMaterial002}
-        />
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //clock body */}
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Plane063_1.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1037,29 +1095,65 @@ useEffect(() => {
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_3.geometry}
-          material={materials.PaletteMaterial004}
-        ></mesh>
+          // material={materials.PaletteMaterial004}
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={4}
+            toneMapped={false}
+          />
+        </mesh>
+        <mesh
+          // castShadow
+          // receiveShadow
+          geometry={nodes.Plane063_3.geometry}
+          position={[9, 0, 0]}
+          // material={materials.PaletteMaterial004}
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={4}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //unfilled left side */}
-        <mesh
-          // castShadow
-          // receiveShadow
-          geometry={nodes.Plane063_4.geometry}
-          material={materials.PaletteMaterial002}
-        ></mesh>
+        <mesh geometry={nodes.Plane063_4.geometry}>
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //filled right side */}
-        <mesh
-          // castShadow
-          // receiveShadow
-          geometry={nodes.Plane063_5.geometry}
-          material={materials.PaletteMaterial005}
-        ></mesh>
+        {/* bookmark */}
+        <mesh geometry={nodes.Plane063_5.geometry}>
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={4}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //filled left side */}
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.Plane063_6.geometry}
-          material={materials.PaletteMaterial006}
-        ></mesh>
+          // material={materials.PaletteMaterial006}
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={5}
+            toneMapped={false}
+          />
+        </mesh>
       </group>
       <group
         position={[3.57264, 1.75082, -1.16755]}
@@ -1455,11 +1549,13 @@ useEffect(() => {
           args={[1.5, 1.5]}
           rotation={[0, Math.PI / 2, 0]}
           position={[1.45, 0, 0]}
-          onClick={(e) => zoomToClick(e.object.parent.position, 'monitor')}
+          onClick={(e) =>
+            zoomToClick(new THREE.Vector3(3.54909, 3.20587, 2.15376), 'monitor')
+          }
         >
           <meshStandardMaterial
             emissive='#5DC0EA'
-            emissiveIntensity={3.6}
+            emissiveIntensity={3.5}
             toneMapped={false}
           />
         </Plane>
@@ -1550,29 +1646,25 @@ toneMapped={false}
               // position={[3.54909, 3.20587, 3.95376]}
               />
               <Text3D
-              rotation={[0, Math.PI / 2, 0]}
-              position={[0, -.050, -0.10]}
-             
-              height={0.01}
-              fontSize={0.005}
-              size={0.02}
-            
-              color='#00FFCC'
-              outlineColor='fff'
-              outlineWidth='3px'
-              letterSpacing={0.003}
-            
-
-              font='/fonts/Press Start 2P_Regular.json'
+                rotation={[0, Math.PI / 2, 0]}
+                position={[0, -0.05, -0.1]}
+                height={0.01}
+                fontSize={0.005}
+                size={0.02}
+                color='#00FFCC'
+                outlineColor='fff'
+                outlineWidth='3px'
+                letterSpacing={0.003}
+                font='/fonts/Press Start 2P_Regular.json'
               >
-              to exit
-              <meshStandardMaterial
-              emissive='#16c7a4'
-              emissiveIntensity={1.9}
-              toneMapped={false}
-              />
+                to exit
+                <meshStandardMaterial
+                  emissive='#16c7a4'
+                  emissiveIntensity={1.9}
+                  toneMapped={false}
+                />
               </Text3D>
-              </>
+            </>
           </Billboard>
         )}
         <Html
@@ -3020,7 +3112,7 @@ toneMapped={false}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
+          // castShadow
           receiveShadow
           geometry={nodes.Cube170_1.geometry}
           material={materials.PaletteMaterial002}

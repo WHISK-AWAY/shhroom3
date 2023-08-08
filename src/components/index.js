@@ -8,5 +8,7 @@ export { default as AudioVideoControls } from './VideoGrid/AudioVideoControls.js
 export { default as Chat } from './Chat.jsx';
 export { default as SignUp } from './SignUp.jsx';
 export { default as Landing } from './Landing/Landing.jsx';
-export {default as Screensaver} from './Screensaver.jsx'
-export {default as LoadingScreen} from './LoadingScreen.jsx'
+export { default as Screensaver } from './Screensaver.jsx';
+export { default as LoadingScreen } from './LoadingScreen.jsx';
+export { default as TunnelCanvas } from './Tunnel/TunnelCanvas.jsx';
+export { default as Tunnel } from './Tunnel/Tunnel.jsx';
