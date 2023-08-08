@@ -20,10 +20,7 @@ function setupCurve() {
   }
 
   // points[2].y = 0.03;
-  points[2].x = 0.03;
-  points[3].y = 0.01;
   points[4].y = -0.06;
-  points[4].x = -0.03;
   const curve = new CatmullRomCurve3(points);
   curve.type = 'catmullrom';
 
@@ -99,7 +96,7 @@ export default function Tunnel() {
   });
 
   return (
-    <Tube args={[setupCurve(), 70, 0.02, 30, false]}>
+    <Tube scale={1.1} args={[setupCurve(), 70, 0.02, 30, false]}>
       <meshBasicMaterial
         ref={materialRef}
         map={texture}
