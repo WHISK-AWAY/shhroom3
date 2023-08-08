@@ -1,9 +1,13 @@
 import { Suspense } from 'react';
+import { AmbientLight, Euler, Vector3 } from 'three';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  useTexture,
+} from '@react-three/drei';
 
 import { LoadingScreen, Tunnel } from '../../components';
-import { Euler, Vector3 } from 'three';
 
 export default function TunnelCanvas() {
   const ww = window.innerWidth;
@@ -12,19 +16,20 @@ export default function TunnelCanvas() {
   return (
     <div className='h-screen w-screen'>
       <Canvas
-        frameloop='demand'
+        frameloop='always'
         gl={{
           antialias: true,
         }}
         camera={{
           near: 0.01,
-          far: 1000,
-          fov: 15,
+          far: 100,
+          fov: 90,
           aspect: ww / wh,
-          position: new Vector3(0, 0, 0),
+          position: new Vector3(0, 0, 0.01),
         }}
       >
-        <Suspense fallback={<LoadingScreen />}>
+        <Suspense fallback={null}>
+          <ambientLight />
           {/* <OrbitControls makeDefault={true} /> */}
           <color attach='background' args={['#444']} />
           <Tunnel />
