@@ -11,8 +11,6 @@ import { useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import Screensaver from '../Screensaver';
 import { ZoomContext } from './Landing';
-import { gsap } from 'gsap';
-import { Billboard } from '@react-three/drei';
 import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
