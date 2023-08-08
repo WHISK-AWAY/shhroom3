@@ -47,11 +47,12 @@ export default function Landing() {
     }));
   }, []);
 
+  const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
+
   return (
     <ZoomContext.Provider value={zoom}>
-      <Suspense fallback={<LoadingScreen />}>
-        <div className='h-screen w-screen '>
-          <UserControls />
+      <div className='h-screen w-screen '>
+        <Suspense fallback={<LoadingScreen />}>
           <Canvas
             frameloop='demand'
             shadows={'soft'}
@@ -65,10 +66,11 @@ export default function Landing() {
             }}
           >
             <color attach='background' args={['#0e0e0e']} />
-            <Scene />
+            <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
           </Canvas>
-        </div>
-      </Suspense>
+          {isCanvasLoaded && <UserControls />}
+        </Suspense>
+      </div>
     </ZoomContext.Provider>
   );
 }

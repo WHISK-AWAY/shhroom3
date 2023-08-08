@@ -3,6 +3,105 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes elastic-fall {
+  0% {
+    transform: translateY(-890px);
+  }
+  30% {
+    transform: translateY(15px); /* The element will overshoot its current position */
+  }
+  50% {
+    transform: translateY(-5px); /* Snap back slightly */
+  }
+  65% {
+    transform: translateY(0); /* Return to the original position */
+  }
+  80% {
+    transform: translateY(-2px); /* Slightly overshoot again */
+  }
+  100% {
+    transform: translateY(0); /* End at the original position */
+  }
+}
+
+
+@keyframes loading-dot {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-0.5rem) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+@keyframes animation-delay-300 {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes animation-delay-600 {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes animation-delay-900 {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes animation-delay-1200 {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+
+.animate-loading-dot {
+  animation: loading-dot 1.2s infinite;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+.delay-900 {
+  animation-delay: 900ms;
+}
+.shhroom {
+  /* Add any other initial styles as needed */
+
+  /* Set the animation properties */
+  animation-name: elastic-fall;
+  animation-duration: 1.5s;
+   animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+    animation-iteration-count: 1; /* The elastic effect will be applied on the easing out */
+}
 .clip-monitor {
   clip-path: polygon(
     3% 3%,
@@ -19,6 +118,8 @@
     0 29%
   );
 }
+
+
 
 .clip-controls {
   clip-path: polygon(5% 0%, 95% 0%, 100% 5%, 100% 100%, 0% 100%, 0% 5%);
