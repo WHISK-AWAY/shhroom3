@@ -22,49 +22,55 @@ const initialContext = {
   camera: null,
 };
 
-// const LazyLoadingScreen = lazy(() => import('../LoadingScreen'));
-
 export const ZoomContext = createContext(initialContext);
 
 export default function Landing() {
   const [zoom, setZoom] = useState(initialContext);
 
+  function reset() {
+    setZoom((prev) => ({
+      ...initialContext,
+      setZoom,
+      reset,
+      controls: prev.controls,
+      camera: prev.camera,
+    }));
+
+    return;
+  }
+
   useEffect(() => {
     setZoom((prev) => ({
       ...prev,
       setZoom,
-      reset: () =>
-        setZoom((prev) => ({ ...initialContext, setZoom, controls, camera })),
+      reset,
     }));
   }, []);
 
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
 
-
   return (
-    <div>
-      <ZoomContext.Provider value={zoom}>
-        <div className='h-screen w-screen '>
-          <Suspense fallback={<LoadingScreen />}>
-            <Canvas
-              frameloop='demand'
-              shadows={'soft'}
-              linear={false}
-              gl={{
-                powerPreference: 'high-performance',
-                alpha: false,
-                antialias: false,
-                stencil: false,
-                depth: true,
-              }}
-            >
-              <color attach='background' args={['#0e0e0e']} />
-              <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
-            </Canvas>
-            {isCanvasLoaded && <UserControls/>}
-          </Suspense>
-        </div>
-      </ZoomContext.Provider>
-    </div>
+    <ZoomContext.Provider value={zoom}>
+      <div className='h-screen w-screen '>
+        <Suspense fallback={<LoadingScreen />}>
+          <Canvas
+            frameloop='demand'
+            shadows={'soft'}
+            linear={false}
+            gl={{
+              powerPreference: 'high-performance',
+              alpha: false,
+              antialias: false,
+              stencil: false,
+              depth: true,
+            }}
+          >
+            <color attach='background' args={['#0e0e0e']} />
+            <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
+          </Canvas>
+          {isCanvasLoaded && <UserControls />}
+        </Suspense>
+      </div>
+    </ZoomContext.Provider>
   );
 }

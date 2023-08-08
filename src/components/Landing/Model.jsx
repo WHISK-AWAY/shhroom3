@@ -22,40 +22,34 @@ import arrow from '/svg/arrow_login.svg';
  * TODO: tune monitor glow color
  * TODO: Personal photos glow on hover (low priority)
  * TODO: infinite tunnel
+ * TODO: favicon
  */
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoom = useContext(ZoomContext);
+  const screenRef = useRef(null);
+  const tlRef = useRef(null);
   const [initialRender, setInitialRender] = useState(true);
   const [isLoginHelperDisplayed, setIsLoginHelperDisplayed] = useState(false);
 
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
-
     if (zoom.zoomMode) {
-      zoom.setZoom((prev) => ({
-        ...prev,
-        zoomMode: false,
-        targetLabel: null,
-        targetPosition: null,
-      }));
+      zoom.reset();
     } else {
       // otherwise, populate zoom state with target info
       // const targetPosition = e.object.position;
       zoom.setZoom((prev) => ({
         ...prev,
         zoomMode: true,
+        controlsEnabled: false,
         targetPosition,
         targetLabel,
       }));
     }
   }
 
-  const [screenInv, setScreenInv] = useState(true);
-  const screenRef = useRef(null);
-
-  const tlRef = useRef(null);
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
@@ -79,8 +73,67 @@ export default function Model(props) {
     };
   }, [zoom.targetLabel]);
 
+  useEffect(() => {
+    if (initialRender) {
+      setTimeout(() => {
+        // setIsLoginHelperDisplayed(true);
+      }, 20000);
+    }
+  }, [initialRender]);
+
+  //3D text guide for user to log in
+  const loginHelper = () => {
+    const state = useThree();
+    if (!isLoginHelperDisplayed) {
+      const text = 'click on screen\n to login in';
+      let textMesh;
+
+      const loader = new FontLoader();
+      loader.load('/fonts/Press Start 2P_Regular.json', function (font) {
+        const geometry = new TextGeometry(text, {
+          font: font,
+          size: 0.14,
+          height: 0.12,
+          curveSegments: 12,
+        });
+
+        textMesh = new THREE.Mesh(geometry, [
+          new THREE.MeshStandardMaterial({
+            emissive: '#00FFCC',
+            emissiveIntensity: 2,
+            toneMapped: false,
+          }),
+          new THREE.MeshStandardMaterial({ color: '#2dfff8' }),
+        ]);
+
+        state.scene.add(textMesh);
+        // textMesh.scale = new Vector3(.1, .1, .1);
+        textMesh.position.set(5.14909, 4.20587, 4.25376);
+        textMesh.rotation.set(0, 2, 0);
+      });
+      return;
+    }
+  };
+
+  loginHelper();
   return (
     <group {...props} dispose={null}>
+      <Billboard
+        // position={[5.54909, 3.20587, 3.15376]}
+        follow={true}
+        lockX={false}
+        lockY={false}
+        lockZ={false} // Lock the rotation on the z axis (default=false)
+      ></Billboard>
+      {/* transparent shelves clickable */}
+      <Plane
+        args={[3, 2]}
+        position={[3.77557687977128, 4.7619201959068125, -1.16413008503420795]}
+        rotation={[0, Math.PI / 2, 0]}
+        onClick={(e) => zoomToClick(e.object.position, 'shelves')}
+      >
+        <meshStandardMaterial transparent opacity={0} />
+      </Plane>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
@@ -1041,6 +1094,21 @@ export default function Model(props) {
             toneMapped={false}
           />
         </mesh>
+        <mesh
+          // castShadow
+          // receiveShadow
+          geometry={nodes.Plane063_3.geometry}
+          position={[9, 0, 0]}
+          // material={materials.PaletteMaterial004}
+        >
+          <meshStandardMaterial
+            color={0xff0000}
+            side={THREE.DoubleSide}
+            emissive='#ff0000'
+            emissiveIntensity={4}
+            toneMapped={false}
+          />
+        </mesh>
         {/* //unfilled left side */}
         <mesh geometry={nodes.Plane063_4.geometry}>
           <meshStandardMaterial
@@ -1470,11 +1538,13 @@ export default function Model(props) {
           args={[1.5, 1.5]}
           rotation={[0, Math.PI / 2, 0]}
           position={[1.45, 0, 0]}
-          onClick={(e) => zoomToClick(e.object.parent.position, 'monitor')}
+          onClick={(e) =>
+            zoomToClick(new THREE.Vector3(3.54909, 3.20587, 2.15376), 'monitor')
+          }
         >
           <meshStandardMaterial
             emissive='#5DC0EA'
-            emissiveIntensity={3.6}
+            emissiveIntensity={3.5}
             toneMapped={false}
           />
         </Plane>
