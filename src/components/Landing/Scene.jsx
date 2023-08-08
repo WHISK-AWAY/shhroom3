@@ -31,7 +31,6 @@ export default function Scene({ setIsCanvasLoaded }) {
       <BakeShadows />
       <AdaptiveDpr />
       <SceneEffects />
-      <Perf position='bottom-left' />
       <Preload all={true} />
     </>
   );
