@@ -1,43 +1,72 @@
-import screensaver from '/bg/screen_saver.jpg';
+import { useEffect, useState, useRef } from 'react';
 import compIcon from '/svg/computerIcon.svg';
 import Signin from './Signin';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import SignUp from './SignUp';
-import { useContext, useMemo } from 'react';
-import { ZoomContext } from './Landing/Landing';
-import { Vector3 } from 'three';
-
+import { useContext } from 'react';
+// import { ZoomContext } from './Landing/Landing';
+import { LandingContext } from '../lib/context';
+import { gsap } from 'gsap';
 
 export default function Screensaver() {
   const [isFormHidden, setIsFormHidden] = useState(true);
   const [isSignUpHidden, setIsSignUpHidden] = useState(true);
-  const zoom = useContext(ZoomContext);
+  const tl = useRef(null);
 
+  const wrapperRef = useRef(null);
 
-    const monitorZoomPosition = useMemo(
-      () => new Vector3(3.54909, 3.20587, 2.15376),
-    );
+  // const zoom = useContext(ZoomContext);
+  const landingContext = useContext(LandingContext);
 
+  useEffect(() => {
+    // Fade-in/out animation
+    const ctx = gsap.context(() => {
+      if (landingContext.targetLabel === 'monitor') {
+        tl.current = gsap.timeline();
 
-    function zoomClicker(e) {
-      // if we're already zoomed in, don't do anything
-      if (zoom.zoomMode) {
-        e.stopPropagation();
-      } else {
-        zoom.setZoom((prev) => ({
-          ...prev,
-          targetPosition: monitorZoomPosition,
-          targetLabel: 'monitor',
-          zoomMode: true,
-          controlsEnabled: false,
-        }));
+        tl.current.to(wrapperRef.current, {
+          opacity: 1,
+          duration: 1,
+          ease: 'slow',
+        });
       }
-    }
+    });
 
+    return () => {
+      if (tl.current) {
+        tl.current
+          .duration(tl.current.duration() / 2)
+          .reverse()
+          .then(() => ctx.revert());
+      } else ctx.revert();
+    };
+  }, [landingContext.targetLabel]);
+
+  // const monitorZoomPosition = useMemo(
+  //   () => new Vector3(3.54909, 3.20587, 2.15376),
+  // );
+
+  function zoomToMonitor(e) {
+    // if we're already zoomed in, don't do anything
+    if (landingContext.targetLabel === 'monitor') {
+      e.stopPropagation();
+    } else {
+      landingContext.zoomToObject('monitor');
+      // zoom.setZoom((prev) => ({
+      //   ...prev,
+      //   targetPosition: monitorZoomPosition,
+      //   targetLabel: 'monitor',
+      //   zoomMode: true,
+      //   controlsEnabled: false,
+      // }));
+    }
+  }
 
   return (
-    <div onClick={zoomClicker} className='bg-[#5DC0EA] text-[#151521]'>
+    <div
+      ref={wrapperRef}
+      onClick={zoomToMonitor}
+      className='bg-[#5DC0EA] text-[#151521] opacity-0'
+    >
       <div
         className={`w-[1600px] h-[990px] bg-cover bg-no-repeat bg-bottom
     bg-[url('/bg/screen_saver1.jpg')]`}

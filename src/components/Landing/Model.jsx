@@ -15,6 +15,8 @@ import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
+import { GlobalContext, LandingContext } from '../../lib/context';
+
 /**
  * TODO: non-freezing loading screen
  * TODO: figure out user navigation
@@ -28,52 +30,51 @@ import arrow from '/svg/arrow_login.svg';
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoom = useContext(ZoomContext);
+  const globalContext = useContext(GlobalContext);
+  const landingContext = useContext(LandingContext);
   const screenRef = useRef(null);
   const tlRef = useRef(null);
   const [initialRender, setInitialRender] = useState(true);
   const [isLoginHelperDisplayed, setIsLoginHelperDisplayed] = useState(false);
 
-  function zoomToClick(targetPosition, targetLabel) {
-    // if zoom mode is already true, re-initialize zoom state
-    if (zoom.zoomMode) {
-      zoom.reset();
-    } else {
-      // otherwise, populate zoom state with target info
-      // const targetPosition = e.object.position;
-      zoom.setZoom((prev) => ({
-        ...prev,
-        zoomMode: true,
-        controlsEnabled: false,
-        targetPosition,
-        targetLabel,
-      }));
-    }
-  }
+  // function zoomToClick(targetPosition, targetLabel) {
+  //   // if zoom mode is already true, re-initialize zoom state
+  //   // otherwise, populate zoom state with target info
+  //   // const targetPosition = e.object.position;
+  //   zoom.setZoom((prev) => ({
+  //     ...prev,
+  //     zoomMode: true,
+  //     controlsEnabled: false,
+  //     targetPosition,
+  //     targetLabel,
+  //   }));
+  // }
 
   const [screenInv, setScreenInv] = useState(true);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline();
-      if (zoom.targetLabel === 'monitor' || zoom.targetLabel === 'desktop') {
-        tl.to(screenRef.current, {
-          opacity: 1,
-          duration: 1.5,
-          ease: 'slow',
-        });
-      }
-      tlRef.current = tl;
-    });
+  // useEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     const tl = gsap.timeline();
+  //     if (zoom.targetLabel === 'monitor' || zoom.targetLabel === 'desktop') {
+  //       console.log('fading in monitor:', screenRef.current);
+  //       tl.to(screenRef.current, {
+  //         opacity: 1,
+  //         duration: 1.5,
+  //         ease: 'slow',
+  //       });
+  //     }
+  //     tlRef.current = tl;
+  //   });
 
-    return () => {
-      tlRef.current
-        .duration(1)
-        .reverse()
-        .then(() => {
-          ctx.revert();
-        });
-    };
-  }, [zoom.targetLabel]);
+  //   return () => {
+  //     tlRef.current
+  //       .duration(1)
+  //       .reverse()
+  //       .then(() => {
+  //         ctx.revert();
+  //       });
+  //   };
+  // }, [zoom.targetLabel]);
 
   return (
     <group {...props} dispose={null}>
@@ -132,7 +133,7 @@ export default function Model(props) {
         position={[8.72845, 3.51681, -2.58078]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.33809}
-        onClick={(e) => zoomToClick(e.object.position, 'sting')}
+        // onClick={(e) => zoomToClick(e.object.position, 'sting')}
       />
       <mesh
         receiveShadow
@@ -708,7 +709,7 @@ export default function Model(props) {
         position={[7.71108, 3.65457, -2.58681]}
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
-        onClick={(e) => zoomToClick(e.object.position, 'newMeeting')}
+        // onClick={(e) => zoomToClick(e.object.position, 'newMeeting')}
       />
       <mesh
         receiveShadow
@@ -765,7 +766,7 @@ export default function Model(props) {
         material={materials['Magnificent wood']}
         position={[3.8675, 2.36059, 1.31098]}
         rotation={[Math.PI, -0.00212, Math.PI]}
-        onClick={(e) => zoomToClick(e.object.position, 'desktop')}
+        // onClick={(e) => zoomToClick(e.object.position, 'desktop')}
       />
       <mesh
         castShadow
@@ -1138,7 +1139,7 @@ export default function Model(props) {
         position={[3.0905, 4.29743, 1.83965]}
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
-        onClick={(e) => zoomToClick(e.object.position, 'corkboard')}
+        // onClick={(e) => zoomToClick(e.object.position, 'corkboard')}
       />
       <mesh
         castShadow
@@ -1481,9 +1482,6 @@ export default function Model(props) {
           args={[1.5, 1.5]}
           rotation={[0, Math.PI / 2, 0]}
           position={[1.45, 0, 0]}
-          onClick={(e) =>
-            zoomToClick(new THREE.Vector3(3.54909, 3.20587, 2.15376), 'monitor')
-          }
         >
           <meshStandardMaterial
             emissive='#5DC0EA'
@@ -1599,9 +1597,7 @@ export default function Model(props) {
         )}
         <Html
           ref={screenRef}
-          className='opacity-0'
           as='div'
-          // center
           distanceFactor={0.5}
           position={[1.4599, -0.04, -0.01]}
           transform={true}
@@ -1610,9 +1606,13 @@ export default function Model(props) {
           rotation={[0, Math.PI / 2, 0]}
           scale={[0.67, 1.14, 0.11]}
         >
-          <ZoomContext.Provider value={zoom}>
-            <Screensaver />
-          </ZoomContext.Provider>
+          <GlobalContext.Provider value={globalContext}>
+            <LandingContext.Provider value={landingContext}>
+              <ZoomContext.Provider value={zoom}>
+                <Screensaver />
+              </ZoomContext.Provider>
+            </LandingContext.Provider>
+          </GlobalContext.Provider>
         </Html>
       </mesh>
       <group

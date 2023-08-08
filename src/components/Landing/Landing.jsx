@@ -1,6 +1,7 @@
 import {
   Suspense,
   createContext,
+  useContext,
   useEffect,
   useState,
   lazy,
@@ -10,6 +11,8 @@ import { Canvas } from '@react-three/fiber';
 import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
 import UserControls from '../UserControls';
+
+import { GlobalContext } from '../../lib/context';
 
 const initialContext = {
   zoomMode: false,
@@ -27,6 +30,7 @@ export const ZoomContext = createContext(initialContext);
 
 export default function Landing() {
   const [zoom, setZoom] = useState(initialContext);
+  const globalContext = useContext(GlobalContext);
 
   function reset() {
     setZoom((prev) => ({
@@ -52,6 +56,7 @@ export default function Landing() {
 
   return (
     <ZoomContext.Provider value={zoom}>
+      {/* <GlobalContext.Provider value={globalContext}> */}
       <div className='h-screen w-screen '>
         <Suspense fallback={<LoadingScreen />}>
           <Canvas
@@ -72,6 +77,7 @@ export default function Landing() {
           {isCanvasLoaded && <UserControls />}
         </Suspense>
       </div>
+      {/* </GlobalContext.Provider> */}
     </ZoomContext.Provider>
   );
 }

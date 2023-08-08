@@ -7,10 +7,7 @@ export const objectPositions = {
       3.187951515813853,
       1.3237225403016146,
     ),
-    angle: {
-      azimuth: 2.1638593117057345,
-      polar: 1.5620427410210445,
-    },
+    targetPosition: new Vector3(3.54909, 3.20587, 2.15376),
   },
   sting: {
     position: new Vector3(

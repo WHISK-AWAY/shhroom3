@@ -11,6 +11,8 @@ import { BORDERERR } from '../lib/utils.js';
 import { ZoomContext } from './Landing/Landing';
 import { gsap } from 'gsap';
 
+import { GlobalContext, LandingContext } from '../lib/context';
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ZSignIn = z.object({
@@ -31,6 +33,14 @@ export default function Signin({
 
   const [signinSuccessful, setSigninSuccessful] = useState(false);
   const zoom = useContext(ZoomContext);
+  const landingContext = useContext(LandingContext);
+  const globalContext = useContext(GlobalContext);
+
+  useEffect(() => {
+    // ! debug
+
+    console.log('globalContext:', globalContext);
+  }, [globalContext]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -92,6 +102,12 @@ export default function Signin({
       });
 
       if (res.data.token) localStorage.setItem('token', res.data.token);
+
+      globalContext.setContext((prev) => ({
+        ...prev,
+        isSignedIn: true,
+        username: data.username,
+      }));
 
       zoom.setZoom((prev) => ({
         ...prev,
