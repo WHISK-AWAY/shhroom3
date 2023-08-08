@@ -29,8 +29,11 @@ import arrow from '/svg/arrow_login.svg';
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const zoom = useContext(ZoomContext);
-  const [initialRender, setInitialRender] = useState(true);
-  const [isLoginHelperDisplayed, setIsLoginHelperDisplayed] = useState(false);
+  const escBtnRef = useRef(null)
+  const screenRef = useRef(null);
+  const tlRef = useRef(null);
+  // const [initialRender, setInitialRender] = useState(true);
+  // const [isLoginHelperDisplayed, setIsLoginHelperDisplayed] = useState(false);
 
   function zoomToClick(targetPosition, targetLabel) {
     // if zoom mode is already true, re-initialize zoom state
@@ -54,11 +57,16 @@ export default function Model(props) {
     }
   }
 
-
+useEffect(() => {
+  gsap.to(escBtnRef.current, {
+    scaleX: 2,
+    scaleY:3, 
+    duration: .2,
+    repeat: -1
+  })
+}, [escBtnRef.current])
   const [screenInv, setScreenInv] = useState(true);
-  const screenRef = useRef(null);
 
-  const tlRef = useRef(null);
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
@@ -1474,7 +1482,7 @@ export default function Model(props) {
               // bevelThickness={0.1}
               height={0.12}
               // lineHeight={0.5}
-              // letterSpacing={-0.06}
+              letterSpacing={0.03}
               // position={[-5.34909, 3.20587, 4.25376]}
               size={0.14}
               font='/fonts/Press Start 2P_Regular.json'
@@ -1486,10 +1494,10 @@ export default function Model(props) {
                 toneMapped={false}
               />
             </Text3D>
-            <Svg src={arrow} scale={0.1} position={[1.3, -0.3, 0]}>
+            <Svg  ref={escBtnRef} src={arrow} scale={0.1} position={[1.3, -0.3, 0]}>
               <meshStandardMaterial
                 emissive='#00FFCC'
-                emissiveIntensity={4}
+                emissiveIntensity={40}
                 toneMapped={false}
               />
             </Svg>
@@ -1534,6 +1542,7 @@ toneMapped={false}
 />
 </Text3D>
 <Svg
+              // ref={escBtnRef}
               className='absolute top-0 right-0'
               src={escButton}
               scale={0.009}
