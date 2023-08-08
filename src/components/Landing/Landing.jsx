@@ -20,6 +20,7 @@ const initialContext = {
   controlsEnabled: true,
   controls: null,
   camera: null,
+  isUserSigned: false,
 };
 
 export const ZoomContext = createContext(initialContext);
