@@ -10,9 +10,12 @@ const [intensity, setIntensity] = useState(0)
 
   // useEffect(() => {
   //   setInterval(() => {
-  //     setIntensity((prev) => (prev === 0 ? 1.6 : 0) )
-  //   }, 2000)
+  //     setIntensity((prev) => (prev === 1 ? 1.6 : 1) )
+  //     console.log('blink')
+  //   }, 200)
   // }, [])
+
+
   return (
     <Text3D
       font={font}
@@ -23,7 +26,7 @@ const [intensity, setIntensity] = useState(0)
       material={[
         new MeshStandardMaterial({
           emissive: '#00FFCC',
-          emissiveIntensity: 1.9,
+          emissiveIntensity: 1.8,
           toneMapped: false,
           // visible: !isSignedIn,
         }),
