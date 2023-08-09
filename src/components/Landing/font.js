@@ -2,6 +2,8 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import * as THREE from 'three';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { useThree } from '@react-three/fiber';
+
+
 export default function font() {
   const state = useThree();
   const text = 'NEW MEETING';
