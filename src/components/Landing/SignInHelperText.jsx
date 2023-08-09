@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 
 import { Text3D } from '@react-three/drei';
 import { MeshStandardMaterial } from 'three';
-import font from '../../../public/fonts/Press Start 2P_Regular.json'
+import font from '../../../public/fonts/Press Start 2P_Regular.json';
 
-
-export const SignInHelperText = () => {
-const [intensity, setIntensity] = useState(0)
+export default function SignInHelperText() {
+  const [intensity, setIntensity] = useState(0);
 
   // useEffect(() => {
   //   setInterval(() => {
@@ -14,7 +13,6 @@ const [intensity, setIntensity] = useState(0)
   //     console.log('blink')
   //   }, 200)
   // }, [])
-
 
   return (
     <Text3D
