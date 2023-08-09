@@ -8,7 +8,7 @@ export default function AmbientLight({ lightIsOn }) {
       max: 3,
     },
     color: {
-      value: '#2f6490',
+      value: '#478667',
     },
   });
 
