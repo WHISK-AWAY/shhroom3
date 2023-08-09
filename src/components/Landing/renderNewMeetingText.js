@@ -34,7 +34,7 @@ export default function renderNewMeetingText() {
 
     state.scene.add(textMesh.current);
 
-    textMesh.current.position.set(7.02, 4.67, -2.61);
+    textMesh.current.position.set(6.99, 4.67, -2.61);
   });
 
   
