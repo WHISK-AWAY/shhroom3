@@ -26,7 +26,7 @@ const [intensity, setIntensity] = useState(0)
       material={[
         new MeshStandardMaterial({
           emissive: '#00FFCC',
-          emissiveIntensity: 1.8,
+          emissiveIntensity: 2.3,
           toneMapped: false,
           // visible: !isSignedIn,
         }),
