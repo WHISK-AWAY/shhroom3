@@ -1016,7 +1016,7 @@ export default function Model(props) {
             color={0xff0000}
             side={THREE.DoubleSide}
             emissive='#ff0000'
-            emissiveIntensity={4}
+            emissiveIntensity={7}
             toneMapped={false}
           />
         </mesh>
@@ -1031,7 +1031,7 @@ export default function Model(props) {
             color={0xff0000}
             side={THREE.DoubleSide}
             emissive='#ff0000'
-            emissiveIntensity={4}
+            emissiveIntensity={7}
             toneMapped={false}
           />
         </mesh>
@@ -1050,7 +1050,7 @@ export default function Model(props) {
             color={0xff0000}
             side={THREE.DoubleSide}
             emissive='#ff0000'
-            emissiveIntensity={4}
+            emissiveIntensity={8}
             toneMapped={false}
           />
         </mesh>
@@ -1065,7 +1065,7 @@ export default function Model(props) {
             color={0xff0000}
             side={THREE.DoubleSide}
             emissive='#ff0000'
-            emissiveIntensity={5}
+            emissiveIntensity={8}
             toneMapped={false}
           />
         </mesh>
