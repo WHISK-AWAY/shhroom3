@@ -29,7 +29,7 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Model />
       <BakeShadows />
       <AdaptiveDpr />
-      {/* <SceneEffects /> */}
+      <SceneEffects />
       <Preload all={true} />
     </>
   );
