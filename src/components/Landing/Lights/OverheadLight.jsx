@@ -5,29 +5,29 @@ export default function OverheadLight({ lightIsOn }) {
     'Overhead Light Settings',
     {
       overheadLightIntensity: {
-        value: 0.20,
+        value: 0.47,
         min: 0,
         max: 3,
       },
       color: {
-        value: '#64c4ff',
+        value: '#528fba',
       },
     },
   );
 
   const { x, y, z } = useControls('Overhead Light Position', {
     x: {
-      value: 4.6,
+      value: 3.8,
       min: 0,
       max: 20,
     },
     y: {
-      value: 1,
+      value: 2.6,
       min: 0,
       max: 20,
     },
     z: {
-      value: 1.8,
+      value: 0,
       min: 0,
       max: 20,
     },
