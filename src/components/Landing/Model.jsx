@@ -1396,7 +1396,7 @@ export default function Model(props) {
         <mesh castShadow receiveShadow geometry={nodes.Cylinder021_1.geometry}>
           <meshStandardMaterial
             emissive='#cbc9b3'
-            emissiveIntensity={2.8}
+            emissiveIntensity={7.8}
             toneMapped={false}
           />
         </mesh>
@@ -1494,7 +1494,7 @@ export default function Model(props) {
                 )}
              
 
-        {landingContext.targetLabel === 'monitor' && (
+       
           <Billboard
             // position={[5.54909, 3.20587, 3.15376]}
             position={[1.5, -0.8, 0.6]}
@@ -1558,7 +1558,7 @@ export default function Model(props) {
               </Text3D>
             </>
           </Billboard>
-        )}
+       
         <Html
           ref={screenRef}
           as='div'
