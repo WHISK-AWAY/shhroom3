@@ -8,12 +8,12 @@ export default function LavaLampLight({ lightIsOn }) {
         value: true,
       },
       intensity: {
-        value: 0.75,
+        value: 2.20,
         min: 0,
         max: 5,
       },
       distance: {
-        value: 7.5,
+        value: 5.7,
         min: 0,
         max: 10,
       },
