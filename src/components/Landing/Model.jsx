@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useGLTF, Plane, Html, Billboard } from '@react-three/drei';
 import Screensaver from '../Screensaver';
@@ -13,6 +13,7 @@ import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
+import { SignInHelperText } from './signInHelperText';
 
 /**
  * TODO: non-freezing loading screen
@@ -31,7 +32,7 @@ export default function Model(props) {
   const screenRef = useRef(null);
   const newMeetingRef = useRef(null);
   const corkboardRef = useRef(null);
-  const signTextRef = useRef(null);
+  const [isSignHelperHidden,setIsSignHelperHidden] = useState(true);
 
   useEffect(() => {
     (() => {
@@ -43,6 +44,15 @@ export default function Model(props) {
       }
     })();
   }, []);
+
+
+  useEffect(() => {
+    console.log('hello from model')
+
+    setTimeout(() => {
+      setIsSignHelperHidden(false)
+    }, 8000)
+  }, [])
 
   return (
     <group {...props} dispose={null}>
@@ -1469,16 +1479,18 @@ export default function Model(props) {
         </Plane>
 
        
-        {landingContext.signInHintIsVisible && (
-         
+        {landingContext.signInHintIsVisible && !isSignHelperHidden && (
+          <>
+          <SignInHelperText/>
           <Svg src={arrow} scale={0.13} position={[1.5, 1.1, 2.1]} rotation={[0, Math.PI / 2, 0]}>
           <meshStandardMaterial
           emissive='#00FFCC'
-                emissiveIntensity={40}
+          emissiveIntensity={40}
                 toneMapped={false}
                 />
                 </Svg>
-            
+                
+                </>
                 )}
              
 
