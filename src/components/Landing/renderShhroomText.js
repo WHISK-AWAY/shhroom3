@@ -21,11 +21,11 @@ export default function shhroomText() {
 
    textMesh = new THREE.Mesh(geometry, [
      new THREE.MeshStandardMaterial({
-       emissive: '#306bff',
-       emissiveIntensity: 8.5,
+       emissive: '#068325',
+       emissiveIntensity: 18.5,
        toneMapped: false,
      }),
-     new THREE.MeshStandardMaterial({ color: '#fff900' }),
+     new THREE.MeshStandardMaterial({ color: '#46ff74' }),
    ]);
 
    state.scene.add(textMesh);
