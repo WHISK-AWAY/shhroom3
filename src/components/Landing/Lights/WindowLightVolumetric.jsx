@@ -20,32 +20,32 @@ import WindowLightUnit from './WindowLightUnit';
 // const GROUP_ANGLE_POWER = 4.7;
 // const GROUP_COLOR = "#8497ba";
 
-const LEFT_EDGE = 4.8;
-const RIGHT_EDGE = 4.0;
-const TOP_EDGE = 6.1;
-const BOTTOM_EDGE = 4.3;
+const LEFT_EDGE = 4.5;
+const RIGHT_EDGE = 4.2;
+const TOP_EDGE = 6.2;
+const BOTTOM_EDGE = 4.4;
 const DEPTH = -3.7;
 
 const LEFT_EDGE_TARGET = 5.5;
 const RIGHT_EDGE_TARGET = 5.8;
-const TOP_EDGE_TARGET = 2.0;
-const BOTTOM_EDGE_TARGET = 2.8;
+const TOP_EDGE_TARGET = 1.7;
+const BOTTOM_EDGE_TARGET = 2.7;
 
 const GROUP_INTENSITY = 0;
 const GROUP_PENUMBRA = 0.8;
 const GROUP_DISTANCE = 30;
-const GROUP_ANGLE = 1.2;
+const GROUP_ANGLE = 1.46;
 const GROUP_ATTENUATION = 4.4;
 const GROUP_ANGLE_POWER = 7.9;
-const GROUP_COLOR = '#8497ba';
+const GROUP_COLOR = '#416786';
 
 const CENTER_INTENSITY = 3;
 const CENTER_PENUMBRA = 0.8;
 const CENTER_DISTANCE = 30;
-const CENTER_ANGLE = 1.2;
+const CENTER_ANGLE = 0.65;
 const CENTER_ATTENUATION = 0;
 const CENTER_ANGLE_POWER = 2.7;
-const CENTER_COLOR = '#8497ba';
+const CENTER_COLOR = '#8baeef';
 
 export default function WindowLightVolumetric({ lightIsOn }) {
   // const { light1On, light2On, light3On, light4On, centerLightOn } = useControls(
