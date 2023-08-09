@@ -21,12 +21,12 @@ export default function ClockLight({ lightIsOn }) {
       value: true,
     },
     intensity: {
-      value: 0.25,
+      value: 7.9,
       min: 0,
       max: 10,
     },
     distance: {
-      value: 5.7,
+      value: 2.3,
       min: 0,
       max: 10,
     },
@@ -34,12 +34,12 @@ export default function ClockLight({ lightIsOn }) {
       value: '#ff0000',
     },
     penumbra: {
-      value: 0.4,
+      value: 0.20,
       min: 0,
       max: 1,
     },
     attenuation: {
-      value: 10,
+      value: .3,
       min: 0,
       max: 20,
     },
@@ -57,7 +57,7 @@ export default function ClockLight({ lightIsOn }) {
 
   const { x, y, z } = useControls('Clock Light Position', {
     x: {
-      value: 8.7,
+      value: 8.65,
       min: -20,
       max: 20,
     },
