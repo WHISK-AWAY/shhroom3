@@ -1468,39 +1468,19 @@ export default function Model(props) {
           />
         </Plane>
 
+       
         {landingContext.signInHintIsVisible && (
-          <Billboard
-            ref={signTextRef}
-            position={[2, 1.5, 3.5]}
-            rotation={[0, Math.PI / 2, 0]}
-            visible={true}
-            follow={true}
-            lockX={true}
-            lockY={true}
-            lockZ={true}
-          >
-            <Text3D
-              height={0.12}
-              letterSpacing={0.03}
-              size={0.14}
-              font='/fonts/Press Start 2P_Regular.json'
-            >
-              {`click on screen\n to log in`}
-              <meshStandardMaterial
-                emissive='#00FFCC'
-                emissiveIntensity={1.6}
-                toneMapped={false}
-              />
-            </Text3D>
-            <Svg src={arrow} scale={0.1} position={[1.3, -0.3, 0]}>
-              <meshStandardMaterial
-                emissive='#00FFCC'
+         
+          <Svg src={arrow} scale={0.13} position={[1.5, 1.1, 2.1]} rotation={[0, Math.PI / 2, 0]}>
+          <meshStandardMaterial
+          emissive='#00FFCC'
                 emissiveIntensity={40}
                 toneMapped={false}
-              />
-            </Svg>
-          </Billboard>
-        )}
+                />
+                </Svg>
+            
+                )}
+             
 
         {landingContext.targetLabel === 'monitor' && (
           <Billboard
