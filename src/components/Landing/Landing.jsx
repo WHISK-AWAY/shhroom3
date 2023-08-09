@@ -1,7 +1,7 @@
 import { Suspense, useContext, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Scene from './Scene';
-import LoadingScreen from '../LoadingScreen';
+// import LoadingScreen from '../LoadingScreen';
 import UserControls from '../UserControls';
 
 import { LandingContext } from '../../lib/context';
@@ -13,15 +13,19 @@ export default function Landing() {
 
   return (
     <div className='h-screen w-screen '>
-      <Suspense fallback={<LoadingScreen />}>
+      {/* <Suspense fallback={<LoadingScreen />}> */}
+      <Suspense fallback={null}>
         {isCanvasLoaded && landingContext.controlsAreVisible && (
           <UserControls />
         )}
         <Canvas
           frameloop='demand'
-          shadows={'soft'}
+          shadows={false}
           linear={false}
-          raycaster={{ far: 100 }}
+          raycaster={{
+            far: 100,
+            params: { Line: { threshold: 0.1 }, Points: { threshold: 0.1 } },
+          }}
           gl={{
             powerPreference: 'high-performance',
             alpha: false,

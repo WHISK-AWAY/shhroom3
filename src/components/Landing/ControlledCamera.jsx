@@ -1,29 +1,13 @@
-import { useState, useRef, useMemo, useContext, useEffect } from 'react';
+import { useRef, useContext, useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useControls } from 'leva';
-import { Euler, Vector3 } from 'three';
 import { gsap } from 'gsap';
 import { objectPositions } from './objectPositions.js';
 
 import { GlobalContext, LandingContext } from '../../lib/context';
 
 export default function ControlledCamera() {
-  const initPosition = useMemo(
-    // () => new Vector3(10.16071, 3.55448, 3.91621),
-    () => new Vector3(12.638605380728347, 4.068811215722277, 6.536314274451858),
-    [],
-  );
-  const initTarget = useMemo(
-    // () => new Vector3(10.16071, 3.55448, 3.91621),
-    () => new Vector3(0, 2, 0),
-    [],
-  );
-  const initRotation = useMemo(
-    () =>
-      new Euler(-0.23411310882365968, 0.8144339482297054, 0.17175091638566334),
-  );
-
   const camera = useRef(null);
   const controls = useRef(null);
   const zoomTimeline = useRef(null);
@@ -32,10 +16,6 @@ export default function ControlledCamera() {
 
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
-
-  const position = useRef(initPosition);
-  const target = useRef(initTarget);
-  const rotation = useRef(initRotation);
 
   const {
     enableDamping,
@@ -124,18 +104,12 @@ export default function ControlledCamera() {
     const ctx = gsap.context(() => {
       if (landingContext.targetLabel) {
         // animate to target
-        const tl = gsap.timeline({ duration: 1 });
-
-        tl.to(
-          camera.current.position,
-          {
-            x: landingContext.camPosition.x,
-            y: landingContext.camPosition.y,
-            z: landingContext.camPosition.z,
-            onUpdate: () => controls.current.update(),
+        const tl = gsap.timeline({
+          duration: 1,
+          onUpdate: () => {
+            controls.current.update();
           },
-          '<',
-        );
+        });
 
         tl.to(
           controls.current.target,
@@ -143,7 +117,15 @@ export default function ControlledCamera() {
             x: landingContext.targetPosition.x,
             y: landingContext.targetPosition.y,
             z: landingContext.targetPosition.z,
-            onUpdate: () => controls.current.update(),
+          },
+          '<',
+        );
+        tl.to(
+          camera.current.position,
+          {
+            x: landingContext.camPosition.x,
+            y: landingContext.camPosition.y,
+            z: landingContext.camPosition.z,
           },
           '<',
         );
@@ -191,24 +173,25 @@ export default function ControlledCamera() {
         ref={camera}
         makeDefault={true}
         far={50}
-        // rotation={rotation.current}
-        position={position.current}
+        position={objectPositions.initPosition.camPosition}
       />
       <OrbitControls
         ref={controls}
-        enabled={landingContext?.targetLabel !== 'monitor'}
+        enabled={true}
         enableZoom={landingContext.controlsAreEnabled}
         enableRotate={landingContext.controlsAreEnabled}
-        // makeDefault={true}
+        enablePan={landingContext.targetLabel !== 'monitor'}
+        makeDefault={true}
         zoomToCursor={true}
-        enableDamping={enableDamping}
+        enableDamping={true}
+        dampingFactor={0.5}
         minAzimuthAngle={minAzimuthAngle}
         maxAzimuthAngle={maxAzimuthAngle}
         minPolarAngle={minPolarAngle}
         maxPolarAngle={maxPolarAngle}
         minDistance={minDistance}
         maxDistance={maxDistance}
-        target={target.current}
+        target={objectPositions.initPosition.targetPosition}
       />
     </>
   );
