@@ -18,6 +18,7 @@ export default function Scene({ setIsCanvasLoaded }) {
 
 
   useEffect(() => {
+    document.querySelector('#loader').classList.add('invisible');
     setIsCanvasLoaded(true);
     setTimeout(() => {
       setisUControlsClose(false);

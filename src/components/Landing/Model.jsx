@@ -37,7 +37,7 @@ export default function Model(props) {
   useEffect(() => {
     (() => {
       console.log('setting layers');
-      for (let object of [newMeetingRef, corkboardRef, escBtnRef]) {
+      for (let object of [newMeetingRef, corkboardRef, screenRef, escBtnRef]) {
         if (object.current) {
           object.current.layers.enable(1);
         }

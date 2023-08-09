@@ -25,6 +25,18 @@ export const objectPositions = {
     ),
     targetPosition: new Vector3(3.0905, 4.29743, 1.83965),
   },
+  initPosition: {
+    camPosition: new Vector3(
+      13.236447409166384,
+      3.7209397708118264,
+      7.464389431872212,
+    ),
+    targetPosition: new Vector3(
+      7.008978578979336,
+      2.854308301873602,
+      1.0516778801734505,
+    ),
+  },
   // sting: {
   //   camPosition: new Vector3(
   //     8.744054639054083,

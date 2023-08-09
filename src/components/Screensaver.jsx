@@ -56,7 +56,7 @@ export default function Screensaver() {
   return (
     <div
       ref={wrapperRef}
-      onClick={zoomToMonitor}
+      onClick={() => landingContext.zoomToObject('monitor')}
       className='bg-[#5DC0EA] text-[#151521] opacity-0'
     >
       <div
