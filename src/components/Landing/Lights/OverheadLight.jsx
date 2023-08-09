@@ -5,12 +5,12 @@ export default function OverheadLight({ lightIsOn }) {
     'Overhead Light Settings',
     {
       overheadLightIntensity: {
-        value: 0.2,
+        value: 0.20,
         min: 0,
         max: 3,
       },
       color: {
-        value: '#5ba7a4',
+        value: '#64c4ff',
       },
     },
   );
