@@ -1,9 +1,9 @@
 import { AdaptiveDpr, BakeShadows, Preload } from '@react-three/drei';
 import Lights from './Lights/Lights';
-import renderNewMeetingText from './renderNewMeetingText';
 import Model from './Model';
 import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
+import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
 import { useEffect, useState } from 'react';
 

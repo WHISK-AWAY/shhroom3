@@ -27,15 +27,19 @@ export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
+  const escBtnRef = useRef(null);
   const screenRef = useRef(null);
   const newMeetingRef = useRef(null);
   const corkboardRef = useRef(null);
+  const signTextRef = useRef(null);
 
   useEffect(() => {
     (() => {
       console.log('setting layers');
-      for (let object of [newMeetingRef, corkboardRef]) {
-        object.current.layers.enable(1);
+      for (let object of [newMeetingRef, corkboardRef, escBtnRef]) {
+        if (object.current) {
+          object.current.layers.enable(1);
+        }
       }
     })();
   }, []);
@@ -1466,24 +1470,18 @@ export default function Model(props) {
 
         {landingContext.signInHintIsVisible && (
           <Billboard
-            // position={[5.54909, 3.20587, 3.15376]}
-            position={[2, 2, 3.4]}
+            ref={signTextRef}
+            position={[2, 1.5, 3.5]}
             rotation={[0, Math.PI / 2, 0]}
             visible={true}
             follow={true}
             lockX={true}
             lockY={true}
-            lockZ={true} // Lock the rotation on the z axis (default=false)
+            lockZ={true}
           >
             <Text3D
-              curveSegments={32}
-              // bevelEnabled
-              // bevelSize={0.04}
-              // bevelThickness={0.1}
               height={0.12}
-              // lineHeight={0.5}
-              // letterSpacing={-0.06}
-              // position={[-5.34909, 3.20587, 4.25376]}
+              letterSpacing={0.03}
               size={0.14}
               font='/fonts/Press Start 2P_Regular.json'
             >
@@ -1497,7 +1495,7 @@ export default function Model(props) {
             <Svg src={arrow} scale={0.1} position={[1.3, -0.3, 0]}>
               <meshStandardMaterial
                 emissive='#00FFCC'
-                emissiveIntensity={4}
+                emissiveIntensity={40}
                 toneMapped={false}
               />
             </Svg>
@@ -1514,8 +1512,9 @@ export default function Model(props) {
             lockX={true}
             lockY={true}
             lockZ={true}
+            onClick={() => landingContext.releaseZoom()}
+            ref={escBtnRef}
           >
-            {/* // Lock the rotation on the z axis (default=false) */}
             <>
               <Text3D
                 rotation={[0, Math.PI / 2, 0]}
@@ -1541,7 +1540,6 @@ export default function Model(props) {
                 />
               </Text3D>
               <Svg
-                className='absolute top-0 right-0'
                 src={escButton}
                 scale={0.009}
                 rotation={[0, Math.PI / 2, 0]}
