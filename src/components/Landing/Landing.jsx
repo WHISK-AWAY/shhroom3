@@ -33,6 +33,7 @@ export default function Landing() {
       ...initialContext,
       setZoom,
       reset,
+      isUserSigned: prev.isUserSigned,
       controls: prev.controls,
       camera: prev.camera,
     }));
