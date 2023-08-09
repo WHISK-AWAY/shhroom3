@@ -5,7 +5,9 @@ import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
 import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
+// import signInHelperText from './SignInHelperText';
+
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
@@ -14,12 +16,14 @@ export default function Scene({ setIsCanvasLoaded }) {
   renderNewMeetingText();
   shhroomText();
 
+
   useEffect(() => {
     setIsCanvasLoaded(true);
     setTimeout(() => {
       setisUControlsClose(false);
     }, 3000);
   }, []);
+
 
   return (
     <>
