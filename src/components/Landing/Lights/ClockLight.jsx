@@ -21,12 +21,12 @@ export default function ClockLight({ lightIsOn }) {
       value: true,
     },
     intensity: {
-      value: 7.9,
+      value: 2.6,
       min: 0,
       max: 10,
     },
     distance: {
-      value: 2.3,
+      value: 3.2,
       min: 0,
       max: 10,
     },
@@ -34,7 +34,7 @@ export default function ClockLight({ lightIsOn }) {
       value: '#ff0000',
     },
     penumbra: {
-      value: 0.20,
+      value: 0.14,
       min: 0,
       max: 1,
     },
