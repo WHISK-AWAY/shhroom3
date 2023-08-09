@@ -2,11 +2,11 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import * as THREE from 'three';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { useThree } from '@react-three/fiber';
-export default function font() {
+
+export default function renderNewMeetingText() {
   const state = useThree();
   const text = 'NEW MEETING';
   let textMesh;
- 
 
   const loader = new FontLoader();
   loader.load('/fonts/Train One_Regular.json', function (font) {
