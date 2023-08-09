@@ -31,6 +31,7 @@ export default function Model(props) {
   const escBtnRef = useRef(null)
   const screenRef = useRef(null);
   const tlRef = useRef(null);
+  const signTextRef = useRef(null);
   // const [initialRender, setInitialRender] = useState(true);
   // const [isLoginHelperDisplayed, setIsLoginHelperDisplayed] = useState(false);
 
@@ -51,14 +52,7 @@ export default function Model(props) {
     }
   }
 
-useEffect(() => {
-  gsap.to(escBtnRef.current, {
-    scaleX: 2,
-    scaleY:3, 
-    duration: .2,
-    repeat: -1
-  })
-}, [escBtnRef.current])
+
   const [screenInv, setScreenInv] = useState(true);
 
   useEffect(() => {
@@ -82,7 +76,17 @@ useEffect(() => {
           ctx.revert();
         });
     };
-  }, [zoom.targetLabel]);
+  }, [zoom.targetLabel, tlRef.current?.reset]);
+
+
+//renders sig 3D txt helper afte 10 sec
+  // useEffect(() => {
+  //   signTextRef.current.visible = false;
+
+  //   setTimeout(() => {
+  //     signTextRef.current.visible = true
+  //   }, 10000)
+  // }, [])
 
   return (
     <group {...props} dispose={null}>
@@ -710,6 +714,7 @@ useEffect(() => {
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.87429}
       ></mesh>
+
       <mesh
         receiveShadow
         geometry={nodes.shh3.geometry}
@@ -1503,24 +1508,18 @@ useEffect(() => {
 
         {zoom.isUserSigned === false && (
           <Billboard
-            // position={[5.54909, 3.20587, 3.15376]}
-            position={[2, 2, 3.4]}
+            ref={signTextRef}
+            position={[2, 1.5, 3.5]}
             rotation={[0, Math.PI / 2, 0]}
             visible={true}
             follow={true}
             lockX={true}
             lockY={true}
-            lockZ={true} // Lock the rotation on the z axis (default=false)
+            lockZ={true}
           >
             <Text3D
-              curveSegments={32}
-              // bevelEnabled
-              // bevelSize={0.04}
-              // bevelThickness={0.1}
               height={0.12}
-              // lineHeight={0.5}
               letterSpacing={0.03}
-              // position={[-5.34909, 3.20587, 4.25376]}
               size={0.14}
               font='/fonts/Press Start 2P_Regular.json'
             >
@@ -1531,7 +1530,12 @@ useEffect(() => {
                 toneMapped={false}
               />
             </Text3D>
-            <Svg  ref={escBtnRef} src={arrow} scale={0.1} position={[1.3, -0.3, 0]}>
+            <Svg
+              ref={escBtnRef}
+              src={arrow}
+              scale={0.1}
+              position={[1.3, -0.3, 0]}
+            >
               <meshStandardMaterial
                 emissive='#00FFCC'
                 emissiveIntensity={40}
@@ -1552,7 +1556,6 @@ useEffect(() => {
             lockY={true}
             lockZ={true}
           >
-            {/* // Lock the rotation on the z axis (default=false) */}
             <>
               <Text3D
                 rotation={[0, Math.PI / 2, 0]}
@@ -1578,7 +1581,7 @@ useEffect(() => {
                 />
               </Text3D>
               <Svg
-                className='absolute top-0 right-0'
+                onClick={() => zoom.reset()}
                 src={escButton}
                 scale={0.009}
                 rotation={[0, Math.PI / 2, 0]}
