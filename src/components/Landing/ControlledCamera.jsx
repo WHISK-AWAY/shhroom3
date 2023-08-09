@@ -85,6 +85,8 @@ export default function ControlledCamera() {
         targetPosition: targetPosition,
         camPosition: camPosition,
         controlsAreEnabled: false,
+        signInHintIsVisible:
+          label === 'monitor' ? false : prev.signInHintIsVisible,
       }));
     }
 

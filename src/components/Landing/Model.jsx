@@ -13,7 +13,7 @@ import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
-import { SignInHelperText } from './signInHelperText';
+import SignInHelperText from './signInHelperText';
 
 /**
  * TODO: non-freezing loading screen
@@ -32,7 +32,7 @@ export default function Model(props) {
   const screenRef = useRef(null);
   const newMeetingRef = useRef(null);
   const corkboardRef = useRef(null);
-  const [isSignHelperHidden,setIsSignHelperHidden] = useState(true);
+  const [isSignHelperHidden, setIsSignHelperHidden] = useState(true);
 
   useEffect(() => {
     (() => {
@@ -45,14 +45,13 @@ export default function Model(props) {
     })();
   }, []);
 
-
   useEffect(() => {
-    console.log('hello from model')
+    console.log('hello from model');
 
     setTimeout(() => {
-      setIsSignHelperHidden(false)
-    }, 8000)
-  }, [])
+      setIsSignHelperHidden(false);
+    }, 8000);
+  }, []);
 
   return (
     <group {...props} dispose={null}>
@@ -1478,87 +1477,88 @@ export default function Model(props) {
           />
         </Plane>
 
-       
         {landingContext.signInHintIsVisible && !isSignHelperHidden && (
           <>
-          <SignInHelperText/>
-          <Svg src={arrow} scale={0.13} position={[1.5, 1.1, 2.1]} rotation={[0, Math.PI / 2, 0]}>
-          <meshStandardMaterial
-          emissive='#00FFCC'
-          emissiveIntensity={40}
+            <SignInHelperText />
+            <Svg
+              src={arrow}
+              scale={0.13}
+              position={[1.5, 1.1, 2.1]}
+              rotation={[0, Math.PI / 2, 0]}
+            >
+              <meshStandardMaterial
+                emissive='#00FFCC'
+                emissiveIntensity={40}
                 toneMapped={false}
-                />
-                </Svg>
-                
-                </>
-                )}
-             
-
-       
-          <Billboard
-            // position={[5.54909, 3.20587, 3.15376]}
-            position={[1.5, -0.8, 0.6]}
-            rotation={[0, 0, 0]}
-            visible={true}
-            follow={true}
-            lockX={true}
-            lockY={true}
-            lockZ={true}
-            onClick={() => landingContext.releaseZoom()}
-            ref={escBtnRef}
-          >
-            <>
-              <Text3D
-                rotation={[0, Math.PI / 2, 0]}
-                position={[0, -0.05, 0.18]}
-                height={0.01}
-                fontSize={0.005}
-                size={0.02}
-                // lineHeight={0.5}
-                letterSpacing={0.003}
-                // position={[-5.34909, 3.20587, 4.25376]}
-                color='#00FFCC'
-                outlineColor='fff'
-                outlineOffsetY='20'
-                outlineWidth={30}
-                // size={0.001}
-                font='/fonts/Press Start 2P_Regular.json'
-              >
-                click
-                <meshStandardMaterial
-                  emissive='#16c7a4'
-                  emissiveIntensity={1.9}
-                  toneMapped={false}
-                />
-              </Text3D>
-              <Svg
-                src={escButton}
-                scale={0.009}
-                rotation={[0, Math.PI / 2, 0]}
-                // position={[3.54909, 3.20587, 3.95376]}
               />
-              <Text3D
-                rotation={[0, Math.PI / 2, 0]}
-                position={[0, -0.05, -0.1]}
-                height={0.01}
-                fontSize={0.005}
-                size={0.02}
-                color='#00FFCC'
-                outlineColor='fff'
-                outlineWidth='3px'
-                letterSpacing={0.003}
-                font='/fonts/Press Start 2P_Regular.json'
-              >
-                to exit
-                <meshStandardMaterial
-                  emissive='#16c7a4'
-                  emissiveIntensity={1.9}
-                  toneMapped={false}
-                />
-              </Text3D>
-            </>
-          </Billboard>
-       
+            </Svg>
+          </>
+        )}
+
+        <Billboard
+          // position={[5.54909, 3.20587, 3.15376]}
+          position={[1.5, -0.8, 0.6]}
+          rotation={[0, 0, 0]}
+          visible={true}
+          follow={true}
+          lockX={true}
+          lockY={true}
+          lockZ={true}
+          onClick={() => landingContext.releaseZoom()}
+          ref={escBtnRef}
+        >
+          <>
+            <Text3D
+              rotation={[0, Math.PI / 2, 0]}
+              position={[0, -0.05, 0.18]}
+              height={0.01}
+              fontSize={0.005}
+              size={0.02}
+              // lineHeight={0.5}
+              letterSpacing={0.003}
+              // position={[-5.34909, 3.20587, 4.25376]}
+              color='#00FFCC'
+              outlineColor='fff'
+              outlineOffsetY='20'
+              outlineWidth={30}
+              // size={0.001}
+              font='/fonts/Press Start 2P_Regular.json'
+            >
+              click
+              <meshStandardMaterial
+                emissive='#16c7a4'
+                emissiveIntensity={1.9}
+                toneMapped={false}
+              />
+            </Text3D>
+            <Svg
+              src={escButton}
+              scale={0.009}
+              rotation={[0, Math.PI / 2, 0]}
+              // position={[3.54909, 3.20587, 3.95376]}
+            />
+            <Text3D
+              rotation={[0, Math.PI / 2, 0]}
+              position={[0, -0.05, -0.1]}
+              height={0.01}
+              fontSize={0.005}
+              size={0.02}
+              color='#00FFCC'
+              outlineColor='fff'
+              outlineWidth='3px'
+              letterSpacing={0.003}
+              font='/fonts/Press Start 2P_Regular.json'
+            >
+              to exit
+              <meshStandardMaterial
+                emissive='#16c7a4'
+                emissiveIntensity={1.9}
+                toneMapped={false}
+              />
+            </Text3D>
+          </>
+        </Billboard>
+
         <Html
           ref={screenRef}
           as='div'
