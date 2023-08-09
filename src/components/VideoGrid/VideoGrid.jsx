@@ -7,7 +7,7 @@ export default function VideoGrid({ ownSource, peerSource }) {
   return (
     <div
       id='video-grid'
-      className={`flex justify-center gap-8 mt-24 ${
+      className={`flex justify-center gap-8 pt-24 ${
         isFullScreen ? 'group is-fullscreen' : ''
       }`}
     >
