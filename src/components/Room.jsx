@@ -5,6 +5,7 @@ import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
 import { Chat } from './index';
 import VideoGrid from './VideoGrid/VideoGrid';
+import RoomUserControls from './RoomUserControls';
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ export default function Room({ socket }) {
   const { roomId } = useParams();
   const peers = {};
 
+
   const thisShhroomer = useShhroom();
+
 
   useEffect(() => {
     // Initialize room once shhroomer object is ready
@@ -180,10 +183,14 @@ export default function Room({ socket }) {
     navigate('/lobby');
   }
 
-  return (
-    <div
-      className={`flex flex-col gap-10 h-[calc(100vh_-_64px)] overflow-auto bg-gradient-to-b from-dark-purple00 to-black`}
-    >
+
+  http: return (
+    <div className="bg-[url('/svg/wave.svg')] bg-cover h-screen w-screen bg-no-repeat">
+      <RoomUserControls
+        roomId={roomId}
+        leaveMeeting={leaveMeeting}
+        thisShhroomer={thisShhroomer}
+      />
       <VideoGrid ownSource={ownSource} peerSource={peerSource} />
       {chatConnection && (
         <Chat
@@ -192,12 +199,15 @@ export default function Room({ socket }) {
           chatConnection={chatConnection}
         />
       )}
-      <button
+
+      {/**
+        <button
         className='w-fit mr-4 self-end bg-gradient-to-t from-dark-purple0 to-dark-purple00 hover:shadow-dark-pink4/40 py-3 px-5 rounded-xl shadow-lg shadow-gray-900/60 transition duration-500 hover:scale-105 font-medium tracking-wide'
         onClick={leaveMeeting}
-      >
+        >
         Leave Meeting
-      </button>
+        </button>
+      */}
     </div>
   );
 }
