@@ -1477,7 +1477,6 @@ export default function Model(props) {
           />
         </Plane>
         <Billboard
-          ref={signTextRef}
           position={[2, 1.5, 3.5]}
           rotation={[0, Math.PI / 2, 0]}
           visible={landingContext.signInHintIsVisible}
