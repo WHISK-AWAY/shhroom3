@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useMemo, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
-import { Vector3 } from 'three';
-import { Link } from 'react-router-dom';
 import x from '/svg/x.svg';
 import { useForm } from 'react-hook-form';
 import { ERRORSTYLE } from '../lib/utils';
 import { BORDERERR } from '../lib/utils.js';
-import { ZoomContext } from './Landing/Landing';
-import { gsap } from 'gsap';
 
 import { GlobalContext, LandingContext } from '../lib/context';
 
@@ -20,62 +16,15 @@ const ZSignIn = z.object({
   password: z.string(),
 });
 
-export default function Signin({
-  setIsFormHidden,
-  isFormHidden,
-  setIsSignUpHidden,
-  camera,
-  controls,
-}) {
-  const monitorZoomPosition = useMemo(
-    () => new Vector3(3.54909, 3.20587, 2.15376),
-  );
-
-  const [signinSuccessful, setSigninSuccessful] = useState(false);
-  const zoom = useContext(ZoomContext);
+export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
   const landingContext = useContext(LandingContext);
   const globalContext = useContext(GlobalContext);
 
   useEffect(() => {
-    // ! debug
+    // ! just a debug log...
 
     console.log('globalContext:', globalContext);
   }, [globalContext]);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (signinSuccessful) {
-        const { setZoom, camera, controls } = zoom;
-        setZoom((prev) => ({
-          ...prev,
-          zoomMode: true,
-          targetPosition: new Vector3(7.71108, 3.65457, -2.58681),
-          targetLabel: 'newMeeting',
-          controlsEnabled: false,
-        }));
-
-        const tl = gsap.timeline({});
-        tl.to(camera.position, {
-          duration: 1,
-          x: 7.7084461220869285,
-          y: 3.760683379409692,
-          z: 1.4263831780533351,
-          onUpdate: () => controls.update(),
-        });
-        tl.to(controls.target, {
-          x: 7.71108,
-          y: 3.65457,
-          z: -2.58681,
-          duration: 1,
-          onUpdate: () => controls.update(),
-        });
-      }
-    });
-
-    return () => {
-      ctx.revert();
-    };
-  }, [signinSuccessful]);
 
   const {
     register,
@@ -96,28 +45,31 @@ export default function Signin({
     if (!data) return;
 
     try {
+      // attempt authentication (will throw error on failure)
       const res = await axios.post(API_URL + '/api/auth', {
         username: data.username,
         password: data.password,
       });
 
+      // store JWT response
       if (res.data.token) localStorage.setItem('token', res.data.token);
 
+      // update app state for signed-in user
       globalContext.setContext((prev) => ({
         ...prev,
         isSignedIn: true,
         username: data.username,
       }));
 
-      zoom.setZoom((prev) => ({
+      // make sure sign-in hint is no longer visible
+      landingContext.setContext((prev) => ({
         ...prev,
-        targetPosition: new Vector3(7.71108, 3.65457, -2.58681),
-        targetLabel: 'newMeeting',
-        controlsEnabled: true,
-        isUserSigned: true,
+        signInHintIsVisible: false,
       }));
 
-      setSigninSuccessful(true);
+      // zoom away from screen & then zoom to new meeting poster
+      landingContext.releaseZoom();
+      setTimeout(() => landingContext.zoomToObject('newMeeting'), 750);
 
       return res;
     } catch (err) {

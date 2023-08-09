@@ -1,8 +1,8 @@
 import { useState, useRef, useMemo, useContext, useEffect } from 'react';
+import { useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useControls } from 'leva';
 import { Euler, Vector3 } from 'three';
-import { ZoomContext } from './Landing';
 import { gsap } from 'gsap';
 import { objectPositions } from './objectPositions.js';
 
@@ -28,15 +28,10 @@ export default function ControlledCamera() {
   const controls = useRef(null);
   const zoomTimeline = useRef(null);
 
-  const zoomContext = useContext(ZoomContext);
+  const raycaster = useThree((state) => state.raycaster);
+
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
-  const { zoomMode, setZoom, controlsEnabled, targetLabel, targetPosition } =
-    zoomContext;
-
-  // const [position, setPosition] = useState(initPosition);
-  // const [target, setTarget] = useState(initTarget);
-  // const [rotation, setRotation] = useState(initRotation);
 
   const position = useRef(initPosition);
   const target = useRef(initTarget);
@@ -79,8 +74,8 @@ export default function ControlledCamera() {
       max: Math.PI / 1,
     },
     minDistance: {
-      value: 0,
-      min: 0,
+      value: -10,
+      min: -10,
       max: 15,
     },
     maxDistance: {
@@ -94,28 +89,23 @@ export default function ControlledCamera() {
     // set up zoomToTarget function
     // label: string (keyof objectPositions)
     function zoomToObject(label) {
+      console.log('zooming to passed-in label:', label);
+
       if (!objectPositions[label]) {
         console.error(`No position information for label ${label}`);
         return;
       }
 
-      const newTargetPosition = objectPositions[label].targetPosition;
-      const newCamPosition = objectPositions[label].position;
+      const { camPosition, targetPosition } = objectPositions[label];
 
       landingContext.setContext((prev) => ({
         ...prev,
         isZoomed: true,
         targetLabel: label,
-        targetPosition: newTargetPosition,
-        camPosition: newCamPosition,
+        targetPosition: targetPosition,
+        camPosition: camPosition,
         controlsAreEnabled: false,
       }));
-
-      // // set camera position
-      // position.current = newCamPosition;
-
-      // // set controls target
-      // targetPosition.current = newTargetPosition;
     }
 
     landingContext.setContext((prev) => ({
@@ -123,6 +113,12 @@ export default function ControlledCamera() {
       zoomToObject,
     }));
   }, []);
+
+  useEffect(() => {
+    // set up raycaster to select only 'layer1' objects
+    // objects are tagged 'layer1' in the Model file
+    raycaster.layers.set(1);
+  }, [raycaster]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -166,89 +162,19 @@ export default function ControlledCamera() {
     };
   }, [landingContext.targetLabel]);
 
-  // useEffect(() => {
-  //   // provide reference to cam & controls objects to zoom context
-  //   if (camera.current && controls.current) {
-  //     setZoom((prev) => ({
-  //       ...prev,
-  //       camera: camera.current,
-  //       controls: controls.current,
-  //     }));
-  //   }
-  // }, [camera.current, controls.current]);
-
-  // useEffect(() => {
-  //   // zoom in / out animations
-  //   // (zoom out is just reverse of zoom in)
-
-  //   const ctx = gsap.context(() => {
-  //     if (landingContext.isZoomed) {
-  //       const { x: camX, y: camY, z: camZ } = landingContext.camPosition;
-  //       const {
-  //         x: targetX,
-  //         y: targetY,
-  //         z: targetZ,
-  //       } = landingContext.targetPosition;
-  //       const tl = gsap.timeline({ ease: 'power2.inOut' });
-  //       console.log('animating to', targetLabel);
-
-  //       tl.to(controls.current.target, {
-  //         x: targetX,
-  //         y: targetY,
-  //         z: targetZ,
-  //         duration: 0.5,
-  //         onUpdate: () => controls.current.update(),
-  //       });
-
-  //       tl.to(
-  //         camera.current.position,
-  //         {
-  //           x: camX,
-  //           y: camY,
-  //           z: camZ,
-  //           onUpdate: () => controls.current.update(),
-  //           duration: 1,
-  //         },
-  //         '<',
-  //       );
-
-  //       zoomTimeline.current = tl;
-  //     }
-  //   });
-
-  //   return () => {
-  //     if (zoomTimeline.current)
-  //       zoomTimeline.current.reverse().then(() => {
-  //         ctx.revert();
-  //       });
-  //     else ctx.revert();
-  //   };
-  // }, [landingContext.targetLabel]);
-
   useEffect(() => {
+    // set up keypress events
+
     function onKeys(e) {
       if (e.keyCode === 27) {
         // Press ESC to return to initial camera/controls setup
         // Does nothing if zoomMode is already false
-        zoomContext.reset();
-
-        // ! This is what I was working on before lunch...
         landingContext.releaseZoom();
-        // landingContext.setContext((prev) => ({
-        //   ...prev,
-        //   isZoomed: false,
-        //   targetLabel: null,
-        //   targetPosition: null,
-        //   camPosition: null,
-        //   controlsAreEnabled: true,
-        // }));
       } else if (e.keyCode === 32) {
         // Press Space to log out the camera & controls state
         console.log('Camera:', camera.current);
         console.log('Controls:', controls.current);
-        console.log('Azimuthal angle:', controls.current.getAzimuthalAngle());
-        console.log('Polar angle:', controls.current.getPolarAngle());
-        console.log('ZoomContext:', zoomContext);
+        console.log('Raycaster:', raycaster);
         console.log('GlobalContext', globalContext);
         console.log('LandingContext', landingContext);
       }

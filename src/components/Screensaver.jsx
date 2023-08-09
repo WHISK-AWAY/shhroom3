@@ -3,7 +3,6 @@ import compIcon from '/svg/computerIcon.svg';
 import Signin from './Signin';
 import SignUp from './SignUp';
 import { useContext } from 'react';
-// import { ZoomContext } from './Landing/Landing';
 import { LandingContext } from '../lib/context';
 import { gsap } from 'gsap';
 
@@ -14,7 +13,6 @@ export default function Screensaver() {
 
   const wrapperRef = useRef(null);
 
-  // const zoom = useContext(ZoomContext);
   const landingContext = useContext(LandingContext);
 
   useEffect(() => {
@@ -41,23 +39,17 @@ export default function Screensaver() {
     };
   }, [landingContext.targetLabel]);
 
-  // const monitorZoomPosition = useMemo(
-  //   () => new Vector3(3.54909, 3.20587, 2.15376),
-  // );
-
   function zoomToMonitor(e) {
     // if we're already zoomed in, don't do anything
+    console.log('clicked monitor');
     if (landingContext.targetLabel === 'monitor') {
       e.stopPropagation();
     } else {
+      landingContext.setContext((prev) => ({
+        ...prev,
+        signInHintIsVisible: false,
+      }));
       landingContext.zoomToObject('monitor');
-      // zoom.setZoom((prev) => ({
-      //   ...prev,
-      //   targetPosition: monitorZoomPosition,
-      //   targetLabel: 'monitor',
-      //   zoomMode: true,
-      //   controlsEnabled: false,
-      // }));
     }
   }
 
@@ -85,7 +77,6 @@ export default function Screensaver() {
                 <div className='scale-[90%]'>
                   <Signin
                     setIsFormHidden={setIsFormHidden}
-                    isFormHidden={isFormHidden}
                     setIsSignUpHidden={setIsSignUpHidden}
                   />
                 </div>

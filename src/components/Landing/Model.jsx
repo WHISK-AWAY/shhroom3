@@ -4,13 +4,10 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useGLTF, Plane, Html, Billboard } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import { gsap } from 'gsap';
 import Screensaver from '../Screensaver';
-import { ZoomContext } from './Landing';
 import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
@@ -23,58 +20,25 @@ import { GlobalContext, LandingContext } from '../../lib/context';
  * TODO: figure out non-3d approach
  * TODO: tune monitor glow color
  * TODO: Personal photos glow on hover (low priority)
- * TODO: infinite tunnel
  * TODO: favicon
  */
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
-  const zoom = useContext(ZoomContext);
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
   const screenRef = useRef(null);
-  const tlRef = useRef(null);
-  const [initialRender, setInitialRender] = useState(true);
-  const [isLoginHelperDisplayed, setIsLoginHelperDisplayed] = useState(false);
+  const newMeetingRef = useRef(null);
+  const corkboardRef = useRef(null);
 
-  // function zoomToClick(targetPosition, targetLabel) {
-  //   // if zoom mode is already true, re-initialize zoom state
-  //   // otherwise, populate zoom state with target info
-  //   // const targetPosition = e.object.position;
-  //   zoom.setZoom((prev) => ({
-  //     ...prev,
-  //     zoomMode: true,
-  //     controlsEnabled: false,
-  //     targetPosition,
-  //     targetLabel,
-  //   }));
-  // }
-
-  const [screenInv, setScreenInv] = useState(true);
-
-  // useEffect(() => {
-  //   const ctx = gsap.context(() => {
-  //     const tl = gsap.timeline();
-  //     if (zoom.targetLabel === 'monitor' || zoom.targetLabel === 'desktop') {
-  //       console.log('fading in monitor:', screenRef.current);
-  //       tl.to(screenRef.current, {
-  //         opacity: 1,
-  //         duration: 1.5,
-  //         ease: 'slow',
-  //       });
-  //     }
-  //     tlRef.current = tl;
-  //   });
-
-  //   return () => {
-  //     tlRef.current
-  //       .duration(1)
-  //       .reverse()
-  //       .then(() => {
-  //         ctx.revert();
-  //       });
-  //   };
-  // }, [zoom.targetLabel]);
+  useEffect(() => {
+    (() => {
+      console.log('setting layers');
+      for (let object of [newMeetingRef, corkboardRef]) {
+        object.current.layers.enable(1);
+      }
+    })();
+  }, []);
 
   return (
     <group {...props} dispose={null}>
@@ -126,6 +90,7 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.79257}
       />
+      {/* sting poster */}
       <mesh
         receiveShadow
         geometry={nodes.tp.geometry}
@@ -133,7 +98,6 @@ export default function Model(props) {
         position={[8.72845, 3.51681, -2.58078]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.33809}
-        // onClick={(e) => zoomToClick(e.object.position, 'sting')}
       />
       <mesh
         receiveShadow
@@ -702,14 +666,19 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.87429}
       ></mesh>
+      {/* new meeting poster */}
       <mesh
+        ref={newMeetingRef}
         receiveShadow
         geometry={nodes.shh3.geometry}
         material={materials.shh3}
         position={[7.71108, 3.65457, -2.58681]}
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
-        // onClick={(e) => zoomToClick(e.object.position, 'newMeeting')}
+        onClick={() => {
+          console.log('clicked newMeeting');
+          landingContext.zoomToObject('newMeeting');
+        }}
       />
       <mesh
         receiveShadow
@@ -766,7 +735,6 @@ export default function Model(props) {
         material={materials['Magnificent wood']}
         position={[3.8675, 2.36059, 1.31098]}
         rotation={[Math.PI, -0.00212, Math.PI]}
-        // onClick={(e) => zoomToClick(e.object.position, 'desktop')}
       />
       <mesh
         castShadow
@@ -1131,16 +1099,22 @@ export default function Model(props) {
         position={[3.35284, 4.76898, -0.88191]}
         scale={[0.302, 1, 1.36665]}
       />
+      {/* corkboard */}
       <mesh
         // castShadow
+        ref={corkboardRef}
         receiveShadow
         geometry={nodes.corkboard.geometry}
         material={materials['Cork natural']}
         position={[3.0905, 4.29743, 1.83965]}
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
-        // onClick={(e) => zoomToClick(e.object.position, 'corkboard')}
-      />
+        onClick={() => {
+          console.log('clicked corkboard');
+          landingContext.zoomToObject('corkboard');
+        }}
+        // onClick={() => landingContext.zoomToObject('corkboard')}
+      ></mesh>
       <mesh
         castShadow
         receiveShadow
@@ -1490,7 +1464,7 @@ export default function Model(props) {
           />
         </Plane>
 
-        {zoom.isUserSigned === false && (
+        {landingContext.signInHintIsVisible && (
           <Billboard
             // position={[5.54909, 3.20587, 3.15376]}
             position={[2, 2, 3.4]}
@@ -1530,7 +1504,7 @@ export default function Model(props) {
           </Billboard>
         )}
 
-        {(zoom.targetLabel === 'monitor' || zoom.targetLabel === 'desktop') && (
+        {landingContext.targetLabel === 'monitor' && (
           <Billboard
             // position={[5.54909, 3.20587, 3.15376]}
             position={[1.5, -0.8, 0.6]}
@@ -1608,9 +1582,7 @@ export default function Model(props) {
         >
           <GlobalContext.Provider value={globalContext}>
             <LandingContext.Provider value={landingContext}>
-              <ZoomContext.Provider value={zoom}>
-                <Screensaver />
-              </ZoomContext.Provider>
+              <Screensaver />
             </LandingContext.Provider>
           </GlobalContext.Provider>
         </Html>
