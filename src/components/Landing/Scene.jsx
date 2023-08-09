@@ -15,6 +15,7 @@ export default function Scene({ setIsCanvasLoaded }) {
   shhroomText();
 
   useEffect(() => {
+    document.querySelector('#loader').classList.add('invisible');
     setIsCanvasLoaded(true);
     setTimeout(() => {
       setisUControlsClose(false);
@@ -28,7 +29,7 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Model />
       <BakeShadows />
       <AdaptiveDpr />
-      <SceneEffects />
+      {/* <SceneEffects /> */}
       <Preload all={true} />
     </>
   );
