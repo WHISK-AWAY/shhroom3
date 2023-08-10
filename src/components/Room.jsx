@@ -22,9 +22,12 @@ export default function Room({ socket }) {
   const { roomId } = useParams();
   const peers = {};
 
-
   const thisShhroomer = useShhroom();
 
+  useEffect(() => {
+    // release loading screen
+    document.querySelector('#loader').classList.add('invisible');
+  }, []);
 
   useEffect(() => {
     // Initialize room once shhroomer object is ready
@@ -36,8 +39,9 @@ export default function Room({ socket }) {
       navigate('/');
     }
 
-    joinRoom(roomId, socket, navigate, thisShhroomer);
-    getOwnVideo();
+    getOwnVideo().then(() => {
+      joinRoom(roomId, socket, navigate, thisShhroomer);
+    });
   }, [thisShhroomer.loading, roomId]);
 
   useEffect(() => {
@@ -183,8 +187,7 @@ export default function Room({ socket }) {
     navigate('/lobby');
   }
 
-
-  http: return (
+  return (
     <div className="bg-[url('/svg/wave.svg')] bg-cover h-screen w-screen bg-no-repeat">
       <RoomUserControls
         roomId={roomId}
