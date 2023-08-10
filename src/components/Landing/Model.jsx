@@ -1496,7 +1496,7 @@ export default function Model(props) {
         )}
 
         <Billboard
-          // position={[5.54909, 3.20587, 3.15376]}
+          // position={[5.54909, 3.20587, 3.95376]}
           position={[1.5, -0.8, 0.6]}
           rotation={[0, 0, 0]}
           visible={true}
@@ -3095,7 +3095,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             emissive='#ff0000'
-            emissiveIntensity={8}
+            emissiveIntensity={10}
             toneMapped={false}
             color={'#ff0000'}
           />
