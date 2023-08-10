@@ -18,17 +18,17 @@ export default function OverheadLight({ lightIsOn }) {
   const { x, y, z } = useControls('Overhead Light Position', {
     x: {
       value: 3.8,
-      min: 0,
+      min: -3,
       max: 20,
     },
     y: {
       value: 2.6,
-      min: 0,
+      min: -3,
       max: 20,
     },
     z: {
       value: 0,
-      min: 0,
+      min: -3,
       max: 20,
     },
   });
