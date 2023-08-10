@@ -9,7 +9,7 @@ import { useFrame } from '@react-three/fiber';
 import { Tube, useTexture } from '@react-three/drei';
 import { gsap } from 'gsap';
 
-import bgTexture from '../../../public/bg/stars.jpg';
+import bgTexture from '../../../public/bg/stars3.jpg';
 
 function setupCurve() {
   const points = [];
@@ -18,12 +18,15 @@ function setupCurve() {
     points.push(new Vector3(0, 0, 3 * (i / -4)));
   }
 
+  points[1].x = 0.01;
   points[1].y = 0.01;
-  points[1].x = -0.01;
-  points[2].y = -0.02;
-  points[3].x = -0.01;
-  points[3].y = 0.03;
-  points[4].y = -0.06;
+  points[2].x = 0.0;
+  points[2].y = 0.0;
+  points[3].x = -0.02;
+  points[3].y = 0.0;
+  points[4].x = -0.02;
+  points[4].y = -0.04;
+
   const curve = new CatmullRomCurve3(points);
   curve.type = 'catmullrom';
 
@@ -66,41 +69,42 @@ export default function Tunnel() {
         // wind up
         ease: 'power1.inOut',
         repeatX: 0.1,
-        duration: 5,
+        duration: 2,
         // ease: 'power1.inOut',
         // repeatX: 0.3,
         // duration: 4,
-      });
-
-      tl.to(
-        // fast section
-        timelineTextureParams,
-        {
-          ease: 'power2.inOut',
-          offsetX: 24,
-          offsetY: 12,
-          duration: 10,
-          // ease: 'power2.inOut',
-          // offsetX: 8,
-          // offsetY: 8,
-          // duration: 12,
-        },
-        '<',
-      );
-
-      tl.to(
-        // wind down
-        timelineTextureParams,
-        {
-          ease: 'power2.inOut',
-          duration: 6,
-          repeatX: 10,
-          // ease: 'power2.inOut',
-          // duration: 6,
-          // repeatX: 10,
-        },
-        '-=5',
-      );
+      })
+        .to(
+          // fast section
+          timelineTextureParams,
+          {
+            ease: 'power2.inOut',
+            offsetX: 24,
+            offsetY: 12,
+            duration: 10,
+            // ease: 'power2.inOut',
+            // offsetX: 8,
+            // offsetY: 8,
+            // duration: 12,
+          },
+          '<',
+        )
+        .to(
+          // wind down
+          timelineTextureParams,
+          {
+            ease: 'power2.inOut',
+            duration: 3,
+            repeatX: 10,
+            onComplete: () => {
+              console.log('done!');
+            },
+            // ease: 'power2.inOut',
+            // duration: 6,
+            // repeatX: 10,
+          },
+          '>-3',
+        );
     });
 
     return () => ctx.revert();
