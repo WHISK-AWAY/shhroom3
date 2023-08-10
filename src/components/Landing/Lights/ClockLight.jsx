@@ -26,7 +26,7 @@ export default function ClockLight({ lightIsOn }) {
       max: 10,
     },
     distance: {
-      value: 3.2,
+      value: 2.1,
       min: 0,
       max: 10,
     },
