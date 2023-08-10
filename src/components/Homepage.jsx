@@ -8,6 +8,11 @@ export default function Homepage() {
   const globalContext = useContext(GlobalContext);
 
   useEffect(() => {
+    // release loading screen
+    document.querySelector('#loader').classList.add('invisible');
+  }, []);
+
+  useEffect(() => {
     console.log('global context:', globalContext);
 
     // globalContext.setContext((prev) => ({ ...prev, isInMeeting: true }));

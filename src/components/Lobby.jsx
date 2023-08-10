@@ -23,7 +23,10 @@ export default function Lobby({ socket }) {
     setRooms(roomList);
   });
 
-  document.querySelector('#loader').classList.add('invisible');
+  useEffect(() => {
+    // release loading screen
+    document.querySelector('#loader').classList.add('invisible');
+  }, []);
 
   return (
     <div className='signin-form flex flex-col justify-center gap-7 shadow-lg shadow-gray-800/60  items-center min-w-min max-w-sm mx-auto mt-40 bg-gradient-to-r from-pink-500/50 via-purple-500/60 to-indigo-500/60 rounded text-slate-200 h-96'>
