@@ -7,6 +7,7 @@ import ClockLight from './ClockLight';
 import WindowLightVolumetric from './WindowLightVolumetric';
 import AmbientLight from './AmbientLight';
 import FlashLight from './FlashLight';
+import CornerWallLight from './CornerWallLight'
 
 export default function Lights() {
   const {
@@ -17,6 +18,7 @@ export default function Lights() {
     lavaLampIsOn,
     clockLightIsOn,
     ambientLightIsOn,
+    cornerWallLightIsOn
   } = useControls('Lights', {
     overheadLightIsOn: {
       value: true,
@@ -39,6 +41,9 @@ export default function Lights() {
     ambientLightIsOn: {
       value: true,
     },
+    cornerWallLightIsOn: {
+      value: true
+    }
   });
 
   return (
@@ -58,6 +63,8 @@ export default function Lights() {
       <AmbientLight lightIsOn={ambientLightIsOn} />
 
       <FlashLight />
+
+      <CornerWallLight lightIsOn={cornerWallLightIsOn}/>
     </>
   );
 }
