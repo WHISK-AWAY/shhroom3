@@ -1,7 +1,8 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { AmbientLight, Euler, Vector3 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import {
+  AdaptiveDpr,
   OrbitControls,
   PerspectiveCamera,
   useTexture,
@@ -13,12 +14,16 @@ export default function TunnelCanvas() {
   const ww = window.innerWidth;
   const wh = window.innerHeight;
 
+  useEffect(() => {
+    document.querySelector('#loader').classList.add('invisible');
+  }, []);
+
   return (
-    <div className='h-screen w-screen'>
+    <div className='h-screen w-screen bg-black'>
       <Canvas
         frameloop='always'
         gl={{
-          antialias: true,
+          antialias: false,
         }}
         camera={{
           fov: 10,
@@ -33,6 +38,7 @@ export default function TunnelCanvas() {
           <OrbitControls makeDefault={true} />
           <color attach='background' args={['#000']} />
           <Tunnel />
+          <AdaptiveDpr />
         </Suspense>
       </Canvas>
     </div>

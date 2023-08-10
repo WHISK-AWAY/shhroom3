@@ -1,4 +1,4 @@
-import { useRef, useContext, useEffect } from 'react';
+import { useRef, useContext, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useControls } from 'leva';
@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { objectPositions } from './objectPositions.js';
 
 import { GlobalContext, LandingContext } from '../../lib/context';
+import { Vector3 } from 'three';
 
 export default function ControlledCamera() {
   const camera = useRef(null);
@@ -59,10 +60,39 @@ export default function ControlledCamera() {
       max: 15,
     },
     maxDistance: {
-      value: 15,
+      value: 50,
       min: 0,
       max: 50,
     },
+  });
+
+  const MIN_PAN = useMemo(() => {
+    return new Vector3(4.5, -15, -4);
+  }, []);
+  const MAX_PAN = useMemo(() => {
+    return new Vector3(6, 15, 4);
+  }, []);
+
+  useLayoutEffect(() => {
+    function onChange() {
+      // console.log('onchange');
+      if (landingContext.controlsAreEnabled) {
+        const tempVector = new Vector3();
+        tempVector.copy(controls.current.target);
+        controls.current.target.clamp(MIN_PAN, MAX_PAN);
+        tempVector.sub(controls.current.target);
+        camera.current.position.sub(tempVector);
+      }
+
+      return;
+    }
+
+    controls.current.addEventListener('change', onChange);
+
+    return () => {
+      console.log('releasing pan limit');
+      controls.current.removeEventListener('change', onChange);
+    };
   });
 
   useEffect(() => {
