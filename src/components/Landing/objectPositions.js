@@ -31,11 +31,12 @@ export const objectPositions = {
       3.7209397708118264,
       7.464389431872212,
     ),
-    targetPosition: new Vector3(
-      7.008978578979336,
-      2.854308301873602,
-      1.0516778801734505,
-    ),
+    targetPosition: new Vector3(0, 2, 0),
+    // targetPosition: new Vector3(
+    //   7.008978578979336,
+    //   2.854308301873602,
+    //   1.0516778801734505,
+    // ),
   },
   // sting: {
   //   camPosition: new Vector3(

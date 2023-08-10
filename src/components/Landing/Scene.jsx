@@ -8,14 +8,12 @@ import shhroomText from './renderShhroomText';
 import { useEffect, useState, useRef, useContext } from 'react';
 // import signInHelperText from './SignInHelperText';
 
-
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
 
   // Render 3d text signs
   renderNewMeetingText();
   shhroomText();
-
 
   useEffect(() => {
     document.querySelector('#loader').classList.add('invisible');
@@ -24,7 +22,6 @@ export default function Scene({ setIsCanvasLoaded }) {
       setisUControlsClose(false);
     }, 3000);
   }, []);
-
 
   return (
     <>
