@@ -13,7 +13,7 @@ import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
-import SignInHelperText from './signInHelperText';
+import SignInHelperText from './SignInHelperText';
 
 /**
  * TODO: non-freezing loading screen
