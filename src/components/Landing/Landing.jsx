@@ -34,7 +34,7 @@ export default function Landing() {
             depth: true,
           }}
         >
-          <color attach='background' args={['#0e0e0e']} />
+          <color attach='background' args={['#030303']} />
           <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
         </Canvas>
       </Suspense>
