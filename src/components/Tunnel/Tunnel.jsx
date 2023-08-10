@@ -36,6 +36,7 @@ function setupCurve() {
 export default function Tunnel() {
   const materialRef = useRef(null);
   const tubeRef = useRef(null);
+  const curveRef = useRef(null);
 
   const texture = useTexture(bgTexture);
   texture.wrapS = MirroredRepeatWrapping;
@@ -48,6 +49,16 @@ export default function Tunnel() {
     repeatX: 10,
     repeatY: 4,
   });
+
+  const points = [
+    new Vector3(0, 0, 0),
+    new Vector3(0.01, 0.01, -0.75),
+    new Vector3(0, 0, -1.5),
+    new Vector3(0, 0, -2.25),
+    new Vector3(-0.03, -0.03, -3),
+  ];
+
+  curveRef.current = new CatmullRomCurve3(points);
 
   useFrame(() => {
     // update material position per-frame (in conjunction w / gsap animation)
@@ -110,8 +121,25 @@ export default function Tunnel() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    console.log('tubeRef:', tubeRef.current);
+    console.log('curveRef:', curveRef.current);
+  }, [tubeRef.current]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      curveRef.current.points[2].x = -30;
+      curveRef.current.needsUpdate = true;
+      curveRef.current.updateArcLengths();
+    }, 1500);
+  }, []);
+
   return (
-    <Tube ref={tubeRef} scale={1.1} args={[setupCurve(), 70, 0.02, 30, false]}>
+    <Tube
+      ref={tubeRef}
+      scale={1.1}
+      args={[curveRef.current, 70, 0.02, 30, false]}
+    >
       <meshBasicMaterial
         ref={materialRef}
         map={texture}
