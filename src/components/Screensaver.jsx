@@ -86,7 +86,7 @@ export default function Screensaver() {
                   />
                 </div>
               ) : (
-                <div className='scale-[90%]'>
+                <div className='scale-[100%]'>
                   <SignUp
                     setIsFormHidden={setIsFormHidden}
                     isFormHidden={isFormHidden}
