@@ -2949,7 +2949,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             emissive='#ff0000'
-            emissiveIntensity={8}
+            emissiveIntensity={10}
             toneMapped={false}
             color={'#ff0000'}
           />
@@ -2980,7 +2980,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             emissive='#ff0000'
-            emissiveIntensity={8}
+            emissiveIntensity={16}
             toneMapped={false}
             color={'#ff0000'}
           />
