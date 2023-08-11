@@ -69,7 +69,7 @@ export default function Screensaver() {
         onClick={() => setIsFormHidden(false)}
         src={compIcon}
         alt='old computer screen icon'
-        className='h-[80%] w-[80%] drop-shadow-xl  '
+        className='h-[80%] w-[60%] drop-shadow-xl  '
         />
         <p className='font-vt text-[35px] pt-[1%]  '>
           sign_in/sign_up
