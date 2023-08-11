@@ -4,7 +4,13 @@ Command: npx gltfjsx@6.2.10 model.glb -o ../src/Model_2023-07-31.tsx -t -p 5 -r 
 Files: model.glb [737.36MB] > model-transformed.glb [40.62MB] (94%)
 */
 
-import { useContext, useEffect, useRef, useState } from 'react';
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+} from 'react';
 import * as THREE from 'three';
 import { useGLTF, Plane, Html, Billboard } from '@react-three/drei';
 import Screensaver from '../Screensaver';
@@ -34,15 +40,13 @@ export default function Model(props) {
   const corkboardRef = useRef(null);
   const [isSignHelperHidden, setIsSignHelperHidden] = useState(true);
 
-  useEffect(() => {
-    (() => {
-      console.log('setting layers');
-      for (let object of [newMeetingRef, corkboardRef, screenRef, escBtnRef]) {
-        if (object.current) {
-          object.current.layers.enable(1);
-        }
+  useLayoutEffect(() => {
+    console.log('setting layers');
+    for (let object of [newMeetingRef, corkboardRef, screenRef, escBtnRef]) {
+      if (object.current?.layers) {
+        object.current.layers.enable(1);
       }
-    })();
+    }
   }, []);
 
   useEffect(() => {
@@ -1494,69 +1498,78 @@ export default function Model(props) {
             </Svg>
           </>
         )}
-
+        <Plane
+          args={[0.6, 0.12]}
+          position={[1.56, -0.83, 0.5]}
+          rotation={[0, Math.PI / 2, 0]}
+          ref={escBtnRef}
+          onClick={() => {
+            if (landingContext.targetLabel === 'monitor')
+              landingContext.releaseZoom();
+            else return;
+          }}
+        >
+          <meshBasicMaterial color={'#ff0000'} transparent opacity={0} />
+        </Plane>
         <Billboard
           // position={[5.54909, 3.20587, 3.95376]}
           position={[1.5, -0.8, 0.6]}
           rotation={[0, 0, 0]}
-          visible={true}
+          visible={landingContext.targetLabel === 'monitor'}
           follow={true}
           lockX={true}
           lockY={true}
           lockZ={true}
-          onClick={() => landingContext.releaseZoom()}
-          ref={escBtnRef}
         >
-          <>
-            <Text3D
-              rotation={[0, Math.PI / 2, 0]}
-              position={[0, -0.05, 0.18]}
-              height={0.01}
-              fontSize={0.005}
-              size={0.02}
-              // lineHeight={0.5}
-              letterSpacing={0.003}
-              // position={[-5.34909, 3.20587, 4.25376]}
-              color='#00FFCC'
-              outlineColor='fff'
-              outlineOffsetY='20'
-              outlineWidth={30}
-              // size={0.001}
-              font='/fonts/Press Start 2P_Regular.json'
-            >
-              click
-              <meshStandardMaterial
-                emissive='#16c7a4'
-                emissiveIntensity={1.9}
-                toneMapped={false}
-              />
-            </Text3D>
-            <Svg
-              src={escButton}
-              scale={0.009}
-              rotation={[0, Math.PI / 2, 0]}
-              // position={[3.54909, 3.20587, 3.95376]}
+          <Text3D
+            rotation={[0, Math.PI / 2, 0]}
+            position={[0, -0.05, 0.18]}
+            height={0.01}
+            fontSize={0.005}
+            size={0.02}
+            // lineHeight={0.5}
+            letterSpacing={0.003}
+            // position={[-5.34909, 3.20587, 4.25376]}
+            color='#00FFCC'
+            outlineColor='#fff'
+            outlineOffsetY='20'
+            outlineWidth={30}
+            // size={0.001}
+            font='/fonts/Press Start 2P_Regular.json'
+          >
+            click
+            <meshStandardMaterial
+              emissive='#16c7a4'
+              emissiveIntensity={1.9}
+              toneMapped={false}
             />
-            <Text3D
-              rotation={[0, Math.PI / 2, 0]}
-              position={[0, -0.05, -0.1]}
-              height={0.01}
-              fontSize={0.005}
-              size={0.02}
-              color='#00FFCC'
-              outlineColor='fff'
-              outlineWidth='3px'
-              letterSpacing={0.003}
-              font='/fonts/Press Start 2P_Regular.json'
-            >
-              to exit
-              <meshStandardMaterial
-                emissive='#16c7a4'
-                emissiveIntensity={1.9}
-                toneMapped={false}
-              />
-            </Text3D>
-          </>
+          </Text3D>
+          <Svg
+            src={escButton}
+            scale={0.009}
+            rotation={[0, Math.PI / 2, 0]}
+
+            // position={[3.54909, 3.20587, 3.95376]}
+          />
+          <Text3D
+            rotation={[0, Math.PI / 2, 0]}
+            position={[0, -0.05, -0.1]}
+            height={0.01}
+            fontSize={0.005}
+            size={0.02}
+            color='#00FFCC'
+            outlineColor='fff'
+            outlineWidth='3px'
+            letterSpacing={0.003}
+            font='/fonts/Press Start 2P_Regular.json'
+          >
+            to exit
+            <meshStandardMaterial
+              emissive='#16c7a4'
+              emissiveIntensity={1.9}
+              toneMapped={false}
+            />
+          </Text3D>
         </Billboard>
 
         <Html
