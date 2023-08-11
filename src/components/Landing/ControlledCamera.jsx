@@ -28,29 +28,29 @@ export default function ControlledCamera() {
     maxDistance,
   } = useControls('Controls Settings', {
     enableDamping: {
-      value: false,
+      value: true,
     },
     minAzimuthAngle: {
       // value: 0.42,
-      value: Math.PI / -1,
+      value: -0.0,
       min: Math.PI / -1,
       max: Math.PI / 1,
     },
     maxAzimuthAngle: {
       // value: 1.14,
-      value: Math.PI,
+      value: 1.70,
       min: Math.PI / -1,
       max: Math.PI / 1,
     },
     minPolarAngle: {
       // value: 1.32,
-      value: Math.PI / -1,
+      value: 1.42,
       min: Math.PI / -1,
       max: Math.PI / 1,
     },
     maxPolarAngle: {
       // value: 1.44,
-      value: Math.PI,
+      value: 1.64,
       min: Math.PI / -1,
       max: Math.PI / 1,
     },
@@ -60,17 +60,17 @@ export default function ControlledCamera() {
       max: 15,
     },
     maxDistance: {
-      value: 50,
+      value: 10.5,
       min: 0,
       max: 50,
     },
   });
 
   const MIN_PAN = useMemo(() => {
-    return new Vector3(4.5, -15, -4);
+    return new Vector3(4.5, 3, 0);
   }, []);
   const MAX_PAN = useMemo(() => {
-    return new Vector3(6, 15, 4);
+    return new Vector3(3, 4, 4);
   }, []);
 
   useLayoutEffect(() => {
@@ -217,13 +217,14 @@ export default function ControlledCamera() {
         zoomToCursor={true}
         enableDamping={true}
         dampingFactor={0.5}
-        minAzimuthAngle={minAzimuthAngle}
-        maxAzimuthAngle={maxAzimuthAngle}
+        minAzimuthAngle={landingContext.isZoomed ? undefined : minAzimuthAngle}
+        maxAzimuthAngle={landingContext.isZoomed ? undefined : maxAzimuthAngle}
         minPolarAngle={minPolarAngle}
         maxPolarAngle={maxPolarAngle}
         minDistance={minDistance}
         maxDistance={maxDistance}
         target={objectPositions.initPosition.targetPosition}
+        panSpeed={0.5}
       />
     </>
   );
