@@ -90,9 +90,9 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
   }, [errors.username, errors.confirmPassword]);
 
   return (
-    <div className='sign-up-wrapper  justify-center w-screen h-screen flex font-press text-[#151521]'>
-      <div className='flex flex-col w-[50vw] h-[95dvh] mx-auto   self-center bg-[#c0c0c0] border-4'>
-        <div className='header-top-rim h-[7dvh] border-[2.8px] border-[#151521] bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
+    <div className='sign-up-wrapper w-[600px] h-[780px] justify-center  flex font-press text-[#151521]'>
+      <div className='flex flex-col  mx-auto  w-full h-full self-center bg-[#c0c0c0] border-4'>
+        <div className='header-top-rim h-[7%] border-[2.8px] border-[#151521] bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
           onClick={() => {setIsSignUpHidden(true); setIsFormHidden(true)}}
             src={x} 
@@ -100,21 +100,21 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
             className='h-[90%] border-2 border-[#151521] self-end m-[.5%] outline-white outline-double'
           />
         </div>
-        <h1 className=' text-[3vw] flex justify-center uppercase pt-[9%] pb-[1%]'>
+        <h1 className=' text-[35px] flex justify-center uppercase pt-[9%] pb-[1%]'>
           sign up
         </h1>
 
         <form
           action='submit'
-          className='flex flex-col items-center gap-4  w-full'
+          className='flex flex-col gap-4  '
           onSubmit={handleSubmit(submitFormData)}
         >
-          <div className='flex flex-col'>
+          <div className='flex flex-col w-full h-full items-center'>
             <label
               htmlFor='username'
               className={`${
                 errors.username ? 'text-red-800' : ''
-              } font-vt text-[2vw]`}
+              } font-vt text-[30px] self-start pl-[90px]`}
             >
               username
             </label>
@@ -123,18 +123,18 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
               id='username'
               className={`${
                 errors.username ? BORDERERR : ''
-              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%] w-[30vw]  shadow-inner   outline-double outline-white`}
+              } bg-slate-200/75 border-2 border-[#151521] text-[20px] px-[4%] py-[3%] w-[70%]  shadow-inner   outline-double outline-white`}
               {...register('username')}
             />
             <p className={ERRORSTYLE}>{errors.username?.message || ''}</p>
           </div>
 
-          <div className='flex flex-col'>
+          <div className='flex flex-col w-full h-full items-center'>
             <label
               htmlFor='password'
               className={`${
                 errors.password ? 'text-red-800' : ''
-              } font-vt text-[2vw]`}
+              } font-vt text-[30px] self-start pl-[90px]`}
             >
               password
             </label>
@@ -143,18 +143,18 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
               id='password'
               className={`${
                 errors.password ? BORDERERR : ''
-              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
+              } bg-slate-200/75 border-2 border-[#151521] text-[20px] px-[4%] py-[3%]  shadow-inner  w-[70%] outline-double outline-white`}
               {...register('password')}
             />
             <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
           </div>
 
-          <div className='flex flex-col'>
+          <div className='flex flex-col w-full items-center'>
             <label
               htmlFor='confirm-password'
               className={`${
                 errors.confirmPassword ? 'text-red-800' : ''
-              } font-vt text-[2vw]`}
+              } font-vt text-[30px] self-start pl-[90px]`}
             >
               confirm password
             </label>
@@ -163,7 +163,7 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
               id='confirm-password'
               className={`${
                 errors.confirmPassword ? BORDERERR : ''
-              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-inner  w-[30vw] outline-double outline-white`}
+              } bg-slate-200/75 border-2 border-[#151521] text-[20px] px-[4%] py-[3%]  shadow-inner  w-[70%] outline-double outline-white`}
               {...register('confirmPassword')}
             />
             <p className={ERRORSTYLE}>
@@ -174,15 +174,15 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
           <div className='flex flex-col pt-[3%]'>
             <button
               type='submit'
-              className=' bg-blue-500 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-blue-600 hover:scale-[1.01] transition-all duration-100'
+              className=' bg-blue-500 self-center font-vt px-[4%] tracking-wide  text-[30px] border-2  w-[70%] p-[1.3%] outline-dashed outline-[#151521] hover:bg-blue-600 hover:scale-[1.01] transition-all duration-100'
             >
               sign up
             </button>
-            <p className='sign-in-redirect font-vt text-[1.8vw] pt-[5%] text-center'>
+            <p className='sign-in-redirect font-vt text-[25px] pt-[4%] text-center'>
               {' '}
               already have an account? sign in{' '}
               <span
-                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800 text-[1.8vw] cursor-pointer'
+                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800 text-[25px] cursor-pointer'
                 onClick={() => {
                   setIsSignUpHidden(true)
                   setIsFormHidden(false);
