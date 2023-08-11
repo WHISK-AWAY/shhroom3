@@ -91,7 +91,7 @@ export default function UserControls() {
           <h1 className=''>left click + hold to move around</h1>
           <img
             src={mouseActiveLeft}
-            alt=''
+            alt='mouse showing left button as an active button'
             className='h-[6vw] transition-all duration-300 hover:scale-[1.2] '
           />
         </div>
@@ -100,7 +100,7 @@ export default function UserControls() {
           <h1 className='pt-1'>right click + hold right button to pan</h1>
           <img
             src={mouseActiveRight}
-            alt=''
+            alt='mouse showing right button as an active button'
             className='h-[6vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
@@ -109,7 +109,7 @@ export default function UserControls() {
           <h1 className='pt-1'>scroll to zoom</h1>
           <img
             src={mouseActiveWheel}
-            alt=''
+            alt='mouse showing wheel as an active button'
             className='h-[6vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
@@ -118,7 +118,7 @@ export default function UserControls() {
           <h1 className='pt-1'>click on objects to see close up</h1>
           <img
             src={cursor}
-            alt=''
+            alt='cursor svg icon'
             className='h-[6vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
