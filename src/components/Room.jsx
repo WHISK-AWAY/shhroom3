@@ -159,7 +159,7 @@ export default function Room({ socket }) {
 
   function leaveMeeting() {
     if (videoCall?.open) {
-      videoCall.close();
+      videoCall.close()
     }
 
     if (chatConnection?.open) {
@@ -186,20 +186,29 @@ export default function Room({ socket }) {
 
 
   http: return (
-    <div className="bg-[url('/svg/wave.svg')] bg-cover h-screen w-screen bg-no-repeat">
+    <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat">
       <RoomUserControls
         roomId={roomId}
         leaveMeeting={leaveMeeting}
         thisShhroomer={thisShhroomer}
+        isUserControlsOpen={isUserControlsOpen} 
+        setIsUserControlsOpen={setIsUserControlsOpen}
       />
-      <VideoGrid ownSource={ownSource} peerSource={peerSource} isUserControlsOpen={isUserControlsOpen}/>
-      {chatConnection && (
-        <Chat
-          shhroomer={thisShhroomer}
-          partnerPublicKey={peerPublicKey.current}
-          chatConnection={chatConnection}
-        />
+  
+   <VideoGrid ownSource={ownSource} peerSource={peerSource} isUserControlsOpen={isUserControlsOpen} setIsUserControlsOpen={setIsUserControlsOpen}/>
+
+
+
+  
+    {chatConnection && (
+      <Chat
+      shhroomer={thisShhroomer}
+      partnerPublicKey={peerPublicKey.current}
+      chatConnection={chatConnection}
+      />
       )}
+      
+      
 
       {/**
         <button
