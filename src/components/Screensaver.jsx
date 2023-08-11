@@ -63,18 +63,23 @@ export default function Screensaver() {
         className={`w-[1600px] h-[990px] bg-cover bg-no-repeat bg-bottom
     bg-[url('/bg/screen_saver1.jpg')]`}
       >
-        <div className='relative pt-[10%] px-[10%] mr-[2%] flex flex-col items-end  '>
-          <img
-            onClick={() => setIsFormHidden(false)}
-            src={compIcon}
-            alt='old computer screen icon'
-            className='h-[10%] w-[10%] drop-shadow-xl  '
-          />
-
-          <div className='absolute -top-[10%] -right-[12%]'>
+        <div className='relative pt-[10%] px-[10%] mr-[2%] flex flex-row-reverse justify-between w-full items-start  '>
+        <div className='flex flex-col items-center w-1/5 h-1/5'>
+        <img
+        onClick={() => setIsFormHidden(false)}
+        src={compIcon}
+        alt='old computer screen icon'
+        className='h-[80%] w-[80%] drop-shadow-xl  '
+        />
+        <p className='font-vt text-[35px] pt-[1%]  '>
+          sign_in/sign_up
+        </p>
+        
+        </div>
+          <div className='flex flex-col items-center  w-full h-full'>
             {!isFormHidden &&
               (isSignUpHidden ? (
-                <div className='scale-[90%]'>
+                <div className='scale-[100%]'>
                   <Signin
                     setIsFormHidden={setIsFormHidden}
                     setIsSignUpHidden={setIsSignUpHidden}
@@ -91,9 +96,6 @@ export default function Screensaver() {
               ))}
           </div>
 
-          <p className='font-vt text-[35px] pt-[1%] relative translate-x-[21%]'>
-            sign_in/sign_up
-          </p>
         </div>
       </div>
     </div>
