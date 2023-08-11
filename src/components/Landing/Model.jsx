@@ -12,7 +12,13 @@ import {
   useLayoutEffect,
 } from 'react';
 import * as THREE from 'three';
-import { useGLTF, Plane, Html, Billboard } from '@react-three/drei';
+import {
+  useGLTF,
+  Plane,
+  Html,
+  Billboard,
+  MeshTransmissionMaterial, Caustics
+} from '@react-three/drei';
 import Screensaver from '../Screensaver';
 import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
@@ -1710,14 +1716,7 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
       </group>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['02'].geometry}
-        material={materials.PaletteMaterial002}
-        position={[3.18217, 3.96585, 1.55811]}
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-      />
+
       <group
         position={[3.62783, 2.45315, 1.10553]}
         rotation={[-Math.PI / 2, Math.PI / 2, 0]}
@@ -1804,14 +1803,31 @@ export default function Model(props) {
         rotation={[1.81498, 0.09641, -1.58115]}
         scale={3.09965}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Glass_full_of_water.geometry}
-        material={materials.PaletteMaterial018}
-        position={[4.03297, 2.40889, 0.51335]}
-        scale={2.10668}
-      />
+      {/**water glass */}
+      <Caustics
+        lightSource={[2.5, 5, -2.5]}
+        ior={0.79}
+        frames={Infinity}
+        resolution={256}
+      >
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Glass_full_of_water.geometry}
+          // material={materials.PaletteMaterial018}
+          position={[4.03297, 2.40889, 0.51335]}
+          scale={2.10668}
+        >
+          <MeshTransmissionMaterial
+            side={THREE.DoubleSide}
+            resolution={256}
+            distortion={1.05}
+            color='#fff'
+            thickness={1}
+            anisotropy={0.01}
+          />
+        </mesh>
+      </Caustics>
       {/* //stripper lady */}
       <group
         position={[3.15731, 4.85772, 1.74468]}
@@ -2019,8 +2035,6 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube063_2.geometry}
           material={materials.PaletteMaterial002}
         />
