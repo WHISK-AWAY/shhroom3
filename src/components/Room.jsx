@@ -18,6 +18,7 @@ export default function Room({ socket }) {
   const peerUserId = useRef(null);
   const peerPublicKey = useRef(null);
   const partnerPeerId = useRef(null);
+  const [isUserControlsOpen, setIsUserControlsOpen] = useState(true);
 
   const { roomId } = useParams();
   const peers = {};
@@ -191,7 +192,7 @@ export default function Room({ socket }) {
         leaveMeeting={leaveMeeting}
         thisShhroomer={thisShhroomer}
       />
-      <VideoGrid ownSource={ownSource} peerSource={peerSource} />
+      <VideoGrid ownSource={ownSource} peerSource={peerSource} isUserControlsOpen={isUserControlsOpen}/>
       {chatConnection && (
         <Chat
           shhroomer={thisShhroomer}
