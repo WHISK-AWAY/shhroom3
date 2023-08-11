@@ -19,4 +19,4 @@ export default async function verifyToken() {
 export const BORDERERR =
   'border-dashed border-red-800 ouline-double outline-rose-800 outline-4 outline-red-800 text-red-800 shadow-[inset_1px_1px_4px_5px_rgba(119,35,35,0.1)]';
 
-export const ERRORSTYLE = 'text-[.8vw] text-red-800 flex pt-[2%] self-center';
+export const ERRORSTYLE = 'text-[15px] text-red-800 flex pt-[2%] self-center';
