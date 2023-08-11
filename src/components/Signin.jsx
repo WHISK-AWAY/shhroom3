@@ -96,9 +96,9 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
   };
 
   return (
-    <div className='sign-in-page w-screen h-screen flex font-press  text-[#151521]'>
-      <div className='signin-form flex flex-col w-[50vw] h-[80dvh] mx-auto   self-center bg-[#c0c0c0] border-4 '>
-        <div className='header-top-rim h-[7dvh] border-[2.8px] border-black  bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
+    <div className='sign-in-page w-[600px] h-[650px] flex font-press  text-[#151521]'>
+      <div className='signin-form flex flex-col w-full  h-full mx-auto   self-center bg-[#c0c0c0] border-4 '>
+        <div className='header-top-rim h-[7%] border-[2.8px] border-black  bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
             onClick={() => setIsFormHidden(true)}
             src={x}
@@ -106,19 +106,19 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
             className='h-[90%] border-2 border-[#151521] self-end m-[.5%] outline-white outline-double'
           />
         </div>
-        <h1 className=' text-[3vw] flex justify-center uppercase pt-[9%] pb-[1%]'>
+        <h1 className=' text-[35px] flex justify-center uppercase pt-[9%] pb-[1%]'>
           sign in
         </h1>
         <form
           onSubmit={handleSubmit(submitData)}
-          className='flex flex-col items-center gap-4'
+          className='flex flex-col gap-4'
         >
-          <div className='flex flex-col'>
+          <div className='flex flex-col w-full h-full items-center '>
             <label
               htmlFor='username'
               className={`${
                 errors.username ? 'text-red-800' : ''
-              } font-vt text-[2vw]`}
+              } font-vt text-[30px]`}
             >
               username
             </label>
@@ -126,7 +126,7 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
             <input
               className={`${
                 errors.username ? BORDERERR : ''
-              } bg-slate-200/75 border-2 border-[#151521] text-[1.3vw] px-[4%] py-[5%]  shadow-[inset_1px_1px_4px_4px_rgba(21,21,33,0.2)]  w-[30vw] outline-double outline-white `}
+              } bg-slate-200/75 border-2 border-[#151521] text-[20px] px-[4%] py-[3%]  shadow-[inset_1px_1px_4px_4px_rgba(21,21,33,0.2)]  w-[70%] outline-double outline-white `}
               type='text'
               name='username'
               id='username'
@@ -137,19 +137,19 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
             <p className={ERRORSTYLE}>{errors.username?.message || ''}</p>
           </div>
 
-          <div className='flex flex-col'>
+          <div className='flex flex-col w-full items-center'>
             <label
               htmlFor='password'
               className={`${
                 errors.password ? 'text-red-800' : ''
-              } font-vt text-[2vw]`}
+              } font-vt text-[30px]`}
             >
               password
             </label>
             <input
               className={`${
                 errors.password ? BORDERERR : ''
-              } border-2 border-[#151521] bg-slate-200/75 px-[4%] py-[5%] w-[30vw] text-[1.3vw] shadow-[inset_1px_1px_4px_4px_rgba(21,21,33,0.2)] outline-double outline-white`}
+              } border-2 border-[#151521] bg-slate-200/75 px-[4%] py-[3%] w-[70%] text-[20px] shadow-[inset_1px_1px_4px_4px_rgba(21,21,33,0.2)] outline-double outline-white`}
               type='password'
               name='password'
               id='password'
@@ -159,13 +159,13 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
             <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
           </div>
           <div className='flex flex-col pt-[5%] '>
-            <button className=' bg-blue-500 self-center font-vt px-[4%] tracking-wide  text-[3.2vh] border-2  w-[30vw] p-[1.3%] outline-dashed outline-[#151521] hover:bg-blue-600 hover:scale-[1.01] transition-all duration-100'>
+            <button className=' bg-blue-500 self-center font-vt px-[4%] tracking-wide  text-[30px] border-2  w-[70%] p-[1.3%] outline-dashed outline-[#151521] hover:bg-blue-600 hover:scale-[1.01] transition-all duration-100'>
               sign in
             </button>
-            <p className='sign-up-redirect pt-[5%] font-vt text-[1.8vw] text-center'>
+            <p className='sign-up-redirect pt-[4%] font-vt text-[25px] text-center'>
               don't have an account? make one {''}
               <span
-                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800 text-[1.8vw] cursor-pointer'
+                className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800 text-[25px] cursor-pointer'
                 onClick={() => {
                   setIsSignUpHidden(false);
                 }}
