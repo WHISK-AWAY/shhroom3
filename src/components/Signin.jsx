@@ -98,7 +98,7 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
   return (
     <div className='sign-in-page w-[600px] h-[650px] flex font-press  text-[#151521]'>
       <div className='signin-form flex flex-col w-full  h-full mx-auto   self-center bg-[#c0c0c0] border-4 '>
-        <div className='header-top-rim h-[7%] border-[2.8px] border-black  bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
+        <div className='header-top-rim h-[7%] border-[2.8px] border-[#151521]   bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
             onClick={() => setIsFormHidden(true)}
             src={x}
