@@ -1970,8 +1970,7 @@ export default function Model(props) {
         position={[74.06784, 0, 105.70952]}
       />
       <mesh
-        castShadow
-        receiveShadow
+       
         geometry={nodes.cover_glass.geometry}
         material={materials.PaletteMaterial018}
         position={[3.81175, 2.43534, 0.00486]}
@@ -2970,8 +2969,8 @@ export default function Model(props) {
       </group>
       {/* //corner table shhroom */}
       <group
-        position={[3.92422, 2.00068, -1.99]}
-        rotation={[-1.54963, -1.99253, 3.42676]}
+        position={[3.82422, 2.00798, -1.99]}
+        rotation={[1.54963, -4.09253, 3.72676]}
       >
         <mesh
           castShadow
