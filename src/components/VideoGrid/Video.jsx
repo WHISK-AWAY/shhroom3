@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import AudioVideoControls from './AudioVideoControls';
+import { gsap } from 'gsap';
 
 const fullScreenStyles = {
   us: {
@@ -23,6 +24,7 @@ const initialState = {
 export default function Video({ source, setIsFullScreen, fullScreenRole }) {
   const [videoState, setVideoState] = useState(initialState);
   const vidElement = useRef(null);
+  const controlsRef = useRef(null);
 
   useEffect(() => {
     source.getVideoTracks().forEach((video) => {
@@ -39,6 +41,9 @@ export default function Video({ source, setIsFullScreen, fullScreenRole }) {
   useEffect(() => {
     vidElement.current.srcObject = source;
   }, [source, videoState]);
+
+  const controls = controlsRef.current;
+
 
   return (
     <div
@@ -59,11 +64,18 @@ export default function Video({ source, setIsFullScreen, fullScreenRole }) {
         }
         onLoadedMetadata={(e) => e.target.play()}
       ></video>
-      <AudioVideoControls
-        videoState={videoState}
-        setVideoState={setVideoState}
-        fullScreenRole={fullScreenRole}
-      />
+
+      <div
+        ref={controlsRef}
+        className='opacity-0 h-0 hover:opacity-100 hover:h-full transition-opacity duration-1000 hover:delay-100 delay-300'
+      
+      >
+        <AudioVideoControls
+          videoState={videoState}
+          setVideoState={setVideoState}
+          fullScreenRole={fullScreenRole}
+        />
+      </div>
     </div>
   );
 }
