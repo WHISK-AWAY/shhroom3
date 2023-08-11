@@ -118,7 +118,7 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
               htmlFor='username'
               className={`${
                 errors.username ? 'text-red-800' : ''
-              } font-vt text-[30px]`}
+              } font-vt text-[30px] self-start pl-[90px]`}
             >
               username
             </label>
@@ -142,7 +142,7 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
               htmlFor='password'
               className={`${
                 errors.password ? 'text-red-800' : ''
-              } font-vt text-[30px]`}
+              } font-vt text-[30px] self-start pl-[90px]`}
             >
               password
             </label>
