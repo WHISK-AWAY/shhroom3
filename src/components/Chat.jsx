@@ -52,7 +52,7 @@ export default function Chat(props) {
   };
 
   return (
-    <div className='chat-area-wrapper max-h-[35vh] flex flex-col justify-end items-center shrink md:shrink-[1] px-5 font-sans text-lg'>
+    <div className='chat-area-wrapper max-h-[35vh] flex flex-col justify-end items-center shrink md:shrink-[1] px-5 font-vt text-lg'>
       <div className='flex flex-row h-full items-center rounded-t-md scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-slate-700 scrollbar-track-slate-800 w-[86vw] mx-auto '>
         <div
           id='chat-container'
