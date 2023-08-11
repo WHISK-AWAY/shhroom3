@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import test from '/svg/esc_button.svg';
 import arrowDown from '/svg/arrowDown.svg'
+import { gsap } from 'gsap';
 
 async function copyToClipboard(text) {
   try {
@@ -18,14 +19,22 @@ export default function RoomUserControls({
 }) {
   const [text, setText] = useState(window.location);
 
-  console.log('shh', thisShhroomer)
+  // console.log('shh', thisShhroomer)
 
+useEffect(() => {
+  const ctx = gsap.context(() => {
 
+  })
+
+  return () => {
+    ctx.revert();
+  }
+}, [])
 
   return (
     <div className='room-controls-wrapper absolute top-0 left-0  h-[60%] w-[15%]  font-vt flex z-50  justify-center rounded-sm  text-white border'>
 
-    <div className=' border-b w-full h-[7%] flex justify-end items-center absolute'>
+    <div className=' border-b w-full h-[7%] flex justify-end items-center absolute bg-slate-400'>
     <img src={arrowDown} alt="" className='h-[13px]  '/>
     </div>
       
