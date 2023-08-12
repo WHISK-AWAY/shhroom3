@@ -120,6 +120,15 @@
 }
 
 
+#chat-container * {
+  overflow-anchor: none;
+}
+
+#scroll-anchor {
+  overflow-anchor: auto;
+  height: 1px;
+  }
+
 
 .clip-controls {
   clip-path: polygon(5% 0%, 95% 0%, 100% 5%, 100% 100%, 0% 100%, 0% 5%);
