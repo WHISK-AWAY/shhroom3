@@ -25,6 +25,7 @@ export default function Room({ socket }) {
   const partnerPeerId = useRef(null);
   const partnerUsername = useRef(null);
   const [isUserControlsOpen, setIsUserControlsOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(true)
 
   const { roomId } = useParams();
   const peers = {};
@@ -82,6 +83,7 @@ export default function Room({ socket }) {
         const [call, chat] = connectToNewUser(peerId, ownSource);
         setVideoCall(call);
         setChatConnection(chat);
+        // setIsChatOpen(true)
       }, 1000);
     });
 
@@ -151,7 +153,7 @@ export default function Room({ socket }) {
 
     // establish chat connection with peer
     const newChatConnection = thisShhroomer.peerInfo.peer.connect(peerId);
-
+      // setIsChatOpen(true)
     return [newVideoCall, newChatConnection];
   };
 
@@ -170,6 +172,7 @@ export default function Room({ socket }) {
     }
 
     if (chatConnection?.open) {
+      // setIsChatOpen(false)
       chatConnection.close();
     }
 
@@ -200,6 +203,8 @@ export default function Room({ socket }) {
         thisShhroomer={thisShhroomer}
         isUserControlsOpen={isUserControlsOpen}
         setIsUserControlsOpen={setIsUserControlsOpen}
+        setIsChatOpen={setIsChatOpen}
+        isChatOpen={isChatOpen}
       />
 
       <VideoGrid
@@ -211,15 +216,17 @@ export default function Room({ socket }) {
         partnerUsername={partnerUsername.current}
       />
 
+      <div className={`${isChatOpen ? ' h-full' : 'hidden' }`}> 
       {chatConnection && (
         <Chat
-          shhroomer={thisShhroomer}
-          partnerPublicKey={peerPublicKey.current}
-          chatConnection={chatConnection}
-          isUserControlsOpen={isUserControlsOpen}
-          setIsUserControlsOpen={setIsUserControlsOpen}
+        shhroomer={thisShhroomer}
+        partnerPublicKey={peerPublicKey.current}
+        chatConnection={chatConnection}
+        isUserControlsOpen={isUserControlsOpen}
+        setIsUserControlsOpen={setIsUserControlsOpen}
         />
-      )}
+        )}
+        </div>
     </div>
   );
 }
