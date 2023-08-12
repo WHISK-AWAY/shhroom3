@@ -38,6 +38,14 @@ export const objectPositions = {
     //   1.0516778801734505,
     // ),
   },
+  newMeetingTunnelZoom: {
+    camPosition: new Vector3(
+      7.860247276910664,
+      3.5996406366270883,
+      -2.375659102602953,
+    ),
+    targetPosition: new Vector3(7.71108,  3.65457,  -2.98681),
+  },
   // sting: {
   //   camPosition: new Vector3(
   //     8.744054639054083,
