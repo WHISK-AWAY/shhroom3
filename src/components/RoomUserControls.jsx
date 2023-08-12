@@ -78,7 +78,7 @@ export default function RoomUserControls({
     <>
       <div
         ref={topControlsRef}
-        className=' border-b w-[2%] h-[3%] flex justify-end items-center absolute bg-teal-400 z-[99]'
+        className=' border-b w-[2%] max-w-[300px] h-[3%] flex justify-end items-center top-2 absolute bg-teal-400 z-[99] rounded-sm'
       >
         <img
           onClick={() => setIsUserControlsOpen((prev) => !prev)}
@@ -91,10 +91,10 @@ export default function RoomUserControls({
 
       <div
         ref={mainContainerRef}
-        className='room-controls-wrapper absolute top-4 left-0 opacity-0 h-0 w-[15%]  font-vt flex z-50  justify-center rounded-md  text-white'
+        className='room-controls-wrapper absolute top-[3%] left-0 opacity-0 h-0  w-[15%] max-w-[300px]  font-vt flex z-50  justify-center rounded-md  text-white text-[1.4vw] 3xl:text-[1vw]'
       >
         <ul className='room-controls-list  flex flex-col gap-10 justify-center  w-full bg-neutral-700/90 h-full p-4 rounded-r-sm'>
-          <div ref={svgRef} className='flex flex-col gap-6 opacity-0'>
+          <div ref={svgRef} className='flex flex-col gap-6 opacity-0 w-[95%] 3xl:w-[80%] self-center'>
             <button
               className='flex flex-col items-center'
               onClick={() => copyToClipboard(text)}
@@ -102,9 +102,9 @@ export default function RoomUserControls({
               <img
                 src={copy}
                 alt=''
-                className='w-[50%] transition-all duration-300 hover:scale-[1.2] '
+                className='w-[50%]  transition-all duration-300 hover:scale-[1.2] '
               />
-              <li className='link-invite text-[12px] pt-1'>
+              <li className='link-invite  pt-1'>
                 copy invite link to clipboard
               </li>
             </button>
@@ -115,7 +115,7 @@ export default function RoomUserControls({
                 alt=''
                 className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
               />
-              <li className='link-invite text-[12px] pt-1'>chat</li>
+              <li className='link-invite pt-1'>chat</li>
             </button>
 
             <button
@@ -127,7 +127,7 @@ export default function RoomUserControls({
                 alt=''
                 className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
               />
-              <li className='link-invite text-[12px] pt-1'>leave meeting</li>
+              <li className='link-invite pt-1'>leave meeting</li>
             </button>
           </div>
         </ul>
