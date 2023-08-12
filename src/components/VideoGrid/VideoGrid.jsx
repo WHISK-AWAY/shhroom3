@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import Video from './Video';
 
-export default function VideoGrid({ ownSource, peerSource, isUserControlsOpen, setIsUserControlsOpen }) {
+export default function VideoGrid({ ownSource, peerSource, isUserControlsOpen, setIsUserControlsOpen, thisShhroomer, partnerUsername }) {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsUserControlsOpen((prev) => !prev)
-  //   }, 2000)
-  // }, [setIsUserControlsOpen])
+  useEffect(() => {
+    setTimeout(() => {
+      setIsUserControlsOpen(true)
+    }, 4000)
+  }, [setIsUserControlsOpen])
+
+  
 
   return (
     <div
       id='video-grid'
-      className={`flex justify-center gap-8 pt-[10%]   ${
+      className={`flex justify-center gap-8 pt-[5%] h-fit ${
         isFullScreen ? 'group is-fullscreen' : ''
       } ${isUserControlsOpen ? 'w-[80%] flex justify-end items-end self-end align-end ml-[14%] mx-auto' : ''}`}
     >
@@ -23,6 +25,7 @@ export default function VideoGrid({ ownSource, peerSource, isUserControlsOpen, s
           source={ownSource}
           setIsFullScreen={setIsFullScreen}
           fullScreenRole='us'
+          thisShhroomer={thisShhroomer}
         />
       )}
       {peerSource?.id && (
@@ -30,6 +33,7 @@ export default function VideoGrid({ ownSource, peerSource, isUserControlsOpen, s
           source={peerSource}
           setIsFullScreen={setIsFullScreen}
           fullScreenRole='them'
+          partnerUsername={partnerUsername}
         />
       )}
     </div>
