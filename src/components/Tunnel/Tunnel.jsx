@@ -8,8 +8,9 @@ import {
 import { useFrame } from '@react-three/fiber';
 import { Tube, useTexture } from '@react-three/drei';
 import { gsap } from 'gsap';
+import { useNavigate } from 'react-router-dom';
 
-import bgTexture from '../../../public/bg/stars3.jpg';
+import bgTexture from '../../../public/bg/galaxy1_compressed.jpg';
 
 function setupCurve() {
   const points = [];
@@ -20,12 +21,12 @@ function setupCurve() {
 
   points[1].x = 0.01;
   points[1].y = 0.01;
-  points[2].x = 0.0;
+  points[2].x = 0.1;
   points[2].y = 0.0;
   points[3].x = -0.02;
   points[3].y = 0.0;
   points[4].x = -0.02;
-  points[4].y = -0.04;
+  points[4].y = -0.01;
 
   const curve = new CatmullRomCurve3(points);
   curve.type = 'catmullrom';
@@ -34,6 +35,7 @@ function setupCurve() {
 }
 
 export default function Tunnel() {
+  const navigate = useNavigate();
   const materialRef = useRef(null);
   const tubeRef = useRef(null);
   const curveRef = useRef(null);
@@ -46,7 +48,7 @@ export default function Tunnel() {
   const textureParams = useRef({
     offsetX: 0,
     offsetY: 0,
-    repeatX: 10,
+    repeatX: 3,
     repeatY: 4,
   });
 
@@ -74,13 +76,13 @@ export default function Tunnel() {
     // gsap animation to alter texture placement within tube
     const ctx = gsap.context(() => {
       const timelineTextureParams = textureParams.current;
-      const tl = gsap.timeline({ repeat: -1, delay: 0, repeatDelay: 0.25 });
+      const tl = gsap.timeline({ repeat: -1, delay: 0, repeatDelay: 0 });
 
       tl.to(timelineTextureParams, {
         // wind up
         ease: 'power1.inOut',
         repeatX: 0.1,
-        duration: 2,
+        duration: 0.8,
         // ease: 'power1.inOut',
         // repeatX: 0.3,
         // duration: 4,
@@ -109,6 +111,7 @@ export default function Tunnel() {
             repeatX: 10,
             onComplete: () => {
               console.log('done!');
+              navigate('/room')
             },
             // ease: 'power2.inOut',
             // duration: 6,
@@ -134,12 +137,9 @@ export default function Tunnel() {
     }, 1500);
   }, []);
 
+
   return (
-    <Tube
-      ref={tubeRef}
-      scale={1.1}
-      args={[curveRef.current, 70, 0.02, 30, false]}
-    >
+    <Tube ref={tubeRef} scale={1.1} args={[setupCurve(), 70, 0.02, 30, false]}>
       <meshBasicMaterial
         ref={materialRef}
         map={texture}
