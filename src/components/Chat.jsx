@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
+import plane from '/svg/plane.svg'
 
 export default function Chat(props) {
-  const { shhroomer, partnerPublicKey, chatConnection } = props;
+  const { shhroomer, partnerPublicKey, chatConnection, isUserControlsOpen, setIsUserControlsOpen } = props;
 
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
@@ -52,7 +53,8 @@ export default function Chat(props) {
   };
 
   return (
-    <div className='chat-area-wrapper h-[30%] w-[80%] flex flex-col mx-auto font-vt text-[20px] bg-teal-400/20 rounded-t-md mt-2'>
+    <div className={`${isUserControlsOpen ? 'w-[60%] h-[35%]' : 'w-[80%]'} chat-area-wrapper justify-between  h-[38%] flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/20 rounded-md mt-2 3xl:text-[1.1vw]`}>
+
       <div className='flex flex-row h-[80%] items-center justify-center rounded-t-md scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-slate-700 scrollbar-track-slate-800 w-full mx-auto'>
         <div
           id='chat-container'
@@ -63,7 +65,7 @@ export default function Chat(props) {
               <div key={timestamp}>
                 <p>
                   <span className='font-semibold text-teal-300'>{username} </span>
-                  <span className='text-sm text-slate-400 ml-1'>
+                  <span className='text-[.9vw] text-slate-400 ml-1'>
                     {new Date(timestamp).toLocaleString(undefined, {
                       hour: 'numeric',
                       minute: 'numeric',
@@ -76,17 +78,22 @@ export default function Chat(props) {
             ))}
           <div id='scroll-anchor'></div>
         </div>
-      </div>
-      <form onSubmit={handleMessage} className='w-full'>
+        </div>
+        <form onSubmit={handleMessage} className='w-full flex relative'>
+        <button type='submit'>
+        <img  src={plane} alt=""  className='absolute right-2 top-0 w-[35px] 6xl:w-[55px]'/>
+        </button>
         <input
-          className='px-2 py-1 text-white bg-teal-500/70 border-[.5px] border-white w-full h-[40px] rounded-b-md placeholder-slate-100 focus:outline-none focus:border-2'
+          className='px-2 py-1 text-white bg-teal-500/70 border-[.5px] border-white w-full h-[35px] 5xl:h-[40px] 6xl:h-[55px] rounded-b-md placeholder-slate-100 focus:outline-none focus:border-2'
           type='text'
           name='chat'
           id='chat'
+          autoComplete='off'
           value={message}
           onChange={(evt) => setMessage(evt.target.value)}
           placeholder='Psst!'
-        ></input>
+        >
+        </input>
       </form>
     </div>
   );
