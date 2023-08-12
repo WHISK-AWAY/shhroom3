@@ -21,7 +21,7 @@ const initialState = {
   isFullscreen: false,
 };
 
-export default function Video({ source, setIsFullScreen, fullScreenRole }) {
+export default function Video({ source, setIsFullScreen, fullScreenRole, thisShhroomer, partnerUsername }) {
   const [videoState, setVideoState] = useState(initialState);
   const vidElement = useRef(null);
   const controlsRef = useRef(null);
@@ -42,13 +42,13 @@ export default function Video({ source, setIsFullScreen, fullScreenRole }) {
     vidElement.current.srcObject = source;
   }, [source, videoState]);
 
-  const controls = controlsRef.current;
 
+  const controls = controlsRef.current;
 
   return (
     <div
       className={
-        `flex flex-auto basis-1/4 flex-col max-w-[45%] order-1` +
+        `flex h-fit  flex-col max-w-[45%] order-1 relative z-0` +
         fullScreenStyles[fullScreenRole].div
       }
     >
@@ -63,19 +63,15 @@ export default function Video({ source, setIsFullScreen, fullScreenRole }) {
             : '')
         }
         onLoadedMetadata={(e) => e.target.play()}
-      ></video>
-
-      <div
-        ref={controlsRef}
-        className='opacity-0 h-0 hover:opacity-100 hover:h-full transition-opacity duration-1000 hover:delay-100 delay-300'
-      
       >
+      </video>
+      <p className='absolute top-0 text-[1.3vw] right-2 font-vt text-white'>{ fullScreenRole === 'us' ? thisShhroomer?.userInfo?.username : partnerUsername}</p>
+
         <AudioVideoControls
           videoState={videoState}
           setVideoState={setVideoState}
           fullScreenRole={fullScreenRole}
         />
-      </div>
     </div>
   );
 }
