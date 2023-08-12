@@ -31,7 +31,10 @@ export default function AudioVideoControls({
   
 
   return (
-    <div ref={controlsContainer} className='audio-video-controls bg-gray-500/60 flex gap-1 -top-9 justify-center  group-[.is-fullscreen]:static items-center peer-[.peer-video]:absolute relative peer-[.peer-video]:bottom-0 peer-[.peer-video]:right-[40vw] my-1 py-1   '>
+    <div
+      ref={controlsContainer}
+      className='audio-video-controls bg-gray-500/60 flex gap-1 w-full -bottom-1 justify-center  group-[.is-fullscreen]:static items-center peer-[.peer-video]:absolute absolute peer-[.peer-video]:bottom-0 peer-[.peer-video]:right-[40vw] my-1 py-1  opacity-0  hover:opacity-100  transition-opacity duration-1000 hover:delay-100 delay-300 z-50'
+    >
       <button
         className='video  transition-all duration-300 hover:scale-[1.1]'
         onClick={() =>
@@ -51,7 +54,7 @@ export default function AudioVideoControls({
             setVideoState((prev) => ({ ...prev, isFullscreen: !isFullscreen }))
           }
         >
-          <img src={fullScreen} alt='' className='w-[70%]'/>
+          <img src={fullScreen} alt='' className='w-[70%]' />
         </button>
       )}
       <button
