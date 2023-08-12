@@ -21,6 +21,8 @@ export default function RoomUserControls({
   thisShhroomer,
   isUserControlsOpen,
   setIsUserControlsOpen,
+  setIsChatOpen,
+  isChatOpen
 }) {
   const [text, setText] = useState(window.location);
   const topControlsRef = useRef(null);
@@ -74,6 +76,7 @@ export default function RoomUserControls({
     };
   }, [mainContainerRef.current, isUserControlsOpen]);
 
+
   return (
     <>
       <div
@@ -109,7 +112,7 @@ export default function RoomUserControls({
               </li>
             </button>
 
-            <button className='flex flex-col items-center'>
+            <button onClick={() => setIsChatOpen((prev) => !prev)} className='flex flex-col items-center'>
               <img
                 src={chat}
                 alt=''
