@@ -10,6 +10,11 @@ import RoomUserControls from './RoomUserControls';
 export default function Room({ socket }) {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // release loading screen
+    document.querySelector('#loader').classList.add('invisible');
+  }, []);
+
   const [chatConnection, setChatConnection] = useState(null);
   const [videoCall, setVideoCall] = useState(null);
 
@@ -18,14 +23,13 @@ export default function Room({ socket }) {
   const peerUserId = useRef(null);
   const peerPublicKey = useRef(null);
   const partnerPeerId = useRef(null);
-  const [isUserControlsOpen, setIsUserControlsOpen] = useState(true);
+  const partnerUsername = useRef(null);
+  const [isUserControlsOpen, setIsUserControlsOpen] = useState(false);
 
   const { roomId } = useParams();
   const peers = {};
 
-
   const thisShhroomer = useShhroom();
-
 
   useEffect(() => {
     // Initialize room once shhroomer object is ready
@@ -47,12 +51,14 @@ export default function Room({ socket }) {
 
     const myPeer = thisShhroomer.peerInfo.peer;
 
+    console.log(thisShhroomer);
     // * Receive inbound call
     myPeer.on('call', (call) => {
       // gather partner information
       peerUserId.current = call.metadata.userId;
       peerPublicKey.current = call.metadata.publicKey;
       partnerPeerId.current = call.peer;
+      partnerUsername.current = call.metadata.username;
 
       // answer & store call
       call.answer(ownSource);
@@ -138,6 +144,7 @@ export default function Room({ socket }) {
           type: 'video',
           userId: thisShhroomer.userInfo.id,
           publicKey: thisShhroomer.encryptionInfo.encodedPublicKey,
+          username: thisShhroomer.userInfo.username
         },
       },
     );
@@ -159,7 +166,7 @@ export default function Room({ socket }) {
 
   function leaveMeeting() {
     if (videoCall?.open) {
-      videoCall.close()
+      videoCall.close();
     }
 
     if (chatConnection?.open) {
@@ -184,40 +191,35 @@ export default function Room({ socket }) {
     navigate('/lobby');
   }
 
-
-  http: return (
-    <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat">
+  // console.log(thisShhroomer)
+  return (
+    <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 ">
       <RoomUserControls
         roomId={roomId}
         leaveMeeting={leaveMeeting}
         thisShhroomer={thisShhroomer}
-        isUserControlsOpen={isUserControlsOpen} 
+        isUserControlsOpen={isUserControlsOpen}
         setIsUserControlsOpen={setIsUserControlsOpen}
       />
-  
-   <VideoGrid ownSource={ownSource} peerSource={peerSource} isUserControlsOpen={isUserControlsOpen} setIsUserControlsOpen={setIsUserControlsOpen}/>
 
-
-
-  
-    {chatConnection && (
-      <Chat
-      shhroomer={thisShhroomer}
-      partnerPublicKey={peerPublicKey.current}
-      chatConnection={chatConnection}
+      <VideoGrid
+        ownSource={ownSource}
+        peerSource={peerSource}
+        isUserControlsOpen={isUserControlsOpen}
+        setIsUserControlsOpen={setIsUserControlsOpen}
+        thisShhroomer={thisShhroomer}
+        partnerUsername={partnerUsername.current}
       />
-      )}
-      
-      
 
-      {/**
-        <button
-        className='w-fit mr-4 self-end bg-gradient-to-t from-dark-purple0 to-dark-purple00 hover:shadow-dark-pink4/40 py-3 px-5 rounded-xl shadow-lg shadow-gray-900/60 transition duration-500 hover:scale-105 font-medium tracking-wide'
-        onClick={leaveMeeting}
-        >
-        Leave Meeting
-        </button>
-      */}
+      {chatConnection && (
+        <Chat
+          shhroomer={thisShhroomer}
+          partnerPublicKey={peerPublicKey.current}
+          chatConnection={chatConnection}
+          isUserControlsOpen={isUserControlsOpen}
+          setIsUserControlsOpen={setIsUserControlsOpen}
+        />
+      )}
     </div>
   );
 }
