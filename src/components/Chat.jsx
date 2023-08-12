@@ -53,7 +53,7 @@ export default function Chat(props) {
   };
 
   return (
-    <div className={`${isUserControlsOpen ? 'w-[60%] h-[35%]' : 'w-[80%]'} chat-area-wrapper justify-between  h-[38%] flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/20 rounded-md mt-2 3xl:text-[1.1vw]`}>
+    <div className={`${isUserControlsOpen ? 'w-[60%] h-full' : 'w-[80%]'} chat-area-wrapper justify-between  h-fit flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/20 rounded-md mt-2 3xl:text-[1.1vw]`}>
 
       <div className='flex flex-row h-[80%] items-center justify-center rounded-t-md scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-slate-700 scrollbar-track-slate-800 w-full mx-auto'>
         <div
