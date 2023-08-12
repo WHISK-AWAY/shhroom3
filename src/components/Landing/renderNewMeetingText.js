@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { useThree } from '@react-three/fiber';
 import { GlobalContext } from '../../lib/context';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 export default function renderNewMeetingText() {
   const globalContext = useContext(GlobalContext)
@@ -11,6 +11,8 @@ export default function renderNewMeetingText() {
   const text = 'NEW MEETING';
   let textMesh = useRef(null)
   let geometry;
+  // let intensity = 2.5
+  const [intensity, setIntensity] = useState(true)
 
 
   const loader = new FontLoader();
@@ -26,7 +28,7 @@ export default function renderNewMeetingText() {
 
       new THREE.MeshStandardMaterial({
         emissive: '#2dfff8',
-        emissiveIntensity: globalContext.isSignedIn ? 2.5 : 0,
+        emissiveIntensity: globalContext.isSignedIn && intensity ? 10 : 0,
         toneMapped: false,
       }),
       new THREE.MeshStandardMaterial({ color: '#2dfff8' }),
@@ -37,10 +39,33 @@ export default function renderNewMeetingText() {
     textMesh.current.position.set(6.99, 4.67, -2.61);
   });
 
-  
+  // console.log('tm', textMesh.current)
   useEffect(() => {
-
   }, [globalContext.isSignedIn])
 
+
+
+  // useEffect(() => {
+  //   if(!intensity) {
+
+  //     setTimeout(() => {
+  //       setIntensity(true)
+  //     }, 500)
+  //     // setIntensity(false)
+  //   }
+  // }, [intensity])
+
+
+  // useEffect(() => {
+  //   if(!globalContext.isSignedIn) {
+  //    let interval =  setInterval(() => {
+  //       setIntensity((prev) => !prev)
+  //     }, 1000)
+  //   }
+
+  //   return () => {
+  //     clearInterval(interval)
+  //   }
+  // }, [])
   return;
 }
