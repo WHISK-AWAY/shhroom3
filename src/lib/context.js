@@ -14,6 +14,7 @@ export const GlobalContext = createContext(initialGlobalContext);
 
 export const initialLandingContext = {
   isZoomed: false,
+  panningIsLimited: true,
   targetLabel: null,
   targetPosition: null,
   camPosition: null,

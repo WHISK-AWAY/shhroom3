@@ -17,7 +17,8 @@ import {
   Plane,
   Html,
   Billboard,
-  MeshTransmissionMaterial, Caustics
+  MeshTransmissionMaterial,
+  Caustics,
 } from '@react-three/drei';
 import Screensaver from '../Screensaver';
 import { Text3D } from '@react-three/drei';
@@ -47,7 +48,7 @@ export default function Model(props) {
   const [isSignHelperHidden, setIsSignHelperHidden] = useState(true);
 
   useLayoutEffect(() => {
-    console.log('setting layers');
+    // console.log('setting layers');
     for (let object of [newMeetingRef, corkboardRef, screenRef, escBtnRef]) {
       if (object.current?.layers) {
         object.current.layers.enable(1);
@@ -56,7 +57,7 @@ export default function Model(props) {
   }, []);
 
   useEffect(() => {
-    console.log('hello from model');
+    // console.log('hello from model');
 
     setTimeout(() => {
       setIsSignHelperHidden(false);
@@ -699,7 +700,7 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
         onClick={() => {
-          console.log('clicked newMeeting');
+          // console.log('clicked newMeeting');
           landingContext.zoomToObject('newMeeting');
         }}
       />
@@ -1133,7 +1134,7 @@ export default function Model(props) {
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
         onClick={() => {
-          console.log('clicked corkboard');
+          // console.log('clicked corkboard');
           landingContext.zoomToObject('corkboard');
         }}
         // onClick={() => landingContext.zoomToObject('corkboard')}
@@ -1970,7 +1971,6 @@ export default function Model(props) {
         position={[74.06784, 0, 105.70952]}
       />
       <mesh
-       
         geometry={nodes.cover_glass.geometry}
         material={materials.PaletteMaterial018}
         position={[3.81175, 2.43534, 0.00486]}

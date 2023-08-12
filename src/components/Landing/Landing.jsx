@@ -20,7 +20,7 @@ export default function Landing() {
         )}
         <Canvas
           frameloop='demand'
-          shadows={'soft'}
+          shadows={false}
           linear={false}
           raycaster={{
             far: 100,

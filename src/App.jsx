@@ -54,11 +54,9 @@ export default function App() {
           setContext: prev.setContext,
         }));
       },
-      releaseZoom: () => {
-        console.log('releasing zoom');
+      releaseZoom: function releaseZoom() {
         setLandingContext((prev) => ({
           ...prev,
-          isZoomed: false,
           targetLabel: null,
           targetPosition: null,
           camPosition: null,
