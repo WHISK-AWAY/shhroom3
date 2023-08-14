@@ -55,6 +55,7 @@ export default function App() {
         }));
       },
       releaseZoom: function releaseZoom() {
+        console.log('going back home');
         setLandingContext((prev) => ({
           ...prev,
           targetLabel: null,
@@ -62,6 +63,7 @@ export default function App() {
           camPosition: null,
           controlsAreEnabled: true,
         }));
+        landingContext.zoomToObject('initPosition');
       },
     }));
   }, []);
