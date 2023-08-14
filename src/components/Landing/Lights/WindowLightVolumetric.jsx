@@ -69,178 +69,178 @@ export default function WindowLightVolumetric({ lightIsOn }) {
   //   },
   // );
 
-  const { leftEdge, rightEdge, topEdge, bottomEdge, depth } = useControls(
-    'Cluster Position',
-    {
-      depth: {
-        value: DEPTH,
-        min: -15,
-        max: 0,
-      },
-      leftEdge: {
-        value: LEFT_EDGE,
-        min: 0,
-        max: 10,
-      },
-      rightEdge: {
-        value: RIGHT_EDGE,
-        min: 0,
-        max: 10,
-      },
-      topEdge: {
-        value: TOP_EDGE,
-        min: 0,
-        max: 10,
-      },
-      bottomEdge: {
-        value: BOTTOM_EDGE,
-        min: 0,
-        max: 10,
-      },
-    },
-  );
+  // const { leftEdge, rightEdge, topEdge, bottomEdge, depth } = useControls(
+  //   'Cluster Position',
+  //   {
+  //     depth: {
+  //       value: DEPTH,
+  //       min: -15,
+  //       max: 0,
+  //     },
+  //     leftEdge: {
+  //       value: LEFT_EDGE,
+  //       min: 0,
+  //       max: 10,
+  //     },
+  //     rightEdge: {
+  //       value: RIGHT_EDGE,
+  //       min: 0,
+  //       max: 10,
+  //     },
+  //     topEdge: {
+  //       value: TOP_EDGE,
+  //       min: 0,
+  //       max: 10,
+  //     },
+  //     bottomEdge: {
+  //       value: BOTTOM_EDGE,
+  //       min: 0,
+  //       max: 10,
+  //     },
+  //   },
+  // );
 
-  const { leftEdgeTarget, rightEdgeTarget, topEdgeTarget, bottomEdgeTarget } =
-    useControls('Cluster Target', {
-      leftEdgeTarget: {
-        value: LEFT_EDGE_TARGET,
-        min: 0,
-        max: 10,
-      },
-      rightEdgeTarget: {
-        value: RIGHT_EDGE_TARGET,
-        min: 0,
-        max: 10,
-      },
-      topEdgeTarget: {
-        value: TOP_EDGE_TARGET,
-        min: 0,
-        max: 10,
-      },
-      bottomEdgeTarget: {
-        value: BOTTOM_EDGE_TARGET,
-        min: 0,
-        max: 10,
-      },
-    });
+  // const { leftEdgeTarget, rightEdgeTarget, topEdgeTarget, bottomEdgeTarget } =
+  //   useControls('Cluster Target', {
+  //     leftEdgeTarget: {
+  //       value: LEFT_EDGE_TARGET,
+  //       min: 0,
+  //       max: 10,
+  //     },
+  //     rightEdgeTarget: {
+  //       value: RIGHT_EDGE_TARGET,
+  //       min: 0,
+  //       max: 10,
+  //     },
+  //     topEdgeTarget: {
+  //       value: TOP_EDGE_TARGET,
+  //       min: 0,
+  //       max: 10,
+  //     },
+  //     bottomEdgeTarget: {
+  //       value: BOTTOM_EDGE_TARGET,
+  // //       min: 0,
+  // //       max: 10,
+  // //     },
+  // //   });
 
-  const {
-    groupAttenuation,
-    groupAnglePower,
-    groupDistance,
-    groupIntensity,
-    groupPenumbra,
-    groupAngle,
-    groupColor,
-    groupCastShadow,
-  } = useControls('Cluster Settings', {
-    groupIntensity: {
-      value: GROUP_INTENSITY,
-      min: 0,
-      max: 3,
-    },
-    groupPenumbra: {
-      value: GROUP_PENUMBRA,
-      min: 0,
-      max: 1,
-    },
-    groupAttenuation: {
-      value: GROUP_ATTENUATION,
-      min: 0,
-      max: 15,
-    },
-    groupDistance: {
-      value: GROUP_DISTANCE,
-      min: 0,
-      max: 30,
-    },
-    groupAngle: {
-      value: GROUP_ANGLE,
-      min: 0,
-      max: Math.PI / 2,
-    },
-    groupAnglePower: {
-      value: GROUP_ANGLE_POWER,
-      min: 0,
-      max: 10,
-    },
-    groupColor: {
-      value: GROUP_COLOR,
-    },
-    groupCastShadow: {
-      value: false,
-    },
-  });
+  // // const {
+  // //   groupAttenuation,
+  // //   groupAnglePower,
+  // //   groupDistance,
+  // //   groupIntensity,
+  // //   groupPenumbra,
+  // //   groupAngle,
+  // //   groupColor,
+  // //   groupCastShadow,
+  // // } = useControls('Cluster Settings', {
+  // //   groupIntensity: {
+  // //     value: GROUP_INTENSITY,
+  // //     min: 0,
+  // //     max: 3,
+  // //   },
+  // //   groupPenumbra: {
+  // //     value: GROUP_PENUMBRA,
+  // //     min: 0,
+  // //     max: 1,
+  // //   },
+  // //   groupAttenuation: {
+  // //     value: GROUP_ATTENUATION,
+  // //     min: 0,
+  // //     max: 15,
+  // //   },
+  // //   groupDistance: {
+  // //     value: GROUP_DISTANCE,
+  // //     min: 0,
+  // //     max: 30,
+  // //   },
+  // //   groupAngle: {
+  // //     value: GROUP_ANGLE,
+  // //     min: 0,
+  // //     max: Math.PI / 2,
+  // //   },
+  // //   groupAnglePower: {
+  // //     value: GROUP_ANGLE_POWER,
+  // //     min: 0,
+  // //     max: 10,
+  // //   },
+  // //   groupColor: {
+  // //     value: GROUP_COLOR,
+  // //   },
+  // //   groupCastShadow: {
+  // //     value: false,
+  // //   },
+  // // });
 
-  const {
-    centerAttenuation,
-    centerAnglePower,
-    centerDistance,
-    centerIntensity,
-    centerPenumbra,
-    centerAngle,
-    centerColor,
-    centerCastShadow,
-  } = useControls('Center Light Settings', {
-    centerIntensity: {
-      value: CENTER_INTENSITY,
-      min: 0,
-      max: 3,
-    },
-    centerPenumbra: {
-      value: CENTER_PENUMBRA,
-      min: 0,
-      max: 1,
-    },
-    centerAttenuation: {
-      value: CENTER_ATTENUATION,
-      min: 0,
-      max: 15,
-    },
-    centerDistance: {
-      value: CENTER_DISTANCE,
-      min: 0,
-      max: 30,
-    },
-    centerAngle: {
-      value: CENTER_ANGLE,
-      min: 0,
-      max: Math.PI / 2,
-    },
-    centerAnglePower: {
-      value: CENTER_ANGLE_POWER,
-      min: 0,
-      max: 10,
-    },
-    centerColor: {
-      value: CENTER_COLOR,
-    },
-    centerCastShadow: {
-      value: true,
-    },
-  });
+  // const {
+  //   centerAttenuation,
+  //   centerAnglePower,
+  //   centerDistance,
+  //   centerIntensity,
+  //   centerPenumbra,
+  //   centerAngle,
+  //   centerColor,
+  //   centerCastShadow,
+  // } = useControls('Center Light Settings', {
+  //   centerIntensity: {
+  //     value: CENTER_INTENSITY,
+  //     min: 0,
+  //     max: 3,
+  //   },
+  //   centerPenumbra: {
+  //     value: CENTER_PENUMBRA,
+  //     min: 0,
+  //     max: 1,
+  //   },
+  //   centerAttenuation: {
+  //     value: CENTER_ATTENUATION,
+  //     min: 0,
+  //     max: 15,
+  //   },
+  //   centerDistance: {
+  //     value: CENTER_DISTANCE,
+  //     min: 0,
+  //     max: 30,
+  //   },
+  //   centerAngle: {
+  //     value: CENTER_ANGLE,
+  //     min: 0,
+  //     max: Math.PI / 2,
+  //   },
+  //   centerAnglePower: {
+  //     value: CENTER_ANGLE_POWER,
+  //     min: 0,
+  //     max: 10,
+  //   },
+  //   centerColor: {
+  //     value: CENTER_COLOR,
+  //   },
+  //   centerCastShadow: {
+  //     value: true,
+  //   },
+  // });
 
   const LIGHT_1_SETTINGS = {
     color: {
-      value: groupColor,
+      value: '#476d8d',
     },
     angle: {
-      value: groupAngle,
+      value: 1.46,
     },
     attenuation: {
-      value: lightIsOn ? groupAttenuation : 0,
+      value: lightIsOn ? 4.4 : 0,
     },
     anglePower: {
-      value: groupAnglePower,
+      value: 7.9,
     },
     distance: {
-      value: groupDistance,
+      value: 30,
     },
     intensity: {
-      value: lightIsOn ? groupIntensity : 0,
+      value: lightIsOn ? 0 : 0,
     },
     penumbra: {
-      value: groupPenumbra,
+      value: .8,
     },
     castShadow: {
       value: true,
@@ -248,171 +248,171 @@ export default function WindowLightVolumetric({ lightIsOn }) {
   };
 
   const LIGHT_1_POSITION = {
-    x: { value: leftEdge },
-    y: { value: bottomEdge },
-    z: { value: depth },
+    x: { value: 4.5 },
+    y: { value: 4.4 },
+    z: { value: -3.7 },
   };
 
   const LIGHT_1_TARGET = {
-    x: { value: leftEdgeTarget },
+    x: { value: 5.5 },
     y: { value: 0 },
-    z: { value: bottomEdgeTarget },
+    z: { value: 2.7 },
   };
 
   const LIGHT_2_SETTINGS = {
     color: {
-      value: groupColor,
+      value: '#476d8d',
     },
     angle: {
-      value: groupAngle,
+      value: 1.46,
     },
     attenuation: {
-      value: lightIsOn ? groupAttenuation : 0,
+      value: lightIsOn ? 4.4 : 0,
     },
     anglePower: {
-      value: groupAnglePower,
+      value: 7.9,
     },
     distance: {
-      value: groupDistance,
+      value: 30,
     },
     intensity: {
-      value: lightIsOn ? groupIntensity : 0,
+      value: lightIsOn ? 0 : 0,
     },
     penumbra: {
-      value: groupPenumbra,
+      value: 0.8,
     },
     castShadow: {
-      value: groupCastShadow,
+      value: true,
     },
   };
 
   const LIGHT_2_POSITION = {
-    x: { value: rightEdge },
-    y: { value: bottomEdge },
-    z: { value: depth },
+    x: { value: 4.2 },
+    y: { value: 4.4 },
+    z: { value: -3.7 },
   };
 
   const LIGHT_2_TARGET = {
-    x: { value: rightEdgeTarget },
+    x: { value: 5.8 },
     y: { value: 0 },
-    z: { value: bottomEdgeTarget },
+    z: { value: 2.7 },
   };
 
   const LIGHT_3_SETTINGS = {
     color: {
-      value: groupColor,
+      value: '#476d8d',
     },
     angle: {
-      value: groupAngle,
+      value: 1.46,
     },
     attenuation: {
-      value: lightIsOn ? groupAttenuation : 0,
+      value: lightIsOn ? 4.4 : 0,
     },
     anglePower: {
-      value: groupAnglePower,
+      value: 7.9,
     },
     distance: {
-      value: groupDistance,
+      value: 30,
     },
     intensity: {
-      value: lightIsOn ? groupIntensity : 0,
+      value: lightIsOn ? 0 : 0,
     },
     penumbra: {
-      value: groupPenumbra,
+      value: 0.8,
     },
     castShadow: {
-      value: groupCastShadow,
+      value: true,
     },
   };
 
   const LIGHT_3_POSITION = {
-    x: { value: rightEdge },
-    y: { value: topEdge },
-    z: { value: depth },
+    x: { value: 4.2 },
+    y: { value: 6.2 },
+    z: { value: -3.7 },
   };
 
   const LIGHT_3_TARGET = {
-    x: { value: rightEdgeTarget },
+    x: { value: 5.8 },
     y: { value: 0 },
-    z: { value: topEdgeTarget },
+    z: { value: 1.7 },
   };
 
   const LIGHT_4_SETTINGS = {
     color: {
-      value: groupColor,
+      value: '#476d8d',
     },
     angle: {
-      value: groupAngle,
+      value: 1.46,
     },
     attenuation: {
-      value: lightIsOn ? groupAttenuation : 0,
+      value: lightIsOn ? 4.4 : 0,
     },
     anglePower: {
-      value: groupAnglePower,
+      value: 7.9,
     },
     distance: {
-      value: groupDistance,
+      value: 30,
     },
     intensity: {
-      value: lightIsOn ? groupIntensity : 0,
+      value: lightIsOn ? 0 : 0,
     },
     penumbra: {
-      value: groupPenumbra,
+      value: 0.8,
     },
     castShadow: {
-      value: groupCastShadow,
+      value: true,
     },
   };
 
   const LIGHT_4_POSITION = {
-    x: { value: leftEdge },
-    y: { value: topEdge },
-    z: { value: depth },
+    x: { value: 4.5 },
+    y: { value: 6.2 },
+    z: { value: -3.7 },
   };
 
   const LIGHT_4_TARGET = {
-    x: { value: leftEdgeTarget },
+    x: { value: 5.5 },
     y: { value: 0 },
-    z: { value: topEdgeTarget },
+    z: { value: 1.7 },
   };
 
   const CENTER_SETTINGS = {
     color: {
-      value: centerColor,
+      value: '#8baeef',
     },
     angle: {
-      value: centerAngle,
+      value: .65,
     },
     attenuation: {
-      value: lightIsOn ? centerAttenuation : 0,
+      value: lightIsOn ? 0 : 0,
     },
     anglePower: {
-      value: centerAnglePower,
+      value: 2.7,
     },
     distance: {
-      value: centerDistance,
+      value: 30,
     },
     intensity: {
-      value: lightIsOn ? centerIntensity : 0,
+      value: lightIsOn ? 3 : 0,
     },
     penumbra: {
-      value: centerPenumbra,
+      value: .8,
     },
     castShadow: {
-      value: centerCastShadow,
+      value: true,
     },
   };
 
   const CENTER_POSITION = {
-    x: { value: (leftEdge + rightEdge) / 2 },
-    y: { value: (topEdge + bottomEdge) / 2 },
-    z: { value: depth },
+    x: { value: 4.35 },
+    y: { value: 5.3 },
+    z: { value: -3.7 },
   };
 
   const CENTER_TARGET = {
-    x: { value: (leftEdgeTarget + rightEdgeTarget) / 2 },
+    x: { value: 5.65},
     y: { value: 0 },
-    z: { value: (topEdgeTarget + bottomEdgeTarget) / 2 },
+    z: { value: 2.2 },
   };
 
   return (
