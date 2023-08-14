@@ -10,7 +10,7 @@ import { Tube, useTexture } from '@react-three/drei';
 import { gsap } from 'gsap';
 import { useNavigate } from 'react-router-dom';
 
-import bgTexture from '../../../public/bg/galaxy1_compressed.jpg';
+import bgTexture from '../../../public/bg/galaxy_compressed.jpg';
 
 function setupCurve() {
   const points = [];
