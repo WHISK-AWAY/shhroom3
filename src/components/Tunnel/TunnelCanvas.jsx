@@ -28,7 +28,7 @@ export default function TunnelCanvas() {
           antialias: false,
         }}
         camera={{
-          fov: 6,
+          fov: 70,
           aspect: ww / wh,
           near: 0.01,
           far: 100,
