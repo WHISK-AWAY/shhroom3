@@ -54,17 +54,17 @@ export default function App() {
           setContext: prev.setContext,
         }));
       },
-      releaseZoom: function releaseZoom() {
-        console.log('going back home');
-        setLandingContext((prev) => ({
-          ...prev,
-          targetLabel: null,
-          targetPosition: null,
-          camPosition: null,
-          controlsAreEnabled: true,
-        }));
-        landingContext.zoomToObject('initPosition');
-      },
+      // releaseZoom: function releaseZoom() {
+      //   console.log('going back home');
+      //   setLandingContext((prev) => ({
+      //     ...prev,
+      //     targetLabel: null,
+      //     targetPosition: null,
+      //     camPosition: null,
+      //     controlsAreEnabled: true,
+      //   }));
+      //   // landingContext.zoomToObject('initPosition');
+      // },
     }));
   }, []);
 
