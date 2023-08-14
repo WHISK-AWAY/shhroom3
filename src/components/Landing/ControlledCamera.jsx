@@ -1,4 +1,4 @@
-import { useRef, useContext, useEffect, useLayoutEffect, useMemo } from 'react';
+import { useRef, useContext, useEffect, useMemo, useLayoutEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useControls } from 'leva';
@@ -8,10 +8,16 @@ import { objectPositions } from './objectPositions.js';
 import { GlobalContext, LandingContext } from '../../lib/context';
 import { Vector3 } from 'three';
 
+const MIN_AZ = 0.42;
+const MAX_AZ = 1.14;
+
 export default function ControlledCamera() {
   const camera = useRef(null);
   const controls = useRef(null);
   const zoomTimeline = useRef(null);
+
+  // const [minAzimuthAngle, setMinAzimuthAngle] = useState(undefined);
+  // const [maxAzimuthAngle, setMaxAzimuthAngle] = useState(undefined);
 
   const raycaster = useThree((state) => state.raycaster);
 
@@ -19,29 +25,27 @@ export default function ControlledCamera() {
   const landingContext = useContext(LandingContext);
 
   const {
-    enableDamping,
-    minAzimuthAngle,
-    maxAzimuthAngle,
+    // enableDamping,
+    // minAzimuthAngle,
+    // maxAzimuthAngle,
     minPolarAngle,
     maxPolarAngle,
-    minDistance,
-    maxDistance,
+    // minDistance,
+    // maxDistance,
   } = useControls('Controls Settings', {
     enableDamping: {
       value: true,
     },
-    minAzimuthAngle: {
-      // value: 0.42,
-      value: -0.0,
-      min: Math.PI / -1,
-      max: Math.PI / 1,
-    },
-    maxAzimuthAngle: {
-      // value: 1.14,
-      value: 1.70,
-      min: Math.PI / -1,
-      max: Math.PI / 1,
-    },
+    // minAzimuthAngle: {
+    //   value: 0.42,
+    //   min: Math.PI / -1,
+    //   max: Math.PI / 1,
+    // },
+    // maxAzimuthAngle: {
+    //   value: 1.14,
+    //   min: Math.PI / -1,
+    //   max: Math.PI / 1,
+    // },
     minPolarAngle: {
       // value: 1.32,
       value: 1.42,
@@ -54,75 +58,106 @@ export default function ControlledCamera() {
       min: Math.PI / -1,
       max: Math.PI / 1,
     },
-    minDistance: {
-      value: -10,
-      min: -10,
-      max: 15,
-    },
-    maxDistance: {
-      value: 10.5,
-      min: 0,
-      max: 50,
-    },
-  });
-
-  const MIN_PAN = useMemo(() => {
-    return new Vector3(4.5, 3, 0);
-  }, []);
-  const MAX_PAN = useMemo(() => {
-    return new Vector3(3, 4, 4);
-  }, []);
-
-  useLayoutEffect(() => {
-    function onChange() {
-      // console.log('onchange');
-      if (landingContext.controlsAreEnabled) {
-        const tempVector = new Vector3();
-        tempVector.copy(controls.current.target);
-        controls.current.target.clamp(MIN_PAN, MAX_PAN);
-        tempVector.sub(controls.current.target);
-        camera.current.position.sub(tempVector);
-      }
-
-      return;
-    }
-
-    controls.current.addEventListener('change', onChange);
-
-    return () => {
-      console.log('releasing pan limit');
-      controls.current.removeEventListener('change', onChange);
-    };
+    // minDistance: {
+    //   value: -10,
+    //   min: -10,
+    //   max: 15,
+    // },
+    // maxDistance: {
+    //   value: 10.5,
+    //   min: 0,
+    //   max: 50,
+    // },
   });
 
   useEffect(() => {
-    // set up zoomToTarget function
-    // label: string (keyof objectPositions)
-    function zoomToObject(label) {
-      console.log('zooming to passed-in label:', label);
-
-      if (!objectPositions[label]) {
-        console.error(`No position information for label ${label}`);
-        return;
-      }
-
-      const { camPosition, targetPosition } = objectPositions[label];
-
-      landingContext.setContext((prev) => ({
-        ...prev,
-        isZoomed: true,
-        targetLabel: label,
-        targetPosition: targetPosition,
-        camPosition: camPosition,
-        controlsAreEnabled: false,
-        signInHintIsVisible:
-          label === 'monitor' ? false : prev.signInHintIsVisible,
-      }));
+    if (landingContext.atHomePosition) {
+      controls.current.minAzimuthAngle = MIN_AZ;
+      controls.current.maxAzimuthAngle = MAX_AZ;
+    } else {
+      controls.current.minAzimuthAngle = -Infinity;
+      controls.current.maxAzimuthAngle = Infinity;
     }
+    controls.current.update();
+  }, [landingContext.atHomePosition]);
+
+  /**
+   * * PAN LIMITER
+   */
+
+  const MIN_PAN = useMemo(() => {
+    return new Vector3(2, 2, 2);
+  }, []);
+  const MAX_PAN = useMemo(() => {
+    return new Vector3(15, 4, 15);
+  }, []);
+
+  function panLimiter() {
+    // console.log('onchange');
+    if (landingContext.controlsAreEnabled) {
+      const tempVector = new Vector3();
+      tempVector.copy(controls.current.target);
+      controls.current.target.clamp(MIN_PAN, MAX_PAN);
+      tempVector.sub(controls.current.target);
+      camera.current.position.sub(tempVector);
+    }
+
+    return;
+  }
+
+  useEffect(() => {
+    if (landingContext.panningIsLimited) {
+      // console.log('setting pan limit');
+      // controls.current.addEventListener('change', onChange);
+    } else controls.current.removeEventListener('change', panLimiter);
+
+    return () => {
+      // console.log('releasing pan limit');
+      controls.current.removeEventListener('change', panLimiter);
+    };
+  }, [landingContext.panningIsLimited]);
+
+  /**
+   * * ZOOM TO OBJECT
+   * @param label: string (keyof objectPositions)
+   */
+
+  function zoomToObject(label) {
+    // console.log('zooming to passed-in label:', label);
+
+    if (!objectPositions[label]) {
+      console.error(`No position information for label ${label}`);
+      return;
+    }
+
+    const { camPosition, targetPosition } = objectPositions[label];
+
+    landingContext.setContext((prev) => ({
+      ...prev,
+      targetLabel: label,
+      targetPosition: targetPosition,
+      camPosition: camPosition,
+      controlsAreEnabled: false,
+      signInHintIsVisible:
+        label === 'monitor' ? false : prev.signInHintIsVisible,
+    }));
+  }
+
+  /**
+   * * RELEASE ZOOM
+   */
+
+  function releaseZoom() {
+    zoomToObject('initPosition');
+  }
+
+  useEffect(() => {
+    // Add zoomToObject & releaseZoom to landing context
 
     landingContext.setContext((prev) => ({
       ...prev,
       zoomToObject,
+      releaseZoom,
     }));
   }, []);
 
@@ -132,26 +167,48 @@ export default function ControlledCamera() {
     raycaster.layers.set(1);
   }, [raycaster]);
 
+  /**
+   * * ZOOM IN/OUT ANIMATION
+   */
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (landingContext.targetLabel) {
         // animate to target
         const tl = gsap.timeline({
-          duration: 1,
+          defaults: {
+            duration: 1,
+            ease: 'power1.inOut',
+          },
           onUpdate: () => {
             controls.current.update();
           },
+          onStart: () => {
+            landingContext.setContext((prev) => ({
+              ...prev,
+              panningIsLimited: false,
+              atHomePosition: false,
+            }));
+          },
+          onComplete: () => {
+            landingContext.setContext((prev) => ({
+              ...prev,
+              isZoomed: true,
+            }));
+          },
+          onReverseComplete: () => {
+            landingContext.setContext((prev) => ({
+              ...prev,
+              isZoomed: false,
+              panningIsLimited: true,
+            }));
+          },
         });
 
-        tl.to(
-          controls.current.target,
-          {
-            x: landingContext.targetPosition.x,
-            y: landingContext.targetPosition.y,
-            z: landingContext.targetPosition.z,
-          },
-          '<',
-        );
+        tl.to(controls.current.target, {
+          x: landingContext.targetPosition.x,
+          y: landingContext.targetPosition.y,
+          z: landingContext.targetPosition.z,
+        });
         tl.to(
           camera.current.position,
           {
@@ -169,9 +226,15 @@ export default function ControlledCamera() {
     return () => {
       if (zoomTimeline.current) {
         zoomTimeline.current
-          .duration(zoomTimeline.current.duration() / 2)
+          // .duration(zoomTimeline.current.duration() / 2)
           .reverse()
-          .then(() => ctx.revert());
+          .then(() => {
+            landingContext.setContext((prev) => ({
+              ...prev,
+              atHomePosition: prev.targetLabel === 'initPosition',
+            }));
+            ctx.revert();
+          });
       } else ctx.revert();
     };
   }, [landingContext.targetLabel]);
@@ -188,9 +251,8 @@ export default function ControlledCamera() {
         // Press Space to log out the camera & controls state
         console.log('Camera:', camera.current);
         console.log('Controls:', controls.current);
-        console.log('Raycaster:', raycaster);
-        console.log('GlobalContext', globalContext);
-        console.log('LandingContext', landingContext);
+        console.log('GlobalContext:', globalContext);
+        console.log('LandingContext:', landingContext);
       }
     }
 
@@ -198,6 +260,8 @@ export default function ControlledCamera() {
 
     return () => window.removeEventListener('keydown', onKeys);
   });
+
+  if (!landingContext) return null;
 
   return (
     <>
@@ -210,19 +274,22 @@ export default function ControlledCamera() {
       <OrbitControls
         ref={controls}
         enabled={true}
-        enableZoom={landingContext.controlsAreEnabled}
-        enableRotate={landingContext.controlsAreEnabled}
-        enablePan={landingContext.targetLabel !== 'monitor'}
+        enableZoom={false}
+        // enableZoom={landingContext.controlsAreEnabled}
+        enableRotate={landingContext.atHomePosition}
+        // enableRotate={landingContext.controlsAreEnabled}
+        enablePan={
+          landingContext.isZoomed &&
+          !['monitor', 'initPosition'].includes(landingContext.targetLabel)
+        }
         makeDefault={true}
         zoomToCursor={true}
         enableDamping={true}
-        dampingFactor={0.5}
-        minAzimuthAngle={landingContext.isZoomed ? undefined : minAzimuthAngle}
-        maxAzimuthAngle={landingContext.isZoomed ? undefined : maxAzimuthAngle}
+        dampingFactor={1}
+        minAzimuthAngle={0.42}
+        maxAzimuthAngle={1.14}
         minPolarAngle={minPolarAngle}
         maxPolarAngle={maxPolarAngle}
-        minDistance={minDistance}
-        maxDistance={maxDistance}
         target={objectPositions.initPosition.targetPosition}
         panSpeed={0.5}
       />

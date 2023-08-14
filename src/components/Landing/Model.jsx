@@ -45,12 +45,25 @@ export default function Model(props) {
   const screenRef = useRef(null);
   const newMeetingRef = useRef(null);
   const corkboardRef = useRef(null);
+  const stingRef = useRef(null);
+  const desktopRef = useRef(null);
+  const shelvesRef = useRef(null);
+  const bedsideTableRef = useRef(null);
   const [isSignHelperHidden, setIsSignHelperHidden] = useState(true);
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    console.log('setting layers');
-    for (let object of [newMeetingRef, corkboardRef, screenRef, escBtnRef]) {
+    // console.log('setting layers');
+    for (let object of [
+      newMeetingRef,
+      corkboardRef,
+      screenRef,
+      escBtnRef,
+      stingRef,
+      desktopRef,
+      shelvesRef,
+      bedsideTableRef,
+    ]) {
       if (object.current?.layers) {
         object.current.layers.enable(1);
       }
@@ -58,7 +71,7 @@ export default function Model(props) {
   }, []);
 
   useEffect(() => {
-    console.log('hello from model');
+    // console.log('hello from model');
 
     setTimeout(() => {
       setIsSignHelperHidden(false);
@@ -78,6 +91,15 @@ export default function Model(props) {
 
   return (
     <group {...props} dispose={null}>
+      {/** bedside table (?) */}
+      <Plane
+        ref={bedsideTableRef}
+        args={[2, 1.5]}
+        position={[8.61863, 1.85597, -1.34916]}
+        onClick={() => landingContext.zoomToObject('bedsideTable')}
+      >
+        <meshBasicMaterial transparent opacity={0} />
+      </Plane>
       <mesh
         receiveShadow
         geometry={nodes.car.geometry}
@@ -128,6 +150,8 @@ export default function Model(props) {
       />
       {/* sting poster */}
       <mesh
+        ref={stingRef}
+        onClick={() => landingContext.zoomToObject('sting')}
         receiveShadow
         geometry={nodes.tp.geometry}
         material={materials.tp}
@@ -771,6 +795,8 @@ export default function Model(props) {
       />
       {/** desktop */}
       <mesh
+        ref={desktopRef}
+        onClick={() => landingContext.zoomToObject('desktop')}
         receiveShadow
         geometry={nodes.Cube029.geometry}
         material={materials['Magnificent wood']}
@@ -902,6 +928,7 @@ export default function Model(props) {
           material={materials.PaletteMaterial003}
         />
       </group>
+
       <mesh
         receiveShadow
         geometry={nodes.compHead.geometry}
@@ -1151,7 +1178,7 @@ export default function Model(props) {
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
         onClick={() => {
-          console.log('clicked corkboard');
+          // console.log('clicked corkboard');
           landingContext.zoomToObject('corkboard');
         }}
         // onClick={() => landingContext.zoomToObject('corkboard')}
