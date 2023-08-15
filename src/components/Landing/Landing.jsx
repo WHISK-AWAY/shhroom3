@@ -4,6 +4,8 @@ import { PerformanceMonitor, useDetectGPU } from '@react-three/drei';
 
 // import Scene from './Scene';
 // import LoadingScreen from '../LoadingScreen';
+import { Canvas } from '@react-three/fiber';
+import LoadingScreen from '../LoadingScreen';
 import UserControls from '../UserControls';
 
 import { LandingContext } from '../../lib/context';
@@ -32,7 +34,7 @@ export default function Landing() {
   return (
     <div className='h-screen w-screen '>
       {/* <Suspense fallback={<LoadingScreen />}> */}
-      <Suspense fallback={null}>
+      <Suspense fallback={<LoadingScreen />}>
         {isCanvasLoaded && landingContext.controlsAreVisible && (
           <UserControls />
         )}

@@ -7,64 +7,64 @@ import ClockLight from './ClockLight';
 import WindowLightVolumetric from './WindowLightVolumetric';
 import AmbientLight from './AmbientLight';
 import FlashLight from './FlashLight';
-import CornerWallLight from './CornerWallLight'
+import CornerWallLight from './CornerWallLight';
 
 export default function Lights() {
-  const {
-    overheadLightIsOn,
-    shhroomLampIsOn,
-    deskLampIsOn,
-    windowLightIsOn,
-    lavaLampIsOn,
-    clockLightIsOn,
-    ambientLightIsOn,
-    cornerWallLightIsOn
-  } = useControls('Lights', {
-    overheadLightIsOn: {
-      value: true,
-    },
-    deskLampIsOn: {
-      value: true,
-    },
-    windowLightIsOn: {
-      value: true,
-    },
-    lavaLampIsOn: {
-      value: true,
-    },
-    shhroomLampIsOn: {
-      value: true,
-    },
-    clockLightIsOn: {
-      value: true,
-    },
-    ambientLightIsOn: {
-      value: true,
-    },
-    cornerWallLightIsOn: {
-      value: true
-    }
-  });
+  // const {
+  //   overheadLightIsOn,
+  //   shhroomLampIsOn,
+  //   deskLampIsOn,
+  //   windowLightIsOn,
+  //   lavaLampIsOn,
+  //   clockLightIsOn,
+  //   ambientLightIsOn,
+  //   cornerWallLightIsOn
+  // } = useControls('Lights', {
+  //   overheadLightIsOn: {
+  //     value: true,
+  //   },
+  //   deskLampIsOn: {
+  //     value: true,
+  //   },
+  //   windowLightIsOn: {
+  //     value: true,
+  //   },
+  //   lavaLampIsOn: {
+  //     value: true,
+  //   },
+  //   shhroomLampIsOn: {
+  //     value: true,
+  //   },
+  //   clockLightIsOn: {
+  //     value: true,
+  //   },
+  //   ambientLightIsOn: {
+  //     value: true,
+  //   },
+  //   cornerWallLightIsOn: {
+  //     value: true
+  //   }
+  // });
 
   return (
     <>
-      <OverheadLight lightIsOn={overheadLightIsOn} />
+      <OverheadLight lightIsOn={true} />
 
-      <WindowLightVolumetric lightIsOn={windowLightIsOn} />
+      <WindowLightVolumetric lightIsOn={true} />
 
-      <DeskLampLight lightIsOn={deskLampIsOn} />
+      <DeskLampLight lightIsOn={true} />
 
-      <LavaLampLight lightIsOn={lavaLampIsOn} />
+      <LavaLampLight lightIsOn={true} />
 
-      <ShhroomLampLight lightIsOn={shhroomLampIsOn} />
+      <ShhroomLampLight lightIsOn={true} />
 
-      <ClockLight lightIsOn={clockLightIsOn} />
+      <ClockLight lightIsOn={true} />
 
-      <AmbientLight lightIsOn={ambientLightIsOn} />
+      <AmbientLight lightIsOn={true} />
 
       <FlashLight />
 
-      <CornerWallLight lightIsOn={cornerWallLightIsOn}/>
+      <CornerWallLight lightIsOn={true} />
     </>
   );
 }

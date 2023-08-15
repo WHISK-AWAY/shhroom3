@@ -47,6 +47,34 @@ export const objectPositions = {
     ),
     targetPosition: new Vector3(3.0905, 4.29743, 1.83965),
   },
+  initPosition: {
+    camPosition: new Vector3(
+      13.272240226514993,
+      3.643396467464836,
+      7.361698369433382,
+    ),
+    targetPosition: new Vector3(
+      1.8900082175975619,
+      2.7284963847587003,
+      -3.06286117925677,
+    ),
+  },
+  newMeetingTunnelZoom: {
+    camPosition: new Vector3(
+      7.860247276910664,
+      3.5996406366270883,
+      -2.375659102602953,
+    ),
+    targetPosition: new Vector3(7.71108, 3.65457, -2.98681),
+  },
+  // sting: {
+  //   camPosition: new Vector3(
+  //     8.744054639054083,
+  //     3.544506309064059,
+  //     -2.1159567013174625,
+  //   ),
+  //   targetPosition: new Vector3(),
+  // },
 
   sting: {
     camPosition: new Vector3(

@@ -1,7 +1,6 @@
 import seizureShhroom from '/bg/shh_seizure.gif';
 import { gsap } from 'gsap';
 import { useRef, useEffect } from 'react';
-import { useProgress } from '@react-three/drei';
 
 export default function LoadingScreen() {
   const dot_01 = useRef(null);
@@ -12,7 +11,6 @@ export default function LoadingScreen() {
   const loadingRef = useRef(null);
   const timelineRef = useRef(null);
 
-  const { progress } = useProgress();
 
   return (
     <div className='bg-black w-screen h-screen flex flex-col'>
@@ -40,7 +38,6 @@ export default function LoadingScreen() {
             </span>
           </span>
         </p>
-        <p className='absolute bottom-0'>{progress}%</p>
       </div>
     </div>
   );
