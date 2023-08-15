@@ -274,7 +274,8 @@ export default function ControlledCamera() {
       <OrbitControls
         ref={controls}
         enabled={true}
-        enableZoom={false}
+        enableZoom={true}
+        maxDistance={15.5}
         // enableZoom={landingContext.controlsAreEnabled}
         enableRotate={landingContext.atHomePosition}
         // enableRotate={landingContext.controlsAreEnabled}
@@ -285,7 +286,7 @@ export default function ControlledCamera() {
         makeDefault={true}
         zoomToCursor={true}
         enableDamping={true}
-        dampingFactor={1}
+        dampingFactor={.1}
         minAzimuthAngle={0.42}
         maxAzimuthAngle={1.14}
         minPolarAngle={minPolarAngle}
