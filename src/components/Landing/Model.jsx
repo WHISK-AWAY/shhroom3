@@ -1048,9 +1048,7 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
         {/* //middle clock divider */}
-        <mesh
-          geometry={nodes.Plane063_3.geometry}
-        >
+        <mesh geometry={nodes.Plane063_3.geometry}>
           <meshStandardMaterial
             color={0xff0000}
             side={THREE.DoubleSide}
@@ -1059,10 +1057,7 @@ export default function Model(props) {
             toneMapped={false}
           />
         </mesh>
-        <mesh
-          geometry={nodes.Plane063_3.geometry}
-          position={[9, 0, 0]}
-        >
+        <mesh geometry={nodes.Plane063_3.geometry} position={[9, 0, 0]}>
           <meshStandardMaterial
             color={0xff0000}
             side={THREE.DoubleSide}
@@ -1091,9 +1086,7 @@ export default function Model(props) {
           />
         </mesh>
         {/* //filled left side */}
-        <mesh
-          geometry={nodes.Plane063_6.geometry}
-        >
+        <mesh geometry={nodes.Plane063_6.geometry}>
           <meshStandardMaterial
             color={0xff0000}
             side={THREE.DoubleSide}
@@ -2076,6 +2069,7 @@ export default function Model(props) {
       {/**sneakers */}
       <group position={[8.39408, 0.97776, 0.10381]} scale={1.78452}>
         <mesh
+          castShadow
           geometry={nodes.mesh003.geometry}
           material={materials['mustang-damen-schuhe-sneakers-Sole']}
         />
@@ -2125,10 +2119,7 @@ export default function Model(props) {
           geometry={nodes.mesh003_11.geometry}
           material={materials.PaletteMaterial002}
         />
-        <mesh
-          geometry={nodes.mesh003_12.geometry}
-          material={materials.Garn}
-        />
+        <mesh geometry={nodes.mesh003_12.geometry} material={materials.Garn} />
         <mesh
           geometry={nodes.mesh003_13.geometry}
           material={materials.Lasche}
@@ -2151,6 +2142,7 @@ export default function Model(props) {
       </group>
       <group position={[8.20237, 0.98439, -0.0448]} scale={1.78452}>
         <mesh
+          castShadow
           geometry={nodes.mesh002.geometry}
           material={materials['mustang-damen-schuhe-sneakers-Sole.R']}
         />
@@ -2204,10 +2196,7 @@ export default function Model(props) {
           geometry={nodes.mesh002_12.geometry}
           material={materials.PaletteMaterial002}
         />
-        <mesh
-          geometry={nodes.mesh002_13.geometry}
-          material={materials.Garn}
-        />
+        <mesh geometry={nodes.mesh002_13.geometry} material={materials.Garn} />
         <mesh
           geometry={nodes.mesh002_14.geometry}
           material={materials.Lasche}
@@ -2919,7 +2908,6 @@ export default function Model(props) {
       {/**speaker */}
       <group position={[3.29815, 4.8224, -0.73617]} scale={[1.39397, 1, 1]}>
         <mesh
-          
           geometry={nodes.Cube170.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -2929,17 +2917,14 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
         <mesh
-          
           geometry={nodes.Cube170_2.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-         
           geometry={nodes.Cube170_3.geometry}
           material={materials.PaletteMaterial026}
         />
         <mesh
-          
           geometry={nodes.Cube170_4.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -3303,24 +3288,24 @@ export default function Model(props) {
         scale={0.38781}
       />
       <group
-      position={[3.13975, 4.95735, 2.28716]}
-      rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-      scale={0.65739}
+        position={[3.13975, 4.95735, 2.28716]}
+        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+        scale={0.65739}
       >
-      <mesh
-      castShadow
-      receiveShadow
-      geometry={nodes.Plane010.geometry}
-      material={materials.PaletteMaterial002}
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Plane010.geometry}
+          material={materials.PaletteMaterial002}
         />
         <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Plane010_1.geometry}
-        material={materials.PaletteMaterial002}
+          castShadow
+          receiveShadow
+          geometry={nodes.Plane010_1.geometry}
+          material={materials.PaletteMaterial002}
         />
-        </group>
-        {/**skeleton */}
+      </group>
+      {/**skeleton */}
       <mesh
         geometry={nodes.clavicle_right_.geometry}
         material={materials.PaletteMaterial002}
@@ -3394,11 +3379,7 @@ export default function Model(props) {
       />
       {/**books on the shelf */}
       <group position={[3.41903, 4.83103, -0.36294]} scale={2.68371}>
-        <mesh
-         
-          geometry={nodes.Cube187.geometry}
-          material={materials.paper}
-        />
+        <mesh geometry={nodes.Cube187.geometry} material={materials.paper} />
         <mesh
           receiveShadow
           geometry={nodes.Cube187_1.geometry}
