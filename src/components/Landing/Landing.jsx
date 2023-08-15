@@ -1,10 +1,10 @@
 import { Suspense, useContext, useEffect, useState, lazy } from 'react';
 import { Canvas } from '@react-three/offscreen';
-import { PerformanceMonitor, useDetectGPU } from '@react-three/drei';
+import { useDetectGPU } from '@react-three/drei';
 
 // import Scene from './Scene';
 // import LoadingScreen from '../LoadingScreen';
-import { Canvas } from '@react-three/fiber';
+// import { Canvas } from '@react-three/fiber';
 import LoadingScreen from '../LoadingScreen';
 import UserControls from '../UserControls';
 
@@ -16,17 +16,11 @@ export default function Landing() {
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
   // const [dpr, setDpr] = useState(1);
 
-  const gpu = useDetectGPU();
-
-  useEffect(() => {
-    console.log('gpu', gpu);
-  }, [gpu]);
-
   // useEffect(() => {
   //   console.log('current dpr', dpr);
   // }, [dpr]);
 
-  const Scene = lazy(() => import('./Scene'));
+  // const Scene = lazy(() => import('./Scene'));
   const worker = new Worker(new URL('./worker.jsx', import.meta.url), {
     type: 'module',
   });
@@ -40,23 +34,25 @@ export default function Landing() {
         )}
         <Canvas
           worker={worker}
-          fallback={<Scene />}
-          frameloop='demand'
-          // dpr={dpr}
-          shadows={false}
-          linear={false}
-          flat={false}
-          raycaster={{
-            far: 100,
-            params: { Line: { threshold: 0.1 }, Points: { threshold: 0.1 } },
-          }}
-          gl={{
-            powerPreference: 'high-performance',
-            alpha: false,
-            antialias: false,
-            stencil: false,
-            depth: true,
-          }}
+          // fallback={<Scene />}
+          // frameloop='demand'
+          // // dpr={dpr}
+          // shadows={false}
+          // linear={false}
+          // flat={false}
+          // raycaster={{
+          //   far: 100,
+          //   params: { Line: { threshold: 0.1 }, Points: { threshold: 0.1 } },
+          // }}
+          // gl={
+          //   {
+          // powerPreference: 'high-performance',
+          // alpha: false,
+          // antialias: false,
+          // stencil: false,
+          // depth: true,
+          //   }
+          // }
         >
           {/* <PerformanceMonitor
             onIncline={(stuff) => {

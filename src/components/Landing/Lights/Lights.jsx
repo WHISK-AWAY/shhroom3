@@ -1,4 +1,4 @@
-import { useControls } from 'leva';
+// import { useControls } from 'leva';
 import DeskLampLight from './DeskLampLight';
 import OverheadLight from './OverheadLight';
 import LavaLampLight from './LavaLampLight';

@@ -9,24 +9,26 @@ import {
   useEffect,
   useRef,
   useState,
-  useLayoutEffect, 
+  useLayoutEffect,
 } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 import {
   useGLTF,
   Plane,
-  Html,
-  Billboard,
-  MeshTransmissionMaterial, Caustics, Sparkles
+  // Html,
+  // Billboard,
+  MeshTransmissionMaterial,
+  Caustics,
+  Sparkles,
 } from '@react-three/drei';
 // import Screensaver from '../Screensaver';
 // import { Text3D } from '@react-three/drei';
 // import escButton from '/svg/esc_button.svg';
-import { Svg } from '@react-three/drei';
-import arrow from '/svg/arrow_login.svg';
-import { GlobalContext, LandingContext } from '../../lib/context';
-import SignInHelperText from './SignInHelperText';
+// import { Svg } from '@react-three/drei';
+// import arrow from '/svg/arrow_login.svg';
+// import { GlobalContext, LandingContext } from '../../lib/context';
+// import SignInHelperText from './SignInHelperText';
 
 /**
  * TODO: non-freezing loading screen
@@ -39,8 +41,8 @@ import SignInHelperText from './SignInHelperText';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
-  const globalContext = useContext(GlobalContext);
-  const landingContext = useContext(LandingContext);
+  // const globalContext = useContext(GlobalContext);
+  // const landingContext = useContext(LandingContext);
   const escBtnRef = useRef(null);
   const screenRef = useRef(null);
   const htmlRef = useRef(null);
@@ -51,7 +53,7 @@ export default function Model(props) {
   const shelvesRef = useRef(null);
   const bedsideTableRef = useRef(null);
   const [isSignHelperHidden, setIsSignHelperHidden] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const { x, y, z, height, width, rotation } = useControls('Plane Placement', {
   //   x: {
@@ -113,16 +115,17 @@ export default function Model(props) {
     }, 8000);
   }, []);
 
-  useEffect(() => {
-    if(globalContext.isSignedIn) {
-
-      if (landingContext.isZoomed && landingContext.targetLabel === 'newMeetingTunnelZoom' ) {
-        console.log('zooming')
-        navigate('/tunnel')
-        
-      }
-    }
-  }, [landingContext.targetLabel, globalContext.isSignedIn])
+  // useEffect(() => {
+  //   if (globalContext.isSignedIn) {
+  //     if (
+  //       landingContext.isZoomed &&
+  //       landingContext.targetLabel === 'newMeetingTunnelZoom'
+  //     ) {
+  //       console.log('zooming');
+  //       navigate('/tunnel');
+  //     }
+  //   }
+  // }, [landingContext.targetLabel, globalContext.isSignedIn]);
 
   return (
     <group {...props} dispose={null}>
@@ -132,7 +135,7 @@ export default function Model(props) {
         args={[1.1, 0.7]}
         position={[4.11, 3.2, 1.9]}
         rotation={[0, 2.11, 0]}
-        onClick={() => landingContext.zoomToObject('monitor')}
+        // onClick={() => landingContext.zoomToObject('monitor')}
       >
         <meshBasicMaterial transparent opacity={0} color={0xff0000} />
       </Plane>
@@ -141,7 +144,7 @@ export default function Model(props) {
         ref={bedsideTableRef}
         args={[2, 1.5]}
         position={[8.61863, 1.85597, -1.34916]}
-        onClick={() => landingContext.zoomToObject('bedsideTable')}
+        // onClick={() => landingContext.zoomToObject('bedsideTable')}
       >
         <meshBasicMaterial transparent opacity={0} />
       </Plane>
@@ -195,7 +198,7 @@ export default function Model(props) {
       {/* sting poster */}
       <mesh
         ref={stingRef}
-        onClick={() => landingContext.zoomToObject('sting')}
+        // onClick={() => landingContext.zoomToObject('sting')}
         receiveShadow
         geometry={nodes.tp.geometry}
         material={materials.tp}
@@ -779,13 +782,13 @@ export default function Model(props) {
         position={[7.71108, 3.65457, -2.58681]}
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
-        onClick={() => {
-          console.log('clicked newMeeting');
-          globalContext.isSignedIn &&
-          landingContext.targetLabel === 'newMeeting'
-            ? landingContext.zoomToObject('newMeetingTunnelZoom')
-            : landingContext.zoomToObject('newMeeting');
-        }}
+        // onClick={() => {
+        //   console.log('clicked newMeeting');
+        //   globalContext.isSignedIn &&
+        //   landingContext.targetLabel === 'newMeeting'
+        //     ? landingContext.zoomToObject('newMeetingTunnelZoom')
+        //     : landingContext.zoomToObject('newMeeting');
+        // }}
       />
 
       <mesh
@@ -839,7 +842,7 @@ export default function Model(props) {
       {/** desktop */}
       <mesh
         ref={desktopRef}
-        onClick={() => landingContext.zoomToObject('desktop')}
+        // onClick={() => landingContext.zoomToObject('desktop')}
         receiveShadow
         geometry={nodes.Cube029.geometry}
         material={materials['Magnificent wood']}
@@ -1191,10 +1194,10 @@ export default function Model(props) {
         position={[3.0905, 4.29743, 1.83965]}
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
-        onClick={() => {
-          // console.log('clicked corkboard');
-          landingContext.zoomToObject('corkboard');
-        }}
+        // onClick={() => {
+        //   // console.log('clicked corkboard');
+        //   landingContext.zoomToObject('corkboard');
+        // }}
         // onClick={() => landingContext.zoomToObject('corkboard')}
       ></mesh>
       <mesh
@@ -1541,7 +1544,9 @@ export default function Model(props) {
             toneMapped={false}
           />
         </Plane>
-
+        {/**
+         * 
+         
         {landingContext.signInHintIsVisible && !isSignHelperHidden && (
           <>
             <SignInHelperText />
@@ -1558,17 +1563,17 @@ export default function Model(props) {
               />
             </Svg>
           </>
-        )}
+        )}*/}
         <Plane
           args={[0.6, 0.12]}
           position={[1.56, -0.83, 0.5]}
           rotation={[0, Math.PI / 2, 0]}
           ref={escBtnRef}
-          onClick={() => {
-            if (landingContext.targetLabel === 'monitor')
-              landingContext.releaseZoom();
-            else return;
-          }}
+          // onClick={() => {
+          //   if (landingContext.targetLabel === 'monitor')
+          //     landingContext.releaseZoom();
+          //   else return;
+          // }}
         >
           <meshBasicMaterial color={'#ff0000'} transparent opacity={0} />
         </Plane>

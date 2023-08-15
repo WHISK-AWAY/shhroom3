@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useControls } from 'leva';
+// import { useControls } from 'leva';
 import { SpotLight } from '@react-three/drei';
 import * as THREE from 'three';
 
