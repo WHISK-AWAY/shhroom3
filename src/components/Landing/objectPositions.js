@@ -49,9 +49,9 @@ export const objectPositions = {
   },
   initPosition: {
     camPosition: new Vector3(
-      9.882191351251901,
-      2.945545047901194,
-      4.347200834586175,
+      13.272240226514993,
+      3.643396467464836,
+      7.361698369433382,
     ),
     targetPosition: new Vector3(
       1.8900082175975619,
