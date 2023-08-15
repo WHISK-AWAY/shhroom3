@@ -10,9 +10,11 @@ export default function TunnelCanvas() {
   const ww = window.innerWidth;
   const wh = window.innerHeight;
 
+
   useEffect(() => {
     document.querySelector('#loader').classList.add('invisible');
   }, []);
+
 
   return (
     <div className='h-screen w-screen bg-black'>
@@ -22,7 +24,7 @@ export default function TunnelCanvas() {
           antialias: false,
         }}
         camera={{
-          fov: 10,
+          fov: 70,
           aspect: ww / wh,
           near: 0.01,
           far: 100,
