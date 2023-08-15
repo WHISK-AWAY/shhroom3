@@ -64,18 +64,15 @@ export default function Screensaver() {
     bg-[url('/bg/screen_saver1.jpg')]`}
       >
         <div className='relative pt-[10%] px-[10%] mr-[2%] flex flex-row-reverse justify-between w-full items-start  '>
-        <div className='flex flex-col items-center w-1/5 h-1/5'>
-        <img
-        onClick={() => setIsFormHidden(false)}
-        src={compIcon}
-        alt='old computer screen icon'
-        className='h-[80%] w-[60%] drop-shadow-xl  '
-        />
-        <p className='font-vt text-[35px] pt-[1%]  '>
-          sign_in/sign_up
-        </p>
-        
-        </div>
+          <div className='flex flex-col items-center w-1/5 h-1/5'>
+            <img
+              onClick={() => setIsFormHidden(false)}
+              src={compIcon}
+              alt='old computer screen icon'
+              className='h-[80%] w-[60%] drop-shadow-xl  '
+            />
+            <p className='font-vt text-[35px] pt-[1%]  '>sign_in/sign_up</p>
+          </div>
           <div className='flex flex-col items-center  w-full h-full'>
             {!isFormHidden &&
               (isSignUpHidden ? (
@@ -95,7 +92,6 @@ export default function Screensaver() {
                 </div>
               ))}
           </div>
-
         </div>
       </div>
     </div>

@@ -274,20 +274,20 @@ export default function ControlledCamera() {
       <OrbitControls
         ref={controls}
         enabled={true}
-        enableZoom={false}
+        enableZoom={true}
         // enableZoom={landingContext.controlsAreEnabled}
-        enableRotate={landingContext.atHomePosition}
+        // enableRotate={landingContext.atHomePosition}
         // enableRotate={landingContext.controlsAreEnabled}
-        enablePan={
-          landingContext.isZoomed &&
-          !['monitor', 'initPosition'].includes(landingContext.targetLabel)
-        }
+        // enablePan={
+        //   landingContext.isZoomed &&
+        //   !['monitor', 'initPosition'].includes(landingContext.targetLabel)
+        // }
         makeDefault={true}
         zoomToCursor={true}
         enableDamping={true}
         dampingFactor={1}
-        minAzimuthAngle={0.42}
-        maxAzimuthAngle={1.14}
+        // minAzimuthAngle={0.42}
+        // maxAzimuthAngle={1.14}
         minPolarAngle={minPolarAngle}
         maxPolarAngle={maxPolarAngle}
         target={objectPositions.initPosition.targetPosition}

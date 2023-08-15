@@ -20,9 +20,9 @@ import {
   MeshTransmissionMaterial,
   Caustics,
 } from '@react-three/drei';
-import Screensaver from '../Screensaver';
-import { Text3D } from '@react-three/drei';
-import escButton from '/svg/esc_button.svg';
+// import Screensaver from '../Screensaver';
+// import { Text3D } from '@react-three/drei';
+// import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
@@ -43,6 +43,7 @@ export default function Model(props) {
   const landingContext = useContext(LandingContext);
   const escBtnRef = useRef(null);
   const screenRef = useRef(null);
+  const htmlRef = useRef(null);
   const newMeetingRef = useRef(null);
   const corkboardRef = useRef(null);
   const stingRef = useRef(null);
@@ -51,12 +52,46 @@ export default function Model(props) {
   const bedsideTableRef = useRef(null);
   const [isSignHelperHidden, setIsSignHelperHidden] = useState(true);
 
+  // const { x, y, z, height, width, rotation } = useControls('Plane Placement', {
+  //   x: {
+  //     value: 4.5,
+  //     min: 3.75,
+  //     max: 5.25,
+  //   },
+  //   y: {
+  //     value: 3.2,
+  //     min: 2,
+  //     max: 4.5,
+  //   },
+  //   z: {
+  //     value: 1.6,
+  //     min: -5,
+  //     max: 5,
+  //   },
+  //   width: {
+  //     value: 1.1,
+  //     min: 0.75,
+  //     max: 2,
+  //   },
+  //   height: {
+  //     value: 0.7,
+  //     min: 0.3,
+  //     max: 1.25,
+  //   },
+  //   rotation: {
+  //     value: Math.PI / 2,
+  //     min: 0,
+  //     max: Math.PI,
+  //   },
+  // });
+
   useLayoutEffect(() => {
     // console.log('setting layers');
     for (let object of [
       newMeetingRef,
       corkboardRef,
       screenRef,
+      htmlRef,
       escBtnRef,
       stingRef,
       desktopRef,
@@ -79,6 +114,16 @@ export default function Model(props) {
 
   return (
     <group {...props} dispose={null}>
+      {/** computer screen */}
+      <Plane
+        ref={screenRef}
+        args={[1.1, 0.7]}
+        position={[4.11, 3.2, 1.9]}
+        rotation={[0, 2.11, 0]}
+        onClick={() => landingContext.zoomToObject('monitor')}
+      >
+        <meshBasicMaterial transparent opacity={0} color={0xff0000} />
+      </Plane>
       {/** bedside table (?) */}
       <Plane
         ref={bedsideTableRef}
@@ -1545,7 +1590,7 @@ export default function Model(props) {
         >
           <meshBasicMaterial color={'#ff0000'} transparent opacity={0} />
         </Plane>
-        <Billboard
+        {/* <Billboard
           // position={[5.54909, 3.20587, 3.95376]}
           position={[1.5, -0.8, 0.6]}
           rotation={[0, 0, 0]}
@@ -1605,14 +1650,13 @@ export default function Model(props) {
             />
           </Text3D>
         </Billboard>
-
         <Html
-          ref={screenRef}
+          ref={htmlRef}
           as='div'
           distanceFactor={0.5}
           position={[1.4599, -0.04, -0.01]}
           transform={true}
-          occlude='raycast'
+          occlude
           sprite={false}
           rotation={[0, Math.PI / 2, 0]}
           scale={[0.67, 1.14, 0.11]}
@@ -1622,7 +1666,7 @@ export default function Model(props) {
               <Screensaver />
             </LandingContext.Provider>
           </GlobalContext.Provider>
-        </Html>
+        </Html> */}
       </mesh>
       <group
         position={[4.34849, 2.42477, 2.02359]}
