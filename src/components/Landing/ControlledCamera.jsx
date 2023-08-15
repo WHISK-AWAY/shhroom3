@@ -24,51 +24,51 @@ export default function ControlledCamera() {
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
 
-  const {
-    // enableDamping,
-    // minAzimuthAngle,
-    // maxAzimuthAngle,
-    minPolarAngle,
-    maxPolarAngle,
-    // minDistance,
-    // maxDistance,
-  } = useControls('Controls Settings', {
-    enableDamping: {
-      value: true,
-    },
-    // minAzimuthAngle: {
-    //   value: 0.42,
-    //   min: Math.PI / -1,
-    //   max: Math.PI / 1,
-    // },
-    // maxAzimuthAngle: {
-    //   value: 1.14,
-    //   min: Math.PI / -1,
-    //   max: Math.PI / 1,
-    // },
-    minPolarAngle: {
-      // value: 1.32,
-      value: 1.42,
-      min: Math.PI / -1,
-      max: Math.PI / 1,
-    },
-    maxPolarAngle: {
-      // value: 1.44,
-      value: 1.64,
-      min: Math.PI / -1,
-      max: Math.PI / 1,
-    },
-    // minDistance: {
-    //   value: -10,
-    //   min: -10,
-    //   max: 15,
-    // },
-    // maxDistance: {
-    //   value: 10.5,
-    //   min: 0,
-    //   max: 50,
-    // },
-  });
+  // const {
+  //   // enableDamping,
+  //   // minAzimuthAngle,
+  //   // maxAzimuthAngle,
+  //   minPolarAngle,
+  //   maxPolarAngle,
+  //   // minDistance,
+  //   // maxDistance,
+  // } = useControls('Controls Settings', {
+  //   enableDamping: {
+  //     value: true,
+  //   },
+  //   // minAzimuthAngle: {
+  //   //   value: 0.42,
+  //   //   min: Math.PI / -1,
+  //   //   max: Math.PI / 1,
+  //   // },
+  //   // maxAzimuthAngle: {
+  //   //   value: 1.14,
+  //   //   min: Math.PI / -1,
+  //   //   max: Math.PI / 1,
+  //   // },
+  //   minPolarAngle: {
+  //     // value: 1.32,
+  //     value: 1.42,
+  //     min: Math.PI / -1,
+  //     max: Math.PI / 1,
+  //   },
+  //   maxPolarAngle: {
+  //     // value: 1.44,
+  //     value: 1.64,
+  //     min: Math.PI / -1,
+  //     max: Math.PI / 1,
+  //   },
+  //   // minDistance: {
+  //   //   value: -10,
+  //   //   min: -10,
+  //   //   max: 15,
+  //   // },
+  //   // maxDistance: {
+  //   //   value: 10.5,
+  //   //   min: 0,
+  //   //   max: 50,
+  //   // },
+  // });
 
   useEffect(() => {
     if (landingContext.atHomePosition) {
@@ -286,11 +286,11 @@ export default function ControlledCamera() {
         makeDefault={true}
         zoomToCursor={true}
         enableDamping={true}
-        dampingFactor={.1}
+        dampingFactor={0.1}
         minAzimuthAngle={0.42}
         maxAzimuthAngle={1.14}
-        minPolarAngle={minPolarAngle}
-        maxPolarAngle={maxPolarAngle}
+        minPolarAngle={1.42}
+        maxPolarAngle={1.64}
         target={objectPositions.initPosition.targetPosition}
         panSpeed={0.5}
       />
