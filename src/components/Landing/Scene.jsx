@@ -5,7 +5,7 @@ import ControlledCamera from './ControlledCamera';
 import SceneEffects from './SceneEffects';
 import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState } from 'react';
 // import signInHelperText from './SignInHelperText';
 
 export default function Scene({ setIsCanvasLoaded }) {
