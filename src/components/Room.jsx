@@ -1,11 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
-import { Chat } from './index';
-import VideoGrid from './VideoGrid/VideoGrid';
-import RoomUserControls from './RoomUserControls';
+// import VideoGrid from './VideoGrid/VideoGrid';
+// import RoomUserControls from './RoomUserControls';
+
+const Chat = lazy(() => import('./Chat'));
+const VideoGrid = lazy(() => import('./VideoGrid/VideoGrid'));
+const RoomUserControls = lazy(() => import('./RoomUserControls'));
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
@@ -144,7 +147,7 @@ export default function Room({ socket }) {
           type: 'video',
           userId: thisShhroomer.userInfo.id,
           publicKey: thisShhroomer.encryptionInfo.encodedPublicKey,
-          username: thisShhroomer.userInfo.username
+          username: thisShhroomer.userInfo.username,
         },
       },
     );
@@ -194,31 +197,36 @@ export default function Room({ socket }) {
   // console.log(thisShhroomer)
   return (
     <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 ">
-      <RoomUserControls
-        roomId={roomId}
-        leaveMeeting={leaveMeeting}
-        thisShhroomer={thisShhroomer}
-        isUserControlsOpen={isUserControlsOpen}
-        setIsUserControlsOpen={setIsUserControlsOpen}
-      />
-
-      <VideoGrid
-        ownSource={ownSource}
-        peerSource={peerSource}
-        isUserControlsOpen={isUserControlsOpen}
-        setIsUserControlsOpen={setIsUserControlsOpen}
-        thisShhroomer={thisShhroomer}
-        partnerUsername={partnerUsername.current}
-      />
-
-      {chatConnection && (
-        <Chat
-          shhroomer={thisShhroomer}
-          partnerPublicKey={peerPublicKey.current}
-          chatConnection={chatConnection}
+      <Suspense fallback={<p>Loading control hints...</p>}>
+        <RoomUserControls
+          roomId={roomId}
+          leaveMeeting={leaveMeeting}
+          thisShhroomer={thisShhroomer}
           isUserControlsOpen={isUserControlsOpen}
           setIsUserControlsOpen={setIsUserControlsOpen}
         />
+      </Suspense>
+      <Suspense fallback={<p>Loading video grid...</p>}>
+        <VideoGrid
+          ownSource={ownSource}
+          peerSource={peerSource}
+          isUserControlsOpen={isUserControlsOpen}
+          setIsUserControlsOpen={setIsUserControlsOpen}
+          thisShhroomer={thisShhroomer}
+          partnerUsername={partnerUsername.current}
+        />
+      </Suspense>
+
+      {chatConnection && (
+        <Suspense fallback={<p>Loading chat component...</p>}>
+          <Chat
+            shhroomer={thisShhroomer}
+            partnerPublicKey={peerPublicKey.current}
+            chatConnection={chatConnection}
+            isUserControlsOpen={isUserControlsOpen}
+            setIsUserControlsOpen={setIsUserControlsOpen}
+          />
+        </Suspense>
       )}
     </div>
   );

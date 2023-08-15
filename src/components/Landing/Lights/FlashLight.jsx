@@ -1,11 +1,11 @@
 import { useControls } from 'leva';
 import { useState } from 'react';
-import * as THREE from 'three';
+import { Object3D, Vector3 } from 'three';
 import { SpotLight } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+// import { useFrame, useThree } from '@react-three/fiber';
 
 export default function FlashLight() {
-  const [monitorTarget] = useState(() => new THREE.Object3D());
+  const [monitorTarget] = useState(() => new Object3D());
 
   const { intensity, distance, color, attenuation, anglePower, angle } =
     useControls('FlashLight', {
@@ -99,7 +99,7 @@ export default function FlashLight() {
       />
       <primitive
         object={monitorTarget}
-        position={new THREE.Vector3(targetX, targetY, targetZ)}
+        position={new Vector3(targetX, targetY, targetZ)}
       />
     </>
   );

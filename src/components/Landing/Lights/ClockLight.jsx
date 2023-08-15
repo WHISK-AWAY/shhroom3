@@ -1,11 +1,9 @@
 import { useControls } from 'leva';
 import { useState } from 'react';
-import * as THREE from 'three';
+import { Object3D, Vector3 } from 'three';
 import { SpotLight } from '@react-three/drei';
 export default function ClockLight({ lightIsOn }) {
-
-  const [clockLightTarget] = useState(() => new THREE.Object3D());
-
+  const [clockLightTarget] = useState(() => new Object3D());
 
   const {
     castShadow,
@@ -39,7 +37,7 @@ export default function ClockLight({ lightIsOn }) {
       max: 1,
     },
     attenuation: {
-      value: .3,
+      value: 0.3,
       min: 0,
       max: 20,
     },
@@ -73,41 +71,41 @@ export default function ClockLight({ lightIsOn }) {
     },
   });
 
-  const {targetX, targetY, targetZ} = useControls('Clock Light Target', {
+  const { targetX, targetY, targetZ } = useControls('Clock Light Target', {
     targetX: {
       value: 10.2,
-      min: -10, 
-      max: 20
+      min: -10,
+      max: 20,
     },
     targetY: {
       value: -13,
-      min: -15, 
-      max: 20
+      min: -15,
+      max: 20,
     },
     targetZ: {
       value: 25,
-      min: -10, 
-      max: 25
+      min: -10,
+      max: 25,
     },
-  })
+  });
   return (
     <>
-    <SpotLight
-    castShadow={castShadow}
-    intensity={lightIsOn ? intensity : 0}
-    position={[x, y, z]}
-    distance={distance}
-    color={color}
-    target={clockLightTarget}
-    penumbra={penumbra}
-    angle={angle}
-    anglePower={anglePower}
-    attenuation={lightIsOn ? attenuation: 0}
-    />
-    <primitive
-    object={clockLightTarget}
-    position={new THREE.Vector3(targetX, targetY, targetZ)}
-    />
+      <SpotLight
+        castShadow={castShadow}
+        intensity={lightIsOn ? intensity : 0}
+        position={[x, y, z]}
+        distance={distance}
+        color={color}
+        target={clockLightTarget}
+        penumbra={penumbra}
+        angle={angle}
+        anglePower={anglePower}
+        attenuation={lightIsOn ? attenuation : 0}
+      />
+      <primitive
+        object={clockLightTarget}
+        position={new Vector3(targetX, targetY, targetZ)}
+      />
     </>
   );
 }

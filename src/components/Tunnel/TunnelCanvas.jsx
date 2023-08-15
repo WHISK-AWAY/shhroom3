@@ -1,14 +1,10 @@
 import { Suspense, useEffect } from 'react';
-import { AmbientLight, Euler, Vector3 } from 'three';
+import { Vector3 } from 'three';
 import { Canvas } from '@react-three/fiber';
-import {
-  AdaptiveDpr,
-  OrbitControls,
-  PerspectiveCamera,
-  useTexture,
-} from '@react-three/drei';
+import { AdaptiveDpr, OrbitControls } from '@react-three/drei';
 
-import { LoadingScreen, Tunnel } from '../../components';
+import Tunnel from './Tunnel';
+// import { LoadingScreen, Tunnel } from '../../components';
 
 export default function TunnelCanvas() {
   const ww = window.innerWidth;

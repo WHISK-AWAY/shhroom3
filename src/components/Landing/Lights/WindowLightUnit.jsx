@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SpotLight } from '@react-three/drei';
-import * as THREE from 'three';
+import { Object3D, Vector3 } from 'three';
 
 const defaultControlSettings = {
   intensity: {
@@ -83,7 +83,7 @@ export default function WindowLightUnit({
   lightPosition = defaultPositionSettings,
   targetPosition = defaultTargetSettings,
 }) {
-  const [target] = useState(() => new THREE.Object3D());
+  const [target] = useState(() => new Object3D());
 
   // const {
   //   intensity,
@@ -219,7 +219,7 @@ export default function WindowLightUnit({
       <primitive
         object={target}
         position={
-          new THREE.Vector3(
+          new Vector3(
             targetPosition.x.value,
             targetPosition.y.value,
             targetPosition.z.value,

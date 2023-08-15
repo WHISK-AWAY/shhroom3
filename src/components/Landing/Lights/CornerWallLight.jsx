@@ -1,10 +1,10 @@
 import { useControls } from 'leva';
 import { useState } from 'react';
-import * as THREE from 'three';
+import { Object3D, Vector3 } from 'three';
 import { SpotLight } from '@react-three/drei';
 
 export default function CornerWallLight() {
-  const [cornerWall] = useState(() => new THREE.Object3D());
+  const [cornerWall] = useState(() => new Object3D());
 
   const { intensity, distance, color, attenuation, anglePower, angle } =
     useControls('Corner Wall Light', {
@@ -26,7 +26,6 @@ export default function CornerWallLight() {
         min: 0,
         max: 50,
       },
-  
     });
 
   const { targetX, targetY, targetZ } = useControls('Corner Wall Target', {
@@ -83,13 +82,11 @@ export default function CornerWallLight() {
         shadowMapWidth={undefined}
         shadowMapHeight={undefined}
         attenuation={attenuation}
-       
         distance={distance}
-        
       />
       <primitive
         object={cornerWall}
-        position={new THREE.Vector3(targetX, targetY, targetZ)}
+        position={new Vector3(targetX, targetY, targetZ)}
       />
     </>
   );

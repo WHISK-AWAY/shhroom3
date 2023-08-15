@@ -10,8 +10,10 @@ import {
   useRef,
   useState,
   useLayoutEffect,
+  lazy,
+  Suspense,
 } from 'react';
-import * as THREE from 'three';
+import { DoubleSide } from 'three';
 import {
   useGLTF,
   Plane,
@@ -20,13 +22,15 @@ import {
   MeshTransmissionMaterial,
   Caustics,
 } from '@react-three/drei';
-import Screensaver from '../Screensaver';
+// import Screensaver from '../Screensaver';
 import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
 import SignInHelperText from './SignInHelperText';
+
+const Screensaver = lazy(() => import('../Screensaver'));
 
 /**
  * TODO: non-freezing loading screen
@@ -1024,7 +1028,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             toneMapped={false}
           />
         </mesh>
@@ -1051,7 +1055,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={7}
             toneMapped={false}
@@ -1066,7 +1070,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={7}
             toneMapped={false}
@@ -1076,7 +1080,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Plane063_4.geometry}>
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             toneMapped={false}
           />
         </mesh>
@@ -1085,7 +1089,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Plane063_5.geometry}>
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={8}
             toneMapped={false}
@@ -1100,7 +1104,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={8}
             toneMapped={false}
@@ -1619,7 +1623,9 @@ export default function Model(props) {
         >
           <GlobalContext.Provider value={globalContext}>
             <LandingContext.Provider value={landingContext}>
-              <Screensaver />
+              <Suspense fallback={null}>
+                <Screensaver />
+              </Suspense>
             </LandingContext.Provider>
           </GlobalContext.Provider>
         </Html>
@@ -1847,7 +1853,7 @@ export default function Model(props) {
           scale={2.10668}
         >
           <MeshTransmissionMaterial
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             resolution={256}
             distortion={1.05}
             color='#fff'
