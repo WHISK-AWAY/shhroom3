@@ -814,7 +814,6 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Cube031.geometry}
         material={materials['Dark oak fine wood texture']}
         position={[3.31436, 1.57665, 2.7708]}
@@ -823,7 +822,6 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Cube032.geometry}
         material={materials['Dark oak fine wood texture']}
         position={[4.40926, 1.57665, -0.15694]}
@@ -832,7 +830,6 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Cube033.geometry}
         material={materials['Dark oak fine wood texture']}
         position={[3.31172, 1.57665, -0.15424]}
@@ -841,7 +838,6 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Cube034.geometry}
         material={materials['Dark oak fine wood texture']}
         position={[3.86641, 2.00654, 1.30195]}
@@ -939,7 +935,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.bedside_body.geometry}
         material={materials.Wood}
         position={[8.36467, 1.55197, -2.30015]}
@@ -948,7 +944,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.bedisdeL3.geometry}
         material={materials.Wood}
         position={[8.71589, 0.88006, -2.49494]}
@@ -957,7 +953,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.bedsideL1.geometry}
         material={materials.Wood}
         position={[8.73389, 0.8845, -2.14167]}
@@ -966,7 +962,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.bedsideL2.geometry}
         material={materials.Wood}
         position={[8.02625, 0.8845, -2.11094]}
@@ -975,7 +971,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.bedsideL4.geometry}
         material={materials.Wood}
         position={[8.00825, 0.88006, -2.4642]}
@@ -984,7 +980,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.bedsideUpperDrawer.geometry}
         material={materials['Dark oak fine wood texture']}
         position={[8.35211, 1.79047, -2.02549]}
@@ -993,7 +989,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.Cube046.geometry}
         material={materials.PaletteMaterial001}
         position={[8.34863, 1.45081, -1.63565]}
@@ -1153,7 +1149,7 @@ export default function Model(props) {
       </group>
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.lowerBookshelf.geometry}
         material={materials.Wood}
         position={[3.39494, 4.18006, -1.25683]}
@@ -1161,7 +1157,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.upperBookshelf.geometry}
         material={materials.Wood}
         position={[3.35284, 4.76898, -0.88191]}
@@ -1185,7 +1181,6 @@ export default function Model(props) {
       ></mesh>
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Cube020.geometry}
         material={materials['Old white plastic']}
         position={[4.25849, 2.43437, 1.26738]}
@@ -1198,31 +1193,31 @@ export default function Model(props) {
       >
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cube013.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cube013_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cube013_2.geometry}
           material={materials.PaletteMaterial008}
         />
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cube013_3.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cube013_4.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1234,13 +1229,13 @@ export default function Model(props) {
         />
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cube013_6.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cube013_7.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1450,7 +1445,7 @@ export default function Model(props) {
       >
         <mesh
           // castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Cylinder021.geometry}
           material={materials.PaletteMaterial001}
         />
@@ -1656,31 +1651,26 @@ export default function Model(props) {
       >
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Plane111.geometry}
           material={materials['Old white plastic']}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Plane111_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Plane111_2.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Plane111_3.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Plane111_4.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1857,7 +1847,7 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes['3D_Lamborghini_Text_Logo002'].geometry}
         material={materials.PaletteMaterial002}
         position={[3.18274, 4.50822, 2.45234]}
@@ -1873,7 +1863,7 @@ export default function Model(props) {
       >
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.Glass_full_of_water.geometry}
           // material={materials.PaletteMaterial018}
           position={[4.03297, 2.40889, 0.51335]}
@@ -3424,8 +3414,8 @@ export default function Model(props) {
         scale={2.10668}
       />
       <mesh
-        castShadow
-        receiveShadow
+        // castShadow
+        // receiveShadow
         geometry={nodes.Harley_Davidson_riders_only_old.geometry}
         material={materials['Material_-_Aufgeblasene_Vorderseite_Ebene_2']}
         position={[3.13573, 4.91201, 2.81922]}
@@ -3570,8 +3560,8 @@ export default function Model(props) {
         scale={0.32303}
       />
       <mesh
-        castShadow
-        receiveShadow
+        // castShadow
+        // receiveShadow
         geometry={nodes.CURTAIN_2007.geometry}
         material={materials['Fabric 01']}
         position={[5.8758, 3.79651, -2.40374]}
@@ -3579,8 +3569,8 @@ export default function Model(props) {
         scale={[-0.57735, 1, 2.08315]}
       />
       <mesh
-        castShadow
-        receiveShadow
+        // castShadow
+        // receiveShadow
         geometry={nodes.CURTAIN_2008.geometry}
         material={materials['Fabric 01']}
         position={[3.94105, 3.7957, -2.40374]}
