@@ -141,7 +141,6 @@ export default function Model(props) {
         scale={0.77752}
       />
       <mesh
-        receiveShadow
         geometry={nodes.slay.geometry}
         material={materials.slay}
         position={[7.67088, 5.52231, -2.52059]}
@@ -336,7 +335,6 @@ export default function Model(props) {
         scale={0.3021}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s21.geometry}
         material={materials.s21}
         position={[3.16128, 3.42561, 2.95971]}
@@ -753,8 +751,6 @@ export default function Model(props) {
         rotation={[0, -0.01029, 0]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cube007.geometry}
         material={nodes.Cube007.material}
         position={[6.67822, 1.45324, -0.90649]}
@@ -770,6 +766,7 @@ export default function Model(props) {
       />
       <mesh
         receiveShadow
+        castShadow
         geometry={nodes.pillow.geometry}
         material={materials['Lemon Patterned Flannel Fabric']}
         position={[6.24359, 2.26081, -2.18789]}
@@ -777,6 +774,7 @@ export default function Model(props) {
         scale={[0.40586, 0.50992, 0.5265]}
       />
       <mesh
+        castShadow
         receiveShadow
         geometry={nodes.pillow001.geometry}
         material={materials['Lemon Patterned Flannel Fabric']}
@@ -980,7 +978,6 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        // receiveShadow
         geometry={nodes.bedsideUpperDrawer.geometry}
         material={materials['Dark oak fine wood texture']}
         position={[8.35211, 1.79047, -2.02549]}
@@ -989,16 +986,14 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        // receiveShadow
         geometry={nodes.Cube046.geometry}
         material={materials.PaletteMaterial001}
         position={[8.34863, 1.45081, -1.63565]}
         rotation={[-Math.PI, 0.1198, -Math.PI]}
         scale={[0.26348, 0.40816, 0.4185]}
       />
+      {/**green shhrom on the shelf */}
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cube047.geometry}
         material={materials.Wood}
         position={[8.38147, 1.42412, -2.03714]}
@@ -1044,23 +1039,17 @@ export default function Model(props) {
         {/* //clock body */}
         <mesh
           castShadow
-          // receiveShadow
           geometry={nodes.Plane063_1.geometry}
           material={materials.PaletteMaterial002}
         />
         {/* //top button */}
         <mesh
-          // castShadow
-          // receiveShadow
           geometry={nodes.Plane063_2.geometry}
           material={materials.PaletteMaterial002}
         />
         {/* //middle clock divider */}
         <mesh
-          // castShadow
-          // receiveShadow
           geometry={nodes.Plane063_3.geometry}
-          // material={materials.PaletteMaterial004}
         >
           <meshStandardMaterial
             color={0xff0000}
@@ -1071,11 +1060,8 @@ export default function Model(props) {
           />
         </mesh>
         <mesh
-          // castShadow
-          // receiveShadow
           geometry={nodes.Plane063_3.geometry}
           position={[9, 0, 0]}
-          // material={materials.PaletteMaterial004}
         >
           <meshStandardMaterial
             color={0xff0000}
@@ -1106,10 +1092,7 @@ export default function Model(props) {
         </mesh>
         {/* //filled left side */}
         <mesh
-          // castShadow
-          // receiveShadow
           geometry={nodes.Plane063_6.geometry}
-          // material={materials.PaletteMaterial006}
         >
           <meshStandardMaterial
             color={0xff0000}
@@ -1149,7 +1132,6 @@ export default function Model(props) {
       </group>
       <mesh
         castShadow
-        // receiveShadow
         geometry={nodes.lowerBookshelf.geometry}
         material={materials.Wood}
         position={[3.39494, 4.18006, -1.25683]}
@@ -1157,7 +1139,6 @@ export default function Model(props) {
       />
       <mesh
         castShadow
-        // receiveShadow
         geometry={nodes.upperBookshelf.geometry}
         material={materials.Wood}
         position={[3.35284, 4.76898, -0.88191]}
@@ -1165,7 +1146,6 @@ export default function Model(props) {
       />
       {/* corkboard */}
       <mesh
-        // castShadow
         ref={corkboardRef}
         receiveShadow
         geometry={nodes.corkboard.geometry}
@@ -1193,13 +1173,11 @@ export default function Model(props) {
       >
         <mesh
           castShadow
-          // receiveShadow
           geometry={nodes.Cube013.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
           castShadow
-          // receiveShadow
           geometry={nodes.Cube013_1.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1217,7 +1195,6 @@ export default function Model(props) {
         />
         <mesh
           castShadow
-          // receiveShadow
           geometry={nodes.Cube013_4.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1235,7 +1212,6 @@ export default function Model(props) {
         />
         <mesh
           castShadow
-          // receiveShadow
           geometry={nodes.Cube013_7.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1255,7 +1231,6 @@ export default function Model(props) {
         scale={[0.08025, 0.16613, 0.16897]}
       >
         <mesh
-          // castShadow
           receiveShadow
           geometry={nodes.Plane027_1.geometry}
           material={materials['notebook page']}
@@ -1404,15 +1379,11 @@ export default function Model(props) {
       <group position={[3.47452, 4.83262, 0.14511]} scale={0.08426}>
         {/* //lamp base */}
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Circle_1.geometry}
           material={materials.PaletteMaterial010}
         />
         {/* //lamp glass body */}
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Circle_2.geometry}
           material={materials.PaletteMaterial011}
         ></mesh>
@@ -1426,8 +1397,6 @@ export default function Model(props) {
           position={[2.17452, 4.73262, 0.14511]}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Circle_3.geometry}
           material={materials.PaletteMaterial012}
         >
@@ -1684,8 +1653,6 @@ export default function Model(props) {
         rotation={[Math.PI, -0.00212, Math.PI]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.shroomPotBookshelf.geometry}
         material={materials['Clay Base 01']}
         position={[3.43743, 4.92916, -1.86921]}
@@ -1941,8 +1908,8 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
+          // castShadow
+          // receiveShadow
           geometry={nodes.Plane012_1.geometry}
           material={materials['License plate']}
         />
@@ -2066,20 +2033,17 @@ export default function Model(props) {
         material={materials.PaletteMaterial002}
         position={[74.06784, 0, 105.70952]}
       />
+      {/**film camera */}
       <group
         position={[3.47261, 4.32278, -0.47133]}
         rotation={[0, 1.0701, 0]}
         scale={[2.53676, 2.54191, 1.33795]}
       >
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube063.geometry}
           material={materials['Black metal']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube063_1.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -2088,129 +2052,92 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube063_3.geometry}
           material={materials.PaletteMaterial019}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.Cube063_4.geometry}
           material={materials['Black metal']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube063_5.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube063_6.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube063_7.geometry}
           material={materials.PaletteMaterial002}
         />
       </group>
+      {/**sneakers */}
       <group position={[8.39408, 0.97776, 0.10381]} scale={1.78452}>
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003.geometry}
           material={materials['mustang-damen-schuhe-sneakers-Sole']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_1.geometry}
           material={materials['Innen sole']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_2.geometry}
           material={materials.PaletteMaterial020}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_3.geometry}
           material={materials.PaletteMaterial021}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_4.geometry}
           material={materials['leather 01.005']}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.mesh003_5.geometry}
           material={materials.Innenfuter}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_6.geometry}
           material={materials['leather 01.005']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_7.geometry}
           material={materials['leather 01.004']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_8.geometry}
           material={materials['leather 01.005']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_9.geometry}
           material={materials.Innenfuter}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_10.geometry}
           material={materials['Material.029']}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.mesh003_11.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_12.geometry}
           material={materials.Garn}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_13.geometry}
           material={materials.Lasche}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh003_14.geometry}
           material={materials['leather 01.008']}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.mesh003_15.geometry}
           material={materials['schnürsenkel.004']}
@@ -2224,109 +2151,76 @@ export default function Model(props) {
       </group>
       <group position={[8.20237, 0.98439, -0.0448]} scale={1.78452}>
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002.geometry}
           material={materials['mustang-damen-schuhe-sneakers-Sole.R']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_1.geometry}
           material={materials['Innen sole']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_2.geometry}
           material={materials.PaletteMaterial020}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_3.geometry}
           material={materials.PaletteMaterial021}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_4.geometry}
           material={materials['Innen sole.R']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_5.geometry}
           material={materials['leather 01.005']}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.mesh002_6.geometry}
           material={materials.Innenfuter}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_7.geometry}
           material={materials['leather 01.005']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_8.geometry}
           material={materials['leather 01.004']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_9.geometry}
           material={materials['leather 01.005']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_10.geometry}
           material={materials.Innenfuter}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_11.geometry}
           material={materials['Material.023']}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.mesh002_12.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_13.geometry}
           material={materials.Garn}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_14.geometry}
           material={materials.Lasche}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_15.geometry}
           material={materials['leather 01.008']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.mesh002_16.geometry}
           material={materials.PaletteMaterial022}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.mesh002_17.geometry}
           material={materials['schnürsenkel.004']}
@@ -2386,8 +2280,6 @@ export default function Model(props) {
         rotation={[0, Math.PI / 2, 0]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body.geometry}
         material={materials.PaletteMaterial002}
         position={[3.77045, 2.41602, 0.2023]}
@@ -2395,8 +2287,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body001.geometry}
         material={materials.PaletteMaterial002}
         position={[3.55067, 2.42356, 0.37151]}
@@ -2404,8 +2294,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body002.geometry}
         material={materials.PaletteMaterial002}
         position={[3.60973, 2.42167, 0.42137]}
@@ -2413,8 +2301,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body003.geometry}
         material={materials.PaletteMaterial002}
         position={[3.97601, 2.41249, 0.34514]}
@@ -2422,8 +2308,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame.geometry}
         material={materials.PaletteMaterial002}
         position={[3.77011, 2.41484, 0.2023]}
@@ -2431,8 +2315,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame003.geometry}
         material={materials.PaletteMaterial002}
         position={[3.55091, 2.42238, 0.37127]}
@@ -2440,8 +2322,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame005.geometry}
         material={materials.PaletteMaterial002}
         position={[3.6098, 2.42049, 0.4217]}
@@ -2449,8 +2329,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame007.geometry}
         material={materials.PaletteMaterial002}
         position={[3.97587, 2.41131, 0.34483]}
@@ -2458,8 +2336,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame001.geometry}
         material={materials.PaletteMaterial002}
         position={[3.76931, 2.4165, 0.2023]}
@@ -2467,8 +2343,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame002.geometry}
         material={materials.PaletteMaterial002}
         position={[3.55149, 2.42404, 0.37071]}
@@ -2476,8 +2350,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame004.geometry}
         material={materials.PaletteMaterial002}
         position={[3.60997, 2.42214, 0.42249]}
@@ -2485,8 +2357,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Paper_clip_body_frame006.geometry}
         material={materials.PaletteMaterial002}
         position={[3.97553, 2.41297, 0.3441]}
@@ -2494,7 +2364,6 @@ export default function Model(props) {
         scale={1.63684}
       />
       <mesh
-        castShadow
         receiveShadow
         geometry={nodes.peach_core.geometry}
         material={materials['Material.peach.core']}
@@ -2502,26 +2371,23 @@ export default function Model(props) {
         rotation={[-0.70354, 0.02375, -1.56281]}
         scale={1.76926}
       />
+      {/** shelf succulent */}
       <group
         position={[3.40553, 4.24571, -1.99617]}
         rotation={[0, 0.82071, 0]}
         scale={2.00947}
       >
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.Cylinder107.geometry}
           material={materials.DesertRoseSmallTex}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.Cylinder107_1.geometry}
           material={materials['Clay Base 01']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cylinder107_2.geometry}
           material={materials.stony_dirt_path}
         />
@@ -2552,16 +2418,14 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
         receiveShadow
         geometry={nodes.moneytreePot.geometry}
         material={materials['Circle_BAKED.001']}
         position={[3.60074, 2.10936, -1.8497]}
         scale={[1.29916, 1.53025, 1.29916]}
       />
+      {/**money tree */}
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.NurbsPath006.geometry}
         material={materials['Material.038']}
         position={[3.61807, 2.42117, -1.86375]}
@@ -2569,8 +2433,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane027.geometry}
         material={materials['Material.037']}
         position={[3.77865, 2.35981, -1.96963]}
@@ -2578,8 +2440,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane028.geometry}
         material={materials['Material.037']}
         position={[3.67117, 2.46384, -1.95239]}
@@ -2587,8 +2447,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane029.geometry}
         material={materials['Material.037']}
         position={[3.79776, 2.43008, -1.93643]}
@@ -2596,8 +2454,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane030.geometry}
         material={materials['Material.037']}
         position={[3.73435, 2.42339, -1.69688]}
@@ -2605,8 +2461,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane039.geometry}
         material={materials['Material.037']}
         position={[3.55519, 2.42608, -2.0526]}
@@ -2614,8 +2468,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane031.geometry}
         material={materials['Material.037']}
         position={[3.49512, 2.53769, -1.98416]}
@@ -2623,8 +2475,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane032.geometry}
         material={materials['Material.037']}
         position={[3.60021, 2.49792, -1.76244]}
@@ -2632,8 +2482,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane033.geometry}
         material={materials['Material.037']}
         position={[3.53423, 2.3799, -1.69754]}
@@ -2641,8 +2489,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane034.geometry}
         material={materials['Material.037']}
         position={[3.48228, 2.28287, -1.90853]}
@@ -2650,8 +2496,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane036.geometry}
         material={materials['Material.037']}
         position={[3.38906, 2.35226, -1.81286]}
@@ -2659,8 +2503,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane037.geometry}
         material={materials['Material.037']}
         position={[3.52983, 2.32111, -2.07711]}
@@ -2668,8 +2510,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane038.geometry}
         material={materials['Material.037']}
         position={[3.75432, 2.48382, -1.99475]}
@@ -2677,8 +2517,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane040.geometry}
         material={materials['Material.037']}
         position={[3.59975, 2.40196, -1.67135]}
@@ -2686,8 +2524,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane045.geometry}
         material={materials['Material.037']}
         position={[3.68901, 2.48382, -1.65798]}
@@ -2695,8 +2531,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane041.geometry}
         material={materials['Material.037']}
         position={[3.40968, 2.4125, -1.73695]}
@@ -2704,8 +2538,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane043.geometry}
         material={materials['Material.037']}
         position={[3.661, 2.35226, -2.05907]}
@@ -2713,8 +2545,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane044.geometry}
         material={materials['Material.037']}
         position={[3.82052, 2.34781, -1.84367]}
@@ -2722,8 +2552,6 @@ export default function Model(props) {
         scale={1.29916}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Plane046.geometry}
         material={materials['Material.037']}
         position={[3.82289, 2.45749, -1.85467]}
@@ -3088,34 +2916,30 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
       </group>
+      {/**speaker */}
       <group position={[3.29815, 4.8224, -0.73617]} scale={[1.39397, 1, 1]}>
         <mesh
-          castShadow
-          receiveShadow
+          
           geometry={nodes.Cube170.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          // castShadow
           receiveShadow
           geometry={nodes.Cube170_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
+          
           geometry={nodes.Cube170_2.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
+         
           geometry={nodes.Cube170_3.geometry}
           material={materials.PaletteMaterial026}
         />
         <mesh
-          castShadow
-          receiveShadow
+          
           geometry={nodes.Cube170_4.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -3180,8 +3004,6 @@ export default function Model(props) {
       <group position={[3.43748, 5.00924, -1.86565]}>
         {/* //bookshelf shroom hat */}
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.BezierCurve.geometry}
           material={materials.PaletteMaterial028}
         >
@@ -3265,20 +3087,17 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
       </group>
+      {/**books bedside table */}
       <group
         position={[8.15279, 2.12907, -2.32849]}
         rotation={[-0.25874, 1.53441, 0.22203]}
         scale={1.96894}
       >
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube175.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube175_1.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -3289,14 +3108,10 @@ export default function Model(props) {
         scale={1.96894}
       >
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube176.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube176_1.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -3488,26 +3303,25 @@ export default function Model(props) {
         scale={0.38781}
       />
       <group
-        position={[3.13975, 4.95735, 2.28716]}
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-        scale={0.65739}
+      position={[3.13975, 4.95735, 2.28716]}
+      rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+      scale={0.65739}
       >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Plane010.geometry}
-          material={materials.PaletteMaterial002}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Plane010_1.geometry}
-          material={materials.PaletteMaterial002}
-        />
-      </group>
       <mesh
+      castShadow
+      receiveShadow
+      geometry={nodes.Plane010.geometry}
+      material={materials.PaletteMaterial002}
+        />
+        <mesh
         castShadow
         receiveShadow
+        geometry={nodes.Plane010_1.geometry}
+        material={materials.PaletteMaterial002}
+        />
+        </group>
+        {/**skeleton */}
+      <mesh
         geometry={nodes.clavicle_right_.geometry}
         material={materials.PaletteMaterial002}
         position={[3.48899, 5.30871, -0.17955]}
@@ -3515,8 +3329,6 @@ export default function Model(props) {
         scale={0.32303}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cube004.geometry}
         material={materials.PaletteMaterial002}
         position={[3.48899, 5.26225, -0.17955]}
@@ -3524,8 +3336,6 @@ export default function Model(props) {
         scale={0.32303}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cube005.geometry}
         material={materials.PaletteMaterial002}
         position={[3.48899, 5.14034, -0.17955]}
@@ -3533,8 +3343,6 @@ export default function Model(props) {
         scale={0.32303}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.femur_right_.geometry}
         material={materials.PaletteMaterial002}
         position={[3.48899, 5.30871, -0.17955]}
@@ -3542,8 +3350,6 @@ export default function Model(props) {
         scale={0.32303}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.pelvis.geometry}
         material={materials.PaletteMaterial002}
         position={[3.48899, 5.12315, -0.17955]}
@@ -3551,8 +3357,6 @@ export default function Model(props) {
         scale={0.32303}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.teeth_upper.geometry}
         material={materials.PaletteMaterial002}
         position={[3.48899, 5.34473, -0.17955]}
@@ -3560,8 +3364,6 @@ export default function Model(props) {
         scale={0.32303}
       />
       <mesh
-        // castShadow
-        // receiveShadow
         geometry={nodes.CURTAIN_2007.geometry}
         material={materials['Fabric 01']}
         position={[5.8758, 3.79651, -2.40374]}
@@ -3569,17 +3371,14 @@ export default function Model(props) {
         scale={[-0.57735, 1, 2.08315]}
       />
       <mesh
-        // castShadow
-        // receiveShadow
         geometry={nodes.CURTAIN_2008.geometry}
         material={materials['Fabric 01']}
         position={[3.94105, 3.7957, -2.40374]}
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={[0.78135, 1, 2.08315]}
       />
+      {/**curtain rod */}
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cylinder007.geometry}
         material={materials.PaletteMaterial002}
         position={[4.90591, 6.04884, -2.39933]}
@@ -3587,41 +3386,34 @@ export default function Model(props) {
         scale={[1, 1.24289, 1.55954]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cylinder013.geometry}
         material={materials.Wood}
         position={[4.90591, 6.04885, -2.40031]}
         rotation={[-Math.PI, 0, -Math.PI]}
         scale={[1.24289, 1, 1]}
       />
+      {/**books on the shelf */}
       <group position={[3.41903, 4.83103, -0.36294]} scale={2.68371}>
         <mesh
-          castShadow
-          receiveShadow
+         
           geometry={nodes.Cube187.geometry}
           material={materials.paper}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.Cube187_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube187_2.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.Cube187_3.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
           receiveShadow
           geometry={nodes.Cube187_4.geometry}
           material={materials.PaletteMaterial002}
