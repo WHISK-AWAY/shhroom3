@@ -2,13 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="google-site-verification"
+      content="0qSJhNOAsRl8UTjE-f6Q4fhbJDFHZA_fTh6To_0XZ80"
+    />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="./src/index.css" />
+    <link rel="preconnect" href="/fonts/Train One_Regular.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShhRoom</title>
   </head>
   <body>
     <div id="root"></div>
+    <div id="loader" class="bg-black w-screen h-screen flex flex-col">
+      <div class="w-full h-full items-center justify-center flex relative">
+        <img
+          src="/bg/shh_seizure.webp"
+          alt=""
+          class="shhroom animate-bounce elastic-fall h-[20%] w-[13%] absolute z-50 5xl:w-[10%]"
+        />
+        <p
+          class="font-press text-white uppercase text-[5vw] absolute translate-y-[80%] scale-100 -z-0"
+        >
+          loading
+          <span id="group">
+            <span class="animate-loading-dot delay-300"> . </span>
+            <span class="animate-loading-dot delay-600"> . </span>
+            <span class="animate-loading-dot delay-900"> . </span>
+          </span>
+        </p>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx" defer></script>
   </body>
 </html>

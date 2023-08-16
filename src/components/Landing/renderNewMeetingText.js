@@ -3,7 +3,7 @@ import { Mesh, MeshStandardMaterial } from 'three';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { useThree } from '@react-three/fiber';
 import { GlobalContext } from '../../lib/context';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { lazy, useContext, useRef, useState } from 'react';
 
 export default function renderNewMeetingText() {
   const globalContext = useContext(GlobalContext);
@@ -14,8 +14,11 @@ export default function renderNewMeetingText() {
   // let intensity = 2.5
   const [intensity, setIntensity] = useState(true);
 
+  // const train = lazy(() => import('/fonts/Train One_Regular.json?url'));
+
   const loader = new FontLoader();
   loader.load('/fonts/Train One_Regular.json', function (font) {
+    // loader.load(train, function (font) {
     geometry = new TextGeometry(text, {
       font: font,
       size: 0.14,
@@ -37,7 +40,7 @@ export default function renderNewMeetingText() {
     textMesh.current.position.set(6.99, 4.67, -2.61);
   });
 
-  useEffect(() => {}, [globalContext.isSignedIn]);
+  // useEffect(() => {}, [globalContext.isSignedIn]);
 
   // useEffect(() => {
   //   if(!intensity) {

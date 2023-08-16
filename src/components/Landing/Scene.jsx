@@ -1,15 +1,28 @@
-import { AdaptiveDpr, BakeShadows, Preload } from '@react-three/drei';
+import { useEffect, useState, lazy } from 'react';
+import {
+  AdaptiveDpr,
+  BakeShadows,
+  Preload,
+  useDetectGPU,
+} from '@react-three/drei';
 import Lights from './Lights/Lights';
 import Model from './Model';
 import ControlledCamera from './ControlledCamera';
-import SceneEffects from './SceneEffects';
+// import SceneEffects from './SceneEffects';
 import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
-import { useEffect, useState } from 'react';
 // import signInHelperText from './SignInHelperText';
+
+const SceneEffects = lazy(() => import('./SceneEffects'));
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
+
+  const gpu = useDetectGPU();
+
+  useEffect(() => {
+    console.log('gpu', gpu);
+  }, []);
 
   // Render 3d text signs
   renderNewMeetingText();
@@ -30,7 +43,7 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Model />
       <BakeShadows />
       <AdaptiveDpr />
-      <SceneEffects />
+      {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
       <Preload all={true} />
     </>
   );
