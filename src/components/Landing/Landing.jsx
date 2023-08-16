@@ -1,20 +1,27 @@
-import { Suspense, useContext, useState } from 'react';
+import { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Scene from './Scene';
+// import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
-import UserControls from '../UserControls';
+// import UserControls from '../UserControls';
 
 import { LandingContext } from '../../lib/context';
 
+const UserControls = lazy(() => import('../UserControls'));
+const Scene = lazy(() => import('./Scene'));
+
 export default function Landing() {
   const landingContext = useContext(LandingContext);
+
+  useEffect(() => {
+    document.querySelector('#loader').classList.add('invisible', 'hidden');
+  }, []);
 
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
 
   return (
     <div className='h-screen w-screen '>
       {/* <Suspense fallback={<LoadingScreen />}> */}
-      <Suspense fallback={<LoadingScreen/>}>
+      <Suspense fallback={<LoadingScreen />}>
         {isCanvasLoaded && landingContext.controlsAreVisible && (
           <UserControls />
         )}

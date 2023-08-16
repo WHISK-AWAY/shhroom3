@@ -9,24 +9,30 @@ import {
   useEffect,
   useRef,
   useState,
-  useLayoutEffect, 
+  useLayoutEffect,
+  lazy,
+  Suspense,
 } from 'react';
-import {useNavigate} from 'react-router-dom';
-import * as THREE from 'three';
+import { useNavigate } from 'react-router-dom';
+import { DoubleSide } from 'three';
 import {
   useGLTF,
   Plane,
   Html,
   Billboard,
-  MeshTransmissionMaterial, Caustics, Sparkles
+  MeshTransmissionMaterial,
+  Caustics,
+  Sparkles,
 } from '@react-three/drei';
-import Screensaver from '../Screensaver';
+// import Screensaver from '../Screensaver';
 import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
 import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
 import SignInHelperText from './SignInHelperText';
+
+const Screensaver = lazy(() => import('../Screensaver'));
 
 /**
  * TODO: non-freezing loading screen
@@ -39,6 +45,8 @@ import SignInHelperText from './SignInHelperText';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/model-transformed.glb');
+  const navigate = useNavigate();
+
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
   const escBtnRef = useRef(null);
@@ -50,7 +58,6 @@ export default function Model(props) {
   const shelvesRef = useRef(null);
   const bedsideTableRef = useRef(null);
   const [isSignHelperHidden, setIsSignHelperHidden] = useState(true);
-  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     // console.log('setting layers');
@@ -79,15 +86,16 @@ export default function Model(props) {
   }, []);
 
   useEffect(() => {
-    if(globalContext.isSignedIn) {
-
-      if (landingContext.isZoomed && landingContext.targetLabel === 'newMeetingTunnelZoom' ) {
-        console.log('zooming')
-        navigate('/tunnel')
-        
+    if (globalContext.isSignedIn) {
+      if (
+        landingContext.isZoomed &&
+        landingContext.targetLabel === 'newMeetingTunnelZoom'
+      ) {
+        console.log('zooming');
+        navigate('/tunnel');
       }
     }
-  }, [landingContext.targetLabel, globalContext.isSignedIn])
+  }, [landingContext.targetLabel, globalContext.isSignedIn]);
 
   return (
     <group {...props} dispose={null}>
@@ -1032,7 +1040,7 @@ export default function Model(props) {
         >
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             toneMapped={false}
           />
         </mesh>
@@ -1051,7 +1059,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Plane063_3.geometry}>
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={7}
             toneMapped={false}
@@ -1060,7 +1068,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Plane063_3.geometry} position={[9, 0, 0]}>
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={7}
             toneMapped={false}
@@ -1070,7 +1078,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Plane063_4.geometry}>
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             toneMapped={false}
           />
         </mesh>
@@ -1079,7 +1087,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Plane063_5.geometry}>
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={8}
             toneMapped={false}
@@ -1089,7 +1097,7 @@ export default function Model(props) {
         <mesh geometry={nodes.Plane063_6.geometry}>
           <meshStandardMaterial
             color={0xff0000}
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             emissive='#ff0000'
             emissiveIntensity={8}
             toneMapped={false}
@@ -1601,7 +1609,9 @@ export default function Model(props) {
         >
           <GlobalContext.Provider value={globalContext}>
             <LandingContext.Provider value={landingContext}>
-              <Screensaver />
+              <Suspense fallback={null}>
+                <Screensaver />
+              </Suspense>
             </LandingContext.Provider>
           </GlobalContext.Provider>
         </Html>
@@ -1830,7 +1840,7 @@ export default function Model(props) {
           scale={2.10668}
         >
           <MeshTransmissionMaterial
-            side={THREE.DoubleSide}
+            side={DoubleSide}
             resolution={256}
             distortion={1.05}
             color='#fff'

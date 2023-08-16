@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useControls } from 'leva';
 import { SpotLight } from '@react-three/drei';
-import * as THREE from 'three';
+import { Object3D, Vector3 } from 'three';
 
 export default function DeskLampLight({ lightIsOn }) {
-  const [deskLampTarget] = useState(() => new THREE.Object3D());
+  const [deskLampTarget] = useState(() => new Object3D());
 
   // const {
   //   intensity,
@@ -119,7 +118,7 @@ export default function DeskLampLight({ lightIsOn }) {
       />
       <primitive
         object={deskLampTarget}
-        position={new THREE.Vector3(5.87, -1.24, 2.82)}
+        position={new Vector3(5.87, -1.24, 2.82)}
       />
     </>
   );

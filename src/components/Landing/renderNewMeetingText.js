@@ -1,37 +1,38 @@
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import * as THREE from 'three';
+import { Mesh, MeshStandardMaterial } from 'three';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { useThree } from '@react-three/fiber';
 import { GlobalContext } from '../../lib/context';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { lazy, useContext, useRef, useState } from 'react';
 
 export default function renderNewMeetingText() {
-  const globalContext = useContext(GlobalContext)
+  const globalContext = useContext(GlobalContext);
   const state = useThree();
   const text = 'NEW MEETING';
-  let textMesh = useRef(null)
+  let textMesh = useRef(null);
   let geometry;
   // let intensity = 2.5
-  const [intensity, setIntensity] = useState(true)
+  const [intensity, setIntensity] = useState(true);
 
+  // const train = lazy(() => import('/fonts/Train One_Regular.json?url'));
 
   const loader = new FontLoader();
   loader.load('/fonts/Train One_Regular.json', function (font) {
-     geometry = new TextGeometry(text, {
+    // loader.load(train, function (font) {
+    geometry = new TextGeometry(text, {
       font: font,
       size: 0.14,
       height: 0.12,
       curveSegments: 12,
     });
 
-    textMesh.current = new THREE.Mesh(geometry, [
-
-      new THREE.MeshStandardMaterial({
+    textMesh.current = new Mesh(geometry, [
+      new MeshStandardMaterial({
         emissive: '#2dfff8',
         emissiveIntensity: globalContext.isSignedIn && intensity ? 10 : 0,
         toneMapped: false,
       }),
-      new THREE.MeshStandardMaterial({ color: '#2dfff8' }),
+      new MeshStandardMaterial({ color: '#2dfff8' }),
     ]);
 
     state.scene.add(textMesh.current);
@@ -39,11 +40,7 @@ export default function renderNewMeetingText() {
     textMesh.current.position.set(6.99, 4.67, -2.61);
   });
 
-  // console.log('tm', textMesh.current)
-  useEffect(() => {
-  }, [globalContext.isSignedIn])
-
-
+  // useEffect(() => {}, [globalContext.isSignedIn]);
 
   // useEffect(() => {
   //   if(!intensity) {
@@ -54,7 +51,6 @@ export default function renderNewMeetingText() {
   //     // setIntensity(false)
   //   }
   // }, [intensity])
-
 
   // useEffect(() => {
   //   if(!globalContext.isSignedIn) {

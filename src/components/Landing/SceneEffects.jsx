@@ -1,12 +1,5 @@
-import { Bloom, EffectComposer, SMAA, SSAO } from '@react-three/postprocessing';
-import {
-  BlurPass,
-  BlendFunction,
-  Resizer,
-  KernelSize,
-  Resolution,
-  RenderPass,
-} from 'postprocessing';
+import { Bloom, EffectComposer, SMAA } from '@react-three/postprocessing';
+import { KernelSize, Resolution } from 'postprocessing';
 
 export default function SceneEffects() {
   return (

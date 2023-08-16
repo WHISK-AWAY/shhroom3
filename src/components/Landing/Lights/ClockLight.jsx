@@ -1,11 +1,9 @@
-import { useControls } from 'leva';
 import { useState } from 'react';
-import * as THREE from 'three';
+import { Object3D, Vector3 } from 'three';
 import { SpotLight } from '@react-three/drei';
+
 export default function ClockLight({ lightIsOn }) {
-
-  const [clockLightTarget] = useState(() => new THREE.Object3D());
-
+  const [clockLightTarget] = useState(() => new Object3D());
 
   // const {
   //   castShadow,
@@ -76,17 +74,17 @@ export default function ClockLight({ lightIsOn }) {
   // const {targetX, targetY, targetZ} = useControls('Clock Light Target', {
   //   targetX: {
   //     value: 10.2,
-  //     min: -10, 
+  //     min: -10,
   //     max: 20
   //   },
   //   targetY: {
   //     value: -13,
-  //     min: -15, 
+  //     min: -15,
   //     max: 20
   //   },
   //   targetZ: {
   //     value: 25,
-  //     min: -10, 
+  //     min: -10,
   //     max: 25
   //   },
   // })
@@ -106,7 +104,7 @@ export default function ClockLight({ lightIsOn }) {
       />
       <primitive
         object={clockLightTarget}
-        position={new THREE.Vector3(10.2, -13, 25)}
+        position={new Vector3(10.2, -13, 25)}
       />
     </>
   );

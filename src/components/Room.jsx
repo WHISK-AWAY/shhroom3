@@ -1,18 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
-import { Chat } from './index';
-import VideoGrid from './VideoGrid/VideoGrid';
-import RoomUserControls from './RoomUserControls';
+// import VideoGrid from './VideoGrid/VideoGrid';
+// import RoomUserControls from './RoomUserControls';
+
+const Chat = lazy(() => import('./Chat'));
+const VideoGrid = lazy(() => import('./VideoGrid/VideoGrid'));
+const RoomUserControls = lazy(() => import('./RoomUserControls'));
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
 
   useEffect(() => {
     // release loading screen
-    document.querySelector('#loader').classList.add('invisible');
+    // document.querySelector('#loader').classList.add('invisible');
   }, []);
 
   const [chatConnection, setChatConnection] = useState(null);
@@ -25,7 +28,7 @@ export default function Room({ socket }) {
   const partnerPeerId = useRef(null);
   const partnerUsername = useRef(null);
   const [isUserControlsOpen, setIsUserControlsOpen] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(true)
+  const [isChatOpen, setIsChatOpen] = useState(true);
 
   const { roomId } = useParams();
   const peers = {};
@@ -146,14 +149,14 @@ export default function Room({ socket }) {
           type: 'video',
           userId: thisShhroomer.userInfo.id,
           publicKey: thisShhroomer.encryptionInfo.encodedPublicKey,
-          username: thisShhroomer.userInfo.username
+          username: thisShhroomer.userInfo.username,
         },
       },
     );
 
     // establish chat connection with peer
     const newChatConnection = thisShhroomer.peerInfo.peer.connect(peerId);
-      // setIsChatOpen(true)
+    // setIsChatOpen(true)
     return [newVideoCall, newChatConnection];
   };
 
@@ -197,36 +200,38 @@ export default function Room({ socket }) {
   // console.log(thisShhroomer)
   return (
     <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 ">
-      <RoomUserControls
-        roomId={roomId}
-        leaveMeeting={leaveMeeting}
-        thisShhroomer={thisShhroomer}
-        isUserControlsOpen={isUserControlsOpen}
-        setIsUserControlsOpen={setIsUserControlsOpen}
-        setIsChatOpen={setIsChatOpen}
-        isChatOpen={isChatOpen}
-      />
-
-      <VideoGrid
-        ownSource={ownSource}
-        peerSource={peerSource}
-        isUserControlsOpen={isUserControlsOpen}
-        setIsUserControlsOpen={setIsUserControlsOpen}
-        thisShhroomer={thisShhroomer}
-        partnerUsername={partnerUsername.current}
-      />
-
-      <div className={`${isChatOpen ? ' h-full' : 'hidden' }`}> 
-      {chatConnection && (
-        <Chat
-        shhroomer={thisShhroomer}
-        partnerPublicKey={peerPublicKey.current}
-        chatConnection={chatConnection}
-        isUserControlsOpen={isUserControlsOpen}
-        setIsUserControlsOpen={setIsUserControlsOpen}
+      <Suspense fallback={<p>Loading control hints...</p>}>
+        <RoomUserControls
+          roomId={roomId}
+          leaveMeeting={leaveMeeting}
+          thisShhroomer={thisShhroomer}
+          isUserControlsOpen={isUserControlsOpen}
+          setIsUserControlsOpen={setIsUserControlsOpen}
         />
+      </Suspense>
+      <Suspense fallback={<p>Loading video grid...</p>}>
+        <VideoGrid
+          ownSource={ownSource}
+          peerSource={peerSource}
+          isUserControlsOpen={isUserControlsOpen}
+          setIsUserControlsOpen={setIsUserControlsOpen}
+          thisShhroomer={thisShhroomer}
+          partnerUsername={partnerUsername.current}
+        />
+      </Suspense>
+      <div className={`${isChatOpen ? ' h-full' : 'hidden'}`}>
+        {chatConnection && (
+          <Suspense fallback={<p>Loading chat component...</p>}>
+            <Chat
+              shhroomer={thisShhroomer}
+              partnerPublicKey={peerPublicKey.current}
+              chatConnection={chatConnection}
+              isUserControlsOpen={isUserControlsOpen}
+              setIsUserControlsOpen={setIsUserControlsOpen}
+            />
+          </Suspense>
         )}
-        </div>
+      </div>
     </div>
   );
 }
