@@ -1,4 +1,4 @@
-import seizureShhroom from '/bg/shh_seizure.gif';
+import seizureShhroom from '/bg/shh_seizure.webp';
 import { gsap } from 'gsap';
 import { useRef, useEffect } from 'react';
 
@@ -10,7 +10,6 @@ export default function LoadingScreen() {
   const shroom = useRef(null);
   const loadingRef = useRef(null);
   const timelineRef = useRef(null);
-
 
   return (
     <div className='bg-black w-screen h-screen flex flex-col'>

@@ -16,7 +16,7 @@ export default function Scene({ setIsCanvasLoaded }) {
   shhroomText();
 
   useEffect(() => {
-    document.querySelector('#loader').classList.add('invisible');
+    // document.querySelector('#loader').classList.add('invisible');
     setIsCanvasLoaded(true);
     setTimeout(() => {
       setisUControlsClose(false);

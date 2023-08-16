@@ -15,7 +15,7 @@ export default function Room({ socket }) {
 
   useEffect(() => {
     // release loading screen
-    document.querySelector('#loader').classList.add('invisible');
+    // document.querySelector('#loader').classList.add('invisible');
   }, []);
 
   const [chatConnection, setChatConnection] = useState(null);

@@ -10,7 +10,7 @@ import { Tube, useTexture } from '@react-three/drei';
 import { gsap } from 'gsap';
 import { useNavigate } from 'react-router-dom';
 
-import bgTexture from '../../../public/bg/galaxy_compressed.jpg';
+import bgTexture from '../../../public/bg/galaxy_compressed.webp';
 
 function setupCurve() {
   const points = [];
@@ -111,7 +111,7 @@ export default function Tunnel() {
             repeatX: 10,
             onComplete: () => {
               console.log('done!');
-              navigate('/room')
+              navigate('/room');
             },
             // ease: 'power2.inOut',
             // duration: 6,
@@ -136,7 +136,6 @@ export default function Tunnel() {
       curveRef.current.updateArcLengths();
     }, 1500);
   }, []);
-
 
   return (
     <Tube ref={tubeRef} scale={1.1} args={[setupCurve(), 70, 0.02, 30, false]}>
