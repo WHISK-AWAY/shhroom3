@@ -1,4 +1,5 @@
-import { useControls } from 'leva';
+import { useDetectGPU } from '@react-three/drei';
+
 
 export default function AmbientLight({ lightIsOn }) {
   // const ambient = useControls('Ambient Light', {
@@ -12,7 +13,12 @@ export default function AmbientLight({ lightIsOn }) {
   //   },
   // });
 
+
+  const gpu = useDetectGPU();
   return (
-    <ambientLight intensity={0.4} color={'#478667'} />
+    <ambientLight
+      intensity={gpu.tier === 0 ? 0.2 : .4}
+      color={gpu.tier === 0 ? '#ede6b1' : '#478667' }
+    />
   );
 }
