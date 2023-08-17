@@ -17,6 +17,7 @@ export default function useVerifyToken() {
   const [status, setStatus] = useState(initialState);
 
   useEffect(() => {
+    console.log('checking token');
     const token = window.localStorage.getItem('token');
     if (!token) {
       setStatus({

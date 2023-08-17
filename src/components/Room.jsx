@@ -1,8 +1,17 @@
-import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  lazy,
+  Suspense,
+  useContext,
+} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
+import { GlobalContext } from '../lib/context';
+import SignInOverlay from './SignInOverlay';
 // import VideoGrid from './VideoGrid/VideoGrid';
 // import RoomUserControls from './RoomUserControls';
 
@@ -12,6 +21,7 @@ const RoomUserControls = lazy(() => import('./RoomUserControls'));
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
+  const globalContext = useContext(GlobalContext);
 
   useEffect(() => {
     // release loading screen
@@ -29,6 +39,7 @@ export default function Room({ socket }) {
   const partnerUsername = useRef(null);
   const [isUserControlsOpen, setIsUserControlsOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(true);
+  const [showSigninOverlay, setSigninOverlay] = useState(false);
 
   const { roomId } = useParams();
   const peers = {};
@@ -36,18 +47,33 @@ export default function Room({ socket }) {
   const thisShhroomer = useShhroom();
 
   useEffect(() => {
+    console.log('globalContext:', globalContext);
+  }, [globalContext]);
+
+  useEffect(() => {
+    console.log('thisShhroomer:', thisShhroomer);
+  }, [thisShhroomer]);
+
+  useEffect(() => {
+    // bring up the signin overlay if we're not signed in
+    setSigninOverlay(!globalContext.isSignedIn);
+  }, [globalContext.isSignedIn]);
+
+  useEffect(() => {
     // Initialize room once shhroomer object is ready
     if (thisShhroomer.loading) return;
 
     if (thisShhroomer.error) {
-      alert('Error initializing user:', thisShhroomer.error);
+      // alert('Error initializing user:', thisShhroomer.error);
       console.error(thisShhroomer.error);
-      navigate('/');
+      // navigate('/');
     }
 
-    joinRoom(roomId, socket, navigate, thisShhroomer);
-    getOwnVideo();
-  }, [thisShhroomer.loading, roomId]);
+    if (globalContext.isSignedIn && !thisShhroomer.error) {
+      joinRoom(roomId, socket, navigate, thisShhroomer);
+      getOwnVideo();
+    }
+  }, [thisShhroomer.loading, globalContext.isSignedIn, roomId]);
 
   useEffect(() => {
     // Set up peer event handlers once video stream is available
@@ -200,6 +226,7 @@ export default function Room({ socket }) {
   // console.log(thisShhroomer)
   return (
     <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 ">
+      {showSigninOverlay && <SignInOverlay />}
       <Suspense fallback={<p>Loading control hints...</p>}>
         <RoomUserControls
           roomId={roomId}
