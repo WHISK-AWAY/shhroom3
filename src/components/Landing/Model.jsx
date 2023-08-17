@@ -23,11 +23,12 @@ import {
   MeshTransmissionMaterial,
   Caustics,
   Sparkles,
+  useDetectGPU,
+  Text3D,
+  Svg,
 } from '@react-three/drei';
 // import Screensaver from '../Screensaver';
-import { Text3D } from '@react-three/drei';
 import escButton from '/svg/esc_button.svg';
-import { Svg } from '@react-three/drei';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
 import SignInHelperText from './SignInHelperText';
@@ -76,6 +77,8 @@ export default function Model(props) {
       }
     }
   }, []);
+
+  const gpu = useDetectGPU();
 
   useEffect(() => {
     // console.log('hello from model');
@@ -1389,14 +1392,16 @@ export default function Model(props) {
           material={materials.PaletteMaterial011}
         ></mesh>
         {/* //lamp balls */}
-        <Sparkles
-          count={29}
-          size={0.9}
-          scale={1.2}
-          color='#f592e8'
-          speed={0.4}
-          position={[2.17452, 4.73262, 0.14511]}
-        />
+        {gpu.tier > 2 && !gpu.isMobile && (
+          <Sparkles
+            count={29}
+            size={0.9}
+            scale={1.2}
+            color='#f592e8'
+            speed={0.4}
+            position={[2.17452, 4.73262, 0.14511]}
+          />
+        )}
         <mesh
           geometry={nodes.Circle_3.geometry}
           material={materials.PaletteMaterial012}
@@ -1703,14 +1708,16 @@ export default function Model(props) {
         position={[3.71639, 0.8998, -1.87044]}
         scale={1.97538}
       />
-      <Sparkles
-        count={29}
-        size={0.5}
-        scale={0.1}
-        color='#fff'
-        speed={0.1}
-        position={[8.11863, 2.35597, -2.34916]}
-      />
+      {gpu.tier > 2 && !gpu.isMobile && (
+        <Sparkles
+          count={29}
+          size={0.5}
+          scale={0.1}
+          color='#fff'
+          speed={0.1}
+          position={[8.11863, 2.35597, -2.34916]}
+        />
+      )}
       <mesh
         castShadow
         receiveShadow
@@ -2758,14 +2765,16 @@ export default function Model(props) {
         />
       </group>
       {/* //green glow shhroom */}
-      <Sparkles
-        count={19}
-        size={0.5}
-        scale={0.1}
-        color='#46ff74'
-        speed={0.1}
-        position={[3.62164, 4.25735, -1.1163]}
-      />
+      {gpu.tier > 2 && !gpu.isMobile && (
+        <Sparkles
+          count={19}
+          size={0.5}
+          scale={0.1}
+          color='#46ff74'
+          speed={0.1}
+          position={[3.62164, 4.25735, -1.1163]}
+        />
+      )}
       <group
         position={[3.62164, 4.25735, -1.1163]}
         rotation={[-0.07961, -0.62025, 0.88003]}
@@ -2822,14 +2831,16 @@ export default function Model(props) {
         />
       </group>
       {/* //desk shhroom */}
-      <Sparkles
-        count={19}
-        size={0.5}
-        scale={0.1}
-        color='#fff'
-        speed={0.1}
-        position={[3.62422, 2.66768, 0.80818]}
-      />
+      {gpu.tier > 2 && !gpu.isMobile && (
+        <Sparkles
+          count={19}
+          size={0.5}
+          scale={0.1}
+          color='#fff'
+          speed={0.1}
+          position={[3.62422, 2.66768, 0.80818]}
+        />
+      )}
       <group
         position={[3.72422, 2.66768, 0.90818]}
         rotation={[-1.14963, -0.22253, 0.32676]}
