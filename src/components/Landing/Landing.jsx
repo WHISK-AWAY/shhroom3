@@ -1,12 +1,13 @@
 import { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useDetectGPU } from '@react-three/drei';
+import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
 
 import { LandingContext } from '../../lib/context';
 
 const UserControls = lazy(() => import('../UserControls'));
-const Scene = lazy(() => import('./Scene'));
+// const Scene = lazy(() => import('./Scene'));
 
 export default function Landing() {
   const landingContext = useContext(LandingContext);
