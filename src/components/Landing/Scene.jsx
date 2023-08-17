@@ -1,4 +1,5 @@
 import { useEffect, useState, lazy } from 'react';
+import { useThree } from '@react-three/fiber';
 import {
   AdaptiveDpr,
   BakeShadows,
@@ -12,6 +13,7 @@ import ControlledCamera from './ControlledCamera';
 import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
 // import signInHelperText from './SignInHelperText';
+import { exportGltf } from '../../../utils/gltfExporter';
 
 const SceneEffects = lazy(() => import('./SceneEffects'));
 
@@ -22,6 +24,12 @@ export default function Scene({ setIsCanvasLoaded }) {
 
   useEffect(() => {
     console.log('gpu', gpu);
+  }, []);
+
+  const { scene } = useThree();
+
+  useEffect(() => {
+    // exportGltf(scene);
   }, []);
 
   // Render 3d text signs
