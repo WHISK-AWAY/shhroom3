@@ -1,8 +1,7 @@
 import { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-// import Scene from './Scene';
+import { useDetectGPU } from '@react-three/drei';
 import LoadingScreen from '../LoadingScreen';
-// import UserControls from '../UserControls';
 
 import { LandingContext } from '../../lib/context';
 
@@ -11,23 +10,24 @@ const Scene = lazy(() => import('./Scene'));
 
 export default function Landing() {
   const landingContext = useContext(LandingContext);
+  const gpu = useDetectGPU()
 
   useEffect(() => {
     document.querySelector('#loader').classList.add('invisible', 'hidden');
   }, []);
 
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
+  
 
   return (
     <div className='h-screen w-screen '>
-      {/* <Suspense fallback={<LoadingScreen />}> */}
       <Suspense fallback={<LoadingScreen />}>
         {isCanvasLoaded && landingContext.controlsAreVisible && (
           <UserControls />
         )}
         <Canvas
           frameloop='demand'
-          shadows={'soft'}
+          shadows={gpu.tier < 1 ? false : 'soft'}
           linear={false}
           raycaster={{
             far: 100,
