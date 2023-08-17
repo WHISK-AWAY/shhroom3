@@ -20,6 +20,8 @@ router.post('/', async (req, res, next) => {
     if (!authCheck) {
       return res.status(401).send({ message: 'invalid credentials' });
     }
+
+    console.log(`${username} successfully logged in`);
     res.status(200).json({ token: authCheck });
   } catch (err) {
     next(err);
