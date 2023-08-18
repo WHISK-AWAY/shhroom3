@@ -7,7 +7,7 @@ import {
   useDetectGPU,
 } from '@react-three/drei';
 import Lights from './Lights/Lights';
-import Model from './Model';
+import Model from '../../Model_Test_4';
 import ControlledCamera from './ControlledCamera';
 // import SceneEffects from './SceneEffects';
 import renderNewMeetingText from './renderNewMeetingText';
