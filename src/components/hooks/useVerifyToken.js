@@ -23,7 +23,7 @@ export default function useVerifyToken() {
       setStatus({
         ...initialState,
         loading: false,
-        error: 'No token found.',
+        error: 'MISSING_TOKEN',
       });
     } else {
       axios
@@ -44,8 +44,7 @@ export default function useVerifyToken() {
           window.localStorage.removeItem('token');
           setStatus({
             userData: undefined,
-            error:
-              'Authentication failed. Check your credentials and try again.',
+            error: 'BAD_CREDENTIALS',
             loading: false,
           });
         });
