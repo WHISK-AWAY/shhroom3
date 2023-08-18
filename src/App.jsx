@@ -8,18 +8,7 @@ import {
   LandingContext,
   initialLandingContext,
 } from './lib/context';
-
-// import {
-//   // Room,
-//   // Lobby,
-//   // Homepage,
-//   // Signin,
-//   // SignUp,
-//   // Landing,
-//   // Screensaver,
-//   // LoadingScreen,
-//   // TunnelCanvas,
-// } from './components';
+import RoomTesting from './components/RoomTesting';
 
 const Screensaver = lazy(() => import('./components/Screensaver'));
 const TunnelCanvas = lazy(() => import('./components/Tunnel/TunnelCanvas'));
@@ -62,17 +51,6 @@ export default function App() {
           setContext: prev.setContext,
         }));
       },
-      // releaseZoom: function releaseZoom() {
-      //   console.log('going back home');
-      //   setLandingContext((prev) => ({
-      //     ...prev,
-      //     targetLabel: null,
-      //     targetPosition: null,
-      //     camPosition: null,
-      //     controlsAreEnabled: true,
-      //   }));
-      //   // landingContext.zoomToObject('initPosition');
-      // },
     }));
   }, []);
 
@@ -82,6 +60,7 @@ export default function App() {
         <LandingContext.Provider value={landingContext}>
           <Routes>
             <Route path='/' element={<Landing />} />
+            <Route path='/room-testing' element={<RoomTesting />} />
             <Route path='/signintest' element={<SigninOverlay />} />
             {/* <Route path='/landing' element={<Landing />} /> */}
             {/* <Route path='/loading' element={<LoadingScreen />} /> */}
