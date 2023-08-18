@@ -110,18 +110,17 @@ export default function Model(props) {
         position={[5.06108, 4.13997, -2.7071]}
         rotation={[-Math.PI, 0.00161, 0]}
         scale={[-1.16779, -1.71969, -0.16649]}
-      />
-      {/**desktop */}
-      <mesh
+        />
+        {/**desktop */}
+        <mesh
         receiveShadow
         geometry={nodes.Cube029.geometry}
         material={materials['Magnificent wood']}
         position={[3.8675, 2.36059, 1.31098]}
         rotation={[Math.PI, -0.00212, Math.PI]}
-      />
+        />
+        {/**desk leg */}
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cube030.geometry}
         material={materials['Magnificent wood']}
         position={[4.4119, 1.57665, 2.76811]}
@@ -130,7 +129,6 @@ export default function Model(props) {
       />
       {/**desk leg */}
       <mesh
-        castShadow
         geometry={nodes.Cube032.geometry}
         material={materials['Magnificent wood']}
         position={[4.40926, 1.57665, -0.15694]}
@@ -139,7 +137,6 @@ export default function Model(props) {
       />
       {/**desk leg */}
       <mesh
-        castShadow
         geometry={nodes.Cube031.geometry}
         material={materials['Magnificent wood']}
         position={[3.31436, 1.57665, 2.7708]}
@@ -148,16 +145,14 @@ export default function Model(props) {
       />
       {/**desk leg */}
       <mesh
-        castShadow
         geometry={nodes.Cube033.geometry}
         material={materials['Magnificent wood']}
         position={[3.31172, 1.57665, -0.15424]}
         rotation={[Math.PI, -0.00212, Math.PI]}
         scale={[0.05329, 0.74066, 0.07404]}
       />
-      {/**desk leg */}
+      {/**desk body */}
       <mesh
-        castShadow
         geometry={nodes.Cube034.geometry}
         material={materials['Magnificent wood']}
         position={[3.86641, 2.00654, 1.30195]}
@@ -1859,108 +1854,21 @@ export default function Model(props) {
           material={materials.PaletteMaterial012}
         />
       </group>
-      {/**desk shhroom glow */}
-      <group
-        position={[3.72422, 2.66768, 0.90818]}
-        rotation={[-1.14963, -0.22253, 0.32676]}
-      >
-        <mesh
-          geometry={nodes.BezierCurve.geometry}
-          material={materials.PaletteMaterial022}
-        >
-          <meshStandardMaterial
-            emissive='#ff0000'
-            emissiveIntensity={10}
-            toneMapped={false}
-            color={'#ff0000'}
-          />
-        </mesh>
-        <mesh
-          geometry={nodes.BezierCurve_1.geometry}
-          material={materials['Stiel.003']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_2.geometry}
-          material={materials['Lammelleln.001']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_3.geometry}
-          material={materials['Stiel.004']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_4.geometry}
-          material={materials['Stiel.005']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_5.geometry}
-          material={materials['boden.001']}
-        />
-        <mesh
-          geometry={nodes.Circle049_1.geometry}
-          material={materials.Lammelleln}
-        />
-      </group>
-      {/**corner table shhroom */}
-      <group
-        position={[3.872, 1.99391, -1.77289]}
-        rotation={[-0.85089, -0.33569, 0.57069]}
-      >
-        <mesh
-          geometry={nodes.BezierCurve.geometry}
-          material={materials.PaletteMaterial022}
-        >
-          <meshStandardMaterial
-            emissive='#ff0000'
-            emissiveIntensity={10}
-            toneMapped={false}
-            color={'#ff0000'}
-          />
-        </mesh>
-        <mesh
-          geometry={nodes.BezierCurve_1.geometry}
-          material={materials['Stiel.003']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_2.geometry}
-          material={materials['Lammelleln.001']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_3.geometry}
-          material={materials['Stiel.004']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_4.geometry}
-          material={materials['Stiel.005']}
-        />
-        <mesh
-          geometry={nodes.BezierCurve_5.geometry}
-          material={materials['boden.001']}
-        />
-        <mesh
-          geometry={nodes.Circle002_1.geometry}
-          material={materials.Lammelleln}
-        />
-      </group>
+   {/**harmonica */}
       <group
         position={[8.01947, 2.0281, -2.10942]}
         rotation={[0.0761, -0.14554, 0.01106]}
         scale={1.32359}
       >
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.comb11.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.comb11_1.geometry}
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.comb11_2.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -1996,9 +1904,8 @@ export default function Model(props) {
         position={[3.23311, 4.8224, -0.72312]}
         scale={[1.39397, 1, 1]}
       />
+      {/**speaker logo */}
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Marshall_Logo.geometry}
         material={materials.PaletteMaterial002}
         position={[3.42373, 4.98199, -0.73617]}
@@ -2006,40 +1913,30 @@ export default function Model(props) {
         scale={[1, 1.39397, 1]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Off.geometry}
         material={materials.PaletteMaterial002}
         position={[3.23311, 4.8224, -0.72312]}
         scale={[1.39397, 1, 1]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.On.geometry}
         material={materials.PaletteMaterial002}
         position={[3.23311, 4.8224, -0.72312]}
         scale={[1.39397, 1, 1]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Tone.geometry}
         material={materials.PaletteMaterial002}
         position={[3.23311, 4.8224, -0.72312]}
         scale={[1.39397, 1, 1]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Volume.geometry}
         material={materials.PaletteMaterial002}
         position={[3.23311, 4.8224, -0.72312]}
         scale={[1.39397, 1, 1]}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Wire.geometry}
         material={materials.PaletteMaterial002}
         position={[3.21901, 5.0224, -0.73617]}
@@ -2116,8 +2013,6 @@ export default function Model(props) {
           material={materials.PaletteMaterial002}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Cube173_2.geometry}
           material={materials.PaletteMaterial002}
         />
@@ -2205,14 +2100,10 @@ export default function Model(props) {
       </group>
       <instancedMesh
         args={[nodes.Sphere005.geometry, materials.PaletteMaterial004, 6]}
-        castShadow
-        receiveShadow
         instanceMatrix={nodes.Sphere005.instanceMatrix}
       />
       <instancedMesh
         args={[nodes.Sphere005_1.geometry, materials.PaletteMaterial002, 6]}
-        castShadow
-        receiveShadow
         instanceMatrix={nodes.Sphere005_1.instanceMatrix}
       />
     </group>
