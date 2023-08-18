@@ -521,6 +521,7 @@ export default function Model(props) {
         rotation={[-Math.PI, 0, -Math.PI]}
         scale={[-0.04287, -0.4789, -0.99824]}
       />
+      {/**notebooks */}
       <group
         position={[3.50792, 2.60453, 1.00324]}
         rotation={[-3.13913, -0.48119, 0.00228]}
@@ -528,17 +529,16 @@ export default function Model(props) {
       >
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Plane027.geometry}
           material={materials['notebook page']}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Plane027_1.geometry}
           material={materials.PaletteMaterial006}
         />
       </group>
+      {/**pencil holder */}
       <mesh
         castShadow
         receiveShadow
@@ -1802,32 +1802,25 @@ export default function Model(props) {
         position={[3.60059, 2.14316, -1.85001]}
         scale={1.29916}
       />
+      {/**money tree */}
       <group
         position={[3.67117, 2.46384, -1.95239]}
         rotation={[1.83052, 0.61123, -2.38185]}
         scale={1.29916}
       >
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane081.geometry}
           material={materials['Material.037']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane081_1.geometry}
           material={materials['Material.038']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane081_2.geometry}
           material={materials['Material.039']}
         />
         <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.Plane081_3.geometry}
           material={materials['Circle_BAKED.001']}
         />
