@@ -62,8 +62,10 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
       }));
 
       // zoom away from screen & then zoom to new meeting poster
-      landingContext.releaseZoom();
-      setTimeout(() => landingContext.zoomToObject('newMeeting'), 750);
+      if (landingContext && landingContext.releaseZoom) {
+        landingContext.releaseZoom();
+        setTimeout(() => landingContext.zoomToObject('newMeeting'), 750);
+      }
 
       return res;
     } catch (err) {
