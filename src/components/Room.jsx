@@ -23,11 +23,6 @@ export default function Room({ socket }) {
   const navigate = useNavigate();
   const globalContext = useContext(GlobalContext);
 
-  useEffect(() => {
-    // release loading screen
-    // document.querySelector('#loader').classList.add('invisible');
-  }, []);
-
   const [chatConnection, setChatConnection] = useState(null);
   const [videoCall, setVideoCall] = useState(null);
 
@@ -108,6 +103,8 @@ export default function Room({ socket }) {
       partnerPeerId.current = peerId;
 
       // give them time to get settled, then call partner
+      // ? do we still need to give time? nowadays partner does not "report in" until their
+      // ? video feed is ready, so we might be able to get rid of the setTimeout piece
       setTimeout(() => {
         const [call, chat] = connectToNewUser(peerId, ownSource);
         setVideoCall(call);
