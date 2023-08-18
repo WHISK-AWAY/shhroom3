@@ -56,8 +56,12 @@ export default function Lights() {
           <FlashLight />
         </>
       )}
-      {gpu.tier === 3 && <WindowLightVolumetric lightIsOn={true} />}
-
+      {gpu.tier === 3 && (
+        <>
+          <WindowLightVolumetric lightIsOn={true} />
+          <ClockLight lightIsOn={true} />
+        </>
+      )}
       {gpu.tier >= 2 && (
         <>
           <OverheadLight lightIsOn={true} />
