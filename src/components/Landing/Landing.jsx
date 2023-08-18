@@ -1,15 +1,17 @@
 import { Suspense, lazy, useContext, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { useContextBridge } from '@react-three/drei';
 // import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
 // import UserControls from '../UserControls';
 
-import { LandingContext } from '../../lib/context';
+import { LandingContext, GlobalContext } from '../../lib/context';
 
 const UserControls = lazy(() => import('../UserControls'));
 const Scene = lazy(() => import('./Scene'));
 
 export default function Landing() {
+  const ContextBridge = useContextBridge(GlobalContext, LandingContext);
   const landingContext = useContext(LandingContext);
 
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
@@ -38,7 +40,9 @@ export default function Landing() {
           }}
         >
           <color attach='background' args={['#030303']} />
-          <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
+          <ContextBridge>
+            <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
+          </ContextBridge>
         </Canvas>
       </Suspense>
     </div>
