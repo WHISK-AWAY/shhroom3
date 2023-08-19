@@ -228,7 +228,7 @@ export default function Model(props) {
         pos={[4.6675, 2.36059, 0.51098]}
         tl={'desktop'}
         rotation={[0, Math.PI / 2, 0]}
-        scale={[0.8, 0.7, 0.7]}
+        scale={[0.8, 0.75, 0.8]}
       />
       <mesh
         ref={desktopRef}
