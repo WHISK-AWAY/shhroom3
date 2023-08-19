@@ -362,6 +362,7 @@ export default function Model(props) {
         scale={[0.36907, 0.41434, 0.5585]}
       />
       {/**nightstand body */}
+      <EscBtnUtils pos={[7.46467, 2.07117, -1.10015]} tl={'bedsideTable'} scale={[1, .8, .8]} rotation={[0, Math.PI/2.9, Math.PI/99]} />
       <mesh
         ref={bedsideTableRef}
         onClick={() => landingContext.zoomToObject('bedsideTable')}
