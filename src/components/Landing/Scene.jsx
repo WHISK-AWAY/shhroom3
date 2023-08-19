@@ -57,9 +57,7 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Suspense fallback={null}>
       <ShroomsModel/>
       </Suspense>
-      {/**
       <BakeShadows />
-    */}
       <AdaptiveDpr />
       {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
       <Preload all={true} />
