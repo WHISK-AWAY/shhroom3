@@ -74,7 +74,7 @@ export default function Model(props) {
     }, 8000);
   }, []);
 
- return (
+  return (
     <group {...props} dispose={null}>
       {/** Computer monitor screen */}
       <mesh
@@ -153,11 +153,7 @@ export default function Model(props) {
               toneMapped={false}
             />
           </Text3D>
-          <Svg
-            src={escButton}
-            scale={0.009}
-            rotation={[0, Math.PI / 2, 0]}
-          />
+          <Svg src={escButton} scale={0.009} rotation={[0, Math.PI / 2, 0]} />
           <Text3D
             rotation={[0, Math.PI / 2, 0]}
             position={[0, -0.05, -0.1]}
@@ -533,6 +529,7 @@ export default function Model(props) {
       <mesh
         ref={corkboardRef}
         onClick={() => {
+          if (landingContext.targetLabel === 'corkboard') return;
           landingContext.zoomToObject('corkboard');
         }}
         receiveShadow
@@ -542,6 +539,67 @@ export default function Model(props) {
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
       />
+      <Plane
+        args={[0.6, 0.05]}
+        position={[3.1905, 3.88, 2.44995]}
+        rotation={[0, Math.PI / 2, 0]}
+        ref={escBtnRef}
+        onClick={() => {
+          if (landingContext.targetLabel === 'corkboard') {
+            console.log('corkboard clicked');
+            landingContext.releaseZoom();
+          } else return;
+        }}
+      >
+        <meshBasicMaterial transparent opacity={0} />
+      </Plane>
+      <Billboard
+        position={[3.2005, 3.9, 2.29965]}
+        rotation={[0, 0, 0]}
+        visible={landingContext.targetLabel === 'corkboard'}
+        follow={true}
+        lockX={true}
+        lockY={true}
+        lockZ={true}
+      >
+        <Text3D
+          rotation={[0, Math.PI / 2, 0]}
+          position={[0, -0.03, 0.42]}
+          height={0.01}
+          size={0.02}
+          letterSpacing={0.003}
+          font='/fonts/Press Start 2P_Regular.json'
+        >
+          click
+          <meshStandardMaterial
+            emissive='#00FFCC'
+            emissiveIntensity={2.9}
+            toneMapped={false}
+          />
+        </Text3D>
+        <Svg
+          src={escButton}
+          scale={0.007}
+          rotation={[0, Math.PI / 2, 0]}
+          position={[0, 0.015, 0.21]}
+        />
+        <Text3D
+          rotation={[0, Math.PI / 2, 0]}
+          position={[0, -0.03, 0.1]}
+          height={0.01}
+          size={0.02}
+          outlineWidth='3px'
+          letterSpacing={0.003}
+          font='/fonts/Press Start 2P_Regular.json'
+        >
+          to exit
+          <meshStandardMaterial
+            emissive='#00FFCC'
+            emissiveIntensity={2.9}
+            toneMapped={false}
+          />
+        </Text3D>
+      </Billboard>
       <group
         position={[3.23174, 4.03593, 1.64712]}
         rotation={[0, 0, -Math.PI / 2]}
