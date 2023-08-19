@@ -35,9 +35,6 @@ export default function Scene({ setIsCanvasLoaded }) {
 
   const { scene } = useThree();
 
-  useEffect(() => {
-    // exportGltf(scene);
-  }, []);
 
   // Render 3d text signs
   renderNewMeetingText();
