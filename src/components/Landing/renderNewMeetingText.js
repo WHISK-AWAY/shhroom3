@@ -23,7 +23,6 @@ export default function renderNewMeetingText() {
       font: font,
       size: 0.14,
       height: 0.12,
-      curveSegments: 12,
     });
 
     textMesh.current = new Mesh(geometry, [
