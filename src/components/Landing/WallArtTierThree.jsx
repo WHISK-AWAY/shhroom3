@@ -6,291 +6,298 @@ Files: wall_art_tier_3.glb [22.09MB] > wall_art_tier_3-transformed.glb [1.1MB] (
 
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
+import { useDetectGPU } from '@react-three/drei';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/wall_art_tier_3-transformed.glb');
+  const gpu = useDetectGPU()
   return (
-    <group {...props} dispose={null}>
+    <>
+    {gpu.tier >= 2 &&
+      <group {...props} dispose={null}>
       <mesh
-        receiveShadow
-        geometry={nodes.tp.geometry}
-        material={materials.tp}
-        position={[8.72845, 3.51681, -2.58299]}
-        rotation={[Math.PI / 2, 0, 0]}
-        scale={0.33809}
+      receiveShadow
+      geometry={nodes.tp.geometry}
+      material={materials.tp}
+      position={[8.72845, 3.51681, -2.58299]}
+      rotation={[Math.PI / 2, 0, 0]}
+      scale={0.33809}
       />
       <mesh
-        receiveShadow
-        geometry={nodes.S32.geometry}
-        material={materials.S32}
-        position={[3.13906, 3.85927, 3.00479]}
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-        scale={0.32741}
+      receiveShadow
+      geometry={nodes.S32.geometry}
+      material={materials.S32}
+      position={[3.13906, 3.85927, 3.00479]}
+      rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+      scale={0.32741}
       />
       <mesh
-        receiveShadow
-        geometry={nodes.no001.geometry}
-        material={materials.no}
-        position={[6.70659, 4.45644, -2.57859]}
-        rotation={[Math.PI / 2, 0, 0]}
-        scale={0.63196}
+      receiveShadow
+      geometry={nodes.no001.geometry}
+      material={materials.no}
+      position={[6.70659, 4.45644, -2.57859]}
+      rotation={[Math.PI / 2, 0, 0]}
+      scale={0.63196}
       />
       <mesh
-        receiveShadow
+      receiveShadow
         geometry={nodes.bt001.geometry}
         material={materials.bt}
         position={[8.35606, 5.37967, -2.58848]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={0.75608}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.bt002.geometry}
         material={materials.bt}
         position={[3.14814, 3.59476, -0.35588]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.41681}
-      />
-      <mesh
+        />
+        <mesh
         geometry={nodes.s1.geometry}
         material={materials.s1}
         position={[3.74313, 2.65401, 2.41457]}
         rotation={[-Math.PI, -Math.PI / 2, 0]}
         scale={0.10466}
-      />
-      <mesh
+        />
+        <mesh
         geometry={nodes.s3.geometry}
         material={materials.s3}
         position={[3.45619, 2.648, 2.39472]}
         rotation={[-Math.PI, -Math.PI / 2, 0]}
         scale={0.1104}
-      />
-      <mesh
+        />
+        <mesh
         geometry={nodes.s4.geometry}
         material={materials.s4}
         position={[3.91895, 2.50614, 2.31134]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.13482}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.s18.geometry}
         material={materials.s18}
         position={[3.14406, 5.24717, 0.5666]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.42357}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.s22.geometry}
         material={materials.s22}
         position={[3.14304, 5.24925, 0.84078]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.12267}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.s28.geometry}
         material={materials.s28}
         position={[3.13953, 5.25952, 1.35765]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.22269}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.s28001.geometry}
         material={materials.s28}
         position={[3.14183, 3.61751, 0.32837]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.27425}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.S31.geometry}
         material={materials.S31}
         position={[3.14218, 4.18553, 0.6247]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.27009}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.S33.geometry}
         material={materials.S33}
         position={[3.13916, 4.91326, 1.49255]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.24357}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.S35.geometry}
         material={materials.S35}
         position={[3.13874, 4.56472, 3.01225]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.21543}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.S38.geometry}
         material={materials.S38}
         position={[3.14615, 5.24697, 2.90909]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.29582}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.S39.geometry}
         material={materials.S39}
         position={[3.14927, 4.98515, 2.50933]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.40141}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.S41.geometry}
         material={materials.S41}
         position={[3.14176, 4.91469, 1.91093]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.2222}
-      />
-      <mesh
+        />
+        <mesh
         geometry={nodes.s43.geometry}
         material={materials.s43}
         position={[3.71404, 3.1207, 2.42617]}
         rotation={[1.63657, 0.01444, 2.90575]}
         scale={[0.09466, 0.06711, 0.09466]}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.s44.geometry}
         material={materials.s44}
         position={[3.14222, 3.30005, 0.37465]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.11412}
-      />
-      <mesh
+        />
+        <mesh
         geometry={nodes.s45.geometry}
         material={materials.s45}
         position={[3.78113, 2.6471, 1.69371]}
         rotation={[-Math.PI, Math.PI / 2, 0]}
         scale={0.15217}
-      />
-      <mesh
+        />
+        <mesh
         geometry={nodes.s47.geometry}
         material={materials.s47}
         position={[3.91835, 2.57674, 2.44144]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.1073}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.s48.geometry}
         material={materials.s48}
         position={[3.1384, 3.61918, 2.52934]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.09566}
-      />
-      <mesh
+        />
+        <mesh
         geometry={nodes.s50.geometry}
         material={materials.s50}
         position={[4.12333, 2.91566, 2.41184]}
         rotation={[1.57282, 0.04247, 2.64104]}
         scale={0.14448}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.car001.geometry}
         material={materials.car}
         position={[3.14171, 3.28239, 0.58402]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.39525}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.shh1.geometry}
         material={materials.shh1}
         position={[3.14818, 3.97815, -0.3127]}
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.37906}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.shh1001.geometry}
         material={materials.shh1}
         position={[3.17132, 4.9667, 2.98681]}
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.31309}
-      />
-      <mesh
+        />
+        <mesh
         receiveShadow
         geometry={nodes.shh2.geometry}
         material={materials.shh2}
         position={[3.21975, 3.33949, -0.08128]}
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         scale={0.41048}
-      />
-      <group
+        />
+        <group
         position={[3.13927, 3.63483, 0.73964]}
         rotation={[Math.PI / 2, -0.0304, -Math.PI / 2]}
         scale={0.14963}
-      >
+        >
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104.geometry}
-          material={materials.PaletteMaterial001}
+        receiveShadow
+        geometry={nodes.Plane104.geometry}
+        material={materials.PaletteMaterial001}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_1.geometry}
-          material={materials.PaletteMaterial002}
+        receiveShadow
+        geometry={nodes.Plane104_1.geometry}
+        material={materials.PaletteMaterial002}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_2.geometry}
-          material={materials.PaletteMaterial003}
+        receiveShadow
+        geometry={nodes.Plane104_2.geometry}
+        material={materials.PaletteMaterial003}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_3.geometry}
-          material={materials.PaletteMaterial004}
+        receiveShadow
+        geometry={nodes.Plane104_3.geometry}
+        material={materials.PaletteMaterial004}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_4.geometry}
-          material={materials.PaletteMaterial004}
+        receiveShadow
+        geometry={nodes.Plane104_4.geometry}
+        material={materials.PaletteMaterial004}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_5.geometry}
-          material={materials.PaletteMaterial004}
+        receiveShadow
+        geometry={nodes.Plane104_5.geometry}
+        material={materials.PaletteMaterial004}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_6.geometry}
-          material={materials.PaletteMaterial004}
+        receiveShadow
+        geometry={nodes.Plane104_6.geometry}
+        material={materials.PaletteMaterial004}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_7.geometry}
-          material={materials.PaletteMaterial004}
+        receiveShadow
+        geometry={nodes.Plane104_7.geometry}
+        material={materials.PaletteMaterial004}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_8.geometry}
-          material={materials.PaletteMaterial004}
+        receiveShadow
+        geometry={nodes.Plane104_8.geometry}
+        material={materials.PaletteMaterial004}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_9.geometry}
-          material={materials.PaletteMaterial005}
+        receiveShadow
+        geometry={nodes.Plane104_9.geometry}
+        material={materials.PaletteMaterial005}
         />
         <mesh
-          receiveShadow
-          geometry={nodes.Plane104_10.geometry}
-          material={materials.PaletteMaterial004}
+        receiveShadow
+        geometry={nodes.Plane104_10.geometry}
+        material={materials.PaletteMaterial004}
         />
-      </group>
-    </group>
-  );
-}
-
-useGLTF.preload('/wall_art_tier_3-transformed.glb');
+        </group>
+        </group>
+      }
+      </>
+      );
+    }
+    
+    useGLTF.preload('/wall_art_tier_3-transformed.glb');
+    
