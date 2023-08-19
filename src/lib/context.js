@@ -8,6 +8,7 @@ export const initialGlobalContext = {
   isInMeeting: false,
   reset: null,
   setContext: null,
+  destinationRoomId: null,
 };
 
 export const GlobalContext = createContext(initialGlobalContext);

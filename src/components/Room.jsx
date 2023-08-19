@@ -1,8 +1,17 @@
-import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  lazy,
+  Suspense,
+  useContext,
+} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
+import { GlobalContext } from '../lib/context';
+import SignInOverlay from './SignInOverlay';
 // import VideoGrid from './VideoGrid/VideoGrid';
 // import RoomUserControls from './RoomUserControls';
 
@@ -12,11 +21,7 @@ const RoomUserControls = lazy(() => import('./RoomUserControls'));
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // release loading screen
-    // document.querySelector('#loader').classList.add('invisible');
-  }, []);
+  const globalContext = useContext(GlobalContext);
 
   const [chatConnection, setChatConnection] = useState(null);
   const [videoCall, setVideoCall] = useState(null);
@@ -29,6 +34,7 @@ export default function Room({ socket }) {
   const partnerUsername = useRef(null);
   const [isUserControlsOpen, setIsUserControlsOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(true);
+  const [showSigninOverlay, setSigninOverlay] = useState(false);
 
   const { roomId } = useParams();
   const peers = {};
@@ -36,18 +42,28 @@ export default function Room({ socket }) {
   const thisShhroomer = useShhroom();
 
   useEffect(() => {
+    if (!globalContext.isSignedIn) {
+      setSigninOverlay(true);
+    } else {
+      setSigninOverlay(false);
+    }
+  }, [globalContext.isSignedIn]);
+
+  useEffect(() => {
     // Initialize room once shhroomer object is ready
     if (thisShhroomer.loading) return;
 
     if (thisShhroomer.error) {
-      alert('Error initializing user:', thisShhroomer.error);
+      // alert('Error initializing user:', thisShhroomer.error);
       console.error(thisShhroomer.error);
-      navigate('/');
+      // navigate('/');
     }
 
-    joinRoom(roomId, socket, navigate, thisShhroomer);
-    getOwnVideo();
-  }, [thisShhroomer.loading, roomId]);
+    if (globalContext.isSignedIn && !thisShhroomer.error) {
+      joinRoom(roomId, socket, navigate, thisShhroomer);
+      getOwnVideo();
+    }
+  }, [thisShhroomer.loading, globalContext.isSignedIn, roomId]);
 
   useEffect(() => {
     // Set up peer event handlers once video stream is available
@@ -55,7 +71,6 @@ export default function Room({ socket }) {
 
     const myPeer = thisShhroomer.peerInfo.peer;
 
-    console.log(thisShhroomer);
     // * Receive inbound call
     myPeer.on('call', (call) => {
       // gather partner information
@@ -82,6 +97,8 @@ export default function Room({ socket }) {
       partnerPeerId.current = peerId;
 
       // give them time to get settled, then call partner
+      // ? do we still need to give time? nowadays partner does not "report in" until their
+      // ? video feed is ready, so we might be able to get rid of the setTimeout piece
       setTimeout(() => {
         const [call, chat] = connectToNewUser(peerId, ownSource);
         setVideoCall(call);
@@ -200,6 +217,7 @@ export default function Room({ socket }) {
   // console.log(thisShhroomer)
   return (
     <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 ">
+      {showSigninOverlay && <SignInOverlay />}
       <Suspense fallback={<p>Loading control hints...</p>}>
         <RoomUserControls
           roomId={roomId}

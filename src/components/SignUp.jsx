@@ -35,7 +35,6 @@ const ZSignUp = z
   });
 
 export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
-
   const {
     register,
     handleSubmit,
@@ -94,8 +93,13 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
       <div className='flex flex-col  mx-auto  w-full h-full self-center bg-[#c0c0c0] border-4'>
         <div className='header-top-rim h-[7%] border-[2.8px] border-[#151521] bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
-          onClick={() => {setIsSignUpHidden(true); setIsFormHidden(true)}}
-            src={x} 
+            onClick={() => {
+              if (setIsSignUpHidden) {
+                setIsSignUpHidden(true);
+              }
+              setIsFormHidden(true);
+            }}
+            src={x}
             alt='x-icon'
             className='h-[90%] border-2 border-[#151521] self-end m-[.5%] outline-white outline-double'
           />
@@ -184,8 +188,8 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
               <span
                 className='underline-offset-2 underline text-indigo-600 hover:text-indigo-800 text-[25px] cursor-pointer'
                 onClick={() => {
-                  setIsSignUpHidden(true)
-                  setIsFormHidden(false);
+                  setIsSignUpHidden(true);
+                  if (setIsFormHidden) setIsFormHidden(false);
                 }}
               >
                 here

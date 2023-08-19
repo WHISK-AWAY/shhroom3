@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('./sockets.cjs');
+const morgan = require('morgan');
 const CLIENT_URL = process.env.CLIENT_URL;
 const API_PORT = process.env.API_PORT || 3000;
 
@@ -18,6 +19,7 @@ app.use(
     origin: CLIENT_URL,
   }),
 );
+app.use(morgan('dev'));
 
 // API route entry point
 app.use('/api', require('./api/apiRoute.cjs'));

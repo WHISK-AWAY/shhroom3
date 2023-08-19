@@ -20,12 +20,6 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
   const landingContext = useContext(LandingContext);
   const globalContext = useContext(GlobalContext);
 
-  useEffect(() => {
-    // ! just a debug log...
-
-    console.log('globalContext:', globalContext);
-  }, [globalContext]);
-
   const {
     register,
     handleSubmit,
@@ -68,8 +62,10 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
       }));
 
       // zoom away from screen & then zoom to new meeting poster
-      landingContext.releaseZoom();
-      setTimeout(() => landingContext.zoomToObject('newMeeting'), 750);
+      if (landingContext && landingContext.releaseZoom) {
+        landingContext.releaseZoom();
+        setTimeout(() => landingContext.zoomToObject('newMeeting'), 750);
+      }
 
       return res;
     } catch (err) {
@@ -100,7 +96,9 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
       <div className='signin-form flex flex-col w-full  h-full mx-auto   self-center bg-[#c0c0c0] border-4 '>
         <div className='header-top-rim h-[7%] border-[2.8px] border-[#151521]   bg-gradient-to-r from-blue-400 to-sky-400 flex flex-col '>
           <img
-            onClick={() => setIsFormHidden(true)}
+            onClick={() =>
+              setIsFormHidden === undefined ? undefined : setIsFormHidden(true)
+            }
             src={x}
             alt='x-icon'
             className='h-[90%] border-2 border-[#151521] self-end m-[.5%] outline-white outline-double'

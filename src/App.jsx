@@ -8,18 +8,7 @@ import {
   LandingContext,
   initialLandingContext,
 } from './lib/context';
-
-// import {
-//   // Room,
-//   // Lobby,
-//   // Homepage,
-//   // Signin,
-//   // SignUp,
-//   // Landing,
-//   // Screensaver,
-//   // LoadingScreen,
-//   // TunnelCanvas,
-// } from './components';
+import RoomTesting from './components/RoomTesting';
 
 const Screensaver = lazy(() => import('./components/Screensaver'));
 const TunnelCanvas = lazy(() => import('./components/Tunnel/TunnelCanvas'));
@@ -27,6 +16,7 @@ const Room = lazy(() => import('./components/Room'));
 const Lobby = lazy(() => import('./components/Lobby'));
 const Landing = lazy(() => import('./components/Landing/Landing'));
 const LoadingScreen = lazy(() => import('./components/LoadingScreen'));
+const SigninOverlay = lazy(() => import('./components/SignInOverlay'));
 
 const WS_URL = import.meta.env.VITE_WS_URL;
 
@@ -61,26 +51,17 @@ export default function App() {
           setContext: prev.setContext,
         }));
       },
-      // releaseZoom: function releaseZoom() {
-      //   console.log('going back home');
-      //   setLandingContext((prev) => ({
-      //     ...prev,
-      //     targetLabel: null,
-      //     targetPosition: null,
-      //     camPosition: null,
-      //     controlsAreEnabled: true,
-      //   }));
-      //   // landingContext.zoomToObject('initPosition');
-      // },
     }));
   }, []);
 
   return (
-    <div className='home-view h-screen overflow-hidden w-screen '>
+    <div className='home-view h-screen overflow-hidden w-screen'>
       <GlobalContext.Provider value={globalContext}>
         <LandingContext.Provider value={landingContext}>
           <Routes>
             <Route path='/' element={<Landing />} />
+            <Route path='/room-testing' element={<RoomTesting />} />
+            <Route path='/signintest' element={<SigninOverlay />} />
             {/* <Route path='/landing' element={<Landing />} /> */}
             {/* <Route path='/loading' element={<LoadingScreen />} /> */}
             <Route path='/tunnel' element={<TunnelCanvas />} />

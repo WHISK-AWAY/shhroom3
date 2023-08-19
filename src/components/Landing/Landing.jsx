@@ -2,14 +2,17 @@ import { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useDetectGPU } from '@react-three/drei';
 import Scene from './Scene';
+import { useContextBridge } from '@react-three/drei';
+// import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
 
-import { LandingContext } from '../../lib/context';
+import { LandingContext, GlobalContext } from '../../lib/context';
 
 const UserControls = lazy(() => import('../UserControls'));
 // const Scene = lazy(() => import('./Scene'));
 
 export default function Landing() {
+  const ContextBridge = useContextBridge(GlobalContext, LandingContext);
   const landingContext = useContext(LandingContext);
   const gpu = useDetectGPU()
 
@@ -43,7 +46,9 @@ export default function Landing() {
           }}
         >
           <color attach='background' args={['#030303']} />
-          <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
+          <ContextBridge>
+            <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
+          </ContextBridge>
         </Canvas>
       </Suspense>
     </div>
