@@ -62,9 +62,7 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Suspense fallbach={null}>
       <WallArt/>
       </Suspense>
-      {/**
       <BakeShadows />
-    */}
       <AdaptiveDpr />
       {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
       <Preload all={true} />
