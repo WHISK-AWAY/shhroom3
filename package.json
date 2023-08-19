@@ -8,6 +8,7 @@
     "server": "nodemon server/server.cjs",
     "seed": "node server/db/seed.cjs",
     "build": "vite build",
+    "build-staging": "vite build --mode staging",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
