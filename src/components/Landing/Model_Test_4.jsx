@@ -365,7 +365,7 @@ export default function Model(props) {
       <EscBtnUtils
         pos={[7.46467, 2.07117, -1.10015]}
         tl={'bedsideTable'}
-        scale={[.9, 0.8, 0.8]}
+        scale={[0.9, 0.8, 0.8]}
         rotation={[0, Math.PI / 2.6, Math.PI / 99]}
       />
       <mesh
@@ -1276,7 +1276,7 @@ export default function Model(props) {
       {/**skeleton */}
       <mesh
         geometry={nodes.collar001.geometry}
-        material={materials.bone}
+        material={materials['Old white plastic']}
         position={[3.4654, 5.30794, -0.22676]}
         rotation={[0, 1.57053, 0]}
         scale={0.32097}
