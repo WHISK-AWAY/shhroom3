@@ -14,7 +14,6 @@ export default function shhroomText() {
       font: font,
       size: 0.06,
       height: 0.12,
-      curveSegments: 12,
     });
 
     textMesh = new Mesh(geometry, [
