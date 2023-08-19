@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { GlobalContext } from '../../lib/context';
 
 import useVerifyToken from './useVerifyToken';
 import usePeerConnection from './usePeerConnection';
@@ -10,9 +12,6 @@ const initialState = {
   userInfo: {
     id: '',
     username: '',
-    publicKey: '',
-    createdAt: '',
-    updatedAt: '',
   },
   peerInfo: {
     peerId: '',
@@ -26,21 +25,55 @@ const initialState = {
 };
 
 export default function useShhroom() {
+  const globalContext = useContext(GlobalContext);
+  const { isSignedIn } = globalContext;
   const [shhroomUser, setShhroomUser] = useState(initialState);
   const auth = useVerifyToken();
   const peerConn = usePeerConnection();
 
   useEffect(() => {
-    if (auth.loading) return;
-    if (auth.error) {
-      console.log('Error pulling user info:', auth.error);
-      setShhroomUser({ ...initialState, loading: false, error: auth.error });
-    } else
-      setShhroomUser((prev) => ({ ...prev, userInfo: { ...auth.userData } }));
-  }, [auth.loading]);
+    // debug keystroke handler
+    function keyPressed(e) {
+      if (e.keyCode === 32) {
+        // spacebar: keycode 32
+        console.log('Global context:', globalContext);
+        console.log('thisShhroomer:', shhroomUser);
+      } else if (e.keyCode === 85 && e.shiftKey) {
+        // shift + u: keycode 85
+        console.log('removing token');
+        window.localStorage.removeItem('token');
+      }
+    }
+
+    document.addEventListener('keypress', keyPressed);
+
+    return () => document.removeEventListener('keypress', keyPressed);
+  }, []);
 
   useEffect(() => {
-    if (peerConn.loading) return;
+    if (!isSignedIn) {
+      console.log('useShhroom is awaiting user sign in...');
+    }
+  }, [isSignedIn]);
+
+  useEffect(() => {
+    if (auth.loading || !isSignedIn) return;
+    if (auth.error) {
+      console.log('Error pulling user info:', auth.error);
+      setShhroomUser({
+        ...initialState,
+        loading: false,
+        error: auth.error,
+      });
+    } else
+      setShhroomUser((prev) => ({
+        ...prev,
+        userInfo: { ...auth.userData },
+      }));
+  }, [auth.loading, isSignedIn]);
+
+  useEffect(() => {
+    if (peerConn.loading || !isSignedIn) return;
     if (peerConn.error) {
       console.log('Error establishing peer connection:', peerConn.error);
       setShhroomUser({
@@ -57,9 +90,10 @@ export default function useShhroom() {
         },
       }));
     }
-  }, [peerConn.loading]);
+  }, [peerConn.loading, isSignedIn]);
 
   useEffect(() => {
+    if (!isSignedIn) return;
     if (auth.loading || peerConn.loading) return;
     if (auth.error || peerConn.error) return;
 
@@ -68,7 +102,7 @@ export default function useShhroom() {
       loading: false,
       encryptionInfo: handleKeys(),
     }));
-  }, [auth.loading, peerConn.loading]);
+  }, [auth.loading, peerConn.loading, isSignedIn]);
 
   return { ...shhroomUser };
 }
