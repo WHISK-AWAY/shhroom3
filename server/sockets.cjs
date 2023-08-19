@@ -6,7 +6,7 @@ const server = require('http').Server(expressApp);
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: CLIENT_URL,
+    origin: require('./corsOriginTest.cjs'),
   },
 });
 

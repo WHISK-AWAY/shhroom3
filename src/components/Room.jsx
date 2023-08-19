@@ -11,13 +11,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
 import { GlobalContext } from '../lib/context';
-import SignInOverlay from './SignInOverlay';
+// import SignInOverlay from './SignInOverlay';
 // import VideoGrid from './VideoGrid/VideoGrid';
 // import RoomUserControls from './RoomUserControls';
 
 const Chat = lazy(() => import('./Chat'));
 const VideoGrid = lazy(() => import('./VideoGrid/VideoGrid'));
 const RoomUserControls = lazy(() => import('./RoomUserControls'));
+const SignInOverlay = lazy(() => import('./SignInOverlay'));
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
@@ -56,7 +57,6 @@ export default function Room({ socket }) {
     if (thisShhroomer.error) {
       // alert('Error initializing user:', thisShhroomer.error);
       console.error(thisShhroomer.error);
-      // navigate('/');
     }
 
     if (globalContext.isSignedIn && !thisShhroomer.error) {
@@ -148,12 +148,17 @@ export default function Room({ socket }) {
   }, [videoCall]);
 
   async function getOwnVideo() {
-    const tempSource = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true,
-    });
+    try {
+      const tempSource = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
 
-    setOwnSource(tempSource);
+      setOwnSource(tempSource);
+    } catch (err) {
+      console.log('error getting video:');
+      console.dir(err);
+    }
   }
 
   const connectToNewUser = (peerId, ourVideoSource) => {
@@ -225,6 +230,7 @@ export default function Room({ socket }) {
           thisShhroomer={thisShhroomer}
           isUserControlsOpen={isUserControlsOpen}
           setIsUserControlsOpen={setIsUserControlsOpen}
+          setIsChatOpen={setIsChatOpen}
         />
       </Suspense>
       <Suspense fallback={<p>Loading video grid...</p>}>

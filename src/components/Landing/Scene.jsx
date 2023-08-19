@@ -15,11 +15,11 @@ import shhroomText from './renderShhroomText';
 // import signInHelperText from './SignInHelperText';
 import { exportGltf } from '../../../utils/gltfExporter';
 const SceneEffects = lazy(() => import('./SceneEffects'));
-const ShroomsModel = lazy(() => import('./ShroomsModel'))
-const ClockModel = lazy(() => import('./ClockModel'))
+const ShroomsModel = lazy(() => import('./ShroomsModel'));
+const ClockModel = lazy(() => import('./ClockModel'));
 
 // const WallArtLoader = lazy(() => import('./WallArtLoader'));
-const WallArt = lazy(() => import('./WallArt'))
+const WallArt = lazy(() => import('./WallArt'));
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
@@ -54,18 +54,18 @@ export default function Scene({ setIsCanvasLoaded }) {
       <ControlledCamera />
       <Model />
       <Suspense fallback={null}>
-      <ClockModel/>
+        <ClockModel />
       </Suspense>
       <Suspense fallback={null}>
-      <ShroomsModel/>
+        <ShroomsModel />
       </Suspense>
-      <Suspense fallbach={null}>
-      <WallArt/>
+      <Suspense fallback={null}>
+        <WallArt />
       </Suspense>
       <BakeShadows />
       <AdaptiveDpr />
       {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
-      <Preload all={true} />
+      {/* <Preload all={true} /> */}
     </>
   );
 }

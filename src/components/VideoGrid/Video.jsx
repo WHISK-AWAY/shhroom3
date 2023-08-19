@@ -21,7 +21,13 @@ const initialState = {
   isFullscreen: false,
 };
 
-export default function Video({ source, setIsFullScreen, fullScreenRole, thisShhroomer, partnerUsername }) {
+export default function Video({
+  source,
+  setIsFullScreen,
+  fullScreenRole,
+  thisShhroomer,
+  partnerUsername,
+}) {
   const [videoState, setVideoState] = useState(initialState);
   const vidElement = useRef(null);
   const controlsRef = useRef(null);
@@ -42,13 +48,12 @@ export default function Video({ source, setIsFullScreen, fullScreenRole, thisShh
     vidElement.current.srcObject = source;
   }, [source, videoState]);
 
-
   const controls = controlsRef.current;
 
   return (
     <div
       className={
-        `flex h-fit  flex-col max-w-[45%] order-1 relative z-0` +
+        `flex h-full flex-col w-[45%] order-1 relative z-0` +
         fullScreenStyles[fullScreenRole].div
       }
     >
@@ -56,22 +61,25 @@ export default function Video({ source, setIsFullScreen, fullScreenRole, thisShh
         muted={true}
         ref={vidElement}
         className={
-          `rounded-sm  shadow-lg shadow-black/50 z-0` +
+          `rounded-sm h-full shadow-lg shadow-black/50 z-0` +
           fullScreenStyles[fullScreenRole].video +
           (videoState.isFullscreen && fullScreenRole === 'them'
             ? ' peer peer-video'
             : '')
         }
         onLoadedMetadata={(e) => e.target.play()}
-      >
-      </video>
-      <p className='absolute top-0 text-[1.3vw] right-2 font-vt text-white'>{ fullScreenRole === 'us' ? thisShhroomer?.userInfo?.username : partnerUsername}</p>
+      ></video>
+      <p className='absolute top-0 text-[1.3vw] right-2 font-vt text-white'>
+        {fullScreenRole === 'us'
+          ? thisShhroomer?.userInfo?.username
+          : partnerUsername}
+      </p>
 
-        <AudioVideoControls
-          videoState={videoState}
-          setVideoState={setVideoState}
-          fullScreenRole={fullScreenRole}
-        />
+      <AudioVideoControls
+        videoState={videoState}
+        setVideoState={setVideoState}
+        fullScreenRole={fullScreenRole}
+      />
     </div>
   );
 }
