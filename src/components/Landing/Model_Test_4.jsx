@@ -111,9 +111,11 @@ export default function Model(props) {
             </Svg>
           </>
         )}
-
-        <EscBtnUtils pos={[1.5, -0.86, 0.45]} tl={'monitor'} rotation={[0, Math.PI/2, 0]}  />
-
+        <EscBtnUtils
+          pos={[1.5, -0.86, 0.45]}
+          tl={'monitor'}
+          rotation={[0, Math.PI / 2, 0]}
+        />
         <Html
           ref={screenRef}
           as='div'
@@ -222,9 +224,18 @@ export default function Model(props) {
         scale={[-1.16779, -1.71969, -0.16649]}
       />
       {/**desktop */}
+      <EscBtnUtils
+        pos={[4.6675, 2.36059, 0.51098]}
+        tl={'desktop'}
+        rotation={[0, Math.PI / 2, 0]}
+        scale={[0.9, 0.7, 0.7]}
+      />
       <mesh
         ref={desktopRef}
-        onClick={() => landingContext.zoomToObject('desktop')}
+        onClick={() => {
+          if (landingContext.targetLabel === 'desktop') return;
+          landingContext.zoomToObject('desktop');
+        }}
         receiveShadow
         geometry={nodes.Cube029.geometry}
         material={materials['Magnificent wood']}
@@ -352,6 +363,8 @@ export default function Model(props) {
       />
       {/**nightstand body */}
       <mesh
+        ref={bedsideTableRef}
+        onClick={() => landingContext.zoomToObject('bedsideTable')}
         castShadow
         geometry={nodes.bedside_body.geometry}
         material={materials.Wood}
@@ -478,72 +491,8 @@ export default function Model(props) {
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
       />
-      {/**
-      <Billboard
-      position={[3.2005, 3.9, 2.29965]}
-      rotation={[0, 0, 0]}
-      visible={landingContext.targetLabel === 'corkboard'}
-  
-        follow={true}
-        lockX={true}
-        lockY={true}
-        lockZ={true}
-        >
-        <Plane
-          args={[0.6, 0.05]}
-          position={[0, 0, 0]}
-          rotation={[0, Math.PI / 2, 0]}
-          ref={escBtnRef}
-          onClick={() => {
-            if (landingContext.targetLabel === 'corkboard') {
-              console.log('corkboard clicked');
-              landingContext.releaseZoom();
-            } else return;
-          }}
-        >
-          <meshBasicMaterial color="#ff0000" transparent opacity={10} />
-        </Plane>
-        <Text3D
-        rotation={[0, Math.PI / 2, 0]}
-        position={[0, -0.03, 0.42]}
-          height={0.01}
-          size={0.02}
-          letterSpacing={0.003}
-          font='/fonts/Press Start 2P_Regular.json'
-        >
-          click
-          <meshStandardMaterial
-            emissive='#00FFCC'
-            emissiveIntensity={2.9}
-            toneMapped={false}
-          />
-        </Text3D>
-        <Svg
-          src={escButton}
-          scale={0.007}
-          rotation={[0, Math.PI / 2, 0]}
-          position={[0, 0.015, 0.21]}
-        />
-        <Text3D
-          rotation={[0, Math.PI / 2, 0]}
-          position={[0, -0.03, 0.1]}
-          height={0.01}
-          size={0.02}
-          outlineWidth='3px'
-          letterSpacing={0.003}
-          font='/fonts/Press Start 2P_Regular.json'
-        >
-          to exit
-          <meshStandardMaterial
-            emissive='#00FFCC'
-            emissiveIntensity={2.9}
-            toneMapped={false}
-          />
-        </Text3D>
-      </Billboard>
-        */}
       <EscBtnUtils
-        pos={[3.1905, 3.9, 2.29965]}
+        pos={[3.1905, 3.88, 2.49965]}
         tl={'corkboard'}
         rotation={[0, Math.PI / 2, 0]}
         scale={[0.7, 0.7, 0.7]}
