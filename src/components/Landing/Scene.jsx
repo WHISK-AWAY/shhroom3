@@ -18,6 +18,8 @@ const SceneEffects = lazy(() => import('./SceneEffects'));
 const ShroomsModel = lazy(() => import('./ShroomsModel'))
 const ClockModel = lazy(() => import('./ClockModel'))
 
+// const WallArtLoader = lazy(() => import('./WallArtLoader'));
+const WallArt = lazy(() => import('./WallArt'))
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
@@ -57,7 +59,12 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Suspense fallback={null}>
       <ShroomsModel/>
       </Suspense>
+      <Suspense fallbach={null}>
+      <WallArt/>
+      </Suspense>
+      {/**
       <BakeShadows />
+    */}
       <AdaptiveDpr />
       {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
       <Preload all={true} />
