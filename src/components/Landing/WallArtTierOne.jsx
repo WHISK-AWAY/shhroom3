@@ -4,31 +4,31 @@ Command: npx gltfjsx@6.2.10 wall_art_tier_1.glb -o src/WallArtTierOne.jsx -p 5 -
 Files: wall_art_tier_1.glb [28.4MB] > wall_art_tier_1-transformed.glb [1.28MB] (95%)
 */
 
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useContext, lazy, Suspense } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext, LandingContext } from '../../lib/context';
+const EscBtnUtils = lazy(() => import('./EscBtnUtils'))
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/wall_art_tier_1-transformed.glb');
   const newMeetingRef = useRef(null);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
 
-
-    useEffect(() => {
-      if (globalContext.isSignedIn) {
-        if (
-          landingContext.isZoomed &&
-          landingContext.targetLabel === 'newMeetingTunnelZoom'
-        ) {
-          console.log('zooming');
-          navigate('/tunnel');
-        }
+  useEffect(() => {
+    if (globalContext.isSignedIn) {
+      if (
+        landingContext.isZoomed &&
+        landingContext.targetLabel === 'newMeetingTunnelZoom'
+      ) {
+        console.log('zooming');
+        navigate('/tunnel');
       }
-    }, [landingContext.targetLabel, globalContext.isSignedIn]);
+    }
+  }, [landingContext.targetLabel, globalContext.isSignedIn]);
 
   return (
     <group {...props} dispose={null}>
@@ -168,6 +168,13 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.13403}
       />
+      <Suspense fallback={null}>
+      <EscBtnUtils
+      tl={'newMeeting'}
+      pos={[7.01108, 2.85457, -2.08681]}
+      scale={[1.5, 1.5, 1.5]}
+      />
+      </Suspense>
       <mesh
         ref={newMeetingRef}
         onClick={() => {
