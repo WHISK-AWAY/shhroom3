@@ -16,10 +16,6 @@ export default function Landing() {
   const landingContext = useContext(LandingContext);
   const gpu = useDetectGPU();
 
-  useEffect(() => {
-    document.querySelector('#loader').classList.add('invisible', 'hidden');
-  }, []);
-
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
 
   return (
