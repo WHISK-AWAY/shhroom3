@@ -42,16 +42,11 @@ export default function Room({ socket }) {
   const thisShhroomer = useShhroom();
 
   useEffect(() => {
-    console.log('globalContext:', globalContext);
-  }, [globalContext]);
-
-  useEffect(() => {
-    console.log('thisShhroomer:', thisShhroomer);
-  }, [thisShhroomer]);
-
-  useEffect(() => {
-    // bring up the signin overlay if we're not signed in
-    setSigninOverlay(!globalContext.isSignedIn);
+    if (!globalContext.isSignedIn) {
+      setSigninOverlay(true);
+    } else {
+      setSigninOverlay(false);
+    }
   }, [globalContext.isSignedIn]);
 
   useEffect(() => {
@@ -76,7 +71,6 @@ export default function Room({ socket }) {
 
     const myPeer = thisShhroomer.peerInfo.peer;
 
-    console.log(thisShhroomer);
     // * Receive inbound call
     myPeer.on('call', (call) => {
       // gather partner information
