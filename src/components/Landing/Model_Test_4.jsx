@@ -228,7 +228,7 @@ export default function Model(props) {
         pos={[4.6675, 2.36059, 0.51098]}
         tl={'desktop'}
         rotation={[0, Math.PI / 2, 0]}
-        scale={[0.9, 0.7, 0.7]}
+        scale={[0.8, 0.7, 0.7]}
       />
       <mesh
         ref={desktopRef}
@@ -362,7 +362,12 @@ export default function Model(props) {
         scale={[0.36907, 0.41434, 0.5585]}
       />
       {/**nightstand body */}
-      <EscBtnUtils pos={[7.46467, 2.07117, -1.10015]} tl={'bedsideTable'} scale={[1, .8, .8]} rotation={[0, Math.PI/2.9, Math.PI/99]} />
+      <EscBtnUtils
+        pos={[7.46467, 2.07117, -1.10015]}
+        tl={'bedsideTable'}
+        scale={[.9, 0.8, 0.8]}
+        rotation={[0, Math.PI / 2.6, Math.PI / 99]}
+      />
       <mesh
         ref={bedsideTableRef}
         onClick={() => landingContext.zoomToObject('bedsideTable')}
