@@ -7,21 +7,17 @@ import {
   useDetectGPU,
 } from '@react-three/drei';
 import Lights from './Lights/Lights';
-import Model from '../../Model_Test_4';
+import Model from './Model_Test_4';
 import ControlledCamera from './ControlledCamera';
 // import SceneEffects from './SceneEffects';
 import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
-import ModelClock from '../../Model_Clock';
 // import signInHelperText from './SignInHelperText';
 import { exportGltf } from '../../../utils/gltfExporter';
-import RoomOne from '../../RoomOne'
-
 const SceneEffects = lazy(() => import('./SceneEffects'));
-// const RoomOne = lazy(() => import('../../RoomOne')) 
-const RoomTwo = lazy(() => import('../../RoomTwo')) 
-const RoomThree = lazy(() => import('../../RoomThree')) 
-const RoomFour = lazy(() => import('../../RoomFour')) 
+const ShroomsModel = lazy(() => import('./ShroomsModel'))
+const ClockModel = lazy(() => import('./ClockModel'))
+
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
@@ -54,20 +50,13 @@ export default function Scene({ setIsCanvasLoaded }) {
     <>
       <Lights />
       <ControlledCamera />
-      {/**
       <Model />
-    */}
-    <RoomOne/>
-    <Suspense fallback={null}>
-    <RoomTwo/>
-    </Suspense>
-    <Suspense fallback={null}>
-    <RoomThree/>
-    </Suspense>
-    <Suspense fallback={null}>
-    <RoomFour/>
-    </Suspense>
-      <ModelClock/>
+      <Suspense fallback={null}>
+      <ClockModel/>
+      </Suspense>
+      <Suspense fallback={null}>
+      <ShroomsModel/>
+      </Suspense>
       {/**
       <BakeShadows />
     */}
