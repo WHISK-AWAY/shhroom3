@@ -89,6 +89,7 @@ export default function Model(props) {
     }
   }, [landingContext.targetLabel, globalContext.isSignedIn]);
 
+
   return (
     <group {...props} dispose={null}>
       {/** Computer monitor screen */}
