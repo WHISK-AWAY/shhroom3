@@ -49,7 +49,6 @@ export default function Model(props) {
         scale={0.77752}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s2.geometry}
         material={materials.s2}
         position={[3.91987, 2.57417, 1.66129]}
@@ -65,7 +64,6 @@ export default function Model(props) {
         scale={0.80899}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s46.geometry}
         material={materials.s46}
         position={[4.2457, 3.3832, 2.26719]}
