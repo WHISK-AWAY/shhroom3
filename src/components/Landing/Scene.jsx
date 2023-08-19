@@ -1,25 +1,28 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy } from 'react';
 import { useThree } from '@react-three/fiber';
 import {
-  AdaptiveDpr,
-  BakeShadows,
-  Preload,
+  // AdaptiveDpr,
+  // BakeShadows,
+  // Preload,
   useDetectGPU,
 } from '@react-three/drei';
 import Lights from './Lights/Lights';
 import Model from './Model_Test_4';
 import ControlledCamera from './ControlledCamera';
-// import SceneEffects from './SceneEffects';
 import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
 // import signInHelperText from './SignInHelperText';
-import { exportGltf } from '../../../utils/gltfExporter';
+// import { exportGltf } from '../../../utils/gltfExporter';
 const SceneEffects = lazy(() => import('./SceneEffects'));
 const ShroomsModel = lazy(() => import('./ShroomsModel'));
 const ClockModel = lazy(() => import('./ClockModel'));
+const WallArt = lazy(() => import('./WallArt'));
+// import SceneEffects from './SceneEffects';
+// import ShroomsModel from './ShroomsModel';
+// import ClockModel from './ClockModel';
+// import WallArt from './WallArt';
 
 // const WallArtLoader = lazy(() => import('./WallArtLoader'));
-const WallArt = lazy(() => import('./WallArt'));
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
@@ -53,17 +56,17 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Lights />
       <ControlledCamera />
       <Model />
-      <Suspense fallback={null}>
-        <ClockModel />
-      </Suspense>
-      <Suspense fallback={null}>
-        <ShroomsModel />
-      </Suspense>
-      <Suspense fallback={null}>
-        <WallArt />
-      </Suspense>
+      {/* <Suspense fallback={null}> */}
+      <ClockModel />
+      {/* </Suspense> */}
+      {/* <Suspense fallback={null}> */}
+      <ShroomsModel />
+      {/* </Suspense> */}
+      {/* <Suspense fallback={null}> */}
+      <WallArt />
+      {/* </Suspense> */}
       <BakeShadows />
-      <AdaptiveDpr />
+      {/* <AdaptiveDpr /> */}
       {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
       {/* <Preload all={true} /> */}
     </>
