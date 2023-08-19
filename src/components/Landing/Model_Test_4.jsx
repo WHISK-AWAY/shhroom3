@@ -23,11 +23,11 @@ import {
   Text3D,
   Svg,
 } from '@react-three/drei';
+const SignInHelperText = lazy(() => import('./SignInHelperText'))
 
-import escButton from '/svg/esc_button.svg';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
-import SignInHelperText from './SignInHelperText';
+// import SignInHelperText from './SignInHelperText';
 import EscBtnUtils from './EscBtnUtils';
 const Screensaver = lazy(() => import('../Screensaver'));
 
@@ -95,7 +95,7 @@ export default function Model(props) {
         </Plane>
 
         {landingContext.signInHintIsVisible && !isSignHelperHidden && (
-          <>
+          <Suspense fallback={null}>
             <SignInHelperText />
             <Svg
               src={arrow}
@@ -109,7 +109,7 @@ export default function Model(props) {
                 toneMapped={false}
               />
             </Svg>
-          </>
+          </Suspense>
         )}
         <EscBtnUtils
           pos={[1.5, -0.86, 0.45]}
