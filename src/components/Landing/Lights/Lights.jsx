@@ -1,4 +1,3 @@
-import { useControls } from 'leva';
 import DeskLampLight from './DeskLampLight';
 import OverheadLight from './OverheadLight';
 import LavaLampLight from './LavaLampLight';
@@ -8,6 +7,7 @@ import WindowLightVolumetric from './WindowLightVolumetric';
 import AmbientLight from './AmbientLight';
 import FlashLight from './FlashLight';
 import CornerWallLight from './CornerWallLight';
+import { useDetectGPU } from '@react-three/drei';
 
 export default function Lights() {
   // const {
@@ -46,25 +46,36 @@ export default function Lights() {
   //   }
   // });
 
+  const gpu = useDetectGPU();
+
   return (
     <>
-      <OverheadLight lightIsOn={true} />
+      {gpu.fps > 70 && (
+        <>
+          <CornerWallLight lightIsOn={true} />
+          <FlashLight />
+        </>
+      )}
+      {gpu.tier === 3 && (
+        <>
+          <WindowLightVolumetric lightIsOn={true} />
+          <ClockLight lightIsOn={true} />
+        </>
+      )}
+      {gpu.tier >= 2 && (
+        <>
+          <OverheadLight lightIsOn={true} />
+          <LavaLampLight lightIsOn={true} />
+        </>
+      )}
+      {gpu.tier >= 1 && <ShhroomLampLight lightIsOn={true} />}
 
-      <WindowLightVolumetric lightIsOn={true} />
-
-      <DeskLampLight lightIsOn={true} />
-
-      <LavaLampLight lightIsOn={true} />
-
-      <ShhroomLampLight lightIsOn={true} />
-
-      <ClockLight lightIsOn={true} />
-
-      <AmbientLight lightIsOn={true} />
-
-      <FlashLight />
-
-      <CornerWallLight lightIsOn={true} />
+      {gpu.tier >= 0 && (
+        <>
+          <AmbientLight lightIsOn={true} />
+          <DeskLampLight lightIsOn={true} />
+        </>
+      )}
     </>
   );
 }
