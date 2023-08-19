@@ -177,10 +177,6 @@ export default function Model(props) {
         />
         <mesh
         receiveShadow
-        geometry={nodes.s26001.geometry}
-        material={materials.s26}
-        position={[3.17866, 4.24006, 2.6612]}
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
         scale={0.15031}
         />
         <mesh

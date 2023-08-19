@@ -3,7 +3,6 @@ import { Canvas } from '@react-three/fiber';
 import { useDetectGPU } from '@react-three/drei';
 import Scene from './Scene';
 import { useContextBridge } from '@react-three/drei';
-// import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
 
 import { LandingContext, GlobalContext } from '../../lib/context';
@@ -14,14 +13,9 @@ const UserControls = lazy(() => import('../UserControls'));
 export default function Landing() {
   const ContextBridge = useContextBridge(GlobalContext, LandingContext);
   const landingContext = useContext(LandingContext);
-  const gpu = useDetectGPU()
-
-  useEffect(() => {
-    document.querySelector('#loader').classList.add('invisible', 'hidden');
-  }, []);
+  const gpu = useDetectGPU();
 
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
-  
 
   return (
     <div className='h-screen w-screen '>

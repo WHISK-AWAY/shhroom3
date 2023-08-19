@@ -13,7 +13,8 @@ import ControlledCamera from './ControlledCamera';
 // import renderNewMeetingText from './RenderNewMeetingText';
 // import shhroomText from './renderShhroomText';
 // import signInHelperText from './SignInHelperText';
-import { exportGltf } from '../../../utils/gltfExporter';
+// import { exportGltf } from '../../../utils/gltfExporter';
+const Lights = lazy(() => import('./Lights/Lights'));
 const SceneEffects = lazy(() => import('./SceneEffects'));
 const ShroomsModel = lazy(() => import('./ShroomsModel'));
 const ClockModel = lazy(() => import('./ClockModel'));
@@ -26,7 +27,7 @@ const WallArtTierThree = lazy(() => import('./WallArtTierThree'));
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
 
-  const gpu = useDetectGPU();
+  const { tier, isMobile } = useDetectGPU();
 
   useEffect(() => {
     console.log('gpu', gpu);
@@ -69,9 +70,9 @@ export default function Scene({ setIsCanvasLoaded }) {
         <RenderShhroomText />
       </Suspense>
       <BakeShadows />
-      <AdaptiveDpr />
-      {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
-      <Preload all={true} />
+      {/* <AdaptiveDpr /> */}
+      {tier === 3 && !isMobile && <SceneEffects />}
+      {/* <Preload all={true} /> */}
     </>
   );
 }
