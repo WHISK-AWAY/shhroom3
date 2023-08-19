@@ -10,13 +10,14 @@ import Lights from './Lights/Lights';
 import Model from './Model_Test_4';
 import ControlledCamera from './ControlledCamera';
 // import SceneEffects from './SceneEffects';
-import renderNewMeetingText from './renderNewMeetingText';
+// import renderNewMeetingText from './RenderNewMeetingText';
 import shhroomText from './renderShhroomText';
 // import signInHelperText from './SignInHelperText';
 import { exportGltf } from '../../../utils/gltfExporter';
 const SceneEffects = lazy(() => import('./SceneEffects'));
 const ShroomsModel = lazy(() => import('./ShroomsModel'))
 const ClockModel = lazy(() => import('./ClockModel'))
+const RenderMeetingText = lazy(() => import('./RenderNewMeetingText'))
 
 // const WallArtLoader = lazy(() => import('./WallArtLoader'));
 // const WallArt = lazy(() => import('./WallArt'))
@@ -37,7 +38,7 @@ export default function Scene({ setIsCanvasLoaded }) {
 
 
   // Render 3d text signs
-  renderNewMeetingText();
+  // renderNewMeetingText();
   shhroomText();
 
   useEffect(() => {
@@ -67,6 +68,9 @@ export default function Scene({ setIsCanvasLoaded }) {
       </Suspense>
       <Suspense fallback={null}>
       <WallArtTierThree/>
+      </Suspense>
+      <Suspense fallback={null}>
+      <RenderMeetingText/>
       </Suspense>
       <BakeShadows />
       <AdaptiveDpr />
