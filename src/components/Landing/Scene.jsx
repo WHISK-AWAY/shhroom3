@@ -1,43 +1,36 @@
 import { useEffect, useState, lazy } from 'react';
-import { useThree } from '@react-three/fiber';
-import {
-  // AdaptiveDpr,
-  // BakeShadows,
-  // Preload,
-  useDetectGPU,
-} from '@react-three/drei';
-import Lights from './Lights/Lights';
-import Model from './Model_Test_4';
-import ControlledCamera from './ControlledCamera';
+import { BakeShadows, useDetectGPU } from '@react-three/drei';
+// import Model from './Model_Test_4';
 import renderNewMeetingText from './renderNewMeetingText';
 import shhroomText from './renderShhroomText';
 // import signInHelperText from './SignInHelperText';
 // import { exportGltf } from '../../../utils/gltfExporter';
+const Lights = lazy(() => import('./Lights/Lights'));
 const SceneEffects = lazy(() => import('./SceneEffects'));
 const ShroomsModel = lazy(() => import('./ShroomsModel'));
 const ClockModel = lazy(() => import('./ClockModel'));
-const WallArt = lazy(() => import('./WallArt'));
+const ControlledCamera = lazy(() => import('./ControlledCamera'));
+// const WallArt = lazy(() => import('./WallArt'));
+// import Lights from './Lights/Lights';
+// import ControlledCamera from './ControlledCamera';
 // import SceneEffects from './SceneEffects';
 // import ShroomsModel from './ShroomsModel';
 // import ClockModel from './ClockModel';
 // import WallArt from './WallArt';
 
 // const WallArtLoader = lazy(() => import('./WallArtLoader'));
+// const WallArt = lazy(() => import('./WallArt'))
+const Model = lazy(() => import('./Model_Test_4'));
+const WallArtTierOne = lazy(() => import('./WallArtTierOne'));
+const WallArtTierTwo = lazy(() => import('./WallArtTierTwo'));
+const WallArtTierThree = lazy(() => import('./WallArtTierThree'));
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
 
-  const gpu = useDetectGPU();
+  const { tier, isMobile } = useDetectGPU();
 
-  useEffect(() => {
-    console.log('gpu', gpu);
-  }, []);
-
-  const { scene } = useThree();
-
-  useEffect(() => {
-    // exportGltf(scene);
-  }, []);
+  // const { scene } = useThree();
 
   // Render 3d text signs
   renderNewMeetingText();
@@ -56,18 +49,14 @@ export default function Scene({ setIsCanvasLoaded }) {
       <Lights />
       <ControlledCamera />
       <Model />
-      {/* <Suspense fallback={null}> */}
       <ClockModel />
-      {/* </Suspense> */}
-      {/* <Suspense fallback={null}> */}
       <ShroomsModel />
-      {/* </Suspense> */}
-      {/* <Suspense fallback={null}> */}
-      <WallArt />
-      {/* </Suspense> */}
+      <WallArtTierOne />
+      <WallArtTierTwo />
+      <WallArtTierThree />
       <BakeShadows />
       {/* <AdaptiveDpr /> */}
-      {gpu.tier === 3 && !gpu.isMobile && <SceneEffects />}
+      {tier === 3 && !isMobile && <SceneEffects />}
       {/* <Preload all={true} /> */}
     </>
   );

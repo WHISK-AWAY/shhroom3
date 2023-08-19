@@ -19,13 +19,10 @@ import {
   Plane,
   Html,
   Billboard,
-  MeshTransmissionMaterial,
-  Caustics,
   useDetectGPU,
   Text3D,
   Svg,
 } from '@react-three/drei';
-import { DoubleSide } from 'three';
 
 import escButton from '/svg/esc_button.svg';
 import arrow from '/svg/arrow_login.svg';
@@ -77,24 +74,10 @@ export default function Model(props) {
     }, 8000);
   }, []);
 
-  useEffect(() => {
-    if (globalContext.isSignedIn) {
-      if (
-        landingContext.isZoomed &&
-        landingContext.targetLabel === 'newMeetingTunnelZoom'
-      ) {
-        console.log('zooming');
-        navigate('/tunnel');
-      }
-    }
-  }, [landingContext.targetLabel, globalContext.isSignedIn]);
-
-
-  return (
+ return (
     <group {...props} dispose={null}>
       {/** Computer monitor screen */}
       <mesh
-        // geometry={nodes.Cube017.geometry}
         position={[3.54909, 3.20587, 2.15376]}
         rotation={[0, 0.60667, 0]}
         scale={[0.36907, 0.41434, 0.5585]}
@@ -142,7 +125,6 @@ export default function Model(props) {
           <meshBasicMaterial color={'#ff0000'} transparent opacity={0} />
         </Plane>
         <Billboard
-          // position={[5.54909, 3.20587, 3.95376]}
           position={[1.5, -0.8, 0.6]}
           rotation={[0, 0, 0]}
           visible={landingContext.targetLabel === 'monitor'}
@@ -157,14 +139,11 @@ export default function Model(props) {
             height={0.01}
             fontSize={0.005}
             size={0.02}
-            // lineHeight={0.5}
             letterSpacing={0.003}
-            // position={[-5.34909, 3.20587, 4.25376]}
             color='#00FFCC'
             outlineColor='#fff'
             outlineOffsetY='20'
             outlineWidth={30}
-            // size={0.001}
             font='/fonts/Press Start 2P_Regular.json'
           >
             click
@@ -178,8 +157,6 @@ export default function Model(props) {
             src={escButton}
             scale={0.009}
             rotation={[0, Math.PI / 2, 0]}
-
-            // position={[3.54909, 3.20587, 3.95376]}
           />
           <Text3D
             rotation={[0, Math.PI / 2, 0]}

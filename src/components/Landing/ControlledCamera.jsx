@@ -164,7 +164,7 @@ export default function ControlledCamera() {
   useEffect(() => {
     // set up raycaster to select only 'layer1' objects
     // objects are tagged 'layer1' in the Model file
-    raycaster.layers.set(1);
+    // raycaster.layers.set(1);
   }, [raycaster]);
 
   /**
@@ -279,10 +279,11 @@ export default function ControlledCamera() {
         // enableZoom={landingContext.controlsAreEnabled}
         enableRotate={landingContext.atHomePosition}
         // enableRotate={landingContext.controlsAreEnabled}
-        enablePan={
-          landingContext.isZoomed &&
-          !['monitor', 'initPosition'].includes(landingContext.targetLabel)
-        }
+        //enablePan={
+          //landingContext.isZoomed &&
+         // !['monitor', 'initPosition'].includes(landingContext.targetLabel)
+       // }
+       enablePan={true}
         makeDefault={true}
         zoomToCursor={true}
         enableDamping={true}
