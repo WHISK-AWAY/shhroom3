@@ -52,7 +52,6 @@ export default function Model(props) {
         scale={0.41681}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s1.geometry}
         material={materials.s1}
         position={[3.74313, 2.65401, 2.41457]}
@@ -60,7 +59,6 @@ export default function Model(props) {
         scale={0.10466}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s3.geometry}
         material={materials.s3}
         position={[3.45619, 2.648, 2.39472]}
@@ -68,7 +66,6 @@ export default function Model(props) {
         scale={0.1104}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s4.geometry}
         material={materials.s4}
         position={[3.91895, 2.50614, 2.31134]}
@@ -156,7 +153,6 @@ export default function Model(props) {
         scale={0.2222}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s43.geometry}
         material={materials.s43}
         position={[3.71404, 3.1207, 2.42617]}
@@ -172,7 +168,6 @@ export default function Model(props) {
         scale={0.11412}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s45.geometry}
         material={materials.s45}
         position={[3.78113, 2.6471, 1.69371]}
@@ -180,7 +175,6 @@ export default function Model(props) {
         scale={0.15217}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s47.geometry}
         material={materials.s47}
         position={[3.91835, 2.57674, 2.44144]}
@@ -196,7 +190,6 @@ export default function Model(props) {
         scale={0.09566}
       />
       <mesh
-        receiveShadow
         geometry={nodes.s50.geometry}
         material={materials.s50}
         position={[4.12333, 2.91566, 2.41184]}
