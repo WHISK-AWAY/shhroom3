@@ -11,19 +11,17 @@ import Model from './Model_Test_4';
 import ControlledCamera from './ControlledCamera';
 // import SceneEffects from './SceneEffects';
 // import renderNewMeetingText from './RenderNewMeetingText';
-import shhroomText from './renderShhroomText';
+// import shhroomText from './renderShhroomText';
 // import signInHelperText from './SignInHelperText';
 import { exportGltf } from '../../../utils/gltfExporter';
 const SceneEffects = lazy(() => import('./SceneEffects'));
-const ShroomsModel = lazy(() => import('./ShroomsModel'))
-const ClockModel = lazy(() => import('./ClockModel'))
-const RenderMeetingText = lazy(() => import('./RenderNewMeetingText'))
-
-// const WallArtLoader = lazy(() => import('./WallArtLoader'));
-// const WallArt = lazy(() => import('./WallArt'))
-const WallArtTierOne = lazy(() => import('./WallArtTierOne'))
-const WallArtTierTwo = lazy(() => import('./WallArtTierTwo'))
-const WallArtTierThree = lazy(() => import('./WallArtTierThree'))
+const ShroomsModel = lazy(() => import('./ShroomsModel'));
+const ClockModel = lazy(() => import('./ClockModel'));
+const RenderMeetingText = lazy(() => import('./RenderNewMeetingText'));
+const RenderShhroomText = lazy(() => import('./RenderShhroomText'));
+const WallArtTierOne = lazy(() => import('./WallArtTierOne'));
+const WallArtTierTwo = lazy(() => import('./WallArtTierTwo'));
+const WallArtTierThree = lazy(() => import('./WallArtTierThree'));
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
@@ -35,11 +33,6 @@ export default function Scene({ setIsCanvasLoaded }) {
   }, []);
 
   const { scene } = useThree();
-
-
-  // Render 3d text signs
-  // renderNewMeetingText();
-  shhroomText();
 
   useEffect(() => {
     // document.querySelector('#loader').classList.add('invisible');
@@ -55,22 +48,25 @@ export default function Scene({ setIsCanvasLoaded }) {
       <ControlledCamera />
       <Model />
       <Suspense fallback={null}>
-      <ClockModel/>
+        <ClockModel />
       </Suspense>
       <Suspense fallback={null}>
-      <ShroomsModel/>
+        <ShroomsModel />
       </Suspense>
       <Suspense fallbach={null}>
-      <WallArtTierOne/>
+        <WallArtTierOne />
       </Suspense>
       <Suspense fallback={null}>
-      <WallArtTierTwo/>
+        <WallArtTierTwo />
       </Suspense>
       <Suspense fallback={null}>
-      <WallArtTierThree/>
+        <WallArtTierThree />
       </Suspense>
       <Suspense fallback={null}>
-      <RenderMeetingText/>
+        <RenderMeetingText />
+      </Suspense>
+      <Suspense fallback={null}>
+        <RenderShhroomText />
       </Suspense>
       <BakeShadows />
       <AdaptiveDpr />
