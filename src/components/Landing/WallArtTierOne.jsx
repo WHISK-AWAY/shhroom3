@@ -169,14 +169,13 @@ export default function Model(props) {
       <Suspense fallback={null}>
       <EscBtnUtils
       tl={'newMeeting'}
-      pos={[7.01108, 2.85457, -2.08681]}
+      pos={[6.31108, 2.79457, -2.08681]}
       scale={[1.5, 1.5, 1.5]}
       />
       </Suspense>
       <mesh
         ref={newMeetingRef}
         onClick={() => {
-          console.log('clicked newMeeting');
           globalContext.isSignedIn &&
           landingContext.targetLabel === 'newMeeting'
             ? landingContext.zoomToObject('newMeetingTunnelZoom')
