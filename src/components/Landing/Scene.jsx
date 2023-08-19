@@ -19,7 +19,10 @@ const ShroomsModel = lazy(() => import('./ShroomsModel'))
 const ClockModel = lazy(() => import('./ClockModel'))
 
 // const WallArtLoader = lazy(() => import('./WallArtLoader'));
-const WallArt = lazy(() => import('./WallArt'))
+// const WallArt = lazy(() => import('./WallArt'))
+const WallArtTierOne = lazy(() => import('./WallArtTierOne'))
+const WallArtTierTwo = lazy(() => import('./WallArtTierTwo'))
+const WallArtTierThree = lazy(() => import('./WallArtTierThree'))
 
 export default function Scene({ setIsCanvasLoaded }) {
   const [isUControlsClose, setisUControlsClose] = useState(true);
@@ -60,7 +63,13 @@ export default function Scene({ setIsCanvasLoaded }) {
       <ShroomsModel/>
       </Suspense>
       <Suspense fallbach={null}>
-      <WallArt/>
+      <WallArtTierOne/>
+      </Suspense>
+      <Suspense fallback={null}>
+      <WallArtTierTwo/>
+      </Suspense>
+      <Suspense fallback={null}>
+      <WallArtTierThree/>
       </Suspense>
       <BakeShadows />
       <AdaptiveDpr />
