@@ -28,7 +28,7 @@ import escButton from '/svg/esc_button.svg';
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
 import SignInHelperText from './SignInHelperText';
-
+import EscBtnUtils from './EscBtnUtils';
 const Screensaver = lazy(() => import('../Screensaver'));
 
 export default function Model(props) {
@@ -111,69 +111,8 @@ export default function Model(props) {
             </Svg>
           </>
         )}
-        <Plane
-          args={[0.6, 0.12]}
-          position={[1.56, -0.83, 0.5]}
-          rotation={[0, Math.PI / 2, 0]}
-          ref={escBtnRef}
-          onClick={() => {
-            if (landingContext.targetLabel === 'monitor')
-              landingContext.releaseZoom();
-            else return;
-          }}
-        >
-          <meshBasicMaterial color={'#ff0000'} transparent opacity={0} />
-        </Plane>
-        <Billboard
-          position={[1.5, -0.8, 0.6]}
-          rotation={[0, 0, 0]}
-          visible={landingContext.targetLabel === 'monitor'}
-          follow={true}
-          lockX={true}
-          lockY={true}
-          lockZ={true}
-        >
-          <Text3D
-            rotation={[0, Math.PI / 2, 0]}
-            position={[0, -0.05, 0.18]}
-            height={0.01}
-            fontSize={0.005}
-            size={0.02}
-            letterSpacing={0.003}
-            color='#00FFCC'
-            outlineColor='#fff'
-            outlineOffsetY='20'
-            outlineWidth={30}
-            font='/fonts/Press Start 2P_Regular.json'
-          >
-            click
-            <meshStandardMaterial
-              emissive='#16c7a4'
-              emissiveIntensity={1.9}
-              toneMapped={false}
-            />
-          </Text3D>
-          <Svg src={escButton} scale={0.009} rotation={[0, Math.PI / 2, 0]} />
-          <Text3D
-            rotation={[0, Math.PI / 2, 0]}
-            position={[0, -0.05, -0.1]}
-            height={0.01}
-            fontSize={0.005}
-            size={0.02}
-            color='#00FFCC'
-            outlineColor='fff'
-            outlineWidth='3px'
-            letterSpacing={0.003}
-            font='/fonts/Press Start 2P_Regular.json'
-          >
-            to exit
-            <meshStandardMaterial
-              emissive='#16c7a4'
-              emissiveIntensity={1.9}
-              toneMapped={false}
-            />
-          </Text3D>
-        </Billboard>
+
+        <EscBtnUtils pos={[1.5, -0.86, 0.45]} tl={'monitor'} rotation={[0, Math.PI/2, 0]}  />
 
         <Html
           ref={screenRef}
@@ -539,32 +478,34 @@ export default function Model(props) {
         rotation={[-Math.PI, 0, -Math.PI / 2]}
         scale={[0.45512, 1.17691, 0.96003]}
       />
-      <Plane
-        args={[0.6, 0.05]}
-        position={[3.1905, 3.88, 2.44995]}
-        rotation={[0, Math.PI / 2, 0]}
-        ref={escBtnRef}
-        onClick={() => {
-          if (landingContext.targetLabel === 'corkboard') {
-            console.log('corkboard clicked');
-            landingContext.releaseZoom();
-          } else return;
-        }}
-      >
-        <meshBasicMaterial transparent opacity={0} />
-      </Plane>
+      {/**
       <Billboard
-        position={[3.2005, 3.9, 2.29965]}
-        rotation={[0, 0, 0]}
-        visible={landingContext.targetLabel === 'corkboard'}
+      position={[3.2005, 3.9, 2.29965]}
+      rotation={[0, 0, 0]}
+      visible={landingContext.targetLabel === 'corkboard'}
+  
         follow={true}
         lockX={true}
         lockY={true}
         lockZ={true}
-      >
-        <Text3D
+        >
+        <Plane
+          args={[0.6, 0.05]}
+          position={[0, 0, 0]}
           rotation={[0, Math.PI / 2, 0]}
-          position={[0, -0.03, 0.42]}
+          ref={escBtnRef}
+          onClick={() => {
+            if (landingContext.targetLabel === 'corkboard') {
+              console.log('corkboard clicked');
+              landingContext.releaseZoom();
+            } else return;
+          }}
+        >
+          <meshBasicMaterial color="#ff0000" transparent opacity={10} />
+        </Plane>
+        <Text3D
+        rotation={[0, Math.PI / 2, 0]}
+        position={[0, -0.03, 0.42]}
           height={0.01}
           size={0.02}
           letterSpacing={0.003}
@@ -600,6 +541,13 @@ export default function Model(props) {
           />
         </Text3D>
       </Billboard>
+        */}
+      <EscBtnUtils
+        pos={[3.1905, 3.9, 2.29965]}
+        tl={'corkboard'}
+        rotation={[0, Math.PI / 2, 0]}
+        scale={[0.7, 0.7, 0.7]}
+      />
       <group
         position={[3.23174, 4.03593, 1.64712]}
         rotation={[0, 0, -Math.PI / 2]}
