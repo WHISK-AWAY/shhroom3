@@ -3,40 +3,34 @@ import { Mesh, MeshStandardMaterial } from 'three';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { useThree } from '@react-three/fiber';
 import { GlobalContext } from '../../lib/context';
-import { lazy, useContext, useRef, useState } from 'react';
+import { useContext } from 'react';
 
 export default function renderNewMeetingText() {
-  const globalContext = useContext(GlobalContext);
+  const { isSignedIn } = useContext(GlobalContext);
   const state = useThree();
   const text = 'NEW MEETING';
-  let textMesh = useRef(null);
-  let geometry;
-  // let intensity = 2.5
-  const [intensity, setIntensity] = useState(true);
-
-  // const train = lazy(() => import('/fonts/Train One_Regular.json?url'));
 
   const loader = new FontLoader();
   loader.load('/fonts/Train One_Regular.json', function (font) {
     // loader.load(train, function (font) {
-    geometry = new TextGeometry(text, {
+    const geometry = new TextGeometry(text, {
       font: font,
       size: 0.14,
       height: 0.12,
     });
 
-    textMesh.current = new Mesh(geometry, [
+    const textMesh = new Mesh(geometry, [
       new MeshStandardMaterial({
         emissive: '#2dfff8',
-        emissiveIntensity: globalContext.isSignedIn && intensity ? 10 : 0,
+        emissiveIntensity: isSignedIn ? 10 : 0,
         toneMapped: false,
       }),
       new MeshStandardMaterial({ color: '#2dfff8' }),
     ]);
 
-    state.scene.add(textMesh.current);
+    textMesh.position.set(6.99, 4.67, -2.61);
 
-    textMesh.current.position.set(6.99, 4.67, -2.61);
+    state.scene.add(textMesh);
   });
 
   // useEffect(() => {}, [globalContext.isSignedIn]);
