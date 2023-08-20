@@ -22,7 +22,7 @@ export default function RenderNewMeetingText() {
     const textMesh = new Mesh(geometry, [
       new MeshStandardMaterial({
         emissive: '#2dfff8',
-        emissiveIntensity: isSignedIn ? 10 : 0,
+        emissiveIntensity: globalContext.isSignedIn ? 10 : 0,
         toneMapped: false,
       }),
       new MeshStandardMaterial({ color: '#2dfff8' }),
