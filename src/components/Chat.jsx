@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import plane from '/svg/plane.svg'
+import bleep from '../../public/bg/bleep1.wav'
 
 export default function Chat(props) {
   const { shhroomer, partnerPublicKey, chatConnection, isUserControlsOpen, setIsUserControlsOpen } = props;
@@ -7,6 +8,8 @@ export default function Chat(props) {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
   const anchorRef  = useRef(null)
+  const chat = useRef(null)
+  const [isNewMessage, setIsNewMessage] = useState(false);
 
   useEffect(() => {
     if (!chatConnection?.peer) return;
@@ -17,6 +20,7 @@ export default function Chat(props) {
         shhroomer.encryptionInfo.decrypt(data, partnerPublicKey),
       );
       setMessageList((prev) => [...prev, newMsg]);
+      setIsNewMessage(true);
     });
 
     return () => {
@@ -27,10 +31,20 @@ export default function Chat(props) {
 
 
   useEffect(() => {
+    if (chat.current) {
+      chat.current.scrollTop =
+        chat.current.scrollHeight;
+    }
+  }, [messageList]);
 
+  useEffect(() => {
+    if(isNewMessage) {
+      const audio = new Audio(bleep);
+      audio.play()
+      setIsNewMessage(false)
+    }
+  }, [isNewMessage])
 
-    console.log('anchoring')
-  }, [anchorRef.current])
   const handleMessage = (evt) => {
     // handle outbound chat message
     evt.preventDefault();
@@ -66,9 +80,9 @@ export default function Chat(props) {
       } chat-area-wrapper justify-between  max-h-[30dvh] h-[30dvh] flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/20 rounded-md mt-8 3xl:text-[1.1vw] `}
     >
     <div className='flex flex-row h-full items-center justify-center rounded-t-md scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-slate-700 scrollbar-track-slate-800 w-full mx-auto border  flex-grow-0 flex-shrink-0'>
-    <div
+    <div ref={chat}
     id='chat-container'
-          className='overflow-y-scroll h-full bg-nav-gradient-dark/50 px-3 text-slate-400 w-full border border-red-400'
+          className='overflow-y-scroll h-full bg-nav-gradient-dark/50 px-3 text-slate-400 w-full border flex flex-col border-red-400 scroll-smooth'
         >
           {messageList &&
             messageList.map(({ username, timestamp, message }) => (
