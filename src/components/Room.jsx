@@ -243,7 +243,7 @@ export default function Room({ socket }) {
           partnerUsername={partnerUsername.current}
         />
       </Suspense>
-      <div className={`${isChatOpen ? 'flex h-full' : 'hidden'}`}>
+      <div className={`${isChatOpen ? 'flex items-end h-full' : 'hidden'}`}>
         {chatConnection && (
           <Suspense fallback={<p>Loading chat component...</p>}>
             <Chat
