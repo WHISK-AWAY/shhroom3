@@ -221,7 +221,7 @@ export default function Room({ socket }) {
 
   // console.log(thisShhroomer)
   return (
-    <div className="bg-[url('/svg/wave2.svg')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 ">
+    <div className="bg-[url('/bg/test1.png')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 overflow-hidden">
       {showSigninOverlay && <SignInOverlay />}
       <Suspense fallback={<p>Loading control hints...</p>}>
         <RoomUserControls
@@ -243,7 +243,7 @@ export default function Room({ socket }) {
           partnerUsername={partnerUsername.current}
         />
       </Suspense>
-      <div className={`${isChatOpen ? ' h-full' : 'hidden'}`}>
+      <div className={`${isChatOpen ? 'flex h-full' : 'hidden'}`}>
         {chatConnection && (
           <Suspense fallback={<p>Loading chat component...</p>}>
             <Chat
