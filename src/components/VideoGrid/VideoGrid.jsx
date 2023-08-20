@@ -20,7 +20,7 @@ export default function VideoGrid({
   return (
     <div
       id='video-grid'
-      className={`flex justify-center gap-8 pt-[5%] h-1/2 ${
+      className={`flex justify-center gap-8 pt-[5%] h-fit ${
         isFullScreen ? 'group is-fullscreen' : ''
       } ${
         isUserControlsOpen
