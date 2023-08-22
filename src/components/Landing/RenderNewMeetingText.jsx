@@ -1,9 +1,11 @@
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import { Mesh, MeshStandardMaterial } from 'three';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { useThree } from '@react-three/fiber';
-import { GlobalContext } from '../../lib/context';
 import { useContext } from 'react';
+
+import { Mesh, MeshStandardMaterial } from 'three';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { useThree } from '@react-three/fiber';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
+import { GlobalContext } from '../../lib/context';
 
 export default function RenderNewMeetingText() {
   const globalContext = useContext(GlobalContext);

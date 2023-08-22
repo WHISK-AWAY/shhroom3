@@ -1,58 +1,23 @@
-import DeskLampLight from './DeskLampLight';
+import { useDetectGPU } from '@react-three/drei';
+
+import CornerWallLight from './CornerWallLight';
+import FlashLight from './FlashLight';
+import WindowLightVolumetric from './WindowLightVolumetric';
+import ClockLight from './ClockLight';
 import OverheadLight from './OverheadLight';
 import LavaLampLight from './LavaLampLight';
 import ShhroomLampLight from './ShhroomLampLight';
-import ClockLight from './ClockLight';
-import WindowLightVolumetric from './WindowLightVolumetric';
 import AmbientLight from './AmbientLight';
-import FlashLight from './FlashLight';
-import CornerWallLight from './CornerWallLight';
-import { useDetectGPU } from '@react-three/drei';
+import DeskLampLight from './DeskLampLight';
 
 export default function Lights() {
-  // const {
-  //   overheadLightIsOn,
-  //   shhroomLampIsOn,
-  //   deskLampIsOn,
-  //   windowLightIsOn,
-  //   lavaLampIsOn,
-  //   clockLightIsOn,
-  //   ambientLightIsOn,
-  //   cornerWallLightIsOn
-  // } = useControls('Lights', {
-  //   overheadLightIsOn: {
-  //     value: true,
-  //   },
-  //   deskLampIsOn: {
-  //     value: true,
-  //   },
-  //   windowLightIsOn: {
-  //     value: true,
-  //   },
-  //   lavaLampIsOn: {
-  //     value: true,
-  //   },
-  //   shhroomLampIsOn: {
-  //     value: true,
-  //   },
-  //   clockLightIsOn: {
-  //     value: true,
-  //   },
-  //   ambientLightIsOn: {
-  //     value: true,
-  //   },
-  //   cornerWallLightIsOn: {
-  //     value: true
-  //   }
-  // });
-
   const gpu = useDetectGPU();
 
   return (
     <>
       {gpu.fps > 70 && (
         <>
-          <CornerWallLight lightIsOn={true} />
+          <CornerWallLight />
           <FlashLight />
         </>
       )}
