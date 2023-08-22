@@ -23,7 +23,7 @@ import {
   Text3D,
   Svg,
 } from '@react-three/drei';
-const SignInHelperText = lazy(() => import('./SignInHelperText'))
+const SignInHelperText = lazy(() => import('./SignInHelperText'));
 
 import arrow from '/svg/arrow_login.svg';
 import { GlobalContext, LandingContext } from '../../lib/context';
