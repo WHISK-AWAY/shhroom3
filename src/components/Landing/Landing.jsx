@@ -1,14 +1,15 @@
-import { Suspense, lazy, useContext, useEffect, useState } from 'react';
+import { Suspense, lazy, useContext, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useDetectGPU } from '@react-three/drei';
-import Scene from './Scene';
 import { useContextBridge } from '@react-three/drei';
-import LoadingScreen from '../LoadingScreen';
 
 import { LandingContext, GlobalContext } from '../../lib/context';
 
+// import Scene from './Scene';
+import LoadingScreen from '../LoadingScreen';
+
 const UserControls = lazy(() => import('../UserControls'));
-// const Scene = lazy(() => import('./Scene'));
+const Scene = lazy(() => import('./Scene'));
 
 export default function Landing() {
   const ContextBridge = useContextBridge(GlobalContext, LandingContext);
@@ -26,6 +27,7 @@ export default function Landing() {
         <Canvas
           frameloop='demand'
           shadows={gpu.tier < 1 ? false : 'soft'}
+          // shadows={false}
           linear={false}
           raycaster={{
             far: 100,
