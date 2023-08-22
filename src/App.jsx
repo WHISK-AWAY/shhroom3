@@ -1,6 +1,9 @@
 import { lazy, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import { io } from 'socket.io-client';
+const WS_URL = import.meta.env.VITE_WS_URL;
+const socket = io(WS_URL);
 
 import {
   GlobalContext,
@@ -14,17 +17,14 @@ const TunnelCanvas = lazy(() => import('./components/Tunnel/TunnelCanvas'));
 const Room = lazy(() => import('./components/Room'));
 const Lobby = lazy(() => import('./components/Lobby'));
 const Landing = lazy(() => import('./components/Landing/Landing'));
-const LoadingScreen = lazy(() => import('./components/LoadingScreen'));
-
-const WS_URL = import.meta.env.VITE_WS_URL;
-
-const socket = io(WS_URL);
 
 export default function App() {
   const [globalContext, setGlobalContext] = useState(initialGlobalContext);
   const [landingContext, setLandingContext] = useState(initialLandingContext);
 
   useEffect(() => {
+    // Add context setter / resetter to global context
+
     setGlobalContext((prev) => ({
       ...prev,
       setContext: setGlobalContext,
@@ -38,6 +38,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    // Add context setter / resetter to landing context
+
     setLandingContext((prev) => ({
       ...prev,
       setContext: setLandingContext,
@@ -58,12 +60,8 @@ export default function App() {
         <LandingContext.Provider value={landingContext}>
           <Routes>
             <Route path='/' element={<Landing />} />
-            {/* <Route path='/landing' element={<Landing />} /> */}
-            {/* <Route path='/loading' element={<LoadingScreen />} /> */}
             <Route path='/tunnel' element={<TunnelCanvas />} />
             <Route path='/screensaver' element={<Screensaver />} />
-            {/* <Route path='/signin' element={<Signin />} /> */}
-            {/* <Route path='/signup' element={<SignUp />} /> */}
             <Route path='/room' element={<Room socket={socket} />} />
             <Route path='/room/:roomId' element={<Room socket={socket} />} />
             <Route path='/lobby' element={<Lobby socket={socket} />} />
