@@ -1,36 +1,48 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import AudioVideoControls from './AudioVideoControls';
 import { gsap } from 'gsap';
+import { RoomContext } from '../../lib/context';
 
 const fullScreenStyles = {
   us: {
     video:
-      ' group-[.is-fullscreen]:rounded-[100%] group-[.is-fullscreen]:object-cover group-[.is-fullscreen]:aspect-square',
-    div: ' group-[.is-fullscreen]:absolute group-[.is-fullscreen]:z-10 group-[.is-fullscreen]:max-w-[15vw] group-[.is-fullscreen]:left-8 group-[.is-fullscreen]:top-8',
+      ' group-[.is-fullscreen]:rounded-full group-[.is-fullscreen]:object-cover group-[.is-fullscreen]:aspect-square',
+    div: ' group-[.is-fullscreen]:absolute group-[.is-fullscreen]:z-10 group-[.is-fullscreen]:h-[15vw] group-[.is-fullscreen]:w-[15vw] group-[.is-fullscreen]:aspect-square group-[.is-fullscreen]:right-8 group-[.is-fullscreen]:top-8',
   },
   them: {
-    video:
-      ' group-[.is-fullscreen]:absolute group-[.is-fullscreen]:bottom-0 group-[.is-fullscreen]:h-screen group-[.is-fullscreen]:object-cover group-[.is-fullscreen]:w-screen group-[.is-fullscreen]:left-0',
-    div: '',
+    video: ' group-[.is-fullscreen]:object-cover',
+    div: ' group-[.is-fullscreen]:absolute group-[.is-fullscreen]:bottom-0 group-[.is-fullscreen]:h-screen group-[.is-fullscreen]:left-0 group-[.is-fullscreen]:w-screen',
   },
-};
-
-const initialState = {
-  audioIsMuted: false,
-  videoIsMuted: false,
-  isFullscreen: false,
 };
 
 export default function Video({
   source,
-  setIsFullScreen,
+  // setIsFullScreen,
   fullScreenRole,
   thisShhroomer,
   partnerUsername,
 }) {
-  const [videoState, setVideoState] = useState(initialState);
+  const roomContext = useContext(RoomContext);
+
+  const initialVideoState = {
+    audioIsMuted: false,
+    videoIsMuted: false,
+  };
+
+  const [videoState, setVideoState] = useState(initialVideoState);
   const vidElement = useRef(null);
   const controlsRef = useRef(null);
+
+  useEffect(() => {
+    // fullscreen transition animation
+    const ctx = gsap.context(() => {
+      if (roomContext.isFullscreen) {
+        // ! going to have to sort out the us / them / full / not classes and use them in animation...
+      }
+    });
+
+    return () => ctx.revert();
+  }, [roomContext.isFullscreen]);
 
   useEffect(() => {
     source.getVideoTracks().forEach((video) => {
@@ -40,8 +52,6 @@ export default function Video({
     source.getAudioTracks().forEach((audio) => {
       audio.enabled = !videoState.audioIsMuted;
     });
-
-    setIsFullScreen(videoState.isFullscreen);
   }, [Object.values(videoState)]);
 
   useEffect(() => {
@@ -53,7 +63,7 @@ export default function Video({
   return (
     <div
       className={
-        `flex h-full flex-col w-[45%] order-1 relative z-0` +
+        `border border-lime-500 flex h-full flex-col w-[45%] order-1 relative z-0` +
         fullScreenStyles[fullScreenRole].div
       }
     >
@@ -61,15 +71,25 @@ export default function Video({
         muted={true}
         ref={vidElement}
         className={
-          `rounded-sm h-full shadow-lg shadow-black/50 z-0` +
+          `rounded-sm object-cover h-full shadow-lg shadow-black/50 z-0` +
           fullScreenStyles[fullScreenRole].video +
-          (videoState.isFullscreen && fullScreenRole === 'them'
+          (roomContext.isFullscreen && fullScreenRole === 'them'
             ? ' peer peer-video'
             : '')
         }
         onLoadedMetadata={(e) => e.target.play()}
-      ></video>
-      <p className='absolute top-0 text-[1.3vw] right-2 font-vt text-white'>
+      />
+      <p
+        className={`bg-black/30 px-4 py-1 absolute text-[1.3vw] font-vt text-white ${
+          roomContext.isFullscreen
+            ? fullScreenRole === 'us'
+              ? 'bottom-0 left-1/2 translate-x-[-50%] -translate-y-full rounded-full invisible'
+              : 'left-2 bottom-0 rounded-t-xl'
+            : fullScreenRole === 'us'
+            ? ''
+            : ''
+        } ${roomContext.isFullscreen ? '' : 'right-0 top-0 rounded-bl-xl'}`}
+      >
         {fullScreenRole === 'us'
           ? thisShhroomer?.userInfo?.username
           : partnerUsername}

@@ -7,10 +7,10 @@ import React, {
   useContext,
 } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
 import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
-import { GlobalContext } from '../lib/context';
+import { GlobalContext, RoomContext, initialRoomContext } from '../lib/context';
+import {} from '../lib/context';
 // import SignInOverlay from './SignInOverlay';
 // import VideoGrid from './VideoGrid/VideoGrid';
 // import RoomUserControls from './RoomUserControls';
@@ -22,7 +22,10 @@ const SignInOverlay = lazy(() => import('./SignInOverlay'));
 
 export default function Room({ socket }) {
   const navigate = useNavigate();
+
   const globalContext = useContext(GlobalContext);
+
+  const [roomContext, setRoomContext] = useState(initialRoomContext);
 
   const [chatConnection, setChatConnection] = useState(null);
   const [videoCall, setVideoCall] = useState(null);
@@ -49,6 +52,36 @@ export default function Room({ socket }) {
       setSigninOverlay(false);
     }
   }, [globalContext.isSignedIn]);
+
+  useEffect(() => {
+    // Add setter / resetter to roomContext
+    setRoomContext((prev) => ({
+      ...prev,
+      setContext: setRoomContext,
+      resetContext: () =>
+        setRoomContext((prev) => ({
+          ...initialRoomContext,
+          setContext: prev.setContext,
+        })),
+    }));
+  }, []);
+
+  useEffect(() => {
+    // Add keypress listener to exit fullscreen
+    function escapeKey(e) {
+      if (roomContext.isFullscreen && e.keyCode === 27) {
+        setRoomContext((prev) => ({ ...prev, isFullscreen: false }));
+      }
+    }
+
+    window.addEventListener('keydown', escapeKey);
+
+    return () => window.removeEventListener('keydown', escapeKey);
+  }, [roomContext]);
+
+  useEffect(() => {
+    console.log('room context:', roomContext);
+  }, [roomContext]);
 
   useEffect(() => {
     // Initialize room once shhroomer object is ready
@@ -221,41 +254,43 @@ export default function Room({ socket }) {
 
   // console.log(thisShhroomer)
   return (
-    <div className="bg-[url('/bg/test1.png')] bg-cover h-screen w-screen bg-no-repeat  flex flex-col justify-between pb-9 overflow-hidden">
-      {showSigninOverlay && <SignInOverlay />}
-      <Suspense fallback={<p>Loading control hints...</p>}>
-        <RoomUserControls
-          roomId={roomId}
-          leaveMeeting={leaveMeeting}
-          thisShhroomer={thisShhroomer}
-          isUserControlsOpen={isUserControlsOpen}
-          setIsUserControlsOpen={setIsUserControlsOpen}
-          setIsChatOpen={setIsChatOpen}
-        />
-      </Suspense>
-      <Suspense fallback={<p>Loading video grid...</p>}>
-        <VideoGrid
-          ownSource={ownSource}
-          peerSource={peerSource}
-          isUserControlsOpen={isUserControlsOpen}
-          setIsUserControlsOpen={setIsUserControlsOpen}
-          thisShhroomer={thisShhroomer}
-          partnerUsername={partnerUsername.current}
-        />
-      </Suspense>
-      <div className={`${isChatOpen ? 'flex items-end h-full' : 'hidden'}`}>
-        {chatConnection && (
-          <Suspense fallback={<p>Loading chat component...</p>}>
-            <Chat
-              shhroomer={thisShhroomer}
-              partnerPublicKey={peerPublicKey.current}
-              chatConnection={chatConnection}
-              isUserControlsOpen={isUserControlsOpen}
-              setIsUserControlsOpen={setIsUserControlsOpen}
-            />
-          </Suspense>
-        )}
-      </div>
+    <div className="bg-[url('/bg/test1.png')] bg-cover relative h-screen w-screen bg-no-repeat flex flex-col justify-between pb-9 overflow-hidden">
+      <RoomContext.Provider value={roomContext}>
+        {showSigninOverlay && <SignInOverlay />}
+        <Suspense fallback={<p>Loading control hints...</p>}>
+          <RoomUserControls
+            roomId={roomId}
+            leaveMeeting={leaveMeeting}
+            thisShhroomer={thisShhroomer}
+            isUserControlsOpen={isUserControlsOpen}
+            setIsUserControlsOpen={setIsUserControlsOpen}
+            setIsChatOpen={setIsChatOpen}
+          />
+        </Suspense>
+        <Suspense fallback={<p>Loading video grid...</p>}>
+          <VideoGrid
+            ownSource={ownSource}
+            peerSource={peerSource}
+            isUserControlsOpen={isUserControlsOpen}
+            setIsUserControlsOpen={setIsUserControlsOpen}
+            thisShhroomer={thisShhroomer}
+            partnerUsername={partnerUsername.current}
+          />
+        </Suspense>
+        <div className={`${isChatOpen ? 'flex items-end h-full' : 'hidden'}`}>
+          {chatConnection && (
+            <Suspense fallback={<p>Loading chat component...</p>}>
+              <Chat
+                shhroomer={thisShhroomer}
+                partnerPublicKey={peerPublicKey.current}
+                chatConnection={chatConnection}
+                isUserControlsOpen={isUserControlsOpen}
+                setIsUserControlsOpen={setIsUserControlsOpen}
+              />
+            </Suspense>
+          )}
+        </div>
+      </RoomContext.Provider>
     </div>
   );
 }
