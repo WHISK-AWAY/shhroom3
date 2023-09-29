@@ -110,7 +110,7 @@ export default function UserControls() {
   return (
     <div
       ref={mainContainerRef}
-      className='fixed  z-10 top-[1%] left-[1%] font-vt  h-[75dvh] short:h-[85dvh] xl:h-[67dvh] 2xl:h-[63dvh] 4xl:h-[71dvh] 5xl:h-[67dvh]  6xl:h-[60dvh] text-white  w-64 rounded-lg'
+      className='fixed  z-10 top-[1%] left-[1%] font-vt  h-[75dvh] short:h-[85dvh] xl:h-[67dvh] 2xl:h-[63dvh] 4xl:h-[71dvh] 5xl:h-[67dvh] 6xl:h-[60dvh] portrait:h-[60dvh] text-white  w-64 rounded-lg'
     >
       <div
         ref={topControlsRef}
@@ -128,14 +128,14 @@ export default function UserControls() {
       <div
         ref={textRef}
         className={` ${isControlsClose ? 'opacity-0' : 'opacity-100'}
-        flex  px-3 text-[1.1vw] text-center bg-[#212529]/80 z-0 relative rounded-b-lg -translate-y-[2%] flex-col gap-4 h-full overflow-hidden  lg:text-[1rem]`}
+        flex  px-3 text-[1.1vw] text-center bg-[#212529]/80 z-0 relative rounded-b-lg -translate-y-[2%] flex-col gap-4 h-full overflow-hidden  lg:text-[1rem] portrait:text-[1rem]`}
       >
         <div className='border-b flex flex-col  pb-4 gap-2 '>
           <h1 className=''>left click + hold to move around</h1>
           <img
             src={mouseActiveLeft}
             alt='mouse showing left button as an active button'
-            className='h-[6vw] 5xl:h-[4vw] transition-all duration-300 hover:scale-[1.2] '
+            className='h-[6vw] 5xl:h-[4vw] portrait:h-[15vw] transition-all duration-300 hover:scale-[1.2] '
           />
         </div>
 
@@ -144,7 +144,7 @@ export default function UserControls() {
           <img
             src={mouseActiveRight}
             alt='mouse showing right button as an active button'
-            className='h-[6vw] 5xl:h-[4vw] transition-all hover:scale-[1.2] duration-300'
+            className='h-[6vw] 5xl:h-[4vw]  portrait:h-[15vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
 
@@ -153,7 +153,7 @@ export default function UserControls() {
           <img
             src={mouseActiveWheel}
             alt='mouse showing wheel as an active button'
-            className='h-[6vw] 5xl:h-[4vw] transition-all hover:scale-[1.2] duration-300'
+            className='h-[6vw] 5xl:h-[4vw] portrait:h-[15vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
 
@@ -162,7 +162,7 @@ export default function UserControls() {
           <img
             src={cursor}
             alt='cursor svg icon'
-            className='h-[6vw] 5xl:h-[4vw] transition-all hover:scale-[1.2] duration-300'
+            className='h-[6vw] 5xl:h-[4vw] portrait:h-[15vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
       </div>
