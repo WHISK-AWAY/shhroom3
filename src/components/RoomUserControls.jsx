@@ -59,10 +59,10 @@ export default function RoomUserControls({
             height: 0,
             duration: 0.6,
             ease: 'expo.inOut',
-            // opacity: 100,
+            opacity: 0,
           })
           .to(svgRef.current, {
-            opacity: 100,
+            // opacity: 100,
             duration: 0.8,
             ease: 'power1',
           }, '<');
@@ -85,7 +85,7 @@ export default function RoomUserControls({
             height: 0,
             duration: 0.6,
             ease: 'expo.inOut',
-            // opacity: 100,
+            opacity: 100,
           })
           .from(svgRef.current, {
             opacity: 100,
@@ -111,27 +111,28 @@ export default function RoomUserControls({
     <>
       <div
         ref={topControlsRef}
-        className='  w-[2%] max-w-[300px] h-[3%] flex justify-end items-center top-2 absolute bg-teal-400 z-[99] rounded-sm'
+        className='  w-[2%] max-w-[300px] h-[3%] flex justify-end items-center top-2 absolute bg-teal-400 z-[99] rounded-sm 5xl:w-[1%] '
       >
         <img
           onClick={() => setIsUserControlsOpen((prev) => !prev)}
           ref={arrowRef}
           src={arrowDown}
           alt='Arrow icon to open/hide dropdown user controls helper menu'
-          className='h-[13px] pr-1 '
+          className='h-[11px] 4xl:h-[16px] xl:pr-2 px-1 my-auto '
         />
       </div>
 
       <div
         ref={mainContainerRef}
-        className='room-controls-wrapper absolute top-[3%] left-0 opacity-100 h-[60vh]  w-[15%] max-w-[300px]  font-vt flex z-50  justify-center rounded-md  text-white text-[1.4vw] 3xl:text-[1vw] overflow-hidden'
+        className={` ${
+          isUserControlsOpen ? 'opacity-100' : 'opacity-0'
+        } room-controls-wrapper absolute top-[3%] left-0  h-[60vh]  w-[15%] max-w-[300px]  font-vt flex z-50  justify-center rounded-md  text-white text-[1.4vw] 3xl:text-[1vw] overflow-hidden`}
       >
         <ul className='room-controls-list  flex flex-col gap-10 justify-center  w-full bg-neutral-700/90 h-full p-4 rounded-r-sm'>
           <div
             ref={svgRef}
-            className={` ${
-              isUserControlsOpen ? 'opacity-100' : 'opacity-0'
-            } flex flex-col gap-6  w-[95%] 3xl:w-[80%] self-center`}
+            className={` 
+            text-[1.1vw] 6xl:text-[.9vw] flex flex-col gap-6  w-[95%] 3xl:w-[80%] self-center`}
           >
             <button
               className='flex flex-col items-center'
@@ -143,11 +144,11 @@ export default function RoomUserControls({
               <img
                 src={copy}
                 alt='Copy invitation link icon'
-                className='w-[50%]  transition-all duration-300 hover:scale-[1.2] '
+                className='w-[50%] 5xl:w-[40%] short:w-[40%] transition-all duration-300 hover:scale-[1.2] '
               />
               <li className='link-invite  pt-1'>
                 {isLinkCopied
-                  ? 'link has been copied to clipboard'
+                  ? 'link has been copied to clipboard!'
                   : 'copy invite link to clipboard'}
               </li>
             </button>
@@ -160,7 +161,7 @@ export default function RoomUserControls({
                 <img
                   src={chat}
                   alt='Chat icon'
-                  className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
+                  className='w-[65%] 5xl:w-[55%] short:w-[55%]  transition-all duration-300 hover:scale-[1.2] '
                 />
                 <li className='link-invite pt-1'>chat</li>
               </button>
@@ -173,7 +174,7 @@ export default function RoomUserControls({
               <img
                 src={door}
                 alt='Leave meeting icon'
-                className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
+                className='w-[65%] 5xl:w-[55%] short:w-[55%]  transition-all duration-300 hover:scale-[1.2] '
               />
               <li className='link-invite pt-1'>leave meeting</li>
             </button>
