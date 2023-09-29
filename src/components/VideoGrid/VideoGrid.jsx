@@ -29,7 +29,7 @@ export default function VideoGrid({
   return (
     <div
       id='video-grid'
-      className={`border border-red-700 flex justify-center gap-8 py-[2.5dvh] h-[65dvh] ${
+      className={` flex justify-center gap-8 py-[2.5dvh] h-[65dvh] ${
         isFullscreen ? 'group is-fullscreen' : ''
       } ${
         isUserControlsOpen
