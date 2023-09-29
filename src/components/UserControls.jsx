@@ -85,7 +85,7 @@ export default function UserControls() {
               textRef.current,
               {
                 opacity: 100,
-                paddingTop: '0px',
+                paddingTop: '24px',
                 ease: 'power1',
                 duration: 0.6,
               },
@@ -128,7 +128,7 @@ export default function UserControls() {
       <div
         ref={textRef}
         className={` ${isControlsClose ? 'opacity-0' : 'opacity-100'}
-        flex  px-3 text-[1.1vw] text-center bg-[#212529]/80 z-0 relative rounded-b-lg -translate-y-[2%] flex-col gap-4 h-full overflow-hidden  lg:text-[1rem] portrait:text-[1rem]`}
+        flex  px-3 text-[1.1vw] text-center bg-[#212529]/80 z-0 relative rounded-b-lg  -top-1 flex-col gap-4 h-full overflow-hidden  lg:text-[1rem] portrait:text-[1rem]`}
       >
         <div className='border-b flex flex-col  pb-4 gap-2 '>
           <h1 className=''>left click + hold to move around</h1>
