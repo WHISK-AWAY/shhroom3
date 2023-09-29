@@ -111,7 +111,7 @@ export default function RoomUserControls({
     <>
       <div
         ref={topControlsRef}
-        className='  w-[2%] max-w-[300px] h-[3%] flex justify-end items-center top-2 absolute bg-teal-400 z-[99] rounded-sm 5xl:w-[1%] '
+        className='  w-[2%] max-w-[300px] h-[3%] flex justify-end items-center top-2 absolute bg-teal-400/90 z-[99] rounded-sm 5xl:w-[1%] '
       >
         <img
           onClick={() => setIsUserControlsOpen((prev) => !prev)}
