@@ -1,14 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
-import plane from '/svg/plane.svg'
-import bleep from '../../public/bg/bleep2.mp3'
+import plane from '/svg/plane.svg';
+import bleep from '../../public/bg/bleep2.mp3';
 
 export default function Chat(props) {
-  const { shhroomer, partnerPublicKey, chatConnection, isUserControlsOpen, setIsUserControlsOpen } = props;
+  const {
+    shhroomer,
+    partnerPublicKey,
+    chatConnection,
+    isUserControlsOpen,
+    setIsUserControlsOpen,
+  } = props;
 
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
-  const anchorRef  = useRef(null)
-  const chat = useRef(null)
+  const anchorRef = useRef(null);
+  const chat = useRef(null);
   const [isNewMessage, setIsNewMessage] = useState(false);
 
   useEffect(() => {
@@ -29,23 +35,21 @@ export default function Chat(props) {
     };
   }, []);
 
-//chat anchor
+  //chat anchor
   useEffect(() => {
     if (chat.current) {
-      chat.current.scrollTop =
-        chat.current.scrollHeight;
+      chat.current.scrollTop = chat.current.scrollHeight;
     }
   }, [messageList]);
 
-
   //new message audio
   useEffect(() => {
-    if(isNewMessage) {
+    if (isNewMessage) {
       const audio = new Audio(bleep);
-      audio.play()
-      setIsNewMessage(false)
+      audio.play();
+      setIsNewMessage(false);
     }
-  }, [isNewMessage])
+  }, [isNewMessage]);
 
   const handleMessage = (evt) => {
     // handle outbound chat message
@@ -79,7 +83,7 @@ export default function Chat(props) {
     <div
       className={`${
         isUserControlsOpen ? 'w-[60%] max-h-[30dvh] h-[60dvh]' : 'w-[80%]'
-      } chat-area-wrapper justify-between  max-h-[30dvh] h-[30dvh] flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/20 rounded-md mb-8 3xl:text-[1.1vw] `}
+      } border border-blue-700 chat-area-wrapper justify-between  max-h-[30dvh] h-[30dvh] flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/20 rounded-md mb-8 3xl:text-[1.1vw] `}
     >
       <div className='flex flex-row h-full items-center justify-center rounded-t-md scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-slate-700 scrollbar-track-slate-800 w-full mx-auto py-3  flex-grow-0 flex-shrink-0'>
         <div

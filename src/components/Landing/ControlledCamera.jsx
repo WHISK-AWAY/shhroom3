@@ -1,7 +1,6 @@
-import { useRef, useContext, useEffect, useMemo, useLayoutEffect } from 'react';
-import { useThree } from '@react-three/fiber';
+import { useRef, useContext, useEffect, useMemo } from 'react';
+// import { useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import { useControls } from 'leva';
 import { gsap } from 'gsap';
 import { objectPositions } from './objectPositions.js';
 
@@ -16,10 +15,7 @@ export default function ControlledCamera() {
   const controls = useRef(null);
   const zoomTimeline = useRef(null);
 
-  // const [minAzimuthAngle, setMinAzimuthAngle] = useState(undefined);
-  // const [maxAzimuthAngle, setMaxAzimuthAngle] = useState(undefined);
-
-  const raycaster = useThree((state) => state.raycaster);
+  // const raycaster = useThree((state) => state.raycaster);
 
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
@@ -161,11 +157,11 @@ export default function ControlledCamera() {
     }));
   }, []);
 
-  useEffect(() => {
-    // set up raycaster to select only 'layer1' objects
-    // objects are tagged 'layer1' in the Model file
-    // raycaster.layers.set(1);
-  }, [raycaster]);
+  // useEffect(() => {
+  // set up raycaster to select only 'layer1' objects
+  // objects are tagged 'layer1' in the Model file
+  // raycaster.layers.set(1);
+  // }, [raycaster]);
 
   /**
    * * ZOOM IN/OUT ANIMATION
@@ -280,10 +276,10 @@ export default function ControlledCamera() {
         enableRotate={landingContext.atHomePosition}
         // enableRotate={landingContext.controlsAreEnabled}
         //enablePan={
-          //landingContext.isZoomed &&
-         // !['monitor', 'initPosition'].includes(landingContext.targetLabel)
-       // }
-       enablePan={true}
+        //landingContext.isZoomed &&
+        // !['monitor', 'initPosition'].includes(landingContext.targetLabel)
+        // }
+        enablePan={true}
         makeDefault={true}
         zoomToCursor={true}
         enableDamping={true}

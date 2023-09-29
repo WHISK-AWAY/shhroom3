@@ -13,8 +13,8 @@ router.post('/', async (req, res, next) => {
     const { username, password } = validateNewUserInput(req.body);
 
     const [_, created] = await User.findOrCreate({
-      where: { username },
-      defaults: { username, password },
+      where: { username: username.toLowerCase() },
+      defaults: { username: username.toLowerCase(), password },
     });
 
     if (!created) {
@@ -24,7 +24,12 @@ router.post('/', async (req, res, next) => {
 
     res
       .status(201)
-      .json({ token: await User.authenticate({ username, password }) });
+      .json({
+        token: await User.authenticate({
+          username: username.toLowerCase(),
+          password,
+        }),
+      });
   } catch (err) {
     next(err);
   }

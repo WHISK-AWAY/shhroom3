@@ -8,14 +8,19 @@ router.post('/', async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
-    const usernameCheck = await User.findOne({ where: { username: username } });
+    const usernameCheck = await User.findOne({
+      where: { username: username.trim().toLowerCase() },
+    });
     if (!usernameCheck || usernameCheck === null) {
       return res
         .status(404)
         .send({ message: 'given username does not exist in the database' });
     }
 
-    const authCheck = await User.authenticate({ username, password });
+    const authCheck = await User.authenticate({
+      username: username.trim().toLowerCase(),
+      password,
+    });
 
     if (!authCheck) {
       return res.status(401).send({ message: 'invalid credentials' });

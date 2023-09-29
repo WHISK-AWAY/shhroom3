@@ -8,15 +8,17 @@ import React, { useRef, useEffect, useContext, lazy, Suspense } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext, LandingContext } from '../../lib/context';
-const EscBtnUtils = lazy(() => import('./EscBtnUtils'))
+const EscBtnUtils = lazy(() => import('./EscBtnUtils'));
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('/wall_art_tier_1-transformed.glb');
-  const newMeetingRef = useRef(null);
   const navigate = useNavigate();
 
   const globalContext = useContext(GlobalContext);
   const landingContext = useContext(LandingContext);
+
+  const { nodes, materials } = useGLTF('/wall_art_tier_1-transformed.glb');
+
+  const newMeetingRef = useRef(null);
 
   useEffect(() => {
     if (globalContext.isSignedIn) {
@@ -167,11 +169,11 @@ export default function Model(props) {
         scale={0.13403}
       />
       <Suspense fallback={null}>
-      <EscBtnUtils
-      tl={'newMeeting'}
-      pos={[6.31108, 2.79457, -2.08681]}
-      scale={[1.5, 1.5, 1.5]}
-      />
+        <EscBtnUtils
+          tl={'newMeeting'}
+          pos={[6.31108, 2.79457, -2.08681]}
+          scale={[1.5, 1.5, 1.5]}
+        />
       </Suspense>
       <mesh
         ref={newMeetingRef}

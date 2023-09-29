@@ -31,8 +31,9 @@ export const initialLandingContext = {
 
 export const LandingContext = createContext(initialLandingContext);
 
-export const initialMeetingContext = {
-  // figure it out
+export const initialRoomContext = {
+  isFullscreen: false,
+  setContext: null, // state setter added in Room component
 };
 
-export const MeetingContext = createContext(initialMeetingContext);
+export const RoomContext = createContext(initialRoomContext);
