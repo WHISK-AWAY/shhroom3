@@ -68,7 +68,7 @@ export default function Video({
       }
     >
       <video
-        muted={true}
+        muted={fullScreenRole === 'us' || videoState.audioIsMuted}
         ref={vidElement}
         className={
           `rounded-sm object-cover h-full shadow-lg shadow-black/50 z-0` +
