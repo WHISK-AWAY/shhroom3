@@ -20,7 +20,7 @@ export const initialLandingContext = {
   targetLabel: null,
   targetPosition: null,
   camPosition: null,
-  controlsAreVisible: false,
+  controlsAreVisible: true,
   signInHintIsVisible: true,
   controlsAreEnabled: true,
   reset: null,
