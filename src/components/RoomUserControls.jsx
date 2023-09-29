@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import test from '/svg/esc_button.svg';
-import chat from '/svg/chat.svg'
-import door from '/svg/door.svg'
-import copy from '/svg/copy.svg'
+import chat from '/svg/chat.svg';
+import door from '/svg/door.svg';
+import copy from '/svg/copy.svg';
 import arrowDown from '/svg/arrowDown.svg';
 import { gsap } from 'gsap';
 import { is } from 'date-fns/locale';
-
 
 export default function RoomUserControls({
   roomId,
@@ -16,7 +15,7 @@ export default function RoomUserControls({
   setIsUserControlsOpen,
   setIsChatOpen,
   isChatOpen,
-  partnerPeerId
+  partnerPeerId,
 }) {
   const [text, setText] = useState(window.location);
   const topControlsRef = useRef(null);
@@ -25,31 +24,28 @@ export default function RoomUserControls({
   const svgRef = useRef(null);
   const anim = useRef(null);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const previousModeRef = useRef(null);
 
+  // console.log(partnerPeerId);
 
-console.log(partnerPeerId)
-
-    async function copyToClipboard(text) {
-      try {
-        await navigator.clipboard.writeText(text);
-        // setIsLinkCopied(true)
-        // console.log(isLinkedCopied)
-        console.log('txt copied to clipboard');
-      } catch (err) {
-        console.error('failed to copy txt: ', err);
-        // setIsLinkCopied(false)
-      }
+  async function copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      console.log('txt copied to clipboard');
+    } catch (err) {
+      console.error('failed to copy txt: ', err);
     }
-
-
+  }
 
   // console.log('shh', thisShhroomer)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (isUserControlsOpen) {
+    if (isUserControlsOpen) {
+      previousModeRef.current = false;
+      const ctx = gsap.context(() => {
         const tl = gsap.timeline();
 
+        tl.set(mainContainerRef.current, { height: 0 });
         tl.to(topControlsRef.current, {
           width: '15%',
           duration: 0.2,
@@ -71,23 +67,48 @@ console.log(partnerPeerId)
             duration: 0.8,
             ease: 'power1',
           });
+      });
 
-        anim.current = tl;
-      }
-    });
 
-    return () => {
-      if (anim.current) {
-        anim.current
-          .duration(anim.current.duration() / 1.5)
-          .reverse()
-          .then(() => ctx.revert());
-      } else {
+      return () => {
         ctx.revert();
-      }
-    };
-  }, [mainContainerRef.current, isUserControlsOpen]);
+      };
 
+    } else {
+      if (!isUserControlsOpen && !previousModeRef.current) {
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({});
+
+          tl.from(topControlsRef.current, {
+            width: '15%',
+            duration: 0.2,
+            ease: 'expo',
+          })
+            .from(mainContainerRef.current, {
+              height: '55%',
+              // width: '15%',
+              duration: 0.6,
+              ease: 'expo.inOut',
+              opacity: 100,
+            })
+            .from(arrowRef.current, {
+              rotation: -90,
+              // duration: 0.3,
+            })
+            .from(svgRef.current, {
+              opacity: 100,
+              duration: 0.8,
+              ease: 'power1',
+            });
+        });
+
+        previousModeRef.current = true;
+        return () => {
+          ctx.revert();
+        };
+      }
+    }
+  }, [mainContainerRef.current, isUserControlsOpen]);
 
   return (
     <>
@@ -126,26 +147,25 @@ console.log(partnerPeerId)
                 className='w-[50%]  transition-all duration-300 hover:scale-[1.2] '
               />
               <li className='link-invite  pt-1'>
-
-              {isLinkCopied
-                ? 'link has been copied to clipboard'
-                : 'copy invite link to clipboard'}
-                </li>
-
+                {isLinkCopied
+                  ? 'link has been copied to clipboard'
+                  : 'copy invite link to clipboard'}
+              </li>
             </button>
 
-            
-            <button
-              onClick={() => setIsChatOpen((prev) => !prev)}
-              className='flex flex-col items-center'
-            >
-              <img
-                src={chat}
-                alt='Chat icon'
-                className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
-              />
-              <li className='link-invite pt-1'>chat</li>
-            </button>
+            {partnerPeerId.current && (
+              <button
+                onClick={() => setIsChatOpen((prev) => !prev)}
+                className='flex flex-col items-center'
+              >
+                <img
+                  src={chat}
+                  alt='Chat icon'
+                  className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
+                />
+                <li className='link-invite pt-1'>chat</li>
+              </button>
+            )}
 
             <button
               className='flex flex-col  items-center'
@@ -163,4 +183,4 @@ console.log(partnerPeerId)
       </div>
     </>
   );
-          }
+}
