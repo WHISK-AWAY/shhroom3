@@ -87,7 +87,7 @@ export default function RoomUserControls({
           onClick={() => setIsUserControlsOpen((prev) => !prev)}
           ref={arrowRef}
           src={arrowDown}
-          alt=''
+          alt='Arrow icon to open/hide dropdown user controls helper menu'
           className='h-[13px] pr-1 '
         />
       </div>
@@ -97,14 +97,17 @@ export default function RoomUserControls({
         className='room-controls-wrapper absolute top-[3%] left-0 opacity-0 h-0  w-[15%] max-w-[300px]  font-vt flex z-50  justify-center rounded-md  text-white text-[1.4vw] 3xl:text-[1vw]'
       >
         <ul className='room-controls-list  flex flex-col gap-10 justify-center  w-full bg-neutral-700/90 h-full p-4 rounded-r-sm'>
-          <div ref={svgRef} className='flex flex-col gap-6 opacity-0 w-[95%] 3xl:w-[80%] self-center'>
+          <div
+            ref={svgRef}
+            className='flex flex-col gap-6 opacity-0 w-[95%] 3xl:w-[80%] self-center'
+          >
             <button
               className='flex flex-col items-center'
               onClick={() => copyToClipboard(text)}
             >
               <img
                 src={copy}
-                alt=''
+                alt='Copy invitation link icon'
                 className='w-[50%]  transition-all duration-300 hover:scale-[1.2] '
               />
               <li className='link-invite  pt-1'>
@@ -112,10 +115,13 @@ export default function RoomUserControls({
               </li>
             </button>
 
-            <button onClick={() => setIsChatOpen((prev) => !prev)} className='flex flex-col items-center'>
+            <button
+              onClick={() => setIsChatOpen((prev) => !prev)}
+              className='flex flex-col items-center'
+            >
               <img
                 src={chat}
-                alt=''
+                alt='Chat icon'
                 className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
               />
               <li className='link-invite pt-1'>chat</li>
@@ -127,7 +133,7 @@ export default function RoomUserControls({
             >
               <img
                 src={door}
-                alt=''
+                alt='Leave meeting icon'
                 className='w-[65%] transition-all duration-300 hover:scale-[1.2] '
               />
               <li className='link-invite pt-1'>leave meeting</li>
