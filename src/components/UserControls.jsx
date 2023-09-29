@@ -16,11 +16,11 @@ export default function UserControls() {
   const arrowRef = useRef(null);
   const topControlsRef = useRef(null);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsControlsClose(false);
-  //   }, 3000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsControlsClose(false);
+    }, 3000);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
