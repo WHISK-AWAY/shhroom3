@@ -5,15 +5,8 @@ import door from '/svg/door.svg'
 import copy from '/svg/copy.svg'
 import arrowDown from '/svg/arrowDown.svg';
 import { gsap } from 'gsap';
+import { is } from 'date-fns/locale';
 
-async function copyToClipboard(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    console.log('txt copied to clipboard');
-  } catch (err) {
-    console.error('failed to copy txt: ', err);
-  }
-}
 
 export default function RoomUserControls({
   roomId,
@@ -22,7 +15,8 @@ export default function RoomUserControls({
   isUserControlsOpen,
   setIsUserControlsOpen,
   setIsChatOpen,
-  isChatOpen
+  isChatOpen,
+  partnerPeerId
 }) {
   const [text, setText] = useState(window.location);
   const topControlsRef = useRef(null);
@@ -30,6 +24,24 @@ export default function RoomUserControls({
   const arrowRef = useRef(null);
   const svgRef = useRef(null);
   const anim = useRef(null);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+
+console.log(partnerPeerId)
+
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        // setIsLinkCopied(true)
+        // console.log(isLinkedCopied)
+        console.log('txt copied to clipboard');
+      } catch (err) {
+        console.error('failed to copy txt: ', err);
+        // setIsLinkCopied(false)
+      }
+    }
+
+
 
   // console.log('shh', thisShhroomer)
 
@@ -103,7 +115,10 @@ export default function RoomUserControls({
           >
             <button
               className='flex flex-col items-center'
-              onClick={() => copyToClipboard(text)}
+              onClick={() => {
+                copyToClipboard(text);
+                setIsLinkCopied(true);
+              }}
             >
               <img
                 src={copy}
@@ -111,10 +126,15 @@ export default function RoomUserControls({
                 className='w-[50%]  transition-all duration-300 hover:scale-[1.2] '
               />
               <li className='link-invite  pt-1'>
-                copy invite link to clipboard
-              </li>
+
+              {isLinkCopied
+                ? 'link has been copied to clipboard'
+                : 'copy invite link to clipboard'}
+                </li>
+
             </button>
 
+            
             <button
               onClick={() => setIsChatOpen((prev) => !prev)}
               className='flex flex-col items-center'
