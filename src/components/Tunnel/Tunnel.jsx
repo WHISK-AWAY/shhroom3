@@ -124,10 +124,10 @@ export default function Tunnel() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    console.log('tubeRef:', tubeRef.current);
-    console.log('curveRef:', curveRef.current);
-  }, [tubeRef.current]);
+  // useEffect(() => {
+  //   console.log('tubeRef:', tubeRef.current);
+  //   console.log('curveRef:', curveRef.current);
+  // }, [tubeRef.current]);
 
   useEffect(() => {
     setTimeout(() => {
