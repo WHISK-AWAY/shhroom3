@@ -7,11 +7,12 @@ import cursor from '/svg/cursor.svg';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import { Html } from '@react-three/drei';
+// import { toType } from 'cli';
 
 export default function UserControls() {
   const mainContainerRef = useRef(null);
   const [isControlsClose, setIsControlsClose] = useState(true);
-  const anim = useRef(null);
+  const previousModeRef = useRef(null);
   const textRef = useRef(null);
   const arrowRef = useRef(null);
   const topControlsRef = useRef(null);
@@ -22,11 +23,15 @@ export default function UserControls() {
     }, 3000);
   }, []);
 
+
+
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!isControlsClose) {
+    if (!isControlsClose) {
+      previousModeRef.current = false;
+      const ctx = gsap.context(() => {
         const tl = gsap.timeline();
 
+        tl.set(mainContainerRef.current, { height: 0 });
         tl.to(topControlsRef.current, {
           width: '100%',
           duration: 0.2,
@@ -37,43 +42,78 @@ export default function UserControls() {
             duration: 0.3,
             opacity: 100,
           })
-          .to(mainContainerRef.current, {
-            height: '66%',
+          .from(mainContainerRef.current, {
+            height: 0,
             ease: 'expo.inOut',
             duration: 0.6,
           })
-          .to(textRef.current, {
-            opacity: 100,
-            ease: 'power1',
-            duration: 1,
-          });
+          .to(
+            textRef.current,
+            {
+              opacity: 100,
+              paddingTop: '24px',
+              ease: 'power1',
+              duration: 0.6,
+            },
+            '<',
+          );
+      });
 
-        anim.current = tl;
-      }
-    });
-
-    return () => {
-      if (anim.current) {
-        anim.current
-          .duration(anim.current.duration() / 1.5)
-          .reverse()
-          .then(() => {
-            ctx.revert();
-          });
-      } else {
+      return () => {
         ctx.revert();
+      };
+
+
+    } else {
+      if (isControlsClose && !previousModeRef.current) {
+
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({});
+
+          tl.from(arrowRef.current, {
+            rotation: -90,
+            duration: 0.3,
+            opacity: 100,
+          })
+            .to(mainContainerRef.current, {
+              height: 0,
+              ease: 'expo.inOut',
+              duration: 0.6,
+            })
+            .from(
+              textRef.current,
+              {
+                opacity: 100,
+                paddingTop: '0px',
+                ease: 'power1',
+                duration: 0.6,
+              },
+              '<',
+            );
+
+          tl.from(topControlsRef.current, {
+            width: '100%',
+            duration: 0.2,
+            ease: 'expo',
+          });
+        });
+
+        previousModeRef.current = true;
+        return () => {
+          ctx.revert();
+        };
       }
-    };
+    }
   }, [mainContainerRef.current, isControlsClose, textRef.current]);
 
   return (
     <div
       ref={mainContainerRef}
-      className=' fixed z-[50] top-[1%] left-[1%] font-vt text-[1.3vw] text-white h-0 w-64 bg-[#212529]/80 rounded-lg'
+      className='fixed  z-10 top-[1%] left-[1%] font-vt text-[1.3vw] h-[80svh] text-white  w-64 rounded-lg'
     >
       <div
         ref={topControlsRef}
-        className='h-10 w-10 bg-[#343a40] flex justify-end rounded-lg  '
+        className='h-10 relative w-10 bg-[#343a40] flex z-50 justify-end rounded-lg  '
       >
         <img
           ref={arrowRef}
@@ -83,9 +123,11 @@ export default function UserControls() {
           className='h-[40%] cursor-pointer z-50 opacity-60 pr-3 mt-3'
         />
       </div>
+
       <div
         ref={textRef}
-        className='opacity-0 px-3 text-[1.1vw] text-center flex flex-col gap-4 pt-6 '
+        className={` ${isControlsClose ? 'opacity-0' : 'opacity-100'}
+        flex  px-3 text-[1.1vw] text-center bg-[#212529]/80 z-0 relative -translate-y-[2%] flex-col gap-4 h-full overflow-hidden`}
       >
         <div className='border-b flex flex-col  pb-4 gap-2'>
           <h1 className=''>left click + hold to move around</h1>
@@ -126,3 +168,55 @@ export default function UserControls() {
     </div>
   );
 }
+
+// useEffect(() => {
+//   if (menuMode === 'dropdown') {
+//     previousModeRef.current = 'dropdown';
+//     const ctx = gsap.context(() => {
+//       const tl = gsap.timeline({});
+
+//       tl.set(screenRef.current, { display: 'block' })
+//         .to(wrapperRef.current, {
+//           y: '+=100%',
+//           duration: 0.25,
+//           ease: 'power1.in',
+//         })
+//         .to(
+//           screenRef.current,
+//           {
+//             backdropFilter: 'blur(8px)',
+//             duration: 0.25,
+//           },
+//           '<',
+//         );
+//     });
+
+//     return () => ctx.revert();
+//   } else {
+//     if (previousModeRef.current === 'dropdown') {
+//       const ctx = gsap.context(() => {
+//         const tl = gsap.timeline();
+
+//         tl.from(wrapperRef.current, {
+//           y: '+=100%',
+//           ease: 'power1.in',
+//           duration: 0.25,
+//         })
+//           .from(
+//             screenRef.current,
+//             {
+//               backdropFilter: 'blur(8px)',
+//               display: 'block',
+//               duration: 0.25,
+//             },
+//             '<',
+//           )
+//           .set(screenRef.current, { display: 'none' });
+//       });
+
+//       previousModeRef.current = null;
+
+//       return () => ctx.revert();
+//     }
+//   }
+// }, [menuMode, wrapperRef.current]);
