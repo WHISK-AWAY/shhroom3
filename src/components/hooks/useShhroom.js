@@ -26,47 +26,49 @@ const initialState = {
 
 export default function useShhroom() {
   const globalContext = useContext(GlobalContext);
-  const { isSignedIn } = globalContext;
+  // const { isSignedIn } = globalContext;
   const [shhroomUser, setShhroomUser] = useState(initialState);
   const auth = useVerifyToken();
   const peerConn = usePeerConnection();
 
-  useEffect(() => {
-    if (!auth.loading && !isSignedIn) {
-      console.log('useShhroom is awaiting user sign in...');
-      setShhroomUser((prev) => ({ ...prev, loading: false }));
-    }
-  }, [isSignedIn]);
+  const [authReceived, setAuthReceived] = useState(false);
+  const [peerReceived, setPeerReceived] = useState(false);
 
   useEffect(() => {
-    if (auth.loading || !isSignedIn) {
-      return;
-    }
-    if (auth.error) {
-      console.log('Error pulling user info:', auth.error);
-      setShhroomUser({
-        ...initialState,
-        loading: false,
-        error: auth.error,
-      });
-    } else {
+    if (auth.loading) {
+      console.log('waiting for auth');
+    } else if (auth.error) {
+      console.log('error in auth step');
       setShhroomUser((prev) => ({
         ...prev,
-        userInfo: { ...auth.userData },
+        loading: false,
+        error: 'Error in auth step',
+      }));
+    } else {
+      setAuthReceived(true);
+
+      setShhroomUser((prev) => ({
+        ...prev,
+        userInfo: {
+          id: globalContext.userId,
+          username: globalContext.username,
+        },
       }));
     }
-  }, [auth.loading, globalContext.isSignedIn]);
+  }, [auth.loading, auth.error, auth.userData?.id]);
 
   useEffect(() => {
-    if (peerConn.loading || !isSignedIn) return;
+    if (!authReceived || peerConn.loading) return;
+
     if (peerConn.error) {
-      console.log('Error establishing peer connection:', peerConn.error);
-      setShhroomUser({
-        ...initialState,
+      console.log('error setting up peer connection');
+      setShhroomUser((prev) => ({
+        ...prev,
         loading: false,
-        error: peerConn.error,
-      });
+        error: 'Peer error',
+      }));
     } else {
+      console.log('setting peer info');
       setShhroomUser((prev) => ({
         ...prev,
         peerInfo: {
@@ -74,39 +76,21 @@ export default function useShhroom() {
           peerId: peerConn.peerId,
         },
       }));
+
+      setPeerReceived(true);
     }
-  }, [peerConn.loading, isSignedIn]);
+  }, [authReceived, peerConn.error, peerConn.loading, peerConn.peerId]);
 
   useEffect(() => {
-    if (!isSignedIn) return;
-    if (auth.loading || peerConn.loading) return;
-    if (auth.error || peerConn.error) return;
+    if (!peerReceived) return;
 
+    console.log('ready for encryption info');
     setShhroomUser((prev) => ({
       ...prev,
       loading: false,
       encryptionInfo: handleKeys(),
     }));
-  }, [auth.loading, peerConn.loading, isSignedIn]);
-
-  useEffect(() => {
-    // debug keystroke handler
-    function keyPressed(e) {
-      if (e.keyCode === 32) {
-        // spacebar: keycode 32
-        console.log('Global context:', globalContext);
-        console.log('thisShhroomer:', shhroomUser);
-      } else if (e.keyCode === 85 && e.shiftKey) {
-        // shift + u: keycode 85
-        console.log('removing token');
-        window.localStorage.removeItem('token');
-      }
-    }
-
-    document.addEventListener('keypress', keyPressed);
-
-    return () => document.removeEventListener('keypress', keyPressed);
-  }, [globalContext]);
+  }, [peerReceived]);
 
   return { ...shhroomUser };
 }
