@@ -33,7 +33,7 @@ export default function AudioVideoControls({
   return (
     <div
       ref={controlsContainer}
-      className={`audio-video-controls bg-gray-500/60 flex gap-1 w-full -bottom-1 justify-center group-[.is-fullscreen]:static items-center peer-[.peer-video]:absolute absolute peer-[.peer-video]:bottom-0 peer-[.peer-video]:right-[40vw] my-1 py-1 opacity-0 hover:opacity-100 transition-opacity duration-1000 hover:delay-100 delay-300 z-50`}
+      className={`audio-video-controls bg-zinc-600/80 flex gap-1 w-full -bottom-1 justify-center peer-[.peer-video]:flex  peer-[.peer-video]:bg-zinc-600 peer-[.peer-video]:h-20 group-[.is-fullscreen]:bg-zinc-600 group-[.is-fullscreen]:flex peer-[.peer-video]:w-[100dvw] items-center peer-[.peer-video]:absolute absolute  my-1 py-1 opacity-0 hover:opacity-100 transition-opacity duration-1000 hover:delay-100 delay-300 z-50 h-14`}
     >
       <button
         className='video transition-all duration-300 hover:scale-[1.1]'
