@@ -18,7 +18,8 @@ export default function LoadingScreen() {
           ref={shroom}
           src={seizureShhroom}
           alt=''
-          className='shhroom animate-bounce elastic-fall h-[20%] w-[13%] absolute z-50 5xl:w-[10%]'
+          // removed classes: h-[20%]
+          className='shhroom animate-bounce elastic-fall w-[13%] absolute z-50 5xl:w-[10%] aspect-auto'
         />
         <p
           ref={loadingRef}
