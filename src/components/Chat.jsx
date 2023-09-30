@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import plane from '/svg/plane.svg';
 import bleep from '../../public/bg/bleep2.mp3';
-import { gsap } from 'gsap/gsap-core';
 
 export default function Chat(props) {
   const {
