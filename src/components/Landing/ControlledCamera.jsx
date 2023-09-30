@@ -101,17 +101,17 @@ export default function ControlledCamera() {
     return;
   }
 
-  useEffect(() => {
-    if (landingContext.panningIsLimited) {
-      // console.log('setting pan limit');
-      // controls.current.addEventListener('change', onChange);
-    } else controls.current.removeEventListener('change', panLimiter);
+  // useEffect(() => {
+  //   if (landingContext.panningIsLimited) {
+  //     // console.log('setting pan limit');
+  //     // controls.current.addEventListener('change', onChange);
+  //   } else controls.current?.removeEventListener('change', panLimiter);
 
-    return () => {
-      // console.log('releasing pan limit');
-      controls.current.removeEventListener('change', panLimiter);
-    };
-  }, [landingContext.panningIsLimited]);
+  //   return () => {
+  //     // console.log('releasing pan limit');
+  //     controls.current?.removeEventListener('change', panLimiter);
+  //   };
+  // }, [landingContext.panningIsLimited]);
 
   /**
    * * ZOOM TO OBJECT
@@ -176,6 +176,7 @@ export default function ControlledCamera() {
             ease: 'power1.inOut',
           },
           onUpdate: () => {
+            if (!controls.current) return;
             controls.current.update();
           },
           onStart: () => {
