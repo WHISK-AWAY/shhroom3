@@ -11,7 +11,7 @@ import { useContext } from 'react';
 export default function UserControls() {
   const mainContainerRef = useRef(null);
   const [isControlsClose, setIsControlsClose] = useState(true);
-  const previousModeRef = useRef(null);
+  const previousModeRef = useRef(true);
   const textRef = useRef(null);
   const arrowRef = useRef(null);
   const topControlsRef = useRef(null);
