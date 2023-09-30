@@ -5,12 +5,14 @@ import React, {
   lazy,
   Suspense,
   useContext,
+  useLayoutEffect
 } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useShhroom from './hooks/useShhroom';
 import joinRoom from '../lib/joinRoom';
 import { GlobalContext, RoomContext, initialRoomContext } from '../lib/context';
 import {} from '../lib/context';
+import { gsap } from 'gsap/gsap-core';
 // import SignInOverlay from './SignInOverlay';
 // import VideoGrid from './VideoGrid/VideoGrid';
 // import RoomUserControls from './RoomUserControls';
@@ -253,6 +255,48 @@ export default function Room({ socket }) {
   }
 
   // console.log(thisShhroomer)
+
+  const chatWrapper = document.querySelector('#chat-area');
+  const videoWrapper = document.querySelector('#video-grid');
+
+  useLayoutEffect(() => {
+    
+    if (isUserControlsOpen) {
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({});
+        tl.to(videoWrapper, {
+          width: '85%',
+          duration: 1,
+          ease: 'expo.inOut',
+        });
+
+      
+
+      });
+        return () => {
+          ctx.revert();
+        };
+
+
+      } else {
+        const ctx = gsap.context(() => {
+          
+          const tl = gsap.timeline({})
+          tl.to(videoWrapper, {
+            delay: 1.5,
+            width: '100%',
+            duration: .5,
+            ease: 'expo.inOut',
+          });
+          
+        })
+        return () => {
+          ctx.revert()
+        }
+
+
+      }
+  }, [isUserControlsOpen]);
   return (
     <div className="bg-[url('/bg/test1.png')] bg-cover relative h-screen w-screen bg-no-repeat flex flex-col justify-between pb-9 overflow-hidden">
       <RoomContext.Provider value={roomContext}>
@@ -278,7 +322,13 @@ export default function Room({ socket }) {
             partnerUsername={partnerUsername.current}
           />
         </Suspense>
-        <div className={`${isChatOpen ? 'flex items-end h-fit xl:h-full short:h-fit short:pt-3 pt-10 3xl:pt-4' : 'hidden'}`}>
+        <div
+          className={`${
+            isChatOpen
+              ? 'chat-container flex items-end h-fit xl:h-full short:h-fit short:pt-3 pt-10 3xl:pt-4'
+              : 'hidden'
+          }`}
+        >
           {chatConnection && (
             <Suspense fallback={<p>Loading chat component...</p>}>
               <Chat
