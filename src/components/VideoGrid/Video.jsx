@@ -63,7 +63,7 @@ export default function Video({
   return (
     <div
       className={
-        ` flex h-full flex-col w-[45%] order-1 relative z-0` +
+        ` flex h-full flex-col w-[45%] order-1 relative z-0 ` +
         fullScreenStyles[fullScreenRole].div
       }
     >
@@ -71,7 +71,7 @@ export default function Video({
         muted={true}
         ref={vidElement}
         className={
-          `rounded-sm object-cover h-full shadow-lg shadow-black/50 z-0` +
+          `rounded-sm object-cover h-full shadow-lg  shadow-black/50 z-0` +
           fullScreenStyles[fullScreenRole].video +
           (roomContext.isFullscreen && fullScreenRole === 'them'
             ? ' peer peer-video'
