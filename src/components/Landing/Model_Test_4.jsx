@@ -94,7 +94,7 @@ export default function Model(props) {
           />
         </Plane>
 
-        {landingContext.signInHintIsVisible && !isSignHelperHidden && (
+        {landingContext.signInHintIsVisible && !isSignHelperHidden && !globalContext.isSignedIn && (
           <Suspense fallback={null}>
             <SignInHelperText />
             <Svg
@@ -117,6 +117,7 @@ export default function Model(props) {
           rotation={[0, Math.PI / 2, 0]}
         />
         <Html
+        zIndexRange={[.1, 0]}
           ref={screenRef}
           as='div'
           distanceFactor={0.5}

@@ -1,4 +1,3 @@
-import test from '/svg/test.svg';
 import arrow from '/svg/arrowDown.svg';
 import mouseActiveLeft from '/svg/mouse_active_left.svg';
 import mouseActiveRight from '/svg/mouse_active_right.svg';
@@ -6,8 +5,8 @@ import mouseActiveWheel from '/svg/mouse_active_wheel.svg';
 import cursor from '/svg/cursor.svg';
 import { gsap } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
-import { Html } from '@react-three/drei';
-// import { toType } from 'cli';
+import { GlobalContext } from '../lib/context';
+import { useContext } from 'react';
 
 export default function UserControls() {
   const mainContainerRef = useRef(null);
@@ -16,11 +15,20 @@ export default function UserControls() {
   const textRef = useRef(null);
   const arrowRef = useRef(null);
   const topControlsRef = useRef(null);
+  const globalContext = useContext(GlobalContext);
+
+  console.log(globalContext)
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsControlsClose(false);
-    }, 3000);
+
+    if(!globalContext.isSignedIn) {
+
+      setTimeout(() => {
+        setIsControlsClose(false);
+      }, 3000);
+    } else {
+      setIsControlsClose(true)
+    }
   }, []);
 
 
@@ -110,7 +118,7 @@ export default function UserControls() {
   return (
     <div
       ref={mainContainerRef}
-      className='fixed  z-10 top-[1%] left-[1%] font-vt  h-[75dvh] short:h-[85dvh] xl:h-[67dvh] 2xl:h-[63dvh] 4xl:h-[71dvh] 5xl:h-[67dvh] 6xl:h-[60dvh] portrait:h-[60svh] portrait:md:h-[74svh] text-white  w-64 rounded-lg'
+      className='fixed  z-50 top-[1%] left-[1%] font-vt  h-[75dvh] short:h-[85dvh] xl:h-[67dvh] 2xl:h-[63dvh] 4xl:h-[71dvh] 5xl:h-[67dvh] 6xl:h-[60dvh] portrait:h-[60svh] landscape:5xl:tall:h-[50dvh] portrait:md:h-[74svh] text-white  w-64 rounded-lg'
     >
       <div
         ref={topControlsRef}

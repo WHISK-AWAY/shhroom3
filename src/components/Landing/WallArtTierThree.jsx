@@ -178,14 +178,7 @@ export default function Model(props) {
         rotation={[-Math.PI, Math.PI / 2, 0]}
         scale={0.15217}
         />
-        <mesh
-        geometry={nodes.s47.geometry}
-        />
-        <mesh
-
-      />
       <mesh
-
         receiveShadow
         geometry={nodes.s48.geometry}
         material={materials.s48}
