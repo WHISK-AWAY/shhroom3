@@ -249,7 +249,7 @@ export default function Room({ socket }) {
     // notify the server that we've left (to trigger partner to clean up)
     socket.emit('leave-room');
 
-    navigate('/lobby');
+    navigate('/tunnel');
   }
 
   // console.log(thisShhroomer)
@@ -265,6 +265,7 @@ export default function Room({ socket }) {
             isUserControlsOpen={isUserControlsOpen}
             setIsUserControlsOpen={setIsUserControlsOpen}
             setIsChatOpen={setIsChatOpen}
+            partnerPeerId={partnerPeerId}
           />
         </Suspense>
         <Suspense fallback={<p>Loading video grid...</p>}>
@@ -277,7 +278,7 @@ export default function Room({ socket }) {
             partnerUsername={partnerUsername.current}
           />
         </Suspense>
-        <div className={`${isChatOpen ? 'flex items-end h-full' : 'hidden'}`}>
+        <div className={`${isChatOpen ? 'flex items-end h-fit xl:h-full short:h-fit short:pt-3 pt-10 3xl:pt-4' : 'hidden'}`}>
           {chatConnection && (
             <Suspense fallback={<p>Loading chat component...</p>}>
               <Chat

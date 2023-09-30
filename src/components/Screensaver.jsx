@@ -73,7 +73,7 @@ export default function Screensaver() {
             />
             <p className='font-vt text-[35px] pt-[1%]  '>sign_in/sign_up</p>
           </div>
-          <div className='flex flex-col items-center  w-full h-full'>
+          <div className='flex flex-col items-end -translate-x-[10%]  w-full h-full'>
             {!isFormHidden &&
               (isSignUpHidden ? (
                 <div className='scale-[100%]'>

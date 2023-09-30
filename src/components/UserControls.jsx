@@ -85,7 +85,7 @@ export default function UserControls() {
               textRef.current,
               {
                 opacity: 100,
-                paddingTop: '0px',
+                paddingTop: '24px',
                 ease: 'power1',
                 duration: 0.6,
               },
@@ -110,7 +110,7 @@ export default function UserControls() {
   return (
     <div
       ref={mainContainerRef}
-      className='fixed  z-10 top-[1%] left-[1%] font-vt  h-[75dvh] short:h-[85dvh] xl:h-[67dvh] 2xl:h-[63dvh] 4xl:h-[71dvh] 5xl:h-[67dvh] 6xl:h-[60dvh] portrait:h-[60dvh] text-white  w-64 rounded-lg'
+      className='fixed  z-10 top-[1%] left-[1%] font-vt  h-[75dvh] short:h-[85dvh] xl:h-[67dvh] 2xl:h-[63dvh] 4xl:h-[71dvh] 5xl:h-[67dvh] 6xl:h-[60dvh] portrait:h-[60svh] portrait:md:h-[74svh] text-white  w-64 rounded-lg'
     >
       <div
         ref={topControlsRef}
@@ -120,7 +120,7 @@ export default function UserControls() {
           ref={arrowRef}
           onClick={() => setIsControlsClose((prev) => !prev)}
           src={arrow}
-          alt=''
+          alt='Arrow icon to open/hide dropdown user controls helper menu'
           className='h-3 4xl:h-4 cursor-pointer z-50 opacity-60 pr-3 my-auto '
         />
       </div>
@@ -128,13 +128,13 @@ export default function UserControls() {
       <div
         ref={textRef}
         className={` ${isControlsClose ? 'opacity-0' : 'opacity-100'}
-        flex  px-3 text-[1.1vw] text-center bg-[#212529]/80 z-0 relative rounded-b-lg -translate-y-[2%] flex-col gap-4 h-full overflow-hidden  lg:text-[1rem] portrait:text-[1rem]`}
+        flex  px-3 text-[1.1vw] text-center bg-[#212529]/80 z-0 relative rounded-b-lg  -top-1 flex-col gap-4 h-full overflow-hidden  lg:text-[1rem] portrait:text-[1rem]`}
       >
         <div className='border-b flex flex-col  pb-4 gap-2 '>
           <h1 className=''>left click + hold to move around</h1>
           <img
             src={mouseActiveLeft}
-            alt='mouse showing left button as an active button'
+            alt='Mouse icon showing left button as an active button'
             className='h-[6vw] 5xl:h-[4vw] portrait:h-[15vw] transition-all duration-300 hover:scale-[1.2] '
           />
         </div>
@@ -143,7 +143,7 @@ export default function UserControls() {
           <h1 className='pt-1'>right click + hold right button to pan</h1>
           <img
             src={mouseActiveRight}
-            alt='mouse showing right button as an active button'
+            alt='Mouse icon showing right button as an active button'
             className='h-[6vw] 5xl:h-[4vw]  portrait:h-[15vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
@@ -152,7 +152,7 @@ export default function UserControls() {
           <h1 className='pt-1'>scroll to zoom</h1>
           <img
             src={mouseActiveWheel}
-            alt='mouse showing wheel as an active button'
+            alt='Mouse icon showing wheel as an active button'
             className='h-[6vw] 5xl:h-[4vw] portrait:h-[15vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>
@@ -161,7 +161,7 @@ export default function UserControls() {
           <h1 className='pt-1'>click on objects to see close up</h1>
           <img
             src={cursor}
-            alt='cursor svg icon'
+            alt='Cursor icon - click on objects to see close up'
             className='h-[6vw] 5xl:h-[4vw] portrait:h-[15vw] transition-all hover:scale-[1.2] duration-300'
           />
         </div>

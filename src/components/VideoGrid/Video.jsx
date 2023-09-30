@@ -63,7 +63,7 @@ export default function Video({
   return (
     <div
       className={
-        `border border-lime-500 flex h-full flex-col w-[45%] order-1 relative z-0` +
+        ` flex h-full flex-col w-[45%] order-1 relative z-0` +
         fullScreenStyles[fullScreenRole].div
       }
     >
@@ -80,7 +80,7 @@ export default function Video({
         onLoadedMetadata={(e) => e.target.play()}
       />
       <p
-        className={`bg-black/30 px-4 py-1 absolute text-[1.3vw] font-vt text-white ${
+        className={`bg-black/30 px-4 py-1 absolute text-[1vw] font-vt text-white ${
           roomContext.isFullscreen
             ? fullScreenRole === 'us'
               ? 'bottom-0 left-1/2 translate-x-[-50%] -translate-y-full rounded-full invisible'
