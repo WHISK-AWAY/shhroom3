@@ -4,15 +4,11 @@ import { Canvas } from '@react-three/fiber';
 import { AdaptiveDpr, OrbitControls } from '@react-three/drei';
 
 import Tunnel from './Tunnel';
-// import { LoadingScreen, Tunnel } from '../../components';
 
 export default function TunnelCanvas() {
   const ww = window.innerWidth;
   const wh = window.innerHeight;
 
-  // useEffect(() => {
-  //   // document.querySelector('#loader').classList.add('invisible');
-  // }, []);
 
   return (
     <div className='h-screen w-screen bg-black'>
@@ -22,7 +18,7 @@ export default function TunnelCanvas() {
           antialias: false,
         }}
         camera={{
-          fov: 70,
+          fov: 20,
           aspect: ww / wh,
           near: 0.01,
           far: 100,
