@@ -29,7 +29,7 @@ export default function VideoGrid({
   return (
     <div
       id='video-grid'
-      className={` flex justify-center gap-8 py-[2.5dvh] w-[85%] h-[65dvh]  items-end self-end align-end  
+      className={` flex justify-center gap-8 py-[2.5dvh] w-[85%] h-[65dvh]  items-end self-end align-end  5xl:w-[90%]
        ${isFullscreen ? 'group is-fullscreen' : ''}
     `}
     >
