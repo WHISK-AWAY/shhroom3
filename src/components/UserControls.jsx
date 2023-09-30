@@ -17,21 +17,15 @@ export default function UserControls() {
   const topControlsRef = useRef(null);
   const globalContext = useContext(GlobalContext);
 
-  console.log(globalContext)
-
   useEffect(() => {
-
-    if(!globalContext.isSignedIn) {
-
+    if (!globalContext.isSignedIn) {
       setTimeout(() => {
         setIsControlsClose(false);
       }, 3000);
     } else {
-      setIsControlsClose(true)
+      setIsControlsClose(true);
     }
   }, []);
-
-
 
   useEffect(() => {
     if (!isControlsClose) {
@@ -71,11 +65,8 @@ export default function UserControls() {
       return () => {
         ctx.revert();
       };
-
-
     } else {
       if (isControlsClose && !previousModeRef.current) {
-
         const ctx = gsap.context(() => {
           const tl = gsap.timeline({});
 
