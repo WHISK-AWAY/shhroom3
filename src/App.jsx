@@ -17,6 +17,8 @@ const TunnelCanvas = lazy(() => import('./components/Tunnel/TunnelCanvas'));
 const Room = lazy(() => import('./components/Room'));
 // const Lobby = lazy(() => import('./components/Lobby'));
 const Landing = lazy(() => import('./components/Landing/Landing'));
+// import Landing from './components/Landing/Landing';
+import LoadingScreen from './components/LoadingScreen';
 
 export default function App() {
   const [globalContext, setGlobalContext] = useState(initialGlobalContext);
@@ -59,7 +61,14 @@ export default function App() {
       <GlobalContext.Provider value={globalContext}>
         <LandingContext.Provider value={landingContext}>
           <Routes>
-            <Route path='/' element={<Landing />} />
+            <Route
+              path='/'
+              element={
+                <Suspense fallback={<LoadingScreen />}>
+                  <Landing />
+                </Suspense>
+              }
+            />
             <Route path='/tunnel' element={<TunnelCanvas />} />
             <Route path='/screensaver' element={<Screensaver />} />
             <Route path='/room' element={<Room socket={socket} />} />
