@@ -6,9 +6,7 @@ import { useContextBridge } from '@react-three/drei';
 import { LandingContext, GlobalContext } from '../../lib/context';
 import useVerifyToken from '../hooks/useVerifyToken';
 
-// import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
-// import TunnelCanvas from '../Tunnel/TunnelCanvas';
 
 const UserControls = lazy(() => import('../UserControls'));
 const Scene = lazy(() => import('./Scene'));
@@ -31,12 +29,11 @@ export default function Landing() {
     });
   }, []);
 
-
   useVerifyToken();
   return (
     <div className='h-screen w-screen '>
       <Suspense fallback={<LoadingScreen />}>
-        {isCanvasLoaded && landingContext.controlsAreVisible && (
+        {isCanvasLoaded && landingContext?.controlsAreVisible && (
           <UserControls />
         )}
         {showLoadingScreen && <LoadingScreen />}
@@ -59,7 +56,9 @@ export default function Landing() {
         >
           <color attach='background' args={['#030303']} />
           <ContextBridge>
-            <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
+            <Suspense fallback={null}>
+              <Scene setIsCanvasLoaded={setIsCanvasLoaded} />
+            </Suspense>
           </ContextBridge>
         </Canvas>
       </Suspense>
