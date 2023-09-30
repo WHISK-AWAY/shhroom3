@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useContext } from 'react';
 import {
   CatmullRomCurve3,
   Vector3,
@@ -9,6 +9,7 @@ import { useFrame } from '@react-three/fiber';
 import { Tube, useTexture } from '@react-three/drei';
 import { gsap } from 'gsap';
 import { useNavigate } from 'react-router-dom';
+import { LandingContext } from '../../lib/context';
 
 import bgTexture from '../../../public/bg/galaxy_compressed.webp';
 
@@ -39,6 +40,7 @@ export default function Tunnel() {
   const materialRef = useRef(null);
   const tubeRef = useRef(null);
   const curveRef = useRef(null);
+  const landingContext = useContext(LandingContext);
 
   const texture = useTexture(bgTexture);
   texture.wrapS = MirroredRepeatWrapping;
@@ -94,7 +96,7 @@ export default function Tunnel() {
             ease: 'power2.inOut',
             offsetX: 24,
             offsetY: 12,
-            duration: 10,
+            duration: 3,
             // ease: 'power2.inOut',
             // offsetX: 8,
             // offsetY: 8,
@@ -108,10 +110,19 @@ export default function Tunnel() {
           {
             ease: 'power2.inOut',
             duration: 3,
-            repeatX: 10,
+            repeatX: 3,
             onComplete: () => {
               console.log('done!');
-              navigate('/room');
+              if (!landingContext.isZoomed) {
+                navigate('/');
+              } else {
+                landingContext.setContext((prev) => ({
+                  ...prev,
+                  isZoomed: false,
+                  targetLabel: null,
+                }));
+                navigate('/room');
+              }
             },
             // ease: 'power2.inOut',
             // duration: 6,
