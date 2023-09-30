@@ -5,7 +5,6 @@ import door from '/svg/door.svg';
 import copy from '/svg/copy.svg';
 import arrowDown from '/svg/arrowDown.svg';
 import { gsap } from 'gsap';
-import { is } from 'date-fns/locale';
 
 export default function RoomUserControls({
   roomId,
@@ -61,18 +60,21 @@ export default function RoomUserControls({
             ease: 'expo.inOut',
             opacity: 0,
           })
-          .to(svgRef.current, {
-            // opacity: 100,
-            duration: 0.8,
-            ease: 'power1',
-          }, '<');
+          .to(
+            svgRef.current,
+            {
+              // opacity: 100,
+              duration: 0.8,
+              ease: 'power1',
+            },
+            '<',
+          );
       });
 
       return () => {
         ctx.revert();
       };
     } else {
-
       if (!isUserControlsOpen && !previousModeRef.current) {
         const ctx = gsap.context(() => {
           const tl = gsap.timeline({});
@@ -81,22 +83,26 @@ export default function RoomUserControls({
             rotation: -90,
             duration: 0.3,
           })
-          .to(mainContainerRef.current, {
-            height: 0,
-            duration: 0.6,
-            ease: 'expo.inOut',
-            opacity: 100,
-          })
-          .from(svgRef.current, {
-            opacity: 100,
-            duration: 0.8,
-            ease: 'power1',
-          }, '<')
-          .from(topControlsRef.current, {
-            width: '15%',
-            duration: 0.2,
-            ease: 'expo',
-          })
+            .to(mainContainerRef.current, {
+              height: 0,
+              duration: 0.6,
+              ease: 'expo.inOut',
+              opacity: 100,
+            })
+            .from(
+              svgRef.current,
+              {
+                opacity: 100,
+                duration: 0.8,
+                ease: 'power1',
+              },
+              '<',
+            )
+            .from(topControlsRef.current, {
+              width: '15%',
+              duration: 0.2,
+              ease: 'expo',
+            });
         });
 
         previousModeRef.current = true;
