@@ -1,41 +1,21 @@
 import seizureShhroom from '/bg/shh_seizure.webp';
-import { gsap } from 'gsap';
-import { useRef, useEffect } from 'react';
 
 export default function LoadingScreen() {
-  const dot_01 = useRef(null);
-  const dot_02 = useRef(null);
-  const dot_03 = useRef(null);
-  const group = useRef(null);
-  const shroom = useRef(null);
-  const loadingRef = useRef(null);
-  const timelineRef = useRef(null);
-
   return (
     <div className='bg-black w-screen h-screen flex flex-col'>
       <div className='w-full h-full items-center  justify-center flex relative'>
         <img
-          ref={shroom}
           src={seizureShhroom}
           alt=''
           // removed classes: h-[20%]
           className='shhroom animate-bounce elastic-fall w-[13%] absolute z-50 5xl:w-[10%] aspect-auto'
         />
-        <p
-          ref={loadingRef}
-          className='font-press text-white uppercase text-[5vw] absolute translate-y-[80%] scale-100 -z-0'
-        >
+        <p className='font-press text-white uppercase text-[5vw] absolute translate-y-[80%] scale-100 -z-0'>
           loading
-          <span ref={group} id='group'>
-            <span ref={dot_01} className='animate-loading-dot delay-300'>
-              .
-            </span>
-            <span ref={dot_02} className='animate-loading-dot delay-600'>
-              .
-            </span>
-            <span ref={dot_03} className='animate-loading-dot delay-900'>
-              .
-            </span>
+          <span id='group'>
+            <span className='animate-loading-dot delay-300'>.</span>
+            <span className='animate-loading-dot delay-600'>.</span>
+            <span className='animate-loading-dot delay-900'>.</span>
           </span>
         </p>
       </div>
