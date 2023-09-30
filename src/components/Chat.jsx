@@ -79,16 +79,10 @@ export default function Chat(props) {
     setMessage('');
   };
 
-
-
   return (
     <div
-    id='chat-area'
-      className={`${
-        isUserControlsOpen
-          ? 'w-[60%] 3xl:w-[50%] 4xl:w-[40%] max-h-[20dvh] h-[50dvh] 5xl:w-[35%] short:w-[50%]'
-          : 'w-[70%] 3xl:w-[60%] 4xl:w-[50%] 5xl:w-[35%] short:w-[50%]'
-      } chat-area-wrapper justify-between  max-h-[30dvh] h-[28dvh] flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/10 rounded-md mb-8 3xl:text-[1.1vw] `}
+      id='chat-area'
+      className={` w-[50%] chat-area-wrapper justify-between   h-[60%] flex flex-col mx-auto font-vt text-[1.5vw] bg-teal-400/10 rounded-md mb-8 3xl:text-[1.1vw] `}
     >
       <div className='flex flex-row h-full items-center justify-center rounded-t-md scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-slate-700 scrollbar-track-slate-800 w-full mx-auto py-3  flex-grow-0 flex-shrink-0'>
         <div
@@ -107,7 +101,6 @@ export default function Chat(props) {
                     {new Date(timestamp).toLocaleString(undefined, {
                       hour: 'numeric',
                       minute: 'numeric',
-                      // second: 'numeric',
                     })}
                   </span>
                 </p>
@@ -124,7 +117,7 @@ export default function Chat(props) {
           <img
             src={plane}
             alt='Send message icon'
-            className='absolute right-2 top-1 w-[25px] 2xl:w-[30px]  5xl:w-[45px]'
+            className='absolute right-2 top-1 w-[25px] 2xl:w-[30px]   5xl:w-[45px]'
           />
         </button>
         <input

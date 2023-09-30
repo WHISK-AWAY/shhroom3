@@ -83,7 +83,7 @@ export default function Tunnel() {
       tl.to(timelineTextureParams, {
         // wind up
         ease: 'power1.inOut',
-        repeatX: 0.1,
+        repeatX: 0,
         duration: 0.8,
         // ease: 'power1.inOut',
         // repeatX: 0.3,
@@ -94,8 +94,8 @@ export default function Tunnel() {
           timelineTextureParams,
           {
             ease: 'power2.inOut',
-            offsetX: 24,
-            offsetY: 12,
+            offsetX: 4,
+            offsetY: 2,
             duration: 3,
             // ease: 'power2.inOut',
             // offsetX: 8,
@@ -124,9 +124,7 @@ export default function Tunnel() {
                 navigate('/room');
               }
             },
-            // ease: 'power2.inOut',
-            // duration: 6,
-            // repeatX: 10,
+            
           },
           '>-3',
         );
