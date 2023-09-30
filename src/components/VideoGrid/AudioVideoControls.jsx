@@ -33,40 +33,40 @@ export default function AudioVideoControls({
   return (
     <div
       ref={controlsContainer}
-      className={`audio-video-controls bg-zinc-600/80 flex gap-1 w-full -bottom-1 justify-center peer-[.peer-video]:flex  peer-[.peer-video]:bg-zinc-600 peer-[.peer-video]:h-20 group-[.is-fullscreen]:bg-zinc-600 group-[.is-fullscreen]:flex peer-[.peer-video]:w-[100dvw] items-center peer-[.peer-video]:absolute absolute  my-1 py-1 opacity-0 hover:opacity-100 transition-opacity duration-1000 hover:delay-100 delay-300 z-50 h-14`}
+      className={`audio-video-controls bg-zinc-600/80 flex gap-2 w-full -bottom-1 justify-center peer-[.peer-video]:flex  peer-[.peer-video]:bg-zinc-600 peer-[.peer-video]:h-20 group-[.is-fullscreen]:bg-zinc-600/80 group-[.is-fullscreen]:flex peer-[.peer-video]:w-[100dvw] items-center peer-[.peer-video]:absolute absolute  my-1 py-1 opacity-0 hover:opacity-100 transition-opacity duration-500 hover:delay-100 z-50 h-14`}
     >
       <button
-        className='video transition-all duration-300 hover:scale-[1.1]'
+        className='video transition-all duration-300 hover:scale-[1.4]'
         onClick={() =>
           setVideoState((prev) => ({ ...prev, videoIsMuted: !videoIsMuted }))
         }
       >
         {videoIsMuted ? (
-          <img src={cameraRed} alt='' className='w-[80%]' />
+          <img src={cameraRed} alt='' className='w-[98%]' />
         ) : (
-          <img src={camera} alt='' className='w-[80%]' />
+          <img src={camera} alt='' className='w-[98%]' />
         )}
       </button>
       {fullScreenRole === 'them' && (
         <button
-          className='resize transition-all duration-300 hover:scale-[1.2]'
+          className='resize transition-all duration-300 hover:scale-[1.4]'
           onClick={() =>
             setContext((prev) => ({ ...prev, isFullscreen: !isFullscreen }))
           }
         >
-          <img src={fullScreen} alt='' className='w-[70%]' />
+          <img src={fullScreen} alt='' className='w-[88%]' />
         </button>
       )}
       <button
-        className='audio transition-all duration-300 hover:scale-[1.2]'
+        className='audio transition-all duration-300 hover:scale-[1.4]'
         onClick={() =>
           setVideoState((prev) => ({ ...prev, audioIsMuted: !audioIsMuted }))
         }
       >
         {audioIsMuted ? (
-          <img src={mic} className='w-[70%]' />
+          <img src={mic} className='w-[98%]' />
         ) : (
-          <img src={micRed} className='w-[70%]' />
+          <img src={micRed} className='w-[98%]' />
         )}
       </button>
     </div>
