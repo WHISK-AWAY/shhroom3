@@ -22,7 +22,7 @@ export default function RoomUserControls({
   const svgRef = useRef(null);
   const anim = useRef(null);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
-  const previousModeRef = useRef(null);
+  const previousModeRef = useRef(true);
 
   async function copyToClipboard(text) {
     try {
