@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { io } from 'socket.io-client';
@@ -15,7 +15,7 @@ import {
 const Screensaver = lazy(() => import('./components/Screensaver'));
 const TunnelCanvas = lazy(() => import('./components/Tunnel/TunnelCanvas'));
 const Room = lazy(() => import('./components/Room'));
-const Lobby = lazy(() => import('./components/Lobby'));
+// const Lobby = lazy(() => import('./components/Lobby'));
 const Landing = lazy(() => import('./components/Landing/Landing'));
 
 export default function App() {
@@ -64,7 +64,9 @@ export default function App() {
             <Route path='/screensaver' element={<Screensaver />} />
             <Route path='/room' element={<Room socket={socket} />} />
             <Route path='/room/:roomId' element={<Room socket={socket} />} />
+            {/**
             <Route path='/lobby' element={<Lobby socket={socket} />} />
+          */}
           </Routes>
         </LandingContext.Provider>
       </GlobalContext.Provider>
