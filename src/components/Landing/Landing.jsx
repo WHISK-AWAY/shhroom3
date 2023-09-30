@@ -4,6 +4,7 @@ import { useDetectGPU } from '@react-three/drei';
 import { useContextBridge } from '@react-three/drei';
 
 import { LandingContext, GlobalContext } from '../../lib/context';
+import useVerifyToken from '../hooks/useVerifyToken';
 
 // import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
@@ -18,6 +19,8 @@ export default function Landing() {
 
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
 
+
+  useVerifyToken();
   return (
     <div className='h-screen w-screen '>
       <Suspense fallback={<LoadingScreen />}>
