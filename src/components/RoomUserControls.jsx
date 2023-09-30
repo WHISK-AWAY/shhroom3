@@ -124,9 +124,7 @@ export default function RoomUserControls({
 
       <div
         ref={mainContainerRef}
-        className={` ${
-          isUserControlsOpen ? 'opacity-100' : 'opacity-0'
-        } room-controls-wrapper absolute top-[3%] left-0  h-[60vh]  w-[15%] max-w-[300px]  font-vt flex z-50  justify-center rounded-md  text-white text-[1.4vw]  overflow-hidden`}
+        className={`  room-controls-wrapper absolute top-[3%] left-0  h-[60vh]  w-[15%] max-w-[300px]  font-vt flex z-50  justify-center rounded-md  text-white text-[1.4vw]  overflow-hidden`}
       >
         <ul className='room-controls-list  flex flex-col gap-10 justify-center  w-full bg-neutral-700/90 h-full p-4 rounded-r-sm'>
           <div
