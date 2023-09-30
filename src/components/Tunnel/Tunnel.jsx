@@ -112,7 +112,6 @@ export default function Tunnel() {
             duration: 3,
             repeatX: 3,
             onComplete: () => {
-              console.log('done!');
               if (!landingContext.isZoomed) {
                 // navigate('/');
               } else {

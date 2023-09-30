@@ -26,7 +26,6 @@ export default function Model(props) {
         landingContext.isZoomed &&
         landingContext.targetLabel === 'newMeetingTunnelZoom'
       ) {
-        console.log('zooming');
         navigate('/tunnel');
       }
     }

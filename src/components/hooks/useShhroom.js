@@ -36,9 +36,7 @@ export default function useShhroom() {
 
   useEffect(() => {
     if (auth.loading) {
-      console.log('waiting for auth');
     } else if (auth.error) {
-      console.log('error in auth step');
       setShhroomUser((prev) => ({
         ...prev,
         loading: false,
@@ -61,14 +59,12 @@ export default function useShhroom() {
     if (!authReceived || peerConn.loading) return;
 
     if (peerConn.error) {
-      console.log('error setting up peer connection');
       setShhroomUser((prev) => ({
         ...prev,
         loading: false,
         error: 'Peer error',
       }));
     } else {
-      console.log('setting peer info');
       setShhroomUser((prev) => ({
         ...prev,
         peerInfo: {
@@ -84,7 +80,6 @@ export default function useShhroom() {
   useEffect(() => {
     if (!peerReceived) return;
 
-    console.log('ready for encryption info');
     setShhroomUser((prev) => ({
       ...prev,
       loading: false,

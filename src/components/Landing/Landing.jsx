@@ -20,10 +20,6 @@ export default function Landing() {
   const [showLoadingScreen, setShowLoadingScreen] = useState(true);
 
   useEffect(() => {
-    console.log('isCanvasLoaded:', isCanvasLoaded);
-  }, [isCanvasLoaded]);
-
-  useEffect(() => {
     requestAnimationFrame(() => {
       addEventListener('landingReady', () => setShowLoadingScreen(false));
     });

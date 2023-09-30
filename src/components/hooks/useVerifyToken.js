@@ -27,11 +27,8 @@ async function checkToken() {
       },
     );
 
-    console.log('data:', data);
-
     return data;
   } catch (err) {
-    console.log('error verifying token:', err);
     localStorage.removeItem('token');
     return { error: 'Error: could not verify token' };
   }
@@ -42,8 +39,6 @@ export default function useVerifyToken() {
   const globalContext = useContext(GlobalContext);
 
   useEffect(() => {
-    console.log('globalContext:', globalContext);
-
     if (!globalContext.setContext) return;
 
     if (globalContext.isSignedIn) {
@@ -57,7 +52,6 @@ export default function useVerifyToken() {
           },
         }));
       } else {
-        console.log('signed in, but no username/id');
         checkToken()
           .then(handleTokenResponse)
           .catch((err) => {
@@ -65,7 +59,6 @@ export default function useVerifyToken() {
           });
       }
     } else {
-      console.log('not signed in');
       checkToken()
         .then(handleTokenResponse)
         .catch((err) => {
@@ -77,11 +70,9 @@ export default function useVerifyToken() {
   return { ...verifyTokenStatus };
 
   function handleTokenResponse(userData) {
-    console.log('handling token response:', userData);
     if (userData.error === 'Error: no token') {
       // wait for login
     } else if (userData.error) {
-      console.log('userdata error:', userData.error);
       localStorage.removeItem('token');
       setVerifyTokenStatus({
         ...initialState,
