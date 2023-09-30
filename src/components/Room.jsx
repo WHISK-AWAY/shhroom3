@@ -13,9 +13,7 @@ import joinRoom from '../lib/joinRoom';
 import { GlobalContext, RoomContext, initialRoomContext } from '../lib/context';
 import {} from '../lib/context';
 import { gsap } from 'gsap/gsap-core';
-// import SignInOverlay from './SignInOverlay';
-// import VideoGrid from './VideoGrid/VideoGrid';
-// import RoomUserControls from './RoomUserControls';
+
 
 const Chat = lazy(() => import('./Chat'));
 const VideoGrid = lazy(() => import('./VideoGrid/VideoGrid'));
@@ -265,12 +263,11 @@ export default function Room({ socket }) {
         const ctx = gsap.context(() => {
           const tl = gsap.timeline({});
         tl.to(videoWrapper, {
-          width: '85%',
+          width: window.innerWidth <= 1920 ?  '85%' : '90%',
           duration: 1,
           ease: 'expo.inOut',
-        });
+        }, '<')
 
-      
 
       });
         return () => {
@@ -289,6 +286,7 @@ export default function Room({ socket }) {
             ease: 'expo.inOut',
           });
           
+           
         })
         return () => {
           ctx.revert()
@@ -297,6 +295,8 @@ export default function Room({ socket }) {
 
       }
   }, [isUserControlsOpen]);
+
+
   return (
     <div className="bg-[url('/bg/test1.png')] bg-cover relative h-screen w-screen bg-no-repeat flex flex-col justify-between pb-9 overflow-hidden">
       <RoomContext.Provider value={roomContext}>
@@ -325,7 +325,7 @@ export default function Room({ socket }) {
         <div
           className={`${
             isChatOpen
-              ? 'chat-container flex items-end h-fit xl:h-full short:h-fit short:pt-3 pt-10 3xl:pt-4'
+              ? 'chat-container flex items-end h-[60%]  short:pt-3 pt-10 3xl:pt-4'
               : 'hidden'
           }`}
         >
@@ -344,4 +344,14 @@ export default function Room({ socket }) {
       </RoomContext.Provider>
     </div>
   );
+}
+
+
+{
+  /**
+ className={`${
+            isChatOpen
+              ? 'chat-container flex items-end h-fit xl:h-full short:h-fit short:pt-3 pt-10 3xl:pt-4'
+              : 'hidden'
+          }`} */
 }
