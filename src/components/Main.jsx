@@ -14,7 +14,9 @@ export default function Main() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/room' element={<Room socket={socket} />} />
         <Route path='/room/:roomId' element={<Room socket={socket} />} />
+        {/**
         <Route path='/lobby' element={<Lobby socket={socket} />} />
+      */}
       </Routes>
     </div>
   );
