@@ -10,6 +10,8 @@ export default {
     extend: {
       screens: {
         short: { raw: '(max-height: 768px) and (min-width: 1440px)' },
+        large: { raw: '(max-height: 1080px)'},
+        tall: {raw: '(max-height: 1440px)'},
         xxs: '360px',
         xs: '375px',
         sm: '412px',
