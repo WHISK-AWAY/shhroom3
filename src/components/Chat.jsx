@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import plane from '/svg/plane.svg';
 import bleep from '../../public/bg/bleep2.mp3';
+import { gsap } from 'gsap/gsap-core';
 
 export default function Chat(props) {
   const {
@@ -79,8 +80,11 @@ export default function Chat(props) {
     setMessage('');
   };
 
+
+
   return (
     <div
+    id='chat-area'
       className={`${
         isUserControlsOpen
           ? 'w-[60%] 3xl:w-[50%] 4xl:w-[40%] max-h-[20dvh] h-[50dvh] 5xl:w-[35%] short:w-[50%]'
