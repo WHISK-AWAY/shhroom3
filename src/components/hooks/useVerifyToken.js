@@ -17,36 +17,9 @@ export default function useVerifyToken() {
 
   const [status, setStatus] = useState(initialState);
 
-  useEffect(() => {
-    if (!globalContext.setContext) return;
-    console.log('checking token');
+  function checkToken() {
+    const token = localStorage.getItem('token');
 
-    // re-set status each time we pass through this loop in order to indicate loading / stale info
-    setStatus(initialState);
-
-    const token = window.localStorage.getItem('token');
-
-    if (!token) {
-      console.log('no token to check');
-
-      // setStatus({
-      //   ...initialState,
-      //   loading: false,
-      //   error: 'MISSING_TOKEN',
-      // });
-
-      if (globalContext.isSignedIn) {
-        globalContext.setContext((prev) => ({
-          ...prev,
-          isSignedIn: false,
-        }));
-      }
-
-      return;
-    }
-
-    // Send token to backend for validation
-    // Backend will return username/ID
     axios
       .get(import.meta.env.VITE_API_URL + '/api/auth', {
         headers: {
@@ -55,7 +28,7 @@ export default function useVerifyToken() {
       })
       .then(({ data }) => {
         // Success: update status & global state
-        console.log('token check successful');
+        // console.log('token check successful');
 
         setStatus({
           userData: data,
@@ -96,7 +69,48 @@ export default function useVerifyToken() {
           }));
         }
       });
+  }
+
+  useEffect(() => {
+    if (!globalContext.setContext || globalContext.isSignedIn) return;
+    // console.log('checking token');
+
+    // re-set status each time we pass through this loop in order to indicate loading / stale info
+    setStatus(initialState);
+
+    const token = window.localStorage.getItem('token');
+
+    if (!token) {
+      // console.log('no token to check');
+
+      // setStatus({
+      //   ...initialState,
+      //   loading: false,
+      //   error: 'MISSING_TOKEN',
+      // });
+
+      if (globalContext.isSignedIn) {
+        globalContext.setContext((prev) => ({
+          ...prev,
+          isSignedIn: false,
+        }));
+      }
+
+      return;
+    }
+
+    // Send token to backend for validation
+    // Backend will return username/ID
+    checkToken();
   }, [globalContext.isSignedIn, globalContext.setContext?.toString()]);
+
+  useEffect(() => {
+    if (!globalContext.isSignedIn) return;
+
+    if (globalContext.isSignedIn && !globalContext.userId) {
+      checkToken();
+    }
+  }, [globalContext.isSignedIn, globalContext.userId]);
 
   return { ...status };
 }

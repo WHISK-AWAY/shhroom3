@@ -52,7 +52,7 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
       globalContext.setContext((prev) => ({
         ...prev,
         isSignedIn: true,
-        username: data.username,
+        // username: data.username,
       }));
 
       // make sure sign-in hint is no longer visible

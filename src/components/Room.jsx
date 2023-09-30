@@ -46,12 +46,12 @@ export default function Room({ socket }) {
   const thisShhroomer = useShhroom();
 
   useEffect(() => {
-    if (!globalContext.isSignedIn) {
+    if (!localStorage.getItem('token')) {
       setSigninOverlay(true);
     } else {
       setSigninOverlay(false);
     }
-  }, [globalContext.isSignedIn]);
+  }, [globalContext.isSignedIn, thisShhroomer?.loading]);
 
   useEffect(() => {
     // Add setter / resetter to roomContext
@@ -79,9 +79,9 @@ export default function Room({ socket }) {
     return () => window.removeEventListener('keydown', escapeKey);
   }, [roomContext]);
 
-  useEffect(() => {
-    console.log('room context:', roomContext);
-  }, [roomContext]);
+  // useEffect(() => {
+  //   console.log('room context:', roomContext);
+  // }, [roomContext]);
 
   useEffect(() => {
     // Initialize room once shhroomer object is ready

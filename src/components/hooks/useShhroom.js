@@ -32,32 +32,16 @@ export default function useShhroom() {
   const peerConn = usePeerConnection();
 
   useEffect(() => {
-    // debug keystroke handler
-    function keyPressed(e) {
-      if (e.keyCode === 32) {
-        // spacebar: keycode 32
-        console.log('Global context:', globalContext);
-        console.log('thisShhroomer:', shhroomUser);
-      } else if (e.keyCode === 85 && e.shiftKey) {
-        // shift + u: keycode 85
-        console.log('removing token');
-        window.localStorage.removeItem('token');
-      }
-    }
-
-    document.addEventListener('keypress', keyPressed);
-
-    return () => document.removeEventListener('keypress', keyPressed);
-  }, []);
-
-  useEffect(() => {
-    if (!isSignedIn) {
+    if (!auth.loading && !isSignedIn) {
       console.log('useShhroom is awaiting user sign in...');
+      setShhroomUser((prev) => ({ ...prev, loading: false }));
     }
   }, [isSignedIn]);
 
   useEffect(() => {
-    if (auth.loading || !isSignedIn) return;
+    if (auth.loading || !isSignedIn) {
+      return;
+    }
     if (auth.error) {
       console.log('Error pulling user info:', auth.error);
       setShhroomUser({
@@ -65,12 +49,13 @@ export default function useShhroom() {
         loading: false,
         error: auth.error,
       });
-    } else
+    } else {
       setShhroomUser((prev) => ({
         ...prev,
         userInfo: { ...auth.userData },
       }));
-  }, [auth.loading, isSignedIn]);
+    }
+  }, [auth.loading, globalContext.isSignedIn]);
 
   useEffect(() => {
     if (peerConn.loading || !isSignedIn) return;
@@ -103,6 +88,25 @@ export default function useShhroom() {
       encryptionInfo: handleKeys(),
     }));
   }, [auth.loading, peerConn.loading, isSignedIn]);
+
+  useEffect(() => {
+    // debug keystroke handler
+    function keyPressed(e) {
+      if (e.keyCode === 32) {
+        // spacebar: keycode 32
+        console.log('Global context:', globalContext);
+        console.log('thisShhroomer:', shhroomUser);
+      } else if (e.keyCode === 85 && e.shiftKey) {
+        // shift + u: keycode 85
+        console.log('removing token');
+        window.localStorage.removeItem('token');
+      }
+    }
+
+    document.addEventListener('keypress', keyPressed);
+
+    return () => document.removeEventListener('keypress', keyPressed);
+  }, [globalContext]);
 
   return { ...shhroomUser };
 }
