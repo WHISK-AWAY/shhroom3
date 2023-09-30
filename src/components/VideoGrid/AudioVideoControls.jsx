@@ -64,9 +64,9 @@ export default function AudioVideoControls({
         }
       >
         {audioIsMuted ? (
-          <img src={mic} className='w-[98%]' />
-        ) : (
           <img src={micRed} className='w-[98%]' />
+        ) : (
+          <img src={mic} className='w-[98%]' />
         )}
       </button>
     </div>
