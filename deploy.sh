@@ -3,8 +3,7 @@
 getopts c: flag;
 
 remote_host=pna;
-remote_dest=/var/www/shhroom/html/
-dry=
+remote_dest=/var/www/shhroom/html/;
 
 if [ $flag = c ]
   then
@@ -21,7 +20,7 @@ npm run build | tee -a deploy.log;
 
 echo "Build complete. Uploading files..." | tee -a deploy.log;
 
-rsync --verbose --dirs --update --size-only --mkpath --delete --delete-delay dist/ $remote_host:$remote_dest | tee -a deploy.log;
+rsync --verbose --verbose --recursive --update --size-only --mkpath --delete --delete-delay dist/ $remote_host:$remote_dest | tee -a deploy.log;
 
 echo "Done!" | tee -a deploy.log;
 
