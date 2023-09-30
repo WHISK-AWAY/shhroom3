@@ -5,7 +5,7 @@ import React, {
   lazy,
   Suspense,
   useContext,
-  useLayoutEffect
+  useLayoutEffect,
 } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useShhroom from './hooks/useShhroom';
@@ -13,7 +13,6 @@ import joinRoom from '../lib/joinRoom';
 import { GlobalContext, RoomContext, initialRoomContext } from '../lib/context';
 import {} from '../lib/context';
 import { gsap } from 'gsap/gsap-core';
-
 
 const Chat = lazy(() => import('./Chat'));
 const VideoGrid = lazy(() => import('./VideoGrid/VideoGrid'));
@@ -235,7 +234,7 @@ export default function Room({ socket }) {
     }
 
     // shut down our audio/video stream
-    ownSource.getTracks().forEach((track) => {
+    ownSource?.getTracks().forEach((track) => {
       if (track.readyState === 'live') {
         track.stop();
       }
@@ -244,12 +243,12 @@ export default function Room({ socket }) {
     removePeer();
 
     // remove our own peer info
-    thisShhroomer.peerInfo.peer.destroy();
+    thisShhroomer?.peerInfo?.peer?.destroy();
 
     // notify the server that we've left (to trigger partner to clean up)
-    socket.emit('leave-room');
+    socket?.emit('leave-room');
 
-    navigate('/tunnel');
+    navigate('/');
   }
 
   // console.log(thisShhroomer)
@@ -258,44 +257,37 @@ export default function Room({ socket }) {
   const videoWrapper = document.querySelector('#video-grid');
 
   useLayoutEffect(() => {
-    
     if (isUserControlsOpen) {
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({});
-        tl.to(videoWrapper, {
-          width: window.innerWidth <= 1920 ?  '85%' : '90%',
-          duration: 1,
-          ease: 'expo.inOut',
-        }, '<')
-
-
-      });
-        return () => {
-          ctx.revert();
-        };
-
-
-      } else {
-        const ctx = gsap.context(() => {
-          
-          const tl = gsap.timeline({})
-          tl.to(videoWrapper, {
-            delay: 1.5,
-            width: '100%',
-            duration: .5,
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({});
+        tl.to(
+          videoWrapper,
+          {
+            width: window.innerWidth <= 1920 ? '85%' : '90%',
+            duration: 1,
             ease: 'expo.inOut',
-          });
-          
-           
-        })
-        return () => {
-          ctx.revert()
-        }
-
-
-      }
+          },
+          '<',
+        );
+      });
+      return () => {
+        ctx.revert();
+      };
+    } else {
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({});
+        tl.to(videoWrapper, {
+          delay: 1.5,
+          width: '100%',
+          duration: 0.5,
+          ease: 'expo.inOut',
+        });
+      });
+      return () => {
+        ctx.revert();
+      };
+    }
   }, [isUserControlsOpen]);
-
 
   return (
     <div className="bg-[url('/bg/test1.png')] bg-cover relative h-screen w-screen bg-no-repeat flex flex-col justify-between pb-9 overflow-hidden">
@@ -345,7 +337,6 @@ export default function Room({ socket }) {
     </div>
   );
 }
-
 
 {
   /**
