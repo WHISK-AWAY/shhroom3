@@ -7,7 +7,7 @@ import { LandingContext, GlobalContext } from '../../lib/context';
 
 // import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
-import TunnelCanvas from '../Tunnel/TunnelCanvas';
+// import TunnelCanvas from '../Tunnel/TunnelCanvas';
 
 const UserControls = lazy(() => import('../UserControls'));
 const Scene = lazy(() => import('./Scene'));
@@ -36,7 +36,7 @@ export default function Landing() {
         {isCanvasLoaded && landingContext.controlsAreVisible && (
           <UserControls />
         )}
-        {showLoadingScreen && <TunnelCanvas />}
+        {showLoadingScreen && <LoadingScreen />}
         <Canvas
           frameloop='demand'
           shadows={gpu.tier < 1 ? false : 'soft'}
