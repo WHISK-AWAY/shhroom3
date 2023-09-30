@@ -10,9 +10,9 @@ export default function TunnelCanvas() {
   const ww = window.innerWidth;
   const wh = window.innerHeight;
 
-  useEffect(() => {
-    // document.querySelector('#loader').classList.add('invisible');
-  }, []);
+  // useEffect(() => {
+  //   // document.querySelector('#loader').classList.add('invisible');
+  // }, []);
 
   return (
     <div className='h-screen w-screen bg-black'>
