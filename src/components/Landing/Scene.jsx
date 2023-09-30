@@ -21,6 +21,13 @@ export default function Scene({ setIsCanvasLoaded }) {
     setIsCanvasLoaded(true);
   }, []);
 
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      const e = new Event('landingReady');
+      window.dispatchEvent(e);
+    });
+  }, []);
+
   return (
     <>
       <Lights />

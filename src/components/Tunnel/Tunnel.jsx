@@ -114,7 +114,7 @@ export default function Tunnel() {
             onComplete: () => {
               console.log('done!');
               if (!landingContext.isZoomed) {
-                navigate('/');
+                // navigate('/');
               } else {
                 landingContext.setContext((prev) => ({
                   ...prev,
@@ -124,7 +124,6 @@ export default function Tunnel() {
                 navigate('/room');
               }
             },
-            
           },
           '>-3',
         );

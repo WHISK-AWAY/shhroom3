@@ -1,4 +1,4 @@
-import { Suspense, lazy, useContext, useState } from 'react';
+import { Suspense, lazy, useContext, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useDetectGPU } from '@react-three/drei';
 import { useContextBridge } from '@react-three/drei';
@@ -7,6 +7,7 @@ import { LandingContext, GlobalContext } from '../../lib/context';
 
 // import Scene from './Scene';
 import LoadingScreen from '../LoadingScreen';
+import TunnelCanvas from '../Tunnel/TunnelCanvas';
 
 const UserControls = lazy(() => import('../UserControls'));
 const Scene = lazy(() => import('./Scene'));
@@ -17,6 +18,17 @@ export default function Landing() {
   const gpu = useDetectGPU();
 
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true);
+
+  useEffect(() => {
+    console.log('isCanvasLoaded:', isCanvasLoaded);
+  }, [isCanvasLoaded]);
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      addEventListener('landingReady', () => setShowLoadingScreen(false));
+    });
+  }, []);
 
   return (
     <div className='h-screen w-screen '>
@@ -24,6 +36,7 @@ export default function Landing() {
         {isCanvasLoaded && landingContext.controlsAreVisible && (
           <UserControls />
         )}
+        {showLoadingScreen && <TunnelCanvas />}
         <Canvas
           frameloop='demand'
           shadows={gpu.tier < 1 ? false : 'soft'}
