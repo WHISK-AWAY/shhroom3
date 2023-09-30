@@ -7,7 +7,7 @@ const fullScreenStyles = {
   us: {
     video:
       ' group-[.is-fullscreen]:rounded-full group-[.is-fullscreen]:object-cover group-[.is-fullscreen]:aspect-square',
-    div: ' group-[.is-fullscreen]:absolute group-[.is-fullscreen]:z-10 group-[.is-fullscreen]:h-[15vw] group-[.is-fullscreen]:w-[15vw] group-[.is-fullscreen]:aspect-square group-[.is-fullscreen]:right-8 group-[.is-fullscreen]:top-8',
+    div: ' group-[.is-fullscreen]:absolute group-[.is-fullscreen]:z-50 group-[.is-fullscreen]:h-[15vw] group-[.is-fullscreen]:w-[15vw] group-[.is-fullscreen]:aspect-square group-[.is-fullscreen]:right-8 group-[.is-fullscreen]:top-8',
   },
   them: {
     video: ' group-[.is-fullscreen]:object-cover',
@@ -63,7 +63,7 @@ export default function Video({
   return (
     <div
       className={
-        ` flex h-full flex-col w-[45%] order-1 relative z-0 ` +
+        ` flex h-full flex-col w-[45%] order-1 relative z-10 ` +
         fullScreenStyles[fullScreenRole].div
       }
     >
@@ -84,7 +84,7 @@ export default function Video({
           roomContext.isFullscreen
             ? fullScreenRole === 'us'
               ? 'bottom-0 left-1/2 translate-x-[-50%] -translate-y-full rounded-full invisible'
-              : 'left-2 bottom-0 rounded-t-xl'
+              : 'left-2 bottom-0 rounded-t-xl '
             : fullScreenRole === 'us'
             ? ''
             : ''
