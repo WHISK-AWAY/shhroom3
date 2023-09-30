@@ -112,17 +112,13 @@ export default function Tunnel() {
             duration: 3,
             repeatX: 3,
             onComplete: () => {
-              if (!landingContext.isZoomed) {
-                // navigate('/');
-              } else {
-                landingContext.setContext((prev) => ({
-                  ...prev,
-                  isZoomed: false,
-                  targetLabel: null,
-                  atHomePosition: true,
-                }));
-                navigate('/room');
-              }
+              landingContext.setContext((prev) => ({
+                ...prev,
+                isZoomed: false,
+                targetLabel: null,
+                atHomePosition: true,
+              }));
+              navigate('/room');
             },
           },
           '>-3',
