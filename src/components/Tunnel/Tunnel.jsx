@@ -120,6 +120,7 @@ export default function Tunnel() {
                   ...prev,
                   isZoomed: false,
                   targetLabel: null,
+                  atHomePosition: true,
                 }));
                 navigate('/room');
               }
