@@ -94,7 +94,7 @@ export default function Model(props) {
         landingContext.isZoomed &&
         landingContext.targetLabel === 'newMeetingTunnelZoom'
       ) {
-        console.log('zooming');
+        // console.log('zooming');
         navigate('/tunnel');
       }
     }
@@ -746,7 +746,7 @@ export default function Model(props) {
         rotation={[Math.PI / 2, 0, Math.PI]}
         scale={1.9586}
         onClick={() => {
-          console.log('clicked newMeeting');
+          // console.log('clicked newMeeting');
           globalContext.isSignedIn &&
           landingContext.targetLabel === 'newMeeting'
             ? landingContext.zoomToObject('newMeetingTunnelZoom')

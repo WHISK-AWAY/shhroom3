@@ -27,7 +27,7 @@ export default function RoomUserControls({
   async function copyToClipboard(text) {
     try {
       await navigator.clipboard.writeText(text);
-      console.log('txt copied to clipboard');
+      // console.log('txt copied to clipboard');
     } catch (err) {
       console.error('failed to copy txt: ', err);
     }

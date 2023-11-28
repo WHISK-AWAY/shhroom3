@@ -245,10 +245,10 @@ export default function ControlledCamera() {
         landingContext.releaseZoom();
       } else if (e.keyCode === 32) {
         // Press Space to log out the camera & controls state
-        console.log('Camera:', camera.current);
-        console.log('Controls:', controls.current);
-        console.log('GlobalContext:', globalContext);
-        console.log('LandingContext:', landingContext);
+        // console.log('Camera:', camera.current);
+        // console.log('Controls:', controls.current);
+        // console.log('GlobalContext:', globalContext);
+        // console.log('LandingContext:', landingContext);
       }
     }
 

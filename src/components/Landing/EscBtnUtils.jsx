@@ -33,7 +33,7 @@ export default function EscBtnUtils({
           position={[0, 0, 0]}
           onClick={() => {
             if (landingContext.targetLabel === tl) {
-              console.log('tl pos', tl);
+              // console.log('tl pos', tl);
               landingContext.releaseZoom();
             } else return;
           }}

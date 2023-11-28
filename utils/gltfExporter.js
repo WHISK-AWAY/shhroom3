@@ -6,7 +6,7 @@ export function exportGltf(scene) {
   exporter.parse(
     scene,
     (gltf) => {
-      console.log(gltf);
+      // console.log(gltf);
       saveArrayBuffer(gltf, 'testing.glb');
     },
     (error) => {

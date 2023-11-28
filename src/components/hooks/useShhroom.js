@@ -33,7 +33,7 @@ export default function useShhroom() {
 
   useEffect(() => {
     if (!auth.loading && !isSignedIn) {
-      console.log('useShhroom is awaiting user sign in...');
+      // console.log('useShhroom is awaiting user sign in...');
       setShhroomUser((prev) => ({ ...prev, loading: false }));
     }
   }, [isSignedIn]);
@@ -43,7 +43,7 @@ export default function useShhroom() {
       return;
     }
     if (auth.error) {
-      console.log('Error pulling user info:', auth.error);
+      // console.log('Error pulling user info:', auth.error);
       setShhroomUser({
         ...initialState,
         loading: false,
@@ -60,7 +60,7 @@ export default function useShhroom() {
   useEffect(() => {
     if (peerConn.loading || !isSignedIn) return;
     if (peerConn.error) {
-      console.log('Error establishing peer connection:', peerConn.error);
+      // console.log('Error establishing peer connection:', peerConn.error);
       setShhroomUser({
         ...initialState,
         loading: false,
@@ -94,11 +94,11 @@ export default function useShhroom() {
     function keyPressed(e) {
       if (e.keyCode === 32) {
         // spacebar: keycode 32
-        console.log('Global context:', globalContext);
-        console.log('thisShhroomer:', shhroomUser);
+        // console.log('Global context:', globalContext);
+        // console.log('thisShhroomer:', shhroomUser);
       } else if (e.keyCode === 85 && e.shiftKey) {
         // shift + u: keycode 85
-        console.log('removing token');
+        // console.log('removing token');
         window.localStorage.removeItem('token');
       }
     }

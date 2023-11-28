@@ -41,7 +41,7 @@ export default function Screensaver() {
 
   function zoomToMonitor(e) {
     // if we're already zoomed in, don't do anything
-    console.log('clicked monitor');
+    // console.log('clicked monitor');
     if (landingContext.targetLabel === 'monitor') {
       e.stopPropagation();
     } else {

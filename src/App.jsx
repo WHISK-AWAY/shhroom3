@@ -44,7 +44,7 @@ export default function App() {
       ...prev,
       setContext: setLandingContext,
       reset: () => {
-        console.log('resetting landing context');
+        // console.log('resetting landing context');
         setLandingContext((prev) => ({
           ...initialLandingContext,
           reset: prev.reset,

@@ -14,7 +14,7 @@ export default function useEncryptedChat(userId) {
 
   useEffect(() => {
     if (!userId) {
-      console.log('encrypt: no userId found');
+      // console.log('encrypt: no userId found');
       setEncryptionInfo({
         ...initialState,
         loading: false,
@@ -22,7 +22,7 @@ export default function useEncryptedChat(userId) {
       });
     } else {
       const { encrypt, decrypt, encodedPublicKey } = handleKeys();
-      console.log('setting encryption info');
+      // console.log('setting encryption info');
       setEncryptionInfo({
         ...initialState,
         loading: false,

@@ -28,7 +28,7 @@ export default function useVerifyToken() {
       })
       .then(({ data }) => {
         // Success: update status & global state
-        // console.log('token check successful');
+     
 
         setStatus({
           userData: data,
@@ -81,13 +81,6 @@ export default function useVerifyToken() {
     const token = window.localStorage.getItem('token');
 
     if (!token) {
-      // console.log('no token to check');
-
-      // setStatus({
-      //   ...initialState,
-      //   loading: false,
-      //   error: 'MISSING_TOKEN',
-      // });
 
       if (globalContext.isSignedIn) {
         globalContext.setContext((prev) => ({
