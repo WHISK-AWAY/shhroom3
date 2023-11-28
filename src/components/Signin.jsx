@@ -25,6 +25,7 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
     handleSubmit,
     resetField,
     setError,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(ZSignIn),
@@ -66,6 +67,11 @@ export default function Signin({ setIsFormHidden, setIsSignUpHidden }) {
         landingContext.releaseZoom();
         setTimeout(() => landingContext.zoomToObject('newMeeting'), 750);
       }
+
+      //reset all form fields
+      reset();
+      //close the form both signup and signin forms
+      setIsFormHidden(true);
 
       return res;
     } catch (err) {
