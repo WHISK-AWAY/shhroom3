@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
@@ -7,6 +7,8 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
 import x from '/svg/x.svg';
 import { BORDERERR } from '../lib/utils';
 import { ERRORSTYLE } from '../lib/utils';
+
+import { GlobalContext, LandingContext } from '../lib/context';
 
 const ZSignUp = z
   .object({
@@ -35,11 +37,16 @@ const ZSignUp = z
   });
 
 export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
+  const landingContext = useContext(LandingContext);
+  const globalContext = useContext(GlobalContext);
+
   const {
     register,
     handleSubmit,
     resetField,
     setError,
+    clearErrors,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(ZSignUp),
@@ -48,7 +55,7 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
       password: '',
       confirmPassword: '',
     },
-    mode: 'onBlur',
+    reValidateMode: 'onSubmit',
   });
 
   const submitFormData = async (data) => {
@@ -61,6 +68,31 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
       );
 
       if (dataPayload.token) localStorage.setItem('token', dataPayload.token);
+
+      // update app state for signed-in user
+      globalContext.setContext((prev) => ({
+        ...prev,
+        isSignedIn: true,
+        // username: data.username,
+      }));
+
+      // make sure sign-in hint is no longer visible
+      landingContext.setContext((prev) => ({
+        ...prev,
+        signInHintIsVisible: false,
+      }));
+
+      // zoom away from screen & then zoom to new meeting poster
+      if (landingContext && landingContext.releaseZoom) {
+        landingContext.releaseZoom();
+        setTimeout(() => landingContext.zoomToObject('newMeeting'), 750);
+      }
+
+      //reset all form fields
+      reset();
+      //close the form both signup and signin forms
+      setIsSignUpHidden(true);
+      setIsFormHidden(true)
 
       return dataPayload;
     } catch (err) {
@@ -83,10 +115,27 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
     for (let key in errors) {
       if (key === 'confirmPassword') {
         resetField('password', { keepDirty: false });
-        resetField('confirmPassword', { keepDirty: false, keepError: true });
+        resetField('confirmPassword', { keepDirty: true, keepError: true });
       }
     }
   }, [errors.username, errors.confirmPassword]);
+
+  const isUsernameAvailable = async (username) => {
+    const { data } = await axios.get(
+      `${VITE_API_URL}/api/user/check?username=${username}`,
+    );
+
+    if (data.usernameExists) {
+      resetField('username', { keepDirty: false, keepError: true });
+      setError('username', {
+        type: 'custom',
+        message: 'this username already exists',
+      });
+      return false;
+    }
+    clearErrors('username');
+    return true;
+  };
 
   return (
     <div className='sign-up-wrapper w-[600px] h-[780px] justify-center  flex font-press text-[#151521]'>
@@ -129,6 +178,7 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
                 errors.username ? BORDERERR : ''
               } bg-slate-200/75 border-2 border-[#151521] text-[20px] px-[4%] py-[3%] w-[70%]  shadow-inner   outline-double outline-white`}
               {...register('username')}
+              onBlur={(e) => isUsernameAvailable(e.target.value)}
             />
             <p className={ERRORSTYLE}>{errors.username?.message || ''}</p>
           </div>
