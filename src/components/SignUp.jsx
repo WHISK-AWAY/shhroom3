@@ -146,12 +146,13 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
         type: 'custom',
         message: 'must be longer than 8 characters',
       });
-    }
-    if (!validPasswordLong) {
+    } else if (!validPasswordLong) {
       setError('password', {
         type: 'custom',
         message: 'must be 20 characters at most',
       });
+    } else {
+      clearErrors('password')
     }
   };
 
