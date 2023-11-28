@@ -92,7 +92,7 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
       reset();
       //close the form both signup and signin forms
       setIsSignUpHidden(true);
-      setIsFormHidden(true)
+      setIsFormHidden(true);
 
       return dataPayload;
     } catch (err) {
@@ -135,6 +135,24 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
     }
     clearErrors('username');
     return true;
+  };
+
+  const checkPasswordLength = (password) => {
+    const validPasswordShort = password.length >= 8;
+    const validPasswordLong = password.length <= 20;
+
+    if (!validPasswordShort) {
+      setError('password', {
+        type: 'custom',
+        message: 'must be longer than 8 characters',
+      });
+    }
+    if (!validPasswordLong) {
+      setError('password', {
+        type: 'custom',
+        message: 'must be 20 characters at most',
+      });
+    }
   };
 
   return (
@@ -199,6 +217,7 @@ export default function SignUp({ setIsFormHidden, setIsSignUpHidden }) {
                 errors.password ? BORDERERR : ''
               } bg-slate-200/75 border-2 border-[#151521] text-[20px] px-[4%] py-[3%]  shadow-inner  w-[70%] outline-double outline-white`}
               {...register('password')}
+              onBlur={(e) => checkPasswordLength(e.target.value)}
             />
             <p className={ERRORSTYLE}>{errors.password?.message || ''}</p>
           </div>
