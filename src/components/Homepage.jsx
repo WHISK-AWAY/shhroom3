@@ -7,11 +7,6 @@ import { GlobalContext } from '../lib/context';
 export default function Homepage() {
   const globalContext = useContext(GlobalContext);
 
-  useEffect(() => {
-    console.log('global context:', globalContext);
-
-    // globalContext.setContext((prev) => ({ ...prev, isInMeeting: true }));
-  }, [globalContext]);
 
   return (
     <div className='pt-44 pl-12 z-0'>

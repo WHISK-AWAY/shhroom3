@@ -78,9 +78,6 @@ export default function Room({ socket }) {
     return () => window.removeEventListener('keydown', escapeKey);
   }, [roomContext]);
 
-  // useEffect(() => {
-  //   console.log('room context:', roomContext);
-  // }, [roomContext]);
 
   useEffect(() => {
     // Initialize room once shhroomer object is ready
@@ -251,7 +248,7 @@ export default function Room({ socket }) {
     navigate('/');
   }
 
-  // console.log(thisShhroomer)
+
 
   const chatWrapper = document.querySelector('#chat-area');
   const videoWrapper = document.querySelector('#video-grid');
