@@ -6,6 +6,23 @@ const { requireToken } = require('../../middleware.cjs');
 
 const { validateNewUserInput } = require('./userValidators.cjs');
 
+router.get('/check', async (req, res, next) => {
+  try {
+    const { username } = req.query;
+    const usernameCheck = await User.findOne({
+      where: {
+        username: username.trim().toLowerCase(),
+      },
+    });
+
+    if (!usernameCheck) return res.json({ usernameExists: false });
+
+    return res.json({ usernameExists: true });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // * Create new user
 // * Returns JWT if successful
 router.post('/', async (req, res, next) => {
@@ -16,20 +33,17 @@ router.post('/', async (req, res, next) => {
       where: { username: username.toLowerCase() },
       defaults: { username: username.toLowerCase(), password },
     });
-
     if (!created) {
       // User was not created & therefore must already exist
       return res.status(409).json({ message: 'This username already exists.' });
     }
 
-    res
-      .status(201)
-      .json({
-        token: await User.authenticate({
-          username: username.toLowerCase(),
-          password,
-        }),
-      });
+    res.status(201).json({
+      token: await User.authenticate({
+        username: username.toLowerCase(),
+        password,
+      }),
+    });
   } catch (err) {
     next(err);
   }
