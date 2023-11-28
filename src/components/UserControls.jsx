@@ -17,7 +17,7 @@ export default function UserControls() {
   const topControlsRef = useRef(null);
   const globalContext = useContext(GlobalContext);
 
-  console.log(globalContext)
+  // console.log(globalContext)
 
   useEffect(() => {
 
